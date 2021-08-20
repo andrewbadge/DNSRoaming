@@ -103,6 +103,7 @@ namespace DNS_Roaming_Client
                 cmbNetworkName.Text = thisRule.NetworkName;
 
             }
+            Logger.Info("Rule loaded");
 
         }
 
@@ -157,6 +158,8 @@ namespace DNS_Roaming_Client
             if (txtAlternateDNS.Text.Trim() == ".   .   .") thisRule.DNSAlternative = String.Empty; else thisRule.DNSAlternative = txtAlternateDNS.Text;
             thisRule.DNSSet = cmbDNSset.SelectedItem.ToString();
             thisRule.NetworkName = cmbNetworkName.Text;
+
+            Logger.Info("Rule saved");
         }
 
             private void btnSave_Click(object sender, EventArgs e)
