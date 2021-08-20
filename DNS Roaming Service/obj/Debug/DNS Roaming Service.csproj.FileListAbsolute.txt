@@ -1,0 +1,11 @@
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Service\bin\Debug\DNS Roaming Service.exe.config
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Service\bin\Debug\DNS Roaming Service.exe
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Service\bin\Debug\DNS Roaming Service.pdb
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Service\bin\Debug\NLog.dll
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Service\bin\Debug\NLog.xml
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Service\obj\Debug\DNS Roaming Service.csproj.CoreCompileInputs.cache
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Service\obj\Debug\DNS Roaming Service.csproj.CopyComplete
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Service\obj\Debug\DNS Roaming Service.exe
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Service\obj\Debug\DNS Roaming Service.pdb
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Service\bin\Debug\NLog.config
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Service\obj\Debug\DNS Roaming Service.csprojAssemblyReference.cache

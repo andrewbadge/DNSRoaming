@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNS Roaming Client", "DNS Roaming Client\DNS Roaming Client.csproj", "{DB43B790-C99D-4082-995B-6BA78FBEBCC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNS Roaming Service", "DNS Roaming Service\DNS Roaming Service.csproj", "{8A67BBE2-E418-4625-95C2-D61BA59AEB5D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB43B790-C99D-4082-995B-6BA78FBEBCC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB43B790-C99D-4082-995B-6BA78FBEBCC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB43B790-C99D-4082-995B-6BA78FBEBCC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB43B790-C99D-4082-995B-6BA78FBEBCC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A67BBE2-E418-4625-95C2-D61BA59AEB5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A67BBE2-E418-4625-95C2-D61BA59AEB5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A67BBE2-E418-4625-95C2-D61BA59AEB5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A67BBE2-E418-4625-95C2-D61BA59AEB5D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8143A4B9-C87F-4CE7-9EB5-909DF22552FB}
+	EndGlobalSection
+EndGlobal
