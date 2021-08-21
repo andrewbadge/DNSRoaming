@@ -14,6 +14,7 @@ using System.Threading;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Management;
+using dns
 
 namespace DNS_Roaming_Service
 {

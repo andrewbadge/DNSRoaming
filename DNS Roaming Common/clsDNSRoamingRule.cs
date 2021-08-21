@@ -4,11 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DNS_Roaming_Client
+namespace DNS_Roaming_Common
 {
-    public class Rule
+    public class DNSRoamingRule
     {
-        
+
+        private string ruleID;
+        public string ID
+        {
+            get { return ruleID; }
+        }
+
         private bool useNetworkType;
         public bool UseNetworkType 
         {
@@ -49,6 +55,14 @@ namespace DNS_Roaming_Client
         {
             get { return dnsAlternative; }
             set { dnsAlternative = value; }
+        }
+
+        public DNSRoamingRule()
+        {
+            if (ruleID== null)
+            {
+                ruleID = System.Guid.NewGuid().ToString(); 
+            }
         }
     }
 }

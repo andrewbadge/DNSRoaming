@@ -9,13 +9,14 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DNS_Roaming_Common;
 
 namespace DNS_Roaming_Client
 {
     public partial class FrmRule : Form
     {
-        private Rule thisRule;
-        public Rule ThisRule
+        private DNSRoamingRule thisRule;
+        public DNSRoamingRule ThisRule
         {
             get { return thisRule; }
             set {
@@ -78,6 +79,9 @@ namespace DNS_Roaming_Client
             int index;
             if (thisRule == null)
             {
+
+                this.Text = string.Format("New Rule");
+
                 radioNetworkType.Checked = true;
                 radioNetworkName.Checked = false;
 
@@ -91,8 +95,20 @@ namespace DNS_Roaming_Client
             }
             else
             {
+                this.Text = string.Format("Edit Rule (ID:{0})", thisRule.ID);
+
                 radioNetworkType.Checked = thisRule.UseNetworkType;
                 radioNetworkName.Checked = !thisRule.UseNetworkType;
+
+                if (thisRule.NetworkType != String.Empty && listNetworkType.Items.Count>0)
+                {
+                    string[] networkTypes = thisRule.NetworkType.Split(',');
+                    foreach (string networkType in networkTypes)
+                    {
+                        index = listNetworkType.Items.IndexOf(networkType);
+                        if (index != -1) listNetworkType.SetItemChecked(index, true);
+                    }
+                }
 
                 txtPreferredDNS.Text = thisRule.DNSPreferred;
                 txtAlternateDNS.Text = thisRule.DNSAlternative;
@@ -110,6 +126,13 @@ namespace DNS_Roaming_Client
         private bool ValidateForm()
         {
             bool isFormValid = true;
+
+            if (radioNetworkType.Checked && listNetworkType.CheckedItems.Count == 0)
+            {
+                errorProvider.SetError(listNetworkType, "Please choose a Network Type");
+                listNetworkType.Focus();
+                isFormValid = false;
+            }
 
             if (radioNetworkName.Checked && cmbNetworkName.Text.Trim() == String.Empty)
             {
@@ -147,13 +170,32 @@ namespace DNS_Roaming_Client
                 }
             }
 
+            if (txtPreferredDNS.Text.Trim() == String.Empty && txtAlternateDNS.Text.Trim() == String.Empty && cmbDNSset.SelectedItem.ToString() == String.Empty)
+            {
+                errorProvider.SetError(cmbDNSset, "Select a DNS Set");
+                cmbDNSset.Focus();
+                isFormValid = false;
+            }
+
+
 
             return isFormValid;
         }
         private void SaveRule()
         {
-            if (thisRule == null) thisRule = new Rule();
+            if (thisRule == null) thisRule = new DNSRoamingRule();
             thisRule.UseNetworkType = radioNetworkType.Checked;
+
+            thisRule.NetworkType = string.Empty;
+            if (listNetworkType.CheckedItems.Count>0)
+            {
+                for (int x = 0; x < listNetworkType.CheckedItems.Count; x++)
+                {
+                    if (thisRule.NetworkType != String.Empty) thisRule.NetworkType += ",";
+                    thisRule.NetworkType += listNetworkType.CheckedItems[x].ToString();
+                }
+            }
+
             thisRule.DNSPreferred = txtPreferredDNS.Text;
             if (txtAlternateDNS.Text.Trim() == ".   .   .") thisRule.DNSAlternative = String.Empty; else thisRule.DNSAlternative = txtAlternateDNS.Text;
             thisRule.DNSSet = cmbDNSset.SelectedItem.ToString();

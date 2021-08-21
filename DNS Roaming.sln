@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNS Roaming Client", "DNS R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNS Roaming Service", "DNS Roaming Service\DNS Roaming Service.csproj", "{8A67BBE2-E418-4625-95C2-D61BA59AEB5D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNS Roaming Common", "DNS Roaming Common\DNS Roaming Common.csproj", "{BD6413ED-4BC5-4023-93C1-B83354C0DD02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8A67BBE2-E418-4625-95C2-D61BA59AEB5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A67BBE2-E418-4625-95C2-D61BA59AEB5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A67BBE2-E418-4625-95C2-D61BA59AEB5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD6413ED-4BC5-4023-93C1-B83354C0DD02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD6413ED-4BC5-4023-93C1-B83354C0DD02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD6413ED-4BC5-4023-93C1-B83354C0DD02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD6413ED-4BC5-4023-93C1-B83354C0DD02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

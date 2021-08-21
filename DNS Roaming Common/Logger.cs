@@ -4,7 +4,7 @@ using System.Text;
 using System.Diagnostics;
 using NLog;
 
-namespace DNS_Roaming_Client
+namespace DNS_Roaming_Common
 {
     public static class Logger
     {

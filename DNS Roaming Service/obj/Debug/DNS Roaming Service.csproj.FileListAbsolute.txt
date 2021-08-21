@@ -9,3 +9,5 @@ D:\Andrew\Projects\DNS Roaming\DNS Roaming Service\obj\Debug\DNS Roaming Service
 D:\Andrew\Projects\DNS Roaming\DNS Roaming Service\obj\Debug\DNS Roaming Service.pdb
 D:\Andrew\Projects\DNS Roaming\DNS Roaming Service\bin\Debug\NLog.config
 D:\Andrew\Projects\DNS Roaming\DNS Roaming Service\obj\Debug\DNS Roaming Service.csprojAssemblyReference.cache
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Service\obj\Debug\DNS Roaming Service.csproj.CoreCompileInputs.cache
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Service\obj\Debug\DNS Roaming Service.csprojAssemblyReference.cache
