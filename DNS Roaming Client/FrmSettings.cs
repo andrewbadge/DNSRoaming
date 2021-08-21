@@ -1,15 +1,9 @@
-﻿using System;
+﻿using DNS_Roaming_Common;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Net;
 using System.Net.NetworkInformation;
-using DNS_Roaming_Common;
+using System.Windows.Forms;
 
 namespace DNS_Roaming_Client
 {
@@ -54,15 +48,7 @@ namespace DNS_Roaming_Client
         {
             if (ruleList.Count==0)
             {
-
-
-                DNSRoamingRule newRule = new DNSRoamingRule();
-                newRule.UseNetworkType = true;
-                newRule.NetworkType = "Ethernet,Wireless80211,Banana";
-                newRule.DNSSet = "Quad9 + CloudFlare - No Malware";
-                newRule.DNSPreferred = string.Empty;
-                newRule.DNSAlternative = string.Empty;
-
+                DNSRoamingRule newRule = DNSRoamingRuleDefault.GetDefaultRule();
                 ruleList.Add(newRule);
             }
         }
@@ -82,8 +68,10 @@ namespace DNS_Roaming_Client
                 else
                     lvItem.SubItems.Add(String.Format("Name is {0}",thisRule.NetworkName));
 
-
-                lvItem.SubItems.Add("Any Subnet");
+                if (thisRule.AddressSpecific)
+                    lvItem.SubItems.Add(String.Format("{0}/{1}", thisRule.AddressIP, thisRule.AddressSubnet));
+                else
+                    lvItem.SubItems.Add("Any Subnet");
 
                 if (thisRule.DNSPreferred == String.Empty && thisRule.DNSAlternative == String.Empty)
                     lvItem.SubItems.Add(thisRule.DNSSet);
@@ -105,6 +93,7 @@ namespace DNS_Roaming_Client
             if (!frmRule.FormCancelled)
             {
                 DNSRoamingRule returnRule = frmRule.ThisRule;
+                ruleList.Add(returnRule);
                 //thisRule = returnRule;
                 ListRules();
             }
@@ -152,22 +141,7 @@ namespace DNS_Roaming_Client
             }
         }
 
-        /*
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-            FrmRule frmRule = new FrmRule();
-            frmRule.ThisRule = newRule;
-            frmRule.ShowDialog();
-
-            if (!frmRule.FormCancelled)
-            {
-                newRule = frmRule.ThisRule;
-                ListRules();
-            }
-        }
-        */
-
+        
         private void listViewRules_DoubleClick(object sender, EventArgs e)
         {
             ListRuleEdit();
@@ -186,6 +160,11 @@ namespace DNS_Roaming_Client
         private void btnRuleRemove_Click(object sender, EventArgs e)
         {
             ListRuleRemove();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

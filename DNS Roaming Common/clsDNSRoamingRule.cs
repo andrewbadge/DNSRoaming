@@ -16,10 +16,10 @@ namespace DNS_Roaming_Common
         }
 
         private bool useNetworkType;
-        public bool UseNetworkType 
+        public bool UseNetworkType
         {
-            get { return useNetworkType; }   
-            set { useNetworkType = value; }  
+            get { return useNetworkType; }
+            set { useNetworkType = value; }
         }
 
         private string networkType;
@@ -34,6 +34,27 @@ namespace DNS_Roaming_Common
         {
             get { return networkName; }
             set { networkName = value; }
+        }
+
+        private bool addressSpecific;
+        public bool AddressSpecific
+        {
+            get { return addressSpecific; }
+            set { addressSpecific = value; }
+        }
+
+        private string addressIP;
+        public string AddressIP
+        {
+            get { return addressIP; }
+            set { addressIP = value; }
+        }
+
+        private string addressSubnet;
+        public string AddressSubnet
+        {
+            get { return addressSubnet; }
+            set { addressSubnet = value; }
         }
 
         private string dnsSet;
@@ -59,10 +80,26 @@ namespace DNS_Roaming_Common
 
         public DNSRoamingRule()
         {
-            if (ruleID== null)
+            if (ruleID == null)
             {
-                ruleID = System.Guid.NewGuid().ToString(); 
+                ruleID = System.Guid.NewGuid().ToString();
             }
+        }
+    }
+
+    public static class DNSRoamingRuleDefault
+    {
+        public static DNSRoamingRule GetDefaultRule()
+        {
+            DNSRoamingRule newRule = new DNSRoamingRule();
+            newRule.UseNetworkType = true;
+            newRule.NetworkType = "Ethernet,Wireless80211";
+            newRule.DNSSet = "Quad9 + CloudFlare - No Malware";
+            newRule.DNSPreferred = string.Empty;
+            newRule.DNSAlternative = string.Empty;
+            newRule.AddressSpecific = false;
+
+            return newRule;
         }
     }
 }

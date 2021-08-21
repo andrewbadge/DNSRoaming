@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Diagnostics;
-using NLog;
 
 namespace DNS_Roaming_Common
 {
@@ -12,23 +9,9 @@ namespace DNS_Roaming_Common
 
         public enum eventID
         {
-            DispenseNotFound = 2000,
-            DispenseOutOfDate = 2010,
-            DispenseOk = 2100,
+            EventA = 2000,
+            EventB = 2010,
 
-            RMSNotFound = 3000,
-            RMSOutOfDate = 3010,
-            RMSOk = 3100,
-
-            FredOfficeNotFound = 4000,
-            FredOfficeOutOfDate = 4010,
-            FredOfficeOk = 4100,
-
-            LOTSAccessNotFound = 5000,
-            LOTSAccessOutOfDate = 5010,
-            LOTSAccessOk = 5100,
-
-            ErrorVFPProvider = 1010,
             OtherError = 1000
         }
 
@@ -71,7 +54,7 @@ namespace DNS_Roaming_Common
         {
             try
             {
-                string sSource = "FredVerifyData";
+                string sSource = "DNS Roaming";
                 string sLog = "Application";
 
                 if (!EventLog.SourceExists(sSource))

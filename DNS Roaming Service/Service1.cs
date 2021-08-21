@@ -7,14 +7,13 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
-using NLog;
 using System.Configuration;
 using System.Reflection;
 using System.Threading;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Management;
-using dns
+using DNS_Roaming_Common;
 
 namespace DNS_Roaming_Service
 {
