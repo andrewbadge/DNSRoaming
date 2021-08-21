@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DNS_Roaming_Common
 {
@@ -82,6 +78,39 @@ namespace DNS_Roaming_Common
 
             currentIP = returnIP;
             currentSubnet = returnSubnet;
+
+        }
+
+        public static void GetDNSSetIPAddress(string dnsSet, out string ipPreferred, out string ipAlternative)
+        {
+            switch (dnsSet)
+            {
+                case "Quad9":
+                    ipPreferred = "9.9.9.9";
+                    ipAlternative = "149.112.112.112";
+                    break;
+                case "Cloudflare":
+                    ipPreferred = "1.1.1.1";
+                    ipAlternative = "1.0.0.2";
+                    break;
+                case "Cloudflare - No Malware":
+                    ipPreferred = "1.1.1.2";
+                    ipAlternative = "1.0.0.2";
+                    break;
+                case "Cloudflare - No Malware or Adult":
+                    ipPreferred = "1.1.1.3";
+                    ipAlternative = "1.0.0.3";
+                    break;
+                case "Google":
+                    ipPreferred = "8.8.8.8";
+                    ipAlternative = "8.8.4.4";
+                    break;
+
+                default: //"Quad9 + CloudFlare - No Malware"
+                    ipPreferred = "9.9.9.9";
+                    ipAlternative = "1.1.1.2";
+                    break;
+            }
 
         }
     }

@@ -292,5 +292,20 @@ namespace DNS_Roaming_Client
             }
 
         }
+
+        private void btnDNSsetCopy_Click(object sender, EventArgs e)
+        {
+            if (cmbDNSset.SelectedIndex != -1)
+            {
+                string returnIPPreferred = string.Empty;
+                string returnIPAlternative = string.Empty;
+                string dnsSet = cmbDNSset.SelectedItem.ToString();
+                NetworkingExtensions.GetDNSSetIPAddress(dnsSet, out returnIPPreferred, out returnIPAlternative);
+
+                cmbDNSset.SelectedIndex = -1;
+                txtPreferredDNS.Text = returnIPPreferred;
+                txtAlternateDNS.Text = returnIPAlternative;
+            }
+        }
     }
 }

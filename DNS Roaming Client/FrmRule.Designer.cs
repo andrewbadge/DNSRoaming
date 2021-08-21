@@ -44,13 +44,14 @@
             this.txtAlternateDNS = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.radioAddressAny = new System.Windows.Forms.RadioButton();
-            this.radioAddressSpecific = new System.Windows.Forms.RadioButton();
-            this.txtAddressSubnet = new System.Windows.Forms.TextBox();
-            this.txtAddressIP = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnGetIPInfo = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtAddressIP = new System.Windows.Forms.TextBox();
+            this.txtAddressSubnet = new System.Windows.Forms.TextBox();
+            this.radioAddressSpecific = new System.Windows.Forms.RadioButton();
+            this.radioAddressAny = new System.Windows.Forms.RadioButton();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnDNSsetCopy = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -201,20 +202,48 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "And IP Address is in";
             // 
-            // groupBox3
+            // btnGetIPInfo
             // 
-            this.groupBox3.Controls.Add(this.cmbDNSset);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Controls.Add(this.txtAlternateDNS);
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.txtPreferredDNS);
-            this.groupBox3.Location = new System.Drawing.Point(24, 372);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(390, 140);
-            this.groupBox3.TabIndex = 22;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "then set the DNS server to";
+            this.btnGetIPInfo.Image = global::DNS_Roaming_Client.Properties.Resources.upload_file_16x16_1214209;
+            this.btnGetIPInfo.Location = new System.Drawing.Point(315, 42);
+            this.btnGetIPInfo.Name = "btnGetIPInfo";
+            this.btnGetIPInfo.Size = new System.Drawing.Size(19, 23);
+            this.btnGetIPInfo.TabIndex = 22;
+            this.btnGetIPInfo.UseVisualStyleBackColor = true;
+            this.btnGetIPInfo.Click += new System.EventHandler(this.btnGetIPInfo_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(34, 71);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.TabIndex = 21;
+            this.label1.Text = "with Subnet";
+            // 
+            // txtAddressIP
+            // 
+            this.txtAddressIP.Location = new System.Drawing.Point(146, 42);
+            this.txtAddressIP.Name = "txtAddressIP";
+            this.txtAddressIP.Size = new System.Drawing.Size(156, 20);
+            this.txtAddressIP.TabIndex = 20;
+            // 
+            // txtAddressSubnet
+            // 
+            this.txtAddressSubnet.Location = new System.Drawing.Point(146, 68);
+            this.txtAddressSubnet.Name = "txtAddressSubnet";
+            this.txtAddressSubnet.Size = new System.Drawing.Size(156, 20);
+            this.txtAddressSubnet.TabIndex = 19;
+            // 
+            // radioAddressSpecific
+            // 
+            this.radioAddressSpecific.AutoSize = true;
+            this.radioAddressSpecific.Location = new System.Drawing.Point(15, 43);
+            this.radioAddressSpecific.Name = "radioAddressSpecific";
+            this.radioAddressSpecific.Size = new System.Drawing.Size(93, 17);
+            this.radioAddressSpecific.TabIndex = 1;
+            this.radioAddressSpecific.Text = "This IP Range";
+            this.radioAddressSpecific.UseVisualStyleBackColor = true;
             // 
             // radioAddressAny
             // 
@@ -230,48 +259,31 @@
             this.radioAddressAny.CheckedChanged += new System.EventHandler(this.radioAddressAny_CheckedChanged);
             this.radioAddressAny.Click += new System.EventHandler(this.radioAddressAny_Click);
             // 
-            // radioAddressSpecific
+            // groupBox3
             // 
-            this.radioAddressSpecific.AutoSize = true;
-            this.radioAddressSpecific.Location = new System.Drawing.Point(15, 43);
-            this.radioAddressSpecific.Name = "radioAddressSpecific";
-            this.radioAddressSpecific.Size = new System.Drawing.Size(93, 17);
-            this.radioAddressSpecific.TabIndex = 1;
-            this.radioAddressSpecific.Text = "This IP Range";
-            this.radioAddressSpecific.UseVisualStyleBackColor = true;
+            this.groupBox3.Controls.Add(this.btnDNSsetCopy);
+            this.groupBox3.Controls.Add(this.cmbDNSset);
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Controls.Add(this.txtAlternateDNS);
+            this.groupBox3.Controls.Add(this.label5);
+            this.groupBox3.Controls.Add(this.txtPreferredDNS);
+            this.groupBox3.Location = new System.Drawing.Point(24, 372);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(390, 140);
+            this.groupBox3.TabIndex = 22;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "then set the DNS server to";
             // 
-            // txtAddressSubnet
+            // btnDNSsetCopy
             // 
-            this.txtAddressSubnet.Location = new System.Drawing.Point(146, 68);
-            this.txtAddressSubnet.Name = "txtAddressSubnet";
-            this.txtAddressSubnet.Size = new System.Drawing.Size(156, 20);
-            this.txtAddressSubnet.TabIndex = 19;
-            // 
-            // txtAddressIP
-            // 
-            this.txtAddressIP.Location = new System.Drawing.Point(146, 42);
-            this.txtAddressIP.Name = "txtAddressIP";
-            this.txtAddressIP.Size = new System.Drawing.Size(156, 20);
-            this.txtAddressIP.TabIndex = 20;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 71);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
-            this.label1.TabIndex = 21;
-            this.label1.Text = "with Subnet";
-            // 
-            // btnGetIPInfo
-            // 
-            this.btnGetIPInfo.Image = global::DNS_Roaming_Client.Properties.Resources.upload_file_16x16_1214209;
-            this.btnGetIPInfo.Location = new System.Drawing.Point(315, 42);
-            this.btnGetIPInfo.Name = "btnGetIPInfo";
-            this.btnGetIPInfo.Size = new System.Drawing.Size(19, 23);
-            this.btnGetIPInfo.TabIndex = 22;
-            this.btnGetIPInfo.UseVisualStyleBackColor = true;
-            this.btnGetIPInfo.Click += new System.EventHandler(this.btnGetIPInfo_Click);
+            this.btnDNSsetCopy.Image = global::DNS_Roaming_Client.Properties.Resources.upload_file_16x16_1214209;
+            this.btnDNSsetCopy.Location = new System.Drawing.Point(315, 72);
+            this.btnDNSsetCopy.Name = "btnDNSsetCopy";
+            this.btnDNSsetCopy.Size = new System.Drawing.Size(19, 23);
+            this.btnDNSsetCopy.TabIndex = 23;
+            this.btnDNSsetCopy.UseVisualStyleBackColor = true;
+            this.btnDNSsetCopy.Click += new System.EventHandler(this.btnDNSsetCopy_Click);
             // 
             // FrmRule
             // 
@@ -324,5 +336,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtAddressIP;
         private System.Windows.Forms.Button btnGetIPInfo;
+        private System.Windows.Forms.Button btnDNSsetCopy;
     }
 }

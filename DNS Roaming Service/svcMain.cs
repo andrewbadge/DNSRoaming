@@ -17,9 +17,9 @@ using DNS_Roaming_Common;
 
 namespace DNS_Roaming_Service
 {
-    public partial class Service1 : ServiceBase
+    public partial class svcMain : ServiceBase
     {
-        public Service1()
+        public svcMain()
         {
             try
             {

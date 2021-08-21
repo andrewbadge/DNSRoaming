@@ -21,7 +21,7 @@ namespace DNS_Roaming_Service
             ServiceBase[] servicesToRun;
             servicesToRun = new ServiceBase[]
             {
-                new Service1()
+                new svcMain()
             };
             if (Environment.UserInteractive)
             {

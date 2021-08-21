@@ -1,6 +1,6 @@
 ﻿namespace DNS_Roaming_Service
 {
-    partial class Service1
+    partial class svcMain
     {
         /// <summary> 
         /// Required designer variable.
