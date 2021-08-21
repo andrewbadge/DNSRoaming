@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Management;
 
 namespace DNS_Roaming_Common
 {
@@ -112,6 +114,41 @@ namespace DNS_Roaming_Common
                     break;
             }
 
+        }
+
+        public static NetworkInterface GetActiveNetworkInterface()
+        {
+            var Nic = NetworkInterface.GetAllNetworkInterfaces().FirstOrDefault(
+                a => a.OperationalStatus == OperationalStatus.Up &&
+                //(a.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || a.NetworkInterfaceType == NetworkInterfaceType.Ethernet) &&
+                a.GetIPProperties().GatewayAddresses.Any(g => g.Address.AddressFamily.ToString() == "InterNetwork"));
+
+            return Nic;
+        }
+
+        public static void SetDNSforActiveNetwork(NetworkInterface nic, string DnsString)
+        {
+            string[] Dns = { DnsString };
+            if (nic == null) return;
+
+            ManagementClass objMC = new ManagementClass("Win32_NetworkAdapterConfiguration");
+            ManagementObjectCollection objMOC = objMC.GetInstances();
+            foreach (ManagementObject objMO in objMOC)
+            {
+                if ((bool)objMO["IPEnabled"])
+                {
+                    if (objMO["Description"].ToString().Equals(nic.Description))
+                    {
+                        ManagementBaseObject objdns = objMO.GetMethodParameters("SetDNSServerSearchOrder");
+                        if (objdns != null)
+                        {
+                            objdns["DNSServerSearchOrder"] = Dns;
+                            ManagementBaseObject setDNSreturn = objMO.InvokeMethod("SetDNSServerSearchOrder", objdns, null);
+
+                        }
+                    }
+                }
+            }
         }
     }
 }

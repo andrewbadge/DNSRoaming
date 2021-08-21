@@ -114,6 +114,24 @@ namespace DNS_Roaming_Common
 
         }
 
+        public virtual void RemoveSaved()
+        {
+            try
+            {
+                if (ruleID == null) return;
+                
+                PathsandData pathsandData = new PathsandData();
+                ruleFileNameFullPath = String.Format(@"{0}\Rule-{1}.xml", pathsandData.BaseSettingsPath, ruleID);
+
+                File.Delete(ruleFileNameFullPath);
+            }
+            catch (Exception ex)
+            {
+                //FileLogger.Trace("Settings.Save", ex);
+            }
+
+        }
+
         public virtual void Load(string settingFiletoLoad)
         {
             try

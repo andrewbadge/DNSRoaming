@@ -10,7 +10,7 @@ namespace DNS_Roaming_Client
 {
     public partial class FrmSettings : Form
     {
-        static string logs="";
+        
         IList<DNSRoamingRule> ruleList = new List<DNSRoamingRule>();
         
         public FrmSettings()
@@ -120,8 +120,9 @@ namespace DNS_Roaming_Client
                     DialogResult dialogResult = MessageBox.Show("Are you sure you want to remove this rule?", string.Format("Remove Rule (ID:{0})", thisRule.ID), MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
-                        //do something
-                        
+                        thisRule.RemoveSaved();
+                        ruleList.Remove(thisRule);
+                        ListRules();
                     }
                 }
             }

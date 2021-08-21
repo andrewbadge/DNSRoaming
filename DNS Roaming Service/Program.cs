@@ -6,7 +6,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using NLog;
+using DNS_Roaming_Common;
 
 namespace DNS_Roaming_Service
 {
@@ -18,6 +18,9 @@ namespace DNS_Roaming_Service
         /// </summary>
         static void Main()
         {
+            Logger.Info("--------------------------");
+            Logger.Info(String.Format("Starting ({0})", Assembly.GetExecutingAssembly().GetName().Version.ToString()));
+
             ServiceBase[] servicesToRun;
             servicesToRun = new ServiceBase[]
             {
