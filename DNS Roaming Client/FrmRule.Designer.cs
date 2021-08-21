@@ -285,6 +285,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "FrmRule";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "DNS Rule";

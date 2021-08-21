@@ -1,8 +1,10 @@
-﻿using System;
+﻿using DNS_Roaming_Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +17,9 @@ namespace DNS_Roaming_Client
         public FrmMain()
         {
             InitializeComponent();
+
+            PathsandData pathsandData = new PathsandData();
+            
         }
 
         private void btnForceClose_Click(object sender, EventArgs e)
@@ -48,6 +53,8 @@ namespace DNS_Roaming_Client
             FrmSettings frmSettings = new FrmSettings();
             frmSettings.ShowDialog();
         }
+
+        
 
 
     }

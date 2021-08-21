@@ -32,7 +32,7 @@ namespace DNS_Roaming_Client
             PopulateNetworkType();
             PopulateNetworkName();
             PopulateDNSset();
-            LoadRule();
+            //LoadRule();
         }
 
         private void PopulateNetworkType()
@@ -187,7 +187,7 @@ namespace DNS_Roaming_Client
                 }
             }
 
-            if (txtPreferredDNS.Text.Trim() == String.Empty && txtAlternateDNS.Text.Trim() == String.Empty && cmbDNSset.SelectedItem.ToString() == String.Empty)
+            if (txtPreferredDNS.Text.Trim() == String.Empty && txtAlternateDNS.Text.Trim() == String.Empty && cmbDNSset.SelectedIndex == -1)
             {
                 errorProvider.SetError(cmbDNSset, "Select a DNS Set");
                 cmbDNSset.Focus();
@@ -201,6 +201,12 @@ namespace DNS_Roaming_Client
         private void SaveRule()
         {
             if (thisRule == null) thisRule = new DNSRoamingRule();
+
+            if (thisRule.ID == null)
+            {
+                thisRule.ID = System.Guid.NewGuid().ToString();
+            }
+
             thisRule.UseNetworkType = radioNetworkType.Checked;
 
             thisRule.NetworkType = string.Empty;

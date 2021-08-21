@@ -1,6 +1,7 @@
 ﻿using DNS_Roaming_Common;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Windows.Forms;
@@ -15,37 +16,22 @@ namespace DNS_Roaming_Client
         public FrmSettings()
         {
             InitializeComponent();
-            NetworkChange.NetworkAddressChanged += new NetworkAddressChangedEventHandler(AddressChangedCallback);
-            NetworkChange.NetworkAvailabilityChanged += new NetworkAvailabilityChangedEventHandler(AvailabilityChangedCallback);
-
-            InitialiseRules();
+            PathsandData pathsandData = new PathsandData();
+            InitialiseRules(pathsandData.BaseSettingsPath);
             ListRules();
         }
 
-        static void AddressChangedCallback(object sender, EventArgs e)
+        private void InitialiseRules(string settingPath)
         {
 
-            NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
-            foreach (NetworkInterface n in adapters)
+            string[] settingFiles = Directory.GetFiles(settingPath);
+            foreach (string settingFilename in settingFiles)
             {
-
-                logs += string.Format("   {0} is {1}", n.Name, n.OperationalStatus);
+                DNSRoamingRule newRule = new DNSRoamingRule();
+                newRule.Load(settingFilename);
+                ruleList.Add(newRule);
             }
-        }
 
-        static void AvailabilityChangedCallback(object sender, EventArgs e)
-        {
-
-            NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
-            foreach (NetworkInterface n in adapters)
-            {
-
-                logs += string.Format("   {0} is {1}", n.Name, n.OperationalStatus);
-            }
-        }
-
-        private void InitialiseRules()
-        {
             if (ruleList.Count==0)
             {
                 DNSRoamingRule newRule = DNSRoamingRuleDefault.GetDefaultRule();
@@ -94,7 +80,6 @@ namespace DNS_Roaming_Client
             {
                 DNSRoamingRule returnRule = frmRule.ThisRule;
                 ruleList.Add(returnRule);
-                //thisRule = returnRule;
                 ListRules();
             }
         }
@@ -136,6 +121,7 @@ namespace DNS_Roaming_Client
                     if (dialogResult == DialogResult.Yes)
                     {
                         //do something
+                        
                     }
                 }
             }
@@ -165,6 +151,14 @@ namespace DNS_Roaming_Client
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            foreach (DNSRoamingRule thisRule in ruleList)
+            {
+                thisRule.Save();
+            }
         }
     }
 }

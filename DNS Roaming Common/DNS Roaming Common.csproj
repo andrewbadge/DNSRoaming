@@ -46,6 +46,7 @@
     <Compile Include="clsDNSRoamingRule.cs" />
     <Compile Include="clsLogger.cs" />
     <Compile Include="clsNetworkingExtensions.cs" />
+    <Compile Include="clsPathsandData.cs" />
     <Compile Include="clsProcessMessaging.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,18 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace DNS_Roaming_Common
 {
+    [Serializable]
     public class DNSRoamingRule
     {
+
+        private string ruleFileNameFullPath;
 
         private string ruleID;
         public string ID
         {
             get { return ruleID; }
+            set { ruleID = value; }
         }
 
         private bool useNetworkType;
@@ -80,11 +88,79 @@ namespace DNS_Roaming_Common
 
         public DNSRoamingRule()
         {
-            if (ruleID == null)
+            
+        }
+
+        #region Methods
+
+        public virtual void Save()
+        {
+            try
             {
-                ruleID = System.Guid.NewGuid().ToString();
+                if (ruleID == null)
+                {
+                    ruleID = System.Guid.NewGuid().ToString();
+                }
+
+                PathsandData pathsandData = new PathsandData();
+                ruleFileNameFullPath = String.Format(@"{0}\Rule-{1}.xml", pathsandData.BaseSettingsPath, ruleID);
+
+
+                StreamWriter w = new StreamWriter(ruleFileNameFullPath);
+                XmlSerializer s = new XmlSerializer(GetType());
+                s.Serialize(w, this);
+                w.Close();
+            }
+            catch (Exception ex)
+            {
+                //FileLogger.Trace("Settings.Save", ex);
+            }
+
+        }
+
+        public virtual void Load(string settingFiletoLoad)
+        {
+            try
+            {
+                bool validFile = true;
+
+                if (File.Exists(settingFiletoLoad))
+                {
+                    System.IO.FileInfo fileInfo = new FileInfo(settingFiletoLoad);
+                    if (fileInfo.Length == 0)
+                        validFile = false;
+                }
+                else
+                    validFile = false;
+
+                if (validFile)
+                {
+                    StreamReader sr = new StreamReader(settingFiletoLoad);
+                    XmlTextReader xr = new XmlTextReader(sr);
+                    XmlSerializer xs = new XmlSerializer(GetType());
+                    object c;
+                    if (xs.CanDeserialize(xr))
+                    {
+                        c = xs.Deserialize(xr);
+                        Type t = GetType();
+                        PropertyInfo[] properties = t.GetProperties();
+                        foreach (PropertyInfo p in properties)
+                        {
+                            p.SetValue(this, p.GetValue(c, null), null);
+                        }
+                    }
+                    xr.Close();
+                    sr.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                //FileLogger.Trace("Settings.Load", ex);
             }
         }
+
+        #endregion
     }
 
     public static class DNSRoamingRuleDefault
