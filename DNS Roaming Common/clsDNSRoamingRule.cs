@@ -6,6 +6,9 @@ using System.Xml.Serialization;
 
 namespace DNS_Roaming_Common
 {
+    /// <summary>
+    /// Rule Class with all the properties saved for each setting
+    /// </summary>
     [Serializable]
     public class DNSRoamingRule
     {
@@ -89,6 +92,9 @@ namespace DNS_Roaming_Common
 
         #region Methods
 
+        /// <summary>
+        /// Save the objeect as a settings file in the Settings folder
+        /// </summary>
         public virtual void Save()
         {
             try
@@ -98,10 +104,12 @@ namespace DNS_Roaming_Common
                     ruleID = System.Guid.NewGuid().ToString();
                 }
 
+                //Determine the path for the settings
+                //Creates the folder if missing
                 PathsandData pathsandData = new PathsandData();
                 ruleFileNameFullPath = String.Format(@"{0}\Rule-{1}.xml", pathsandData.BaseSettingsPath, ruleID);
 
-
+                //Write the object to the file
                 StreamWriter w = new StreamWriter(ruleFileNameFullPath);
                 XmlSerializer s = new XmlSerializer(GetType());
                 s.Serialize(w, this);
@@ -109,7 +117,7 @@ namespace DNS_Roaming_Common
             }
             catch (Exception ex)
             {
-                //FileLogger.Trace("Settings.Save", ex);
+                Logger.Error(ex.Message);
             }
 
         }
@@ -127,7 +135,7 @@ namespace DNS_Roaming_Common
             }
             catch (Exception ex)
             {
-                //FileLogger.Trace("Settings.Save", ex);
+                Logger.Error(ex.Message);
             }
 
         }
@@ -170,7 +178,7 @@ namespace DNS_Roaming_Common
             }
             catch (Exception ex)
             {
-                //FileLogger.Trace("Settings.Load", ex);
+                Logger.Error(ex.Message);
             }
         }
 
@@ -179,11 +187,15 @@ namespace DNS_Roaming_Common
 
     public static class DNSRoamingRuleDefault
     {
+        /// <summary>
+        /// Default Rule if no other rules exist.
+        /// </summary>
+        /// <returns></returns>
         public static DNSRoamingRule GetDefaultRule()
         {
             DNSRoamingRule newRule = new DNSRoamingRule();
             newRule.UseNetworkType = true;
-            newRule.NetworkType = "Ethernet,Wireless80211";
+            newRule.NetworkType = "Wireless80211";
             newRule.DNSSet = "Quad9 + CloudFlare - No Malware";
             newRule.DNSPreferred = string.Empty;
             newRule.DNSAlternative = string.Empty;

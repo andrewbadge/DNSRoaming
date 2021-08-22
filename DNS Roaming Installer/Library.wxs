@@ -47,6 +47,7 @@
     <Feature Id="FeatureRequired" Title="Required Files" Level="1" AllowAdvertise ="no" Description ="Common Files that are always required for the DNS Roaming Service and Client"  Absent ="disallow">
       <ComponentRef Id="ClientDNSRoamingFiles"  />
       <ComponentRef Id="ServiceDNSRoamingFiles"  />
+      <ComponentRef Id="ServiceDNSRoaming"  />
       <ComponentRef Id="ApplicationShortcut" />
     </Feature>
 
@@ -60,19 +61,23 @@
       <RemoveExistingProducts After="InstallFinalize" />
     </InstallExecuteSequence>
 
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
     <Property Id='ARPURLINFOABOUT'>https://github.com/</Property>
     <Property Id='ARPPRODUCTICON'>DNSWhite.ico</Property>
     <Icon Id="DNSWhite.ico" SourceFile="DNSWhite.ico" />
     <Property Id='REINSTALLMODE' Value='amus'/>
 
-    <UIRef Id="WixUI_ErrorProgressText" />
     <WixVariable Id="WixUILicenseRtf" Value="DNSRoamingLicense.rtf" />
-
+    <UIRef Id="WixUI_Minimal" />
+    <UIRef Id="WixUI_ErrorProgressText" />
     <!-- <util:Group Id="AdminUserGroup" Name="Administrators" /> -->
     <!-- <util:Group Id="UserGroup" Name="Users"/> -->
 
 
   </Product>
+
+  
+
 
   <Fragment>
     <!-- Files and Folders -->
@@ -87,12 +92,16 @@
             <File Id="ClientNLogDll" Source="..\DNS Roaming Client\bin\Release\NLog.dll"></File>
             <File Id="ReadMe" Source="..\DNS Roaming Installer\ReadMe.txt"></File>
           </Component>
-          <Directory Id="DNSRoamingServiceFolder" Name="Service">
+          <Directory Id="DNSRoamingServiceFolder" Name="Service2">
+            
             <Component Id="ServiceDNSRoamingFiles" Guid="94d5e475-b93c-4291-9caf-ff867d1336fc" >
-              <File Id="ServiceDNSRoamingServiceExe" Source="..\DNS Roaming Service\bin\Release\DNS Roaming Service.exe"></File>
               <File Id="ServiceCommonDll" Source="..\DNS Roaming Service\bin\Release\DNS Roaming Common.dll"></File>
               <File Id="ServiceNLogConfig" Source="..\DNS Roaming Service\bin\Release\NLog.config"></File>
               <File Id="ServiceNLogDll" Source="..\DNS Roaming Service\bin\Release\NLog.dll"></File>
+            </Component>
+            <Component Id="ServiceDNSRoaming" Guid="454f6513-3e4a-4a29-8310-6daea0e9e3a8" >
+              <File Id="ServiceDNSRoamingServiceExe" Source="..\DNS Roaming Service\bin\Release\DNS Roaming Service.exe"></File>
+              
             </Component>
           </Directory>
         </Directory>

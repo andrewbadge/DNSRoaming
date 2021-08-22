@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
-using System.Management;
 
 namespace DNS_Roaming_Common
 {
@@ -126,29 +126,33 @@ namespace DNS_Roaming_Common
             return Nic;
         }
 
-        public static void SetDNSforActiveNetwork(NetworkInterface nic, string DnsString)
+        public static void SetStaticDNSusingPowershell(string networkName, string preferredDNS, string alternateDNS)
         {
-            string[] Dns = { DnsString };
-            if (nic == null) return;
+            try { 
+                //Build the DNS address list
+                string dnsString = string.Empty;
+                if (preferredDNS == String.Empty) dnsString = String.Format(@"""{0}""", alternateDNS);
+                if (alternateDNS == String.Empty) dnsString = String.Format(@"""{0}""", preferredDNS);
+                if (dnsString == String.Empty) dnsString = String.Format(@"""{0}"",""{1}""", preferredDNS, alternateDNS);
 
-            ManagementClass objMC = new ManagementClass("Win32_NetworkAdapterConfiguration");
-            ManagementObjectCollection objMOC = objMC.GetInstances();
-            foreach (ManagementObject objMO in objMOC)
-            {
-                if ((bool)objMO["IPEnabled"])
+                //Build the Powershell Command
+                string argument = string.Format(@"-NoProfile -ExecutionPolicy unrestricted & {{Set-DnsClientServerAddress -InterfaceAlias (""{0}"") -ServerAddresses ({1}) }}", networkName, dnsString);
+
+                //Execute the Powershell command
+                var startInfo = new ProcessStartInfo()
                 {
-                    if (objMO["Description"].ToString().Equals(nic.Description))
-                    {
-                        ManagementBaseObject objdns = objMO.GetMethodParameters("SetDNSServerSearchOrder");
-                        if (objdns != null)
-                        {
-                            objdns["DNSServerSearchOrder"] = Dns;
-                            ManagementBaseObject setDNSreturn = objMO.InvokeMethod("SetDNSServerSearchOrder", objdns, null);
-
-                        }
-                    }
-                }
+                    FileName = "powershell.exe",
+                    Arguments = argument,
+                    UseShellExecute = false
+                };
+                Process.Start(startInfo);
             }
-        }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+
+}
+
     }
 }

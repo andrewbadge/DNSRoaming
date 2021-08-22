@@ -24,6 +24,9 @@ namespace DNS_Roaming_Common
             ValidateDataPaths();
         }
 
+        /// <summary>
+        /// Set the paths used int he app. If they don't exist then create
+        /// </summary>
         private void ValidateDataPaths()
         {
             string commonApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);

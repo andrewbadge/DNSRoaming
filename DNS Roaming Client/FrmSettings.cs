@@ -32,11 +32,6 @@ namespace DNS_Roaming_Client
                 ruleList.Add(newRule);
             }
 
-            if (ruleList.Count==0)
-            {
-                DNSRoamingRule newRule = DNSRoamingRuleDefault.GetDefaultRule();
-                ruleList.Add(newRule);
-            }
         }
         private void ListRules()
         {

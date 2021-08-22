@@ -16,12 +16,18 @@ namespace DNS_Roaming_Client
         [STAThread]
         static void Main()
         {
-            Logger.Info("--------------------------");
-            Logger.Info(String.Format("Starting ({0})", Assembly.GetExecutingAssembly().GetName().Version.ToString()));
+            try { 
+                Logger.Info("--------------------------");
+                Logger.Info(String.Format("Starting ({0})", Assembly.GetExecutingAssembly().GetName().Version.ToString()));
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmMain());
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new FrmMain());
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
         }
     }
 }

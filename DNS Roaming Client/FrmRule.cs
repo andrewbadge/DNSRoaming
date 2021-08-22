@@ -32,9 +32,11 @@ namespace DNS_Roaming_Client
             PopulateNetworkType();
             PopulateNetworkName();
             PopulateDNSset();
-            //LoadRule();
         }
 
+        /// <summary>
+        /// LLoad the list of NetwokrTypes from the enum
+        /// </summary>
         private void PopulateNetworkType()
         {
             listNetworkType.Items.Clear();
@@ -46,6 +48,9 @@ namespace DNS_Roaming_Client
             }
         }
 
+        /// <summary>
+        /// Load the list of NICs on the PC
+        /// </summary>
         private void PopulateNetworkName()
         {
             cmbNetworkName.Items.Clear();
@@ -57,6 +62,9 @@ namespace DNS_Roaming_Client
             }
         }
 
+        /// <summary>
+        /// Add the options for DNS sets
+        /// </summary>
         private void PopulateDNSset()
         {
             cmbDNSset.Items.Clear();
@@ -69,6 +77,9 @@ namespace DNS_Roaming_Client
             cmbDNSset.Items.Add("Google");
         }
 
+        /// <summary>
+        /// Load the content of the Rule object to the form
+        /// </summary>
         private void LoadRule()
         {
             int index;
@@ -114,6 +125,10 @@ namespace DNS_Roaming_Client
 
         }
 
+        /// <summary>
+        /// Validate the form content is ready to save. if not an error prompt will be displayed
+        /// </summary>
+        /// <returns>True if ok to save</returns>
         private bool ValidateForm()
         {
             bool isFormValid = true;
@@ -198,6 +213,10 @@ namespace DNS_Roaming_Client
 
             return isFormValid;
         }
+
+        /// <summary>
+        /// Save the form details to the Rule object
+        /// </summary>
         private void SaveRule()
         {
             if (thisRule == null) thisRule = new DNSRoamingRule();
@@ -269,6 +288,11 @@ namespace DNS_Roaming_Client
 
         }
 
+        /// <summary>
+        /// If you choose any Network address, then clear the specific address entered.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void radioAddressAny_CheckedChanged(object sender, EventArgs e)
         {
             if (radioAddressAny.Checked)
@@ -278,6 +302,11 @@ namespace DNS_Roaming_Client
             }
         }
 
+        /// <summary>
+        /// Get your current NIC IP and Sunet and add it as a suggestion
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGetIPInfo_Click(object sender, EventArgs e)
         {
             string returnIP = string.Empty;
@@ -292,7 +321,11 @@ namespace DNS_Roaming_Client
             }
 
         }
-
+        /// <summary>
+        /// Copy the addresses from the DNS set and add the addresses to the manual IP entries
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDNSsetCopy_Click(object sender, EventArgs e)
         {
             if (cmbDNSset.SelectedIndex != -1)
