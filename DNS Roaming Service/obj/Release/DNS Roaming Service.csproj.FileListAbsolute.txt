@@ -1,0 +1,14 @@
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Service\bin\Release\NLog.config
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Service\bin\Release\DNS Roaming Service.exe.config
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Service\bin\Release\DNS Roaming Service.exe
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Service\bin\Release\DNS Roaming Service.pdb
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Service\bin\Release\DNS Roaming Common.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Service\bin\Release\NLog.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Service\bin\Release\DNS Roaming Common.pdb
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Service\bin\Release\DNS Roaming Common.dll.config
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Service\bin\Release\NLog.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Service\obj\Release\DNS Roaming Service.csprojAssemblyReference.cache
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Service\obj\Release\DNS Roaming Service.csproj.CoreCompileInputs.cache
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Service\obj\Release\DNS Roaming Service.csproj.CopyComplete
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Service\obj\Release\DNS Roaming Service.exe
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Service\obj\Release\DNS Roaming Service.pdb

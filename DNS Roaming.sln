@@ -9,24 +9,46 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNS Roaming Service", "DNS 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNS Roaming Common", "DNS Roaming Common\DNS Roaming Common.csproj", "{BD6413ED-4BC5-4023-93C1-B83354C0DD02}"
 EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "DNS Roaming Installer", "DNS Roaming Installer\DNS Roaming Installer.wixproj", "{68EF5619-3144-4643-80AA-8DCA11DCFCE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DB43B790-C99D-4082-995B-6BA78FBEBCC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DB43B790-C99D-4082-995B-6BA78FBEBCC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB43B790-C99D-4082-995B-6BA78FBEBCC2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DB43B790-C99D-4082-995B-6BA78FBEBCC2}.Debug|x86.Build.0 = Debug|Any CPU
 		{DB43B790-C99D-4082-995B-6BA78FBEBCC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB43B790-C99D-4082-995B-6BA78FBEBCC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB43B790-C99D-4082-995B-6BA78FBEBCC2}.Release|x86.ActiveCfg = Release|Any CPU
+		{DB43B790-C99D-4082-995B-6BA78FBEBCC2}.Release|x86.Build.0 = Release|Any CPU
 		{8A67BBE2-E418-4625-95C2-D61BA59AEB5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8A67BBE2-E418-4625-95C2-D61BA59AEB5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A67BBE2-E418-4625-95C2-D61BA59AEB5D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8A67BBE2-E418-4625-95C2-D61BA59AEB5D}.Debug|x86.Build.0 = Debug|Any CPU
 		{8A67BBE2-E418-4625-95C2-D61BA59AEB5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A67BBE2-E418-4625-95C2-D61BA59AEB5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A67BBE2-E418-4625-95C2-D61BA59AEB5D}.Release|x86.ActiveCfg = Release|Any CPU
+		{8A67BBE2-E418-4625-95C2-D61BA59AEB5D}.Release|x86.Build.0 = Release|Any CPU
 		{BD6413ED-4BC5-4023-93C1-B83354C0DD02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BD6413ED-4BC5-4023-93C1-B83354C0DD02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD6413ED-4BC5-4023-93C1-B83354C0DD02}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BD6413ED-4BC5-4023-93C1-B83354C0DD02}.Debug|x86.Build.0 = Debug|Any CPU
 		{BD6413ED-4BC5-4023-93C1-B83354C0DD02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD6413ED-4BC5-4023-93C1-B83354C0DD02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD6413ED-4BC5-4023-93C1-B83354C0DD02}.Release|x86.ActiveCfg = Release|Any CPU
+		{BD6413ED-4BC5-4023-93C1-B83354C0DD02}.Release|x86.Build.0 = Release|Any CPU
+		{68EF5619-3144-4643-80AA-8DCA11DCFCE9}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{68EF5619-3144-4643-80AA-8DCA11DCFCE9}.Debug|x86.ActiveCfg = Debug|x86
+		{68EF5619-3144-4643-80AA-8DCA11DCFCE9}.Debug|x86.Build.0 = Debug|x86
+		{68EF5619-3144-4643-80AA-8DCA11DCFCE9}.Release|Any CPU.ActiveCfg = Release|x86
+		{68EF5619-3144-4643-80AA-8DCA11DCFCE9}.Release|x86.ActiveCfg = Release|x86
+		{68EF5619-3144-4643-80AA-8DCA11DCFCE9}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
