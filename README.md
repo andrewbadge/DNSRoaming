@@ -17,8 +17,8 @@ DNS can play a strong part in the security of a PC. With the right DNS service; 
 If you have the money a service like CISCO Umbrella or DNS Filter are effective.
 
 If you don't have the money then you rely on the configuration of the destination network (and a knowledable user).
-Of course if this is your corporate or home network then you have the control. 
 
+Of course if this is your corporate or home network then you have the control. 
 But do you have the control over your friends home network? Do you have control over each of your co-workers home networks? No.
 
 DNS Roaming is a Client and Service to ensure the DNS Servers are set via a rule / policy rather than the network a PC is connected to. 
@@ -53,4 +53,14 @@ NB: the log and settings files will always be stored under %ProgramData%\DNSRoam
 
 ## Can I sell DNS Roaming for profit?
 
-No. You can't sell it as your product. See the Licensing section. You can use it as a tool as part of a commercial service (e.g. as a MSP).
+This product is licensed using the Apache License 2.0. You can use it as a tool as part of a commercial service (e.g. as a MSP).
+But you shouldn't be a dick and try and profit directly from by work by cloning my repo and selling your own renamed version. That would just be a shitty thing to do.
+
+## Found a issue or bug?
+
+In case you've found a bug, please open an issue on our GitHub.
+Or you just think what I've done is stupid; then keep it to yourself. ;-)
+
+# Licensing
+
+
