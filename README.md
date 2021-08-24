@@ -33,6 +33,7 @@ If you find this useful and would like me to continue working on it please Buy M
 
 # Technical Stuff
 DNS Roaming is two components:
+
 - a Client: to show the status of the service and configure settings
 - a Service: to parse the rules and set DNS servers
 
@@ -43,11 +44,19 @@ All Code is written in C# with a WIX Toolkit based installer.
 All Logs are saved to %ProgramData%\DNSRoaming
 All Settings file are in XML and are saved to %ProgramData%\DNSRoadming\Settings
 
+### Default Rule
+
+If no rules exist; a default rule will be created that will:
+
+- when connected to any Wireless Network
+- on any network address
+- set the DNS server to Quad (Preferred) and CloudFlare - No Malware (Alternative)
+
 # FAQ
 
 ## Can I install the files manually?
 
-Sure. DNS Roaming won't care where the service and client files are located. If you copy the Program Files files (exes and dlls) to any folder you can run the client and install the service manually (using "SC CREATE").
+Sure. DNS Roaming won't care where the service and client files are located. If you copy the [Program Files] files (exes, dlls and config files) to any folder you can run the client and install the service manually (using "SC CREATE").
 
 NB: the log and settings files will always be stored under %ProgramData%\DNSRoaming 
 
