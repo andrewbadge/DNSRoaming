@@ -48,7 +48,7 @@ All Code is written in C# with a WIX Toolkit based installer.
 
 All Logs are saved to %ProgramData%\DNSRoaming
 
-All Settings file are in XML and are saved to %ProgramData%\DNSRoadming\Settings
+All Settings file are in XML and are saved to %ProgramData%\DNSRoaming\Settings
 
 ### Default Rule
 
