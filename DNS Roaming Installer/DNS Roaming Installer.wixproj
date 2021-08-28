@@ -25,6 +25,7 @@
     <Content Include="DnsWhite.ico" />
     <Content Include="DNSRoamingLicense.rtf" />
     <Content Include="ReadMe.txt" />
+    <Content Include="Server.ico" />
   </ItemGroup>
   <ItemGroup>
     <WixExtension Include="WixUIExtension">

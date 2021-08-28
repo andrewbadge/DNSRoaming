@@ -48,7 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>DnsWhite.ico</ApplicationIcon>
+    <ApplicationIcon>Server.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
@@ -138,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DnsWhite.ico" />
+    <Content Include="Server.ico" />
     <None Include="Resources\upload-file-16x16-1214209.png" />
   </ItemGroup>
   <ItemGroup>

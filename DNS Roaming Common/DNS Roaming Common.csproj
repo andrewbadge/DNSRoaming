@@ -36,7 +36,7 @@
     <StartupObject />
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>DnsGrey.ico</ApplicationIcon>
+    <ApplicationIcon>Server.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DnsGrey.ico" />
+    <Content Include="Server.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

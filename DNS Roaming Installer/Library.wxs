@@ -63,8 +63,8 @@
 
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
     <Property Id='ARPURLINFOABOUT'>https://github.com/</Property>
-    <Property Id='ARPPRODUCTICON'>DNSWhite.ico</Property>
-    <Icon Id="DNSWhite.ico" SourceFile="DNSWhite.ico" />
+    <Property Id='ARPPRODUCTICON'>Server.ico</Property>
+    <Icon Id="DNSWhite.ico" SourceFile="Server.ico" />
     <Property Id='REINSTALLMODE' Value='amus'/>
 
     <WixVariable Id="WixUILicenseRtf" Value="DNSRoamingLicense.rtf" />

@@ -35,18 +35,18 @@
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuSettings = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.menuServiceStatus = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.menuStopAndClose = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnForceClose = new System.Windows.Forms.Button();
-            this.timerCheckServiceStatus = new System.Windows.Forms.Timer(this.components);
             this.menuLogs = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuLogs = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuLogsClient = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLogsService = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLogsFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuServiceStatus = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuStopAndClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnForceClose = new System.Windows.Forms.Button();
+            this.timerCheckServiceStatus = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip.SuspendLayout();
             this.contextMenuLogs.SuspendLayout();
             this.SuspendLayout();
@@ -87,59 +87,21 @@
             this.toolStripSeparator1,
             this.menuStopAndClose});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(181, 148);
+            this.contextMenuStrip.Size = new System.Drawing.Size(134, 126);
             this.contextMenuStrip.DoubleClick += new System.EventHandler(this.contextMenuStrip_DoubleClick);
             // 
             // menuSettings
             // 
             this.menuSettings.Name = "menuSettings";
-            this.menuSettings.Size = new System.Drawing.Size(180, 22);
+            this.menuSettings.Size = new System.Drawing.Size(133, 22);
             this.menuSettings.Text = "Settings";
             this.menuSettings.Click += new System.EventHandler(this.menuSettings_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
-            // 
-            // menuServiceStatus
-            // 
-            this.menuServiceStatus.Name = "menuServiceStatus";
-            this.menuServiceStatus.Size = new System.Drawing.Size(180, 22);
-            this.menuServiceStatus.Text = "Checking...";
-            this.menuServiceStatus.Click += new System.EventHandler(this.menuPause_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
-            // 
-            // menuStopAndClose
-            // 
-            this.menuStopAndClose.Name = "menuStopAndClose";
-            this.menuStopAndClose.Size = new System.Drawing.Size(180, 22);
-            this.menuStopAndClose.Text = "Exit Client";
-            this.menuStopAndClose.Click += new System.EventHandler(this.menuStopAndClose_Click);
-            // 
-            // btnForceClose
-            // 
-            this.btnForceClose.Location = new System.Drawing.Point(221, 67);
-            this.btnForceClose.Name = "btnForceClose";
-            this.btnForceClose.Size = new System.Drawing.Size(75, 23);
-            this.btnForceClose.TabIndex = 2;
-            this.btnForceClose.Text = "Force Close";
-            this.btnForceClose.UseVisualStyleBackColor = true;
-            this.btnForceClose.Click += new System.EventHandler(this.btnForceClose_Click);
-            // 
-            // timerCheckServiceStatus
-            // 
-            this.timerCheckServiceStatus.Tick += new System.EventHandler(this.timerCheckServiceStatus_Tick);
             // 
             // menuLogs
             // 
             this.menuLogs.DropDown = this.contextMenuLogs;
             this.menuLogs.Name = "menuLogs";
-            this.menuLogs.Size = new System.Drawing.Size(180, 22);
+            this.menuLogs.Size = new System.Drawing.Size(133, 22);
             this.menuLogs.Text = "Logs";
             // 
             // contextMenuLogs
@@ -149,6 +111,7 @@
             this.menuLogsService,
             this.menuLogsFolder});
             this.contextMenuLogs.Name = "contextMenuLogs";
+            this.contextMenuLogs.OwnerItem = this.menuLogs;
             this.contextMenuLogs.Size = new System.Drawing.Size(191, 70);
             // 
             // menuLogsClient
@@ -175,9 +138,47 @@
             // menuAbout
             // 
             this.menuAbout.Name = "menuAbout";
-            this.menuAbout.Size = new System.Drawing.Size(180, 22);
+            this.menuAbout.Size = new System.Drawing.Size(133, 22);
             this.menuAbout.Text = "About";
             this.menuAbout.Click += new System.EventHandler(this.menuAbout_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(130, 6);
+            // 
+            // menuServiceStatus
+            // 
+            this.menuServiceStatus.Name = "menuServiceStatus";
+            this.menuServiceStatus.Size = new System.Drawing.Size(133, 22);
+            this.menuServiceStatus.Text = "Checking...";
+            this.menuServiceStatus.Click += new System.EventHandler(this.menuPause_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(130, 6);
+            // 
+            // menuStopAndClose
+            // 
+            this.menuStopAndClose.Name = "menuStopAndClose";
+            this.menuStopAndClose.Size = new System.Drawing.Size(133, 22);
+            this.menuStopAndClose.Text = "Exit Client";
+            this.menuStopAndClose.Click += new System.EventHandler(this.menuStopAndClose_Click);
+            // 
+            // btnForceClose
+            // 
+            this.btnForceClose.Location = new System.Drawing.Point(221, 67);
+            this.btnForceClose.Name = "btnForceClose";
+            this.btnForceClose.Size = new System.Drawing.Size(75, 23);
+            this.btnForceClose.TabIndex = 2;
+            this.btnForceClose.Text = "Force Close";
+            this.btnForceClose.UseVisualStyleBackColor = true;
+            this.btnForceClose.Click += new System.EventHandler(this.btnForceClose_Click);
+            // 
+            // timerCheckServiceStatus
+            // 
+            this.timerCheckServiceStatus.Tick += new System.EventHandler(this.timerCheckServiceStatus_Tick);
             // 
             // FrmMain
             // 
