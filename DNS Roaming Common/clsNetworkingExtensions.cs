@@ -93,7 +93,7 @@ namespace DNS_Roaming_Common
                     break;
                 case "Cloudflare":
                     ipPreferred = "1.1.1.1";
-                    ipAlternative = "1.0.0.2";
+                    ipAlternative = "1.0.0.1";
                     break;
                 case "Cloudflare - No Malware":
                     ipPreferred = "1.1.1.2";

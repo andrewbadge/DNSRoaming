@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?define Property_ProductVersion = "1.0.0.0" ?>
+<?define Property_ProductVersion = "1.0.0.1" ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:ui="http://schemas.microsoft.com/wix/UIExtension">
   <Product Id="*"
 	   Name="DNS Roaming" Language="1033"
@@ -49,6 +49,7 @@
       <ComponentRef Id="ServiceDNSRoamingFiles"  />
       <ComponentRef Id="ServiceDNSRoaming"  />
       <ComponentRef Id="ApplicationShortcut" />
+      <ComponentRef Id="ApplicationShortCutStartUp" />
     </Feature>
 
 
@@ -62,7 +63,7 @@
     </InstallExecuteSequence>
 
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
-    <Property Id='ARPURLINFOABOUT'>https://github.com/</Property>
+    <Property Id='ARPURLINFOABOUT'>https://github.com/andrewbadge/DNSRoaming</Property>
     <Property Id='ARPPRODUCTICON'>Server.ico</Property>
     <Icon Id="DNSWhite.ico" SourceFile="Server.ico" />
     <Property Id='REINSTALLMODE' Value='amus'/>
@@ -92,7 +93,7 @@
             <File Id="ClientNLogDll" Source="..\DNS Roaming Client\bin\Release\NLog.dll"></File>
             <File Id="ReadMe" Source="..\DNS Roaming Installer\ReadMe.txt"></File>
           </Component>
-          <Directory Id="DNSRoamingServiceFolder" Name="Service2">
+          <Directory Id="DNSRoamingServiceFolder" Name="Service">
             
             <Component Id="ServiceDNSRoamingFiles" Guid="94d5e475-b93c-4291-9caf-ff867d1336fc" >
               <File Id="ServiceCommonDll" Source="..\DNS Roaming Service\bin\Release\DNS Roaming Common.dll"></File>
@@ -101,7 +102,8 @@
             </Component>
             <Component Id="ServiceDNSRoaming" Guid="454f6513-3e4a-4a29-8310-6daea0e9e3a8" >
               <File Id="ServiceDNSRoamingServiceExe" Source="..\DNS Roaming Service\bin\Release\DNS Roaming Service.exe"></File>
-              
+              <ServiceInstall Name="DNSRoamingService" DisplayName="DNS Roaming Service" Description="Service used to automatically set secure DNS servers when roaming" Start="auto" Type="ownProcess" ErrorControl="normal"></ServiceInstall>
+              <ServiceControl Id="StartService" Start="install" Stop="both" Remove="uninstall" Name="DNSRoamingService" Wait="yes" />
             </Component>
           </Directory>
         </Directory>
@@ -111,7 +113,9 @@
       <Directory Id="ProgramMenuFolder">
         <Directory Id="ApplicationProgramsFolder" Name="DNS Roaming"/>
       </Directory>
-      
+      <Directory Id="StartupFolder">
+      </Directory>
+
     </Directory>
 
     <DirectoryRef Id="ApplicationProgramsFolder">
@@ -122,10 +126,25 @@
              Target="ClientDNSRoamingClientExe"
              WorkingDirectory="INSTALLFOLDER"/>
         <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
-        <RegistryValue Root="HKCU" Key="Software\DNS Roaming\DNS Roaming Client" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+        <RegistryKey Root="HKCU" Key="Software\DNS Roaming\DNS Roaming Client" Action="createAndRemoveOnUninstall">
+          <RegistryValue Name="ShortCut" Type="integer" Value="1" KeyPath="yes"  />
+        </RegistryKey>
       </Component>
     </DirectoryRef>
 
+    <DirectoryRef Id="StartupFolder">
+      <Component Id="ApplicationShortCutStartUp" Guid="dea2164f-12a4-459f-a47f-6bcd32037b49">
+        <Shortcut Id="AppShortCutStartUp" Name="DNS Roaming Client"
+                  Description="DNS Roaming Client"
+                  Target="ClientDNSRoamingClientExe"
+                  WorkingDirectory="INSTALLDIR" />
+        <RegistryKey Root="HKCU" Key="Software\DNS Roaming\DNS Roaming Client" Action="createAndRemoveOnUninstall">
+          <RegistryValue Name="ShortCutStartUp" Type="integer" Value="1" KeyPath="yes"  />
+        </RegistryKey>
+      </Component>
+
+    </DirectoryRef>
+    
   </Fragment>
 
 </Wix>

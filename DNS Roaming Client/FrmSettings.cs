@@ -1,6 +1,7 @@
 ﻿using DNS_Roaming_Common;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -21,18 +22,43 @@ namespace DNS_Roaming_Client
             ListRules();
         }
 
+        /// <summary>
+        /// Load Rules from the Settings Files
+        /// </summary>
+        /// <param name="settingPath"></param>
         private void InitialiseRules(string settingPath)
         {
 
             string[] settingFiles = Directory.GetFiles(settingPath);
-            foreach (string settingFilename in settingFiles)
+
+            try
             {
-                DNSRoamingRule newRule = new DNSRoamingRule();
-                newRule.Load(settingFilename);
-                ruleList.Add(newRule);
+                foreach (string settingFilename in settingFiles)
+                {
+                    //Catch an exception for a specific file but continue to process the next
+                    try
+                    {
+                        DNSRoamingRule newRule = new DNSRoamingRule();
+                        newRule.Load(settingFilename);
+                        ruleList.Add(newRule);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error(String.Format("Error loading rule {0}", settingFilename));
+                    }
+                
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
             }
 
         }
+
+        /// <summary>
+        /// Show the List of Rules on screen. ID (GUID) of the Rule is the ID
+        /// </summary>
         private void ListRules()
         {
             listViewRules.FullRowSelect = true;
@@ -66,6 +92,9 @@ namespace DNS_Roaming_Client
 
         }
 
+        /// <summary>
+        /// New Rule action
+        /// </summary>
         private void ListRuleNew()
         {
             FrmRule frmRule = new FrmRule();
@@ -79,6 +108,9 @@ namespace DNS_Roaming_Client
             }
         }
 
+        /// <summary>
+        /// Edit a Rule action
+        /// </summary>
         private void ListRuleEdit()
         {
             if (listViewRules.SelectedItems.Count != 0)
@@ -102,6 +134,9 @@ namespace DNS_Roaming_Client
             }
         }
 
+        /// <summary>
+        /// Remove a Rule action
+        /// </summary>
         private void ListRuleRemove()
         {
             if (listViewRules.SelectedItems.Count != 0)
@@ -154,6 +189,18 @@ namespace DNS_Roaming_Client
             foreach (DNSRoamingRule thisRule in ruleList)
             {
                 thisRule.Save();
+            }
+        }
+
+        private void linkGithub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                Process.Start(@"https://github.com/andrewbadge/DNSRoaming");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
             }
         }
     }
