@@ -1,7 +1,7 @@
 # DNS Sets
 
 The addresses below are configured when a DNS set is chosen.
-NB: you can also set the addresses by:
+NB: you can also see the addresses by:
 - copying the set to the specific address fields
 - viewing the logs
 
