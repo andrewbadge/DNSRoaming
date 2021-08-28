@@ -73,3 +73,9 @@ Or you just think what I've done is stupid; then keep it to yourself. ;-)
 # Licensing
 
 See the [Apache 2.0](https://github.com/andrewbadge/DNSRoaming/blob/main/LICENSE) License
+
+# Thanks
+
+To every random person answering questions on StackExchange
+
+To [Zky Icon](https://iconscout.com/contributors/zkyicon) for the [Server Dualtone Icon] used in this App. 
