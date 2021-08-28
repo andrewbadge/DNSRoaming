@@ -166,5 +166,18 @@ namespace DNS_Roaming_Client
                 Logger.Error(ex.Message);
             }
         }
+
+        private void menuAbout_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start(@"https://github.com/andrewbadge/DNSRoaming");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+            
+        }
     }
 }

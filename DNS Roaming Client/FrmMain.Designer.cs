@@ -46,6 +46,7 @@
             this.menuLogsClient = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLogsService = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLogsFolder = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip.SuspendLayout();
             this.contextMenuLogs.SuspendLayout();
             this.SuspendLayout();
@@ -80,12 +81,13 @@
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuSettings,
             this.menuLogs,
+            this.menuAbout,
             this.toolStripSeparator2,
             this.menuServiceStatus,
             this.toolStripSeparator1,
             this.menuStopAndClose});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(181, 126);
+            this.contextMenuStrip.Size = new System.Drawing.Size(181, 148);
             this.contextMenuStrip.DoubleClick += new System.EventHandler(this.contextMenuStrip_DoubleClick);
             // 
             // menuSettings
@@ -147,8 +149,7 @@
             this.menuLogsService,
             this.menuLogsFolder});
             this.contextMenuLogs.Name = "contextMenuLogs";
-            this.contextMenuLogs.OwnerItem = this.menuLogs;
-            this.contextMenuLogs.Size = new System.Drawing.Size(191, 92);
+            this.contextMenuLogs.Size = new System.Drawing.Size(191, 70);
             // 
             // menuLogsClient
             // 
@@ -170,6 +171,13 @@
             this.menuLogsFolder.Size = new System.Drawing.Size(190, 22);
             this.menuLogsFolder.Text = "Open Logs Folder";
             this.menuLogsFolder.Click += new System.EventHandler(this.menuLogsFolder_Click);
+            // 
+            // menuAbout
+            // 
+            this.menuAbout.Name = "menuAbout";
+            this.menuAbout.Size = new System.Drawing.Size(180, 22);
+            this.menuAbout.Text = "About";
+            this.menuAbout.Click += new System.EventHandler(this.menuAbout_Click);
             // 
             // FrmMain
             // 
@@ -209,5 +217,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuLogsClient;
         private System.Windows.Forms.ToolStripMenuItem menuLogsService;
         private System.Windows.Forms.ToolStripMenuItem menuLogsFolder;
+        private System.Windows.Forms.ToolStripMenuItem menuAbout;
     }
 }

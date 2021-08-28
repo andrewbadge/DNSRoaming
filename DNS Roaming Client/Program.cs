@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using DNS_Roaming_Common;
+using System;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using DNS_Roaming_Common;
 
 namespace DNS_Roaming_Client
 {
