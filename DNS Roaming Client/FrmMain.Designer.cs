@@ -34,13 +34,20 @@
             this.label2 = new System.Windows.Forms.Label();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menuPause = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuServiceStatus = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStopAndClose = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.btnForceClose = new System.Windows.Forms.Button();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.timerCheckServiceStatus = new System.Windows.Forms.Timer(this.components);
+            this.menuLogs = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuLogs = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuLogsClient = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuLogsService = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuLogsFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip.SuspendLayout();
+            this.contextMenuLogs.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -72,39 +79,45 @@
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuSettings,
+            this.menuLogs,
             this.toolStripSeparator2,
-            this.menuPause,
+            this.menuServiceStatus,
             this.toolStripSeparator1,
             this.menuStopAndClose});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(194, 104);
+            this.contextMenuStrip.Size = new System.Drawing.Size(181, 126);
             this.contextMenuStrip.DoubleClick += new System.EventHandler(this.contextMenuStrip_DoubleClick);
-            // 
-            // menuPause
-            // 
-            this.menuPause.Name = "menuPause";
-            this.menuPause.Size = new System.Drawing.Size(193, 22);
-            this.menuPause.Text = "Pause Service";
-            this.menuPause.Click += new System.EventHandler(this.menuPause_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(190, 6);
-            // 
-            // menuStopAndClose
-            // 
-            this.menuStopAndClose.Name = "menuStopAndClose";
-            this.menuStopAndClose.Size = new System.Drawing.Size(193, 22);
-            this.menuStopAndClose.Text = "Stop Service and Close";
-            this.menuStopAndClose.Click += new System.EventHandler(this.menuStopAndClose_Click);
             // 
             // menuSettings
             // 
             this.menuSettings.Name = "menuSettings";
-            this.menuSettings.Size = new System.Drawing.Size(193, 22);
+            this.menuSettings.Size = new System.Drawing.Size(180, 22);
             this.menuSettings.Text = "Settings";
             this.menuSettings.Click += new System.EventHandler(this.menuSettings_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            // 
+            // menuServiceStatus
+            // 
+            this.menuServiceStatus.Name = "menuServiceStatus";
+            this.menuServiceStatus.Size = new System.Drawing.Size(180, 22);
+            this.menuServiceStatus.Text = "Checking...";
+            this.menuServiceStatus.Click += new System.EventHandler(this.menuPause_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // menuStopAndClose
+            // 
+            this.menuStopAndClose.Name = "menuStopAndClose";
+            this.menuStopAndClose.Size = new System.Drawing.Size(180, 22);
+            this.menuStopAndClose.Text = "Exit Client";
+            this.menuStopAndClose.Click += new System.EventHandler(this.menuStopAndClose_Click);
             // 
             // btnForceClose
             // 
@@ -116,10 +129,47 @@
             this.btnForceClose.UseVisualStyleBackColor = true;
             this.btnForceClose.Click += new System.EventHandler(this.btnForceClose_Click);
             // 
-            // toolStripSeparator2
+            // timerCheckServiceStatus
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(190, 6);
+            this.timerCheckServiceStatus.Tick += new System.EventHandler(this.timerCheckServiceStatus_Tick);
+            // 
+            // menuLogs
+            // 
+            this.menuLogs.DropDown = this.contextMenuLogs;
+            this.menuLogs.Name = "menuLogs";
+            this.menuLogs.Size = new System.Drawing.Size(180, 22);
+            this.menuLogs.Text = "Logs";
+            // 
+            // contextMenuLogs
+            // 
+            this.contextMenuLogs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuLogsClient,
+            this.menuLogsService,
+            this.menuLogsFolder});
+            this.contextMenuLogs.Name = "contextMenuLogs";
+            this.contextMenuLogs.OwnerItem = this.menuLogs;
+            this.contextMenuLogs.Size = new System.Drawing.Size(191, 92);
+            // 
+            // menuLogsClient
+            // 
+            this.menuLogsClient.Name = "menuLogsClient";
+            this.menuLogsClient.Size = new System.Drawing.Size(190, 22);
+            this.menuLogsClient.Text = "View latest Client log";
+            this.menuLogsClient.Click += new System.EventHandler(this.menuLogsClient_Click);
+            // 
+            // menuLogsService
+            // 
+            this.menuLogsService.Name = "menuLogsService";
+            this.menuLogsService.Size = new System.Drawing.Size(190, 22);
+            this.menuLogsService.Text = "View latest Service log";
+            this.menuLogsService.Click += new System.EventHandler(this.menuLogsService_Click);
+            // 
+            // menuLogsFolder
+            // 
+            this.menuLogsFolder.Name = "menuLogsFolder";
+            this.menuLogsFolder.Size = new System.Drawing.Size(190, 22);
+            this.menuLogsFolder.Text = "Open Logs Folder";
+            this.menuLogsFolder.Click += new System.EventHandler(this.menuLogsFolder_Click);
             // 
             // FrmMain
             // 
@@ -135,6 +185,7 @@
             this.Text = "DNS Roaming";
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.contextMenuStrip.ResumeLayout(false);
+            this.contextMenuLogs.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -147,10 +198,16 @@
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.Button btnForceClose;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem menuPause;
+        private System.Windows.Forms.ToolStripMenuItem menuServiceStatus;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem menuStopAndClose;
         private System.Windows.Forms.ToolStripMenuItem menuSettings;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.Timer timerCheckServiceStatus;
+        private System.Windows.Forms.ToolStripMenuItem menuLogs;
+        private System.Windows.Forms.ContextMenuStrip contextMenuLogs;
+        private System.Windows.Forms.ToolStripMenuItem menuLogsClient;
+        private System.Windows.Forms.ToolStripMenuItem menuLogsService;
+        private System.Windows.Forms.ToolStripMenuItem menuLogsFolder;
     }
 }
