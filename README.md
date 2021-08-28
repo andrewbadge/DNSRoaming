@@ -36,6 +36,12 @@ If you don't have the money then you rely on the configuration of the destinatio
 Of course if this is your managed corporate or home network then you have the control you need. 
 But do you have the control over your friends home network? Do you have control over each of your co-workers home networks? No.
 
+## Help and Screenshots
+
+[Screenshots and Help](https://github.com/andrewbadge/DNSRoaming/blob/main/Images/Readme.md)
+
+[DNS Set Definitions](https://github.com/andrewbadge/DNSRoaming/blob/main/DNSSets.md)
+
 # Technical Stuff
 DNS Roaming is two components:
 
@@ -48,7 +54,8 @@ All Code is written in C# with a WIX Toolkit based installer.
 
 All Logs are saved to %ProgramData%\DNSRoaming
 
-All Settings file are in XML and are saved to %ProgramData%\DNSRoadming\Settings
+All Settings file are in XML and are saved to %ProgramData%\DNSRoaming\Settings
+
 
 ### Default Rule
 
@@ -65,11 +72,6 @@ If no rules exist; a default rule will be created that will:
 Sure. DNS Roaming won't care where the service and client files are located. If you copy the [Program Files] files (exes, dlls and config files) to any folder you can run the client and install the service manually (using "SC CREATE").
 
 NB: the log and settings files will always be stored under %ProgramData%\DNSRoaming 
-
-## Can I sell DNS Roaming for profit?
-
-This product is licensed using the Apache License 2.0. You can use it as a tool as part of a commercial service (e.g. as a MSP).
-But you shouldn't be a dick and try and profit directly from by work by cloning my repo and selling your own renamed version. That would just be a shitty thing to do.
 
 ## Found a issue or bug?
 
