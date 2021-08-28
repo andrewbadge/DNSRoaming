@@ -2,7 +2,7 @@
 
 ## Quick Start
 
-Go to Releases (TBA) and download the most recent release (and MSI file).
+Go to [Releases](https://github.com/andrewbadge/DNSRoaming/releases) and download the most recent release (and MSI file).
 Install the MSI manually, via a policy or script.
 
 NB: you will need Run as **Administrator** to install this MSI as a Windows Service is installed.
