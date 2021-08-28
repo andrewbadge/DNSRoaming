@@ -80,7 +80,7 @@ Or you just think what I've done is stupid; then keep it to yourself. ;-)
 
 ## Why Quad9 or why CloudFlare?
 
-They offer fast and effective blocking of malware links and URLKS for free.
+They offer fast and effective blocking of malware links and URLs for free.
 
 Read more about on Quad9 here: [About Quad9](https://www.quad9.net/about/)
 
