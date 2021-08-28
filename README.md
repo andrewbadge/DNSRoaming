@@ -36,6 +36,12 @@ If you don't have the money then you rely on the configuration of the destinatio
 Of course if this is your managed corporate or home network then you have the control you need. 
 But do you have the control over your friends home network? Do you have control over each of your co-workers home networks? No.
 
+## Help and Screenshots
+
+[Screenshots and Help](https://github.com/andrewbadge/DNSRoaming/blob/main/Images/Readme.md)
+
+[DNS Set Definitions](https://github.com/andrewbadge/DNSRoaming/blob/main/DNSSets.md)
+
 # Technical Stuff
 DNS Roaming is two components:
 
@@ -50,7 +56,6 @@ All Logs are saved to %ProgramData%\DNSRoaming
 
 All Settings file are in XML and are saved to %ProgramData%\DNSRoaming\Settings
 
-[DNS Set are defined here](https://github.com/andrewbadge/DNSRoaming/blob/main/DNSSets.md)
 
 ### Default Rule
 
