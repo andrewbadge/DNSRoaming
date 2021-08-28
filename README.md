@@ -66,11 +66,6 @@ Sure. DNS Roaming won't care where the service and client files are located. If 
 
 NB: the log and settings files will always be stored under %ProgramData%\DNSRoaming 
 
-## Can I sell DNS Roaming for profit?
-
-This product is licensed using the Apache License 2.0. You can use it as a tool as part of a commercial service (e.g. as a MSP).
-But you shouldn't be a dick and try and profit directly from by work by cloning my repo and selling your own renamed version. That would just be a shitty thing to do.
-
 ## Found a issue or bug?
 
 In case you've found a bug, please open an issue on our GitHub.
