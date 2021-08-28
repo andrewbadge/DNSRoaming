@@ -50,6 +50,8 @@ All Logs are saved to %ProgramData%\DNSRoaming
 
 All Settings file are in XML and are saved to %ProgramData%\DNSRoaming\Settings
 
+[DNS Set are defined here](https://github.com/andrewbadge/DNSRoaming/dnssets.md)
+
 ### Default Rule
 
 If no rules exist; a default rule will be created that will:
