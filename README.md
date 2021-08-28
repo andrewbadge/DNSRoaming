@@ -11,6 +11,8 @@ System Requirements:
 - Windows 10/11 and a compatible PC
 - .Net Framework 4.7 (In general will already be installed)
 
+NB: it will probably work fine on older OS but its untested. Ensure [.NET Framework 4.7 is installed](https://www.microsoft.com/en-us/download/details.aspx?id=55167)
+
 ## What is DNS Roaming
 
 DNS Roaming is a Client and Service to ensure the DNS Servers are set via a rule / policy rather than the network a PC is connected to. 
