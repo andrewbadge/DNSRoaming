@@ -2,7 +2,7 @@
 
 ## Quick Start
 
-Go to Releases (TBA) and download the most recent release (and MSI file).
+Go to [Releases](https://github.com/andrewbadge/DNSRoaming/releases) and download the most recent release (and MSI file).
 Install the MSI manually, via a policy or script.
 
 NB: you will need Run as **Administrator** to install this MSI as a Windows Service is installed.
@@ -80,7 +80,7 @@ Or you just think what I've done is stupid; then keep it to yourself. ;-)
 
 ## Why Quad9 or why CloudFlare?
 
-They offer fast and effective blocking of malware links and URLKS for free.
+They offer fast and effective blocking of malware links and URLs for free.
 
 Read more about on Quad9 here: [About Quad9](https://www.quad9.net/about/)
 
