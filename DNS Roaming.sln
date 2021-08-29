@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNS Roaming Common", "DNS R
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "DNS Roaming Installer", "DNS Roaming Installer\DNS Roaming Installer.wixproj", "{68EF5619-3144-4643-80AA-8DCA11DCFCE9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNS Roaming Unit Tests", "DNS Roaming Unit Tests\DNS Roaming Unit Tests.csproj", "{1C5FED20-4CB0-4401-BD74-08EA19C146C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,14 @@ Global
 		{68EF5619-3144-4643-80AA-8DCA11DCFCE9}.Release|Any CPU.ActiveCfg = Release|x86
 		{68EF5619-3144-4643-80AA-8DCA11DCFCE9}.Release|x86.ActiveCfg = Release|x86
 		{68EF5619-3144-4643-80AA-8DCA11DCFCE9}.Release|x86.Build.0 = Release|x86
+		{1C5FED20-4CB0-4401-BD74-08EA19C146C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C5FED20-4CB0-4401-BD74-08EA19C146C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C5FED20-4CB0-4401-BD74-08EA19C146C2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1C5FED20-4CB0-4401-BD74-08EA19C146C2}.Debug|x86.Build.0 = Debug|Any CPU
+		{1C5FED20-4CB0-4401-BD74-08EA19C146C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C5FED20-4CB0-4401-BD74-08EA19C146C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C5FED20-4CB0-4401-BD74-08EA19C146C2}.Release|x86.ActiveCfg = Release|Any CPU
+		{1C5FED20-4CB0-4401-BD74-08EA19C146C2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

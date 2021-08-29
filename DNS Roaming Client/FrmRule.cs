@@ -340,5 +340,26 @@ namespace DNS_Roaming_Client
                 txtAlternateDNS.Text = returnIPAlternative;
             }
         }
+
+        #region Tooltips
+
+        private void btnGetIPInfo_MouseHover(object sender, EventArgs e)
+        {
+            toolTip.Show("Get your current Network's IP and Subnet", btnGetIPInfo);
+        }
+
+        private void btnDNSsetCopy_MouseHover(object sender, EventArgs e)
+        {
+            toolTip.Show("Copy the selected DNS Set's IPs to the fields", btnDNSsetCopy);
+        }
+
+        
+
+        private void cmbNetworkName_MouseHover(object sender, EventArgs e)
+        {
+            toolTip.Show("Pick from the list of Network Interfaces on your PC", cmbNetworkName);
+        }
+
+        #endregion
     }
 }

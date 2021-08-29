@@ -87,7 +87,8 @@ namespace DNS_Roaming_Common
 
         public DNSRoamingRule()
         {
-            
+            //Do not set a new GUID on intialisation.
+            //Otherwise when loading a saved rules, the GUID will be wrong
         }
 
         #region Methods
@@ -99,6 +100,8 @@ namespace DNS_Roaming_Common
         {
             try
             {
+                //Set a New GUID if saving and the GUID is missing.
+                //Should only occur for a new Rule
                 if (ruleID == null)
                 {
                     ruleID = System.Guid.NewGuid().ToString();

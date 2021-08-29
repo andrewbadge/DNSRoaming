@@ -47,6 +47,7 @@
     <Compile Include="clsLogger.cs" />
     <Compile Include="clsNetworkingExtensions.cs" />
     <Compile Include="clsPathsandData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />

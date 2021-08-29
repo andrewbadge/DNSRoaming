@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.ServiceProcess;
 using System.Timers;
+using DNS_Roaming_Common;
 
 namespace DNS_Roaming_Service
 {
@@ -168,13 +169,28 @@ namespace DNS_Roaming_Service
         {
             ruleList = new List<DNSRoamingRule>();
 
-            PathsandData pathsandData = new PathsandData();
-            string[] settingFiles = Directory.GetFiles(pathsandData.BaseSettingsPath);
-            foreach (string settingFilename in settingFiles)
+            try
             {
-                DNSRoamingRule newRule = new DNSRoamingRule();
-                newRule.Load(settingFilename);
-                ruleList.Add(newRule);
+                PathsandData pathsandData = new PathsandData();
+                string[] settingFiles = Directory.GetFiles(pathsandData.BaseSettingsPath);
+                foreach (string settingFilename in settingFiles)
+                {
+                    //Catch an exception for a specific file but continue to process the next
+                    try
+                    {
+                        DNSRoamingRule newRule = new DNSRoamingRule();
+                        newRule.Load(settingFilename);
+                        ruleList.Add(newRule);
+                    }
+                    catch
+                    {
+                        Logger.Error(String.Format("Error loading rule {0}", settingFilename));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
             }
 
             //If no rules are loaded. the load the default and save the file
@@ -212,7 +228,7 @@ namespace DNS_Roaming_Service
                 {
                     Logger.Info(String.Format("Checking {0} rules", ruleList.Count));
 
-                    IList<NetworkInterface> currentNICs = GetActiveNetworks();
+                    IList<NetworkInterface> currentNICs = NetworkingExtensions.GetActiveNetworks();
 
                     //Loop through each active network 
                     foreach (NetworkInterface currentNIC in currentNICs)
@@ -226,7 +242,7 @@ namespace DNS_Roaming_Service
                         NetworkInterfaceType networkInterfaceType;
 
                         //Get name, Type, IP and Subnet
-                        GetNetworkAttributes(currentNIC, out currentIP, out currentSubnet, out networkName, out networkInterfaceType, out currentDNS1, out currentDNS2);
+                        NetworkingExtensions.GetNetworkAttributes(currentNIC, out currentIP, out currentSubnet, out networkName, out networkInterfaceType, out currentDNS1, out currentDNS2);
 
                         if (currentIP != string.Empty && currentSubnet != string.Empty)
                         {
@@ -258,15 +274,16 @@ namespace DNS_Roaming_Service
                                 if (thisRule.AddressSpecific)
                                 {
 
+                                    //Get the Current IP abd subnet and the Rules IP and Subnet
                                     IPAddress ip1 = IPAddress.Parse(currentIP);
                                     IPAddress subnet1 = IPAddress.Parse(currentSubnet);
 
                                     IPAddress ip2 = IPAddress.Parse(thisRule.AddressIP);
                                     IPAddress subnet2 = IPAddress.Parse(thisRule.AddressSubnet);
 
+                                    //Get the NEtwork address for both and compare.
                                     IPAddress network1 = ip1.GetNetworkAddress(subnet1);
                                     IPAddress network2 = ip2.GetNetworkAddress(subnet2);
-
                                     ruleMatchedAddress = network1.Equals(network2);
 
                                 }
@@ -291,14 +308,15 @@ namespace DNS_Roaming_Service
                                         NetworkingExtensions.GetDNSSetIPAddress(thisRule.DNSSet, out dns1, out dns2);
                                     }
 
-
+                                    //Check if the current DNS and new DNS match
                                     if (currentDNS1 == dns1 && currentDNS2 == dns2)
                                     {
+                                        //If so then don't do anything
                                         Logger.Info(String.Format("DNS already set for {0} to {1},{2}", networkName, dns1, dns2));
                                     }
                                     else
                                     {
-                                        //Set the DNS addresses
+                                        //else set the new DNS addresses
                                         Logger.Info(String.Format("Setting DNS for {0} to {1},{2}", networkName, dns1, dns2));
                                         NetworkingExtensions.SetStaticDNSusingPowershell(networkName, dns1, dns2);
                                     }
@@ -320,90 +338,7 @@ namespace DNS_Roaming_Service
             }
         }
 
-        /// <summary>
-        /// Return a list Network Interfaces that are active with IPV4
-        /// </summary>
-        /// <returns></returns>
-        static private IList<NetworkInterface> GetActiveNetworks()
-        {
-            IList<NetworkInterface> currentNICs = new List<NetworkInterface>();
-
-            //Build a list of active Networks
-            try
-            {
-                NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
-                foreach (NetworkInterface n in adapters)
-                {
-                    if (n.OperationalStatus == OperationalStatus.Up)
-                    {
-                        if (n.Supports(NetworkInterfaceComponent.IPv4))
-                        {
-                            currentNICs.Add(n);
-                        }
-                    }
-                }
-                Logger.Info(String.Format("{0} active Networks", currentNICs.Count));
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex.Message);
-            }
-
-            return currentNICs;
-
-        }
-
-        /// <summary>
-        /// For a Network Interface; return attributes of interest
-        /// </summary>
-        /// <param name="currentNIC"></param>
-        /// <param name="currentIP"></param>
-        /// <param name="currentSubnet"></param>
-        /// <param name="networkName"></param>
-        /// <param name="networkInterfaceType"></param>
-        /// <param name="dnsAddress1"></param>
-        /// <param name="dnsAddress2"></param>
-        static private void GetNetworkAttributes(NetworkInterface currentNIC, out string currentIP, out string currentSubnet, out string networkName, out NetworkInterfaceType networkInterfaceType, out string dnsAddress1, out string dnsAddress2)
-        {
-            //Get name, Type, IP and Subnet
-            networkName = currentNIC.Name;
-            networkInterfaceType = currentNIC.NetworkInterfaceType;
-            currentIP = string.Empty;
-            currentSubnet = string.Empty;
-            dnsAddress1 = string.Empty;
-            dnsAddress2 = string.Empty;
-
-
-            if (currentNIC.Supports(NetworkInterfaceComponent.IPv4))
-            {
-                foreach (UnicastIPAddressInformation ip in currentNIC.GetIPProperties().UnicastAddresses)
-                {
-                    if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                    {
-                        currentIP = ip.Address.ToString();
-                        currentSubnet = ip.IPv4Mask.ToString();
-                        break;
-                    }
-                }
-
-                IPInterfaceProperties ipProperties = currentNIC.GetIPProperties();
-                IPAddressCollection dnsAddresses = ipProperties.DnsAddresses;
-
-                foreach (IPAddress dnsAddress in dnsAddresses)
-                {
-                    if (dnsAddress1 == String.Empty)
-                        dnsAddress1 = dnsAddress.ToString();
-                    else
-                    {
-                        if (dnsAddress2 == String.Empty)
-                            dnsAddress2 = dnsAddress.ToString();
-                        else
-                            break;
-                    }
-                }
-
-            }
-        }
+        
 
     }
 }

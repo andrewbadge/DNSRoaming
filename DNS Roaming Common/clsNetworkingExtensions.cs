@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -38,14 +39,6 @@ namespace DNS_Roaming_Common
                 broadcastAddress[i] = (byte)(ipAdressBytes[i] & (subnetMaskBytes[i]));
             }
             return new IPAddress(broadcastAddress);
-        }
-
-        public static bool IsInSameSubnet(this IPAddress address2, IPAddress address, IPAddress subnetMask)
-        {
-            IPAddress network1 = address.GetNetworkAddress(subnetMask);
-            IPAddress network2 = address2.GetNetworkAddress(subnetMask);
-
-            return network1.Equals(network2);
         }
 
         public static void GetCurrentIPandSubNet(out String currentIP, out String currentSubnet)
@@ -152,7 +145,92 @@ namespace DNS_Roaming_Common
                 Logger.Error(ex.Message);
             }
 
-}
+        }
+
+        /// <summary>
+        /// Return a list Network Interfaces that are active with IPV4
+        /// </summary>
+        /// <returns></returns>
+        public static IList<NetworkInterface> GetActiveNetworks()
+        {
+            IList<NetworkInterface> currentNICs = new List<NetworkInterface>();
+
+            //Build a list of active Networks
+            try
+            {
+                NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
+                foreach (NetworkInterface n in adapters)
+                {
+                    if (n.OperationalStatus == OperationalStatus.Up)
+                    {
+                        if (n.Supports(NetworkInterfaceComponent.IPv4))
+                        {
+                            currentNICs.Add(n);
+                        }
+                    }
+                }
+                Logger.Info(String.Format("{0} active Networks", currentNICs.Count));
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+
+            return currentNICs;
+
+        }
+
+        /// <summary>
+        /// For a Network Interface; return attributes of interest
+        /// </summary>
+        /// <param name="currentNIC"></param>
+        /// <param name="currentIP"></param>
+        /// <param name="currentSubnet"></param>
+        /// <param name="networkName"></param>
+        /// <param name="networkInterfaceType"></param>
+        /// <param name="dnsAddress1"></param>
+        /// <param name="dnsAddress2"></param>
+        public static void GetNetworkAttributes(NetworkInterface currentNIC, out string currentIP, out string currentSubnet, out string networkName, out NetworkInterfaceType networkInterfaceType, out string dnsAddress1, out string dnsAddress2)
+        {
+            //Get name, Type, IP and Subnet
+            networkName = currentNIC.Name;
+            networkInterfaceType = currentNIC.NetworkInterfaceType;
+            currentIP = string.Empty;
+            currentSubnet = string.Empty;
+            dnsAddress1 = string.Empty;
+            dnsAddress2 = string.Empty;
+
+
+            if (currentNIC.Supports(NetworkInterfaceComponent.IPv4))
+            {
+                foreach (UnicastIPAddressInformation ip in currentNIC.GetIPProperties().UnicastAddresses)
+                {
+                    if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                    {
+                        currentIP = ip.Address.ToString();
+                        currentSubnet = ip.IPv4Mask.ToString();
+                        break;
+                    }
+                }
+
+                IPInterfaceProperties ipProperties = currentNIC.GetIPProperties();
+                IPAddressCollection dnsAddresses = ipProperties.DnsAddresses;
+
+                foreach (IPAddress dnsAddress in dnsAddresses)
+                {
+                    if (dnsAddress1 == String.Empty)
+                        dnsAddress1 = dnsAddress.ToString();
+                    else
+                    {
+                        if (dnsAddress2 == String.Empty)
+                            dnsAddress2 = dnsAddress.ToString();
+                        else
+                            break;
+                    }
+                }
+
+            }
+        }
 
     }
 }

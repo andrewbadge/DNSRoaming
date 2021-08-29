@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmRule));
             this.listNetworkType = new System.Windows.Forms.CheckedListBox();
             this.radioNetworkName = new System.Windows.Forms.RadioButton();
             this.radioNetworkType = new System.Windows.Forms.RadioButton();
@@ -52,6 +53,7 @@
             this.radioAddressAny = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnDNSsetCopy = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -95,6 +97,7 @@
             this.cmbNetworkName.Name = "cmbNetworkName";
             this.cmbNetworkName.Size = new System.Drawing.Size(325, 21);
             this.cmbNetworkName.TabIndex = 5;
+            this.cmbNetworkName.MouseHover += new System.EventHandler(this.cmbNetworkName_MouseHover);
             // 
             // cmbDNSset
             // 
@@ -211,6 +214,7 @@
             this.btnGetIPInfo.TabIndex = 22;
             this.btnGetIPInfo.UseVisualStyleBackColor = true;
             this.btnGetIPInfo.Click += new System.EventHandler(this.btnGetIPInfo_Click);
+            this.btnGetIPInfo.MouseHover += new System.EventHandler(this.btnGetIPInfo_MouseHover);
             // 
             // label1
             // 
@@ -284,6 +288,7 @@
             this.btnDNSsetCopy.TabIndex = 23;
             this.btnDNSsetCopy.UseVisualStyleBackColor = true;
             this.btnDNSsetCopy.Click += new System.EventHandler(this.btnDNSsetCopy_Click);
+            this.btnDNSsetCopy.MouseHover += new System.EventHandler(this.btnDNSsetCopy_MouseHover);
             // 
             // FrmRule
             // 
@@ -298,9 +303,10 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmRule";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "DNS Rule";
+            this.Text = "New Rule";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -337,5 +343,6 @@
         private System.Windows.Forms.TextBox txtAddressIP;
         private System.Windows.Forms.Button btnGetIPInfo;
         private System.Windows.Forms.Button btnDNSsetCopy;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

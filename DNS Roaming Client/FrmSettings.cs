@@ -42,7 +42,7 @@ namespace DNS_Roaming_Client
                         newRule.Load(settingFilename);
                         ruleList.Add(newRule);
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         Logger.Error(String.Format("Error loading rule {0}", settingFilename));
                     }
@@ -201,6 +201,16 @@ namespace DNS_Roaming_Client
             catch (Exception ex)
             {
                 Logger.Error(ex.Message);
+            }
+        }
+
+        private void listViewRules_MouseHover(object sender, EventArgs e)
+        {
+            if (listViewRules.SelectedItems.Count != 0)
+            {
+                string lvID = listViewRules.SelectedItems[0].Text;
+
+                toolTip.Show(String.Format("Rule ID {0}", lvID), listViewRules);
             }
         }
     }
