@@ -13,6 +13,10 @@ System Requirements:
 
 NB: it will probably work fine on older OS but its untested. Ensure [.NET Framework 4.7 is installed](https://www.microsoft.com/en-us/download/details.aspx?id=55167)
 
+## Why is it Beta?
+
+I haven't tested the installation in enough scenarios yet nor have I got feedback from anyone else. I believe the functionality and quality is solid but expected a randon stuff-up until the first feedback is in.
+
 ## What is DNS Roaming
 
 DNS Roaming is a Client and Service to ensure the DNS Servers are set via a rule / policy rather than the network a PC is connected to. 
