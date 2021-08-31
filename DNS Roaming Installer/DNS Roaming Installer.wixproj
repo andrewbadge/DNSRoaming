@@ -22,12 +22,15 @@
     <Compile Include="Library.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DnsWhite.ico" />
     <Content Include="DNSRoamingLicense.rtf" />
     <Content Include="ReadMe.txt" />
     <Content Include="Server.ico" />
   </ItemGroup>
   <ItemGroup>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
+      <Name>WixNetFxExtension</Name>
+    </WixExtension>
     <WixExtension Include="WixUIExtension">
       <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
       <Name>WixUIExtension</Name>
