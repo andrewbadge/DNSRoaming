@@ -46,6 +46,8 @@ But do you have the control over your friends home network? Do you have control 
 
 [DNS Set Definitions](https://github.com/andrewbadge/DNSRoaming/blob/main/DNSSets.md)
 
+[Deployment Examples](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment.md)
+
 # Technical Stuff
 DNS Roaming is two components:
 
