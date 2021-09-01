@@ -100,6 +100,30 @@ namespace DNS_Roaming_Common
                     ipPreferred = "8.8.8.8";
                     ipAlternative = "8.8.4.4";
                     break;
+                case "AdGuard":
+                    ipPreferred = "94.140.14.14";
+                    ipAlternative = "94.140.15.15";
+                    break;
+                case "Alternate DNS":
+                    ipPreferred = "76.76.19.19";
+                    ipAlternative = "76.223.122.150";
+                    break;
+                case "CleanBrowsing - Adult":
+                    ipPreferred = "185.228.168.10";
+                    ipAlternative = "185.228.169.11";
+                    break;
+                case "CleanBrowsing - Family":
+                    ipPreferred = "185.228.168.168";
+                    ipAlternative = "185.228.169.168";
+                    break;
+                case "CleanBrowsing - Security":
+                    ipPreferred = "185.228.168.9";
+                    ipAlternative = "185.228.169.9";
+                    break;
+                case "FourthEstate":
+                    ipPreferred = "45.77.165.194";
+                    ipAlternative = "45.32.36.36";
+                    break;
 
                 default: //"Quad9 + CloudFlare - No Malware"
                     ipPreferred = "9.9.9.9";

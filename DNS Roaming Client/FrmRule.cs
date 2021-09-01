@@ -75,6 +75,12 @@ namespace DNS_Roaming_Client
             cmbDNSset.Items.Add("Cloudflare - No Malware");
             cmbDNSset.Items.Add("Cloudflare - No Malware or Adult");
             cmbDNSset.Items.Add("Google");
+            cmbDNSset.Items.Add("AdGuard");
+            cmbDNSset.Items.Add("Alternate DNS");
+            cmbDNSset.Items.Add("CleanBrowsing - Adult");
+            cmbDNSset.Items.Add("CleanBrowsing - Family");
+            cmbDNSset.Items.Add("CleanBrowsing - Security");
+            cmbDNSset.Items.Add("FourthEstate");
         }
 
         /// <summary>

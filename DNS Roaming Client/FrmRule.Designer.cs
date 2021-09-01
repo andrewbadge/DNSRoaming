@@ -66,6 +66,7 @@
             this.listNetworkType.Location = new System.Drawing.Point(35, 48);
             this.listNetworkType.Name = "listNetworkType";
             this.listNetworkType.Size = new System.Drawing.Size(325, 109);
+            this.listNetworkType.Sorted = true;
             this.listNetworkType.TabIndex = 0;
             // 
             // radioNetworkName
@@ -96,6 +97,7 @@
             this.cmbNetworkName.Location = new System.Drawing.Point(35, 200);
             this.cmbNetworkName.Name = "cmbNetworkName";
             this.cmbNetworkName.Size = new System.Drawing.Size(325, 21);
+            this.cmbNetworkName.Sorted = true;
             this.cmbNetworkName.TabIndex = 5;
             this.cmbNetworkName.MouseHover += new System.EventHandler(this.cmbNetworkName_MouseHover);
             // 
@@ -106,6 +108,7 @@
             this.cmbDNSset.Location = new System.Drawing.Point(15, 30);
             this.cmbDNSset.Name = "cmbDNSset";
             this.cmbDNSset.Size = new System.Drawing.Size(333, 21);
+            this.cmbDNSset.Sorted = true;
             this.cmbDNSset.TabIndex = 8;
             this.cmbDNSset.SelectedIndexChanged += new System.EventHandler(this.cmbDNSset_SelectedIndexChanged);
             // 
