@@ -54,14 +54,14 @@ Alternative: 8.8.4.4
 Blocks ads, malware and phishing websites
 
 Prefered: 94.140.14.14
-94.140.15.15
+Alternative: 94.140.15.15
 
 ## Alternate DNS
 
 [About Alternate DNS](https://alternate-dns.com/)
 
 Prefered: 76.76.19.19
-76.223.122.150
+Alternative: 76.223.122.150
               
 ## CleanBrowsing - Adult
 
@@ -70,21 +70,21 @@ Prefered: 76.76.19.19
 Blocks Adult, Mixed content, malware and phishing websites. Youtube and Searches are in Safe mode
 
 Prefered: 185.228.168.10
-185.228.169.11
+Alternative: 185.228.169.11
               
 ## CleanBrowsing - Family
 
 Blocks Adult, Mixed content, Proxies, malware and phishing websites. Youtube and Searches are in Safe mode
 
 Prefered: 185.228.168.168
-185.228.169.168
+Alternative: 185.228.169.168
                
 ## CleanBrowsing - Security
 
 Blocks malware and phishing websites
 
 Prefered: 185.228.168.9
-185.228.169.9
+Alternative: 185.228.169.9
 
 ## FourthEstate
 
@@ -93,5 +93,5 @@ Prefered: 185.228.168.9
 Uncensored, Privacy Protected DNS
 
 Prefered: 45.77.165.194
-45.32.36.36
+Alternative: 45.32.36.36
 
