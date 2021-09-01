@@ -149,15 +149,14 @@ namespace DNS_Roaming_Service
 
         static void ServiceTimerEvent(Object source, ElapsedEventArgs e)
         {
-            Logger.Info(String.Format("Periodically checking networks"));
-            CompareNetworkToRules();
-
             //Reschedule the next Timer to a random internal 
             //between 5 and 60 mins
             Random randomNumber = new Random();
-            int timerDelay = randomNumber.Next(600, 3600)*1000;
+            int timerDelay = randomNumber.Next(600, 3600) * 1000;
             serviceTimer.Interval = timerDelay;
 
+            Logger.Info(String.Format("Periodically checking networks"));
+            CompareNetworkToRules();
         }
 
         #endregion
@@ -206,7 +205,7 @@ namespace DNS_Roaming_Service
         /// </summary>
         private static void ConfigureServiceTimer()
         {
-            serviceTimer = new System.Timers.Timer(2000);
+            serviceTimer = new System.Timers.Timer(10000);
             serviceTimer.Elapsed += ServiceTimerEvent;
             serviceTimer.AutoReset = true;
             serviceTimer.Enabled = true;
@@ -236,13 +235,12 @@ namespace DNS_Roaming_Service
                         //Setting up Variables
                         string currentIP = string.Empty;
                         string currentSubnet = string.Empty;
-                        string currentDNS1 = string.Empty;
-                        string currentDNS2 = string.Empty;
+                        IList<string> currentDNSAddresses = new List<string>();
                         string networkName = string.Empty;
                         NetworkInterfaceType networkInterfaceType;
 
                         //Get name, Type, IP and Subnet
-                        NetworkingExtensions.GetNetworkAttributes(currentNIC, out currentIP, out currentSubnet, out networkName, out networkInterfaceType, out currentDNS1, out currentDNS2);
+                        NetworkingExtensions.GetNetworkAttributes(currentNIC, out currentIP, out currentSubnet, out networkName, out networkInterfaceType, out currentDNSAddresses);
 
                         if (currentIP != string.Empty && currentSubnet != string.Empty)
                         {
@@ -309,15 +307,16 @@ namespace DNS_Roaming_Service
                                     }
 
                                     //Check if the current DNS and new DNS match
-                                    if (currentDNS1 == dns1 && currentDNS2 == dns2)
+                                    if (CurrentDNSMatchNewDNS(currentDNSAddresses, dns1 ,dns2))
                                     {
                                         //If so then don't do anything
-                                        Logger.Info(String.Format("DNS already set for {0} to {1},{2}", networkName, dns1, dns2));
+                                        Logger.Info(String.Format("DNS already set for [{0}] to {1}", networkName, ExpandCurrentDNS(currentDNSAddresses)));
                                     }
                                     else
                                     {
                                         //else set the new DNS addresses
-                                        Logger.Info(String.Format("Setting DNS for {0} to {1},{2}", networkName, dns1, dns2));
+                                        Logger.Info(String.Format("Old DNS for [{0}] was {1}", networkName, ExpandCurrentDNS(currentDNSAddresses)));
+                                        Logger.Info(String.Format("Setting DNS for [{0}] to {1},{2}", networkName, dns1, dns2));
                                         NetworkingExtensions.SetStaticDNSusingPowershell(networkName, dns1, dns2);
                                     }
 
@@ -338,7 +337,46 @@ namespace DNS_Roaming_Service
             }
         }
 
-        
+        private static bool CurrentDNSMatchNewDNS(IList<string> currentDNSAddresses, string newDns1, string newDns2)
+        {
+            //Only compare the Preferred and Alernate DNS as they're the only ones we're setting
+            string currentDns1 = string.Empty;
+            string currentDns2 = string.Empty;
+            foreach (String dnsAddress in currentDNSAddresses)
+            {
+                if (dnsAddress.ToString() != String.Empty)
+                {
+                    if (currentDns1 == string.Empty)
+                        currentDns1 = dnsAddress.ToString();
+                    else
+                    {
+                        currentDns2 = dnsAddress.ToString();
+                        break;
+                    }
+                }
+            }
+
+            return (currentDns1 == newDns1 && currentDns2 == newDns2);
+        }
+
+        private static string ExpandCurrentDNS(IList<string> currentDNSAddresses)
+        {
+            string dnsString = string.Empty;
+
+            foreach (String dnsAddress in currentDNSAddresses)
+            {
+                if (dnsAddress.ToString() != String.Empty)
+                {
+                    if (dnsString == string.Empty)
+                        dnsString += String.Format("{0}", dnsAddress.ToString());
+                    else
+                        dnsString += String.Format(",{0}", dnsAddress.ToString());
+                }
+            }
+
+            return dnsString;
+
+        }
 
     }
 }

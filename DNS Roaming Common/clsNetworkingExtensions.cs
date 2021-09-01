@@ -214,16 +214,14 @@ namespace DNS_Roaming_Common
         /// <param name="networkInterfaceType"></param>
         /// <param name="dnsAddress1"></param>
         /// <param name="dnsAddress2"></param>
-        public static void GetNetworkAttributes(NetworkInterface currentNIC, out string currentIP, out string currentSubnet, out string networkName, out NetworkInterfaceType networkInterfaceType, out string dnsAddress1, out string dnsAddress2)
+        public static void GetNetworkAttributes(NetworkInterface currentNIC, out string currentIP, out string currentSubnet, out string networkName, out NetworkInterfaceType networkInterfaceType, out IList<string> currentDNSAddresses)
         {
             //Get name, Type, IP and Subnet
             networkName = currentNIC.Name;
             networkInterfaceType = currentNIC.NetworkInterfaceType;
             currentIP = string.Empty;
             currentSubnet = string.Empty;
-            dnsAddress1 = string.Empty;
-            dnsAddress2 = string.Empty;
-
+            currentDNSAddresses = new List<string>();
 
             if (currentNIC.Supports(NetworkInterfaceComponent.IPv4))
             {
@@ -242,15 +240,7 @@ namespace DNS_Roaming_Common
 
                 foreach (IPAddress dnsAddress in dnsAddresses)
                 {
-                    if (dnsAddress1 == String.Empty)
-                        dnsAddress1 = dnsAddress.ToString();
-                    else
-                    {
-                        if (dnsAddress2 == String.Empty)
-                            dnsAddress2 = dnsAddress.ToString();
-                        else
-                            break;
-                    }
+                    currentDNSAddresses.Add(dnsAddress.ToString());
                 }
 
             }
