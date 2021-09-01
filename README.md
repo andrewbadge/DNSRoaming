@@ -84,13 +84,11 @@ NB: the log and settings files will always be stored under %ProgramData%\DNSRoam
 In case you've found a bug, please open an issue on our GitHub.
 Or you just think what I've done is stupid; then keep it to yourself. ;-)
 
-## Why Quad9 or why CloudFlare?
+## Why is Quad9 and CloudFlare default?
 
-They offer fast and effective blocking of malware links and URLs for free.
+My original objective was to get fast and effective blocking of malware links and URLs for free. Both of these services are well known and high quality. You can always set your own customer servers!
 
-Read more about on Quad9 here: [About Quad9](https://www.quad9.net/about/)
-
-Read more about on CloudFlare here: [About CloudFlare](https://blog.cloudflare.com/introducing-1-1-1-1-for-families/)
+Read about the [DNS Set Definitions](https://github.com/andrewbadge/DNSRoaming/blob/main/DNSSets.md)
 
 ## Got another DNS server suggestion?
 
