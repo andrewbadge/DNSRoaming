@@ -54,7 +54,7 @@ DNS Roaming is two components:
 - a Client: to show the status of the service and configure settings
 - a Service: to parse the rules and set DNS servers
 
-All Code is written in C# with a WIX Toolkit based installer.
+All Code is written in C# with a WIX Toolkit based installer and compiled with [Visual Studio Community Edition 2019](https://visualstudio.microsoft.com/downloads/).
 
 ### Configuration
 
