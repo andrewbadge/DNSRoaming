@@ -4,7 +4,7 @@
 
 ![image](https://user-images.githubusercontent.com/15990355/131957665-10c4be59-9c59-4538-bdb7-65a0248305cd.png)
 
-Logs are also in %ProgramData%\DNSRoaming folder.
+Logs are also in the %ProgramData%\DNSRoaming folder.
 
 ## DNS Roaming and a VPN
 
