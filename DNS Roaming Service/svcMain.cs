@@ -16,6 +16,8 @@ namespace DNS_Roaming_Service
         static FileSystemWatcher watcher;
         static bool isServicePaused = false;
         private static System.Timers.Timer serviceTimer;
+        static DateTime lastEventTriggered = new DateTime(); 
+        static int countEventSkipped = 0;
 
         public svcMain()
         {
@@ -93,6 +95,9 @@ namespace DNS_Roaming_Service
             watcher.IncludeSubdirectories = false;
             watcher.EnableRaisingEvents = true;
 
+            lastEventTriggered = DateTime.Now.AddDays(-1);
+            countEventSkipped = 0;
+
         }
 
         private static void SettingsFileChanged(object sender, FileSystemEventArgs e)
@@ -101,9 +106,13 @@ namespace DNS_Roaming_Service
             {
                 return;
             }
-            Logger.Info(String.Format("Settings file change detected"));
-            LoadDNSRules();
-            CompareNetworkToRules();
+
+            if (!EventThrottled())
+            {
+                Logger.Info(String.Format("Settings file change detected"));
+                LoadDNSRules();
+                CompareNetworkToRules();
+            }
         }
 
         private static void SettingsFileCreated(object sender, FileSystemEventArgs e)
@@ -112,9 +121,13 @@ namespace DNS_Roaming_Service
             {
                 return;
             }
-            Logger.Info(String.Format("Settings file change detected"));
-            LoadDNSRules();
-            CompareNetworkToRules();
+
+            if (!EventThrottled())
+            {
+                Logger.Info(String.Format("Settings file change detected"));
+                LoadDNSRules();
+                CompareNetworkToRules();
+            }
         }
 
         private static void SettingsFileDeleted(object sender, FileSystemEventArgs e)
@@ -123,9 +136,13 @@ namespace DNS_Roaming_Service
             {
                 return;
             }
-            Logger.Info(String.Format("Settings file change detected"));
-            LoadDNSRules();
-            CompareNetworkToRules();
+
+            if (!EventThrottled())
+            {
+                Logger.Info(String.Format("Settings file change detected"));
+                LoadDNSRules();
+                CompareNetworkToRules();
+            }
         }
 
         private static void SettingsFileRenamed(object sender, FileSystemEventArgs e)
@@ -134,35 +151,80 @@ namespace DNS_Roaming_Service
             {
                 return;
             }
-            Logger.Info(String.Format("Settings file change detected"));
-            LoadDNSRules();
-            CompareNetworkToRules();
+
+            if (!EventThrottled())
+            {
+                Logger.Info(String.Format("Settings file change detected"));
+                LoadDNSRules();
+                CompareNetworkToRules();
+            }
         }
 
         static void AddressChangedCallback(object sender, EventArgs e)
         {
-            Logger.Info(String.Format("Address change detected"));
-            CompareNetworkToRules();
+            if (!EventThrottled())
+            {
+                Logger.Info(String.Format("Address change detected"));
+                CompareNetworkToRules();
+            }
         }
 
         static void AvailabilityChangedCallback(object sender, EventArgs e)
         {
-            Logger.Info(String.Format("Availability change detected"));
-            CompareNetworkToRules();
+            if (!EventThrottled())
+            {
+                Logger.Info(String.Format("Availability change detected"));
+                CompareNetworkToRules();
+            }
         }
 
         static void ServiceTimerEvent(Object source, ElapsedEventArgs e)
         {
             Logger.Debug("ServiceTimerEvent");
 
-            //Reschedule the next Timer to a random internal 
-            //between 5 and 60 mins
-            Random randomNumber = new Random();
-            int timerDelay = randomNumber.Next(600, 3600) * 1000;
-            serviceTimer.Interval = timerDelay;
+            if (!EventThrottled())
+            {
+                //Reschedule the next Timer to a random internal 
+                //between 5 and 60 mins
+                Random randomNumber = new Random();
+                int timerDelay = randomNumber.Next(600, 3600) * 1000;
+                serviceTimer.Interval = timerDelay;
 
-            Logger.Info(String.Format("Periodically checking networks"));
-            CompareNetworkToRules();
+                Logger.Info(String.Format("Periodically checking networks"));
+                CompareNetworkToRules();
+            }
+        }
+
+        /// <summary>
+        /// Determines whether an event should trigger a scan. Prevents lots of events triggering too frequently
+        /// </summary>
+        /// <returns></returns>
+        static bool EventThrottled()
+        {
+            Logger.Debug("EventThrottled");
+
+            bool throttled = false;
+            TimeSpan eventDelay = DateTime.Now.Subtract(lastEventTriggered);
+
+            //If an event hasn't been actioned for more than 120 seconds
+            //or we already skipped 5 events
+            if (eventDelay.TotalSeconds > 120 || countEventSkipped > 5)
+            {
+                Logger.Debug("Event wasn't Throttled");
+
+                lastEventTriggered = DateTime.Now;
+                countEventSkipped = 0;
+                throttled = true;
+            }
+            else
+            {
+                countEventSkipped += 1;
+                throttled = false;
+
+                Logger.Debug(string.Format("Event was Throttled ({0} skipped)", countEventSkipped));
+            }
+
+            return throttled;
         }
 
         #endregion

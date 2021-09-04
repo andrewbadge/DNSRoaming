@@ -56,6 +56,11 @@ namespace DNS_Roaming_Common
             }
         }
 
+        /// <summary>
+        /// Allow user to modify the Settings and log folder (as the service is most likely to be the firts to start) 
+        /// Otherwise the client can't save logs or settings
+        /// </summary>
+        /// <param name="directoryPath"></param>
         private void SetDirectoryPermissions(string directoryPath)
         {
             Logger.Debug("SetDirectoryPermissions");
@@ -64,13 +69,34 @@ namespace DNS_Roaming_Common
             {
                 // Get directory access info
                 DirectoryInfo dinfo = new DirectoryInfo(directoryPath);
-                DirectorySecurity dSecurity = dinfo.GetAccessControl();
+                DirectorySecurity dSecurity = dinfo.GetAccessControl(AccessControlSections.All);
 
-                // Add the FileSystemAccessRule to the security settings. 
-                dSecurity.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null), FileSystemRights.FullControl, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
+                AuthorizationRuleCollection rules = dSecurity.GetAccessRules(true, true, typeof(NTAccount));
+                bool matchingACLFound = false;
 
-                // Set the access control
-                dinfo.SetAccessControl(dSecurity);
+                //Find the ACL to see if the Users can modify the folder
+                foreach (AuthorizationRule rule in rules)
+                {
+                    var filesystemAccessRule = (FileSystemAccessRule)rule;
+                    if (filesystemAccessRule.IdentityReference.ToString() == "BUILTIN\\Users" 
+                        && (filesystemAccessRule.FileSystemRights.ToString() == "FullControl"
+                            || filesystemAccessRule.FileSystemRights.ToString() == "Modify"
+                            || filesystemAccessRule.FileSystemRights.ToString() == "Modify, Synchronize"))
+                    {
+                        matchingACLFound = true;
+                        break;
+                    }
+                }
+
+                //If no ACL is found then add a new one
+                if (!matchingACLFound)
+                {
+                    // Add the FileSystemAccessRule to the security settings. 
+                    dSecurity.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null), FileSystemRights.Modify, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
+
+                    // Set the access control
+                    dinfo.SetAccessControl(dSecurity);
+                }
             }
             catch { }
         }
