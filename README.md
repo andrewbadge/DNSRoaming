@@ -54,7 +54,7 @@ DNS Roaming is two components:
 - a Client: to show the status of the service and configure settings
 - a Service: to parse the rules and set DNS servers
 
-All Code is written in C# with a WIX Toolkit based installer.
+All Code is written in C# with a WIX Toolkit based installer and compiled with [Visual Studio Community Edition 2019](https://visualstudio.microsoft.com/downloads/).
 
 ### Configuration
 
@@ -80,6 +80,8 @@ Sure. DNS Roaming won't care where the service and client files are located. If 
 NB: the log and settings files will always be stored under %ProgramData%\DNSRoaming 
 
 ## Found a issue or bug?
+
+See [Troubleshooting](https://github.com/andrewbadge/DNSRoaming/blob/main/Troubleshooting.md)
 
 In case you've found a bug, please open an issue on our GitHub.
 Or you just think what I've done is stupid; then keep it to yourself. ;-)
