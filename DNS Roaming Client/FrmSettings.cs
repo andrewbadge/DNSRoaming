@@ -67,38 +67,41 @@ namespace DNS_Roaming_Client
 
             foreach (DNSRoamingRule thisRule in ruleList)
             {
-                ListViewItem lvItem = new ListViewItem();
-                lvItem.Text = thisRule.ID;
+                try { 
+                    ListViewItem lvItem = new ListViewItem();
+                    lvItem.Text = thisRule.ID;
 
-                if (thisRule.UseNetworkType)
-                    lvItem.SubItems.Add(String.Format("Type is {0}", thisRule.NetworkType));
-                else
-                {
-                    if (thisRule.NetworkNameIs == String.Empty)
-                        lvItem.SubItems.Add(String.Format("Name is not {0}", thisRule.NetworkNameIsNot));
+                    if (thisRule.UseNetworkType)
+                        lvItem.SubItems.Add(String.Format("Type is {0}", thisRule.NetworkType));
                     else
-                        lvItem.SubItems.Add(String.Format("Name is {0}", thisRule.NetworkNameIs));
-                }
+                    {
+                        if (thisRule.NetworkNameIs == String.Empty)
+                            lvItem.SubItems.Add(String.Format("Name is not {0}", thisRule.NetworkNameIsNot));
+                        else
+                            lvItem.SubItems.Add(String.Format("Name is {0}", thisRule.NetworkNameIs));
+                    }
 
-                if (thisRule.AddressIsSpecific ) 
-                    lvItem.SubItems.Add(String.Format("In {0}/{1}", thisRule.AddressIP, thisRule.AddressSubnet));
+                    if (thisRule.AddressIsSpecific ) 
+                        lvItem.SubItems.Add(String.Format("In {0}/{1}", thisRule.AddressIP, thisRule.AddressSubnet));
 
-                if (thisRule.AddressIsNotSpecific)
-                    lvItem.SubItems.Add(String.Format("Not in {0}/{1}", thisRule.AddressIP, thisRule.AddressSubnet));
+                    if (thisRule.AddressIsNotSpecific)
+                        lvItem.SubItems.Add(String.Format("Not in {0}/{1}", thisRule.AddressIP, thisRule.AddressSubnet));
 
-                if (!thisRule.AddressIsSpecific && !thisRule.AddressIsNotSpecific)
-                    lvItem.SubItems.Add("Any Subnet");
+                    if (!thisRule.AddressIsSpecific && !thisRule.AddressIsNotSpecific)
+                        lvItem.SubItems.Add("Any Subnet");
 
-                if (thisRule.DNSPreferred == String.Empty && thisRule.DNSAlternative == String.Empty)
-                    lvItem.SubItems.Add(thisRule.DNSSet);
-                else
-                    lvItem.SubItems.Add(String.Format("{0},{1}", thisRule.DNSPreferred, thisRule.DNSAlternative).Trim());
+                    if (thisRule.DNSPreferred == String.Empty && thisRule.DNSAlternative == String.Empty)
+                        lvItem.SubItems.Add(thisRule.DNSSet);
+                    else
+                        lvItem.SubItems.Add(String.Format("{0},{1}", thisRule.DNSPreferred, thisRule.DNSAlternative).Trim());
                 
-                listViewRules.Items.Add(lvItem);
+                    listViewRules.Items.Add(lvItem);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex.Message);
+                }
             }
-
-
-
         }
 
         /// <summary>
@@ -106,14 +109,21 @@ namespace DNS_Roaming_Client
         /// </summary>
         private void ListRuleNew()
         {
-            FrmRule frmRule = new FrmRule();
-            frmRule.ShowDialog();
-
-            if (!frmRule.FormCancelled)
+            try
             {
-                DNSRoamingRule returnRule = frmRule.ThisRule;
-                ruleList.Add(returnRule);
-                ListRules();
+                FrmRule frmRule = new FrmRule();
+                frmRule.ShowDialog();
+
+                if (!frmRule.FormCancelled)
+                {
+                    DNSRoamingRule returnRule = frmRule.ThisRule;
+                    ruleList.Add(returnRule);
+                    ListRules();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
             }
         }
 
@@ -122,24 +132,31 @@ namespace DNS_Roaming_Client
         /// </summary>
         private void ListRuleEdit()
         {
-            if (listViewRules.SelectedItems.Count != 0)
+            try
             {
-                string lvID = listViewRules.SelectedItems[0].Text;
-
-                if (ruleList.Any(x => x.ID == lvID))
+                if (listViewRules.SelectedItems.Count != 0)
                 {
-                    var thisRule = ruleList.FirstOrDefault(x => x.ID == lvID);
-                    FrmRule frmRule = new FrmRule();
-                    frmRule.ThisRule = thisRule;
-                    frmRule.ShowDialog();
+                    string lvID = listViewRules.SelectedItems[0].Text;
 
-                    if (!frmRule.FormCancelled)
+                    if (ruleList.Any(x => x.ID == lvID))
                     {
-                        DNSRoamingRule returnRule = frmRule.ThisRule;
-                        thisRule = returnRule;
-                        ListRules();
+                        var thisRule = ruleList.FirstOrDefault(x => x.ID == lvID);
+                        FrmRule frmRule = new FrmRule();
+                        frmRule.ThisRule = thisRule;
+                        frmRule.ShowDialog();
+
+                        if (!frmRule.FormCancelled)
+                        {
+                            DNSRoamingRule returnRule = frmRule.ThisRule;
+                            thisRule = returnRule;
+                            ListRules();
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
             }
         }
 
@@ -148,22 +165,29 @@ namespace DNS_Roaming_Client
         /// </summary>
         private void ListRuleRemove()
         {
-            if (listViewRules.SelectedItems.Count != 0)
+            try
             {
-                string lvID = listViewRules.SelectedItems[0].Text;
-
-                if (ruleList.Any(x => x.ID == lvID))
+                if (listViewRules.SelectedItems.Count != 0)
                 {
-                    var thisRule = ruleList.FirstOrDefault(x => x.ID == lvID);
+                    string lvID = listViewRules.SelectedItems[0].Text;
 
-                    DialogResult dialogResult = MessageBox.Show("Are you sure you want to remove this rule?", string.Format("Remove Rule (ID:{0})", thisRule.ID), MessageBoxButtons.YesNo);
-                    if (dialogResult == DialogResult.Yes)
+                    if (ruleList.Any(x => x.ID == lvID))
                     {
-                        thisRule.RemoveSaved();
-                        ruleList.Remove(thisRule);
-                        ListRules();
+                        var thisRule = ruleList.FirstOrDefault(x => x.ID == lvID);
+
+                        DialogResult dialogResult = MessageBox.Show("Are you sure you want to remove this rule?", string.Format("Remove Rule (ID:{0})", thisRule.ID), MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            thisRule.RemoveSaved();
+                            ruleList.Remove(thisRule);
+                            ListRules();
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
             }
         }
 
@@ -195,11 +219,19 @@ namespace DNS_Roaming_Client
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            bool saveFailed = false;
+            errorProvider.Clear();
+
             foreach (DNSRoamingRule thisRule in ruleList)
             {
-                thisRule.Save();
+                if (!thisRule.Save())
+                    saveFailed = true;
             }
-            this.Close();
+
+            if (saveFailed)
+                errorProvider.SetError(btnSave, "Error Saving. Check the Client Logs");
+            else
+                this.Close();
         }
 
         private void linkGithub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

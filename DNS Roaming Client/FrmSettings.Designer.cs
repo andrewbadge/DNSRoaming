@@ -44,8 +44,10 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabRules = new System.Windows.Forms.TabPage();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tabControlSettings.SuspendLayout();
             this.tabRules.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // listViewRules
@@ -175,6 +177,10 @@
             this.tabRules.Text = "Rules";
             this.tabRules.UseVisualStyleBackColor = true;
             // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
             // FrmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -193,6 +199,7 @@
             this.Text = "DNS Roaming Settings";
             this.tabControlSettings.ResumeLayout(false);
             this.tabRules.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,6 +220,7 @@
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.TabControl tabControlSettings;
         private System.Windows.Forms.TabPage tabRules;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }
 

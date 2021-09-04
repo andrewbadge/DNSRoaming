@@ -98,60 +98,65 @@ namespace DNS_Roaming_Client
         {
             Logger.Debug("LoadRule");
 
-            int index;
-            if (thisRule == null)
+            try
             {
-                this.Text = string.Format("New Rule");
-                thisRule = DNSRoamingRuleDefault.GetDefaultRule();
-            }
-            else
-            {
-                this.Text = string.Format("Edit Rule (ID:{0})", thisRule.ID);
-            }
-
-            if (thisRule.NetworkType != String.Empty && listNetworkType.Items.Count>0)
-            {
-                string[] networkTypes = thisRule.NetworkType.Split(',');
-                foreach (string networkType in networkTypes)
+                int index;
+                if (thisRule == null)
                 {
-                    index = listNetworkType.Items.IndexOf(networkType);
-                    if (index != -1) listNetworkType.SetItemChecked(index, true);
-                }
-            }
-
-            radioAddressIsSpecific.Checked = thisRule.AddressIsSpecific;
-            radioAddressIsNotSpecific.Checked = thisRule.AddressIsNotSpecific;
-            
-            txtAddressIP.Text = thisRule.AddressIP;
-            txtAddressSubnet.Text = thisRule.AddressSubnet;
-
-            txtPreferredDNS.Text = thisRule.DNSPreferred;
-            txtAlternateDNS.Text = thisRule.DNSAlternative;
-
-            index = cmbDNSset.Items.IndexOf(thisRule.DNSSet);
-            if (index != -1) cmbDNSset.SelectedIndex = index;
-
-            if (thisRule.NetworkNameIs== String.Empty && thisRule.NetworkNameIsNot == String.Empty)
-            {
-                radioNetworkType.Checked = true;
-            }
-            else
-            {
-                if (thisRule.NetworkNameIs == String.Empty )
-                {
-                    radioNetworkNameIsNot.Checked = true;
-                    cmbNetworkName.Text = thisRule.NetworkNameIsNot;
+                    this.Text = string.Format("New Rule");
+                    thisRule = DNSRoamingRuleDefault.GetDefaultRule();
                 }
                 else
                 {
-                    radioNetworkNameIs.Checked = true;
-                    cmbNetworkName.Text = thisRule.NetworkNameIs;
+                    this.Text = string.Format("Edit Rule (ID:{0})", thisRule.ID);
                 }
-            }
-                   
 
-            
-            Logger.Info("Rule loaded");
+                if (thisRule.NetworkType != String.Empty && listNetworkType.Items.Count > 0)
+                {
+                    string[] networkTypes = thisRule.NetworkType.Split(',');
+                    foreach (string networkType in networkTypes)
+                    {
+                        index = listNetworkType.Items.IndexOf(networkType);
+                        if (index != -1) listNetworkType.SetItemChecked(index, true);
+                    }
+                }
+
+                radioAddressIsSpecific.Checked = thisRule.AddressIsSpecific;
+                radioAddressIsNotSpecific.Checked = thisRule.AddressIsNotSpecific;
+
+                txtAddressIP.Text = thisRule.AddressIP;
+                txtAddressSubnet.Text = thisRule.AddressSubnet;
+
+                txtPreferredDNS.Text = thisRule.DNSPreferred;
+                txtAlternateDNS.Text = thisRule.DNSAlternative;
+
+                index = cmbDNSset.Items.IndexOf(thisRule.DNSSet);
+                if (index != -1) cmbDNSset.SelectedIndex = index;
+
+                if (thisRule.NetworkNameIs == String.Empty && thisRule.NetworkNameIsNot == String.Empty)
+                {
+                    radioNetworkType.Checked = true;
+                }
+                else
+                {
+                    if (thisRule.NetworkNameIs == String.Empty)
+                    {
+                        radioNetworkNameIsNot.Checked = true;
+                        cmbNetworkName.Text = thisRule.NetworkNameIsNot;
+                    }
+                    else
+                    {
+                        radioNetworkNameIs.Checked = true;
+                        cmbNetworkName.Text = thisRule.NetworkNameIs;
+                    }
+                }
+
+                Logger.Info("Rule loaded");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
 
         }
 
@@ -164,86 +169,95 @@ namespace DNS_Roaming_Client
             Logger.Debug("ValidateForm");
 
             bool isFormValid = true;
-            IPAddress ipAddress;
 
-            errorProvider.Clear();
-
-            if (radioNetworkType.Checked && listNetworkType.CheckedItems.Count == 0)
+            try
             {
-                errorProvider.SetError(listNetworkType, "Please choose a Network Type");
-                listNetworkType.Focus();
+                IPAddress ipAddress;
+
+                errorProvider.Clear();
+
+                if (radioNetworkType.Checked && listNetworkType.CheckedItems.Count == 0)
+                {
+                    errorProvider.SetError(listNetworkType, "Please choose a Network Type");
+                    listNetworkType.Focus();
+                    isFormValid = false;
+                }
+
+                if (!radioNetworkType.Checked && cmbNetworkName.Text.Trim() == String.Empty)
+                {
+                    errorProvider.SetError(cmbNetworkName, "Please choose a Network Name");
+                    cmbNetworkName.Focus();
+                    isFormValid = false;
+                }
+
+                if (radioAddressIsSpecific.Checked)
+                {
+                    if (!IPAddress.TryParse(txtAddressIP.Text, out ipAddress))
+                    {
+                        errorProvider.SetError(txtAddressIP, "IP Address is not valid");
+                        txtAddressIP.Focus();
+                        isFormValid = false;
+                    }
+                    else
+                    {
+                        txtAddressIP.Text = IPAddress.Parse(txtAddressIP.Text).ToString();
+                    }
+
+                    if (!IPAddress.TryParse(txtAddressSubnet.Text, out ipAddress))
+                    {
+                        errorProvider.SetError(txtAddressSubnet, "Subnet is not valid");
+                        txtAddressSubnet.Focus();
+                        isFormValid = false;
+                    }
+                    else
+                    {
+                        txtAddressSubnet.Text = IPAddress.Parse(txtAddressSubnet.Text).ToString();
+                    }
+
+                }
+
+                if (txtPreferredDNS.Text.Trim() != String.Empty)
+                {
+                    if (!IPAddress.TryParse(txtPreferredDNS.Text, out ipAddress))
+                    {
+                        errorProvider.SetError(txtPreferredDNS, "IP Address is not valid");
+                        txtPreferredDNS.Focus();
+                        isFormValid = false;
+                    }
+                    else
+                    {
+                        txtPreferredDNS.Text = IPAddress.Parse(txtPreferredDNS.Text).ToString();
+                    }
+                }
+
+                if (txtAlternateDNS.Text.Trim() != String.Empty)
+                {
+                    if (!IPAddress.TryParse(txtAlternateDNS.Text, out ipAddress))
+                    {
+                        errorProvider.SetError(txtAlternateDNS, "IP Address is not valid");
+                        txtAlternateDNS.Focus();
+                        isFormValid = false;
+                    }
+                    else
+                    {
+                        txtAlternateDNS.Text = IPAddress.Parse(txtAlternateDNS.Text).ToString();
+                    }
+                }
+
+                if (txtPreferredDNS.Text.Trim() == String.Empty && txtAlternateDNS.Text.Trim() == String.Empty && cmbDNSset.SelectedIndex == -1)
+                {
+                    errorProvider.SetError(cmbDNSset, "Select a DNS Set");
+                    cmbDNSset.Focus();
+                    isFormValid = false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
                 isFormValid = false;
+                errorProvider.SetError(btnSave, "Error Validating");
             }
-
-            if (!radioNetworkType.Checked && cmbNetworkName.Text.Trim() == String.Empty)
-            {
-                errorProvider.SetError(cmbNetworkName, "Please choose a Network Name");
-                cmbNetworkName.Focus();
-                isFormValid = false;
-            }
-
-            if (radioAddressIsSpecific.Checked)
-            {
-                if (!IPAddress.TryParse(txtAddressIP.Text, out ipAddress))
-                {
-                    errorProvider.SetError(txtAddressIP, "IP Address is not valid");
-                    txtAddressIP.Focus();
-                    isFormValid = false;
-                }
-                else
-                {
-                    txtAddressIP.Text = IPAddress.Parse(txtAddressIP.Text).ToString();
-                }
-                
-                if (!IPAddress.TryParse(txtAddressSubnet.Text, out ipAddress))
-                {
-                    errorProvider.SetError(txtAddressSubnet, "Subnet is not valid");
-                    txtAddressSubnet.Focus();
-                    isFormValid = false;
-                }
-                else
-                {
-                    txtAddressSubnet.Text = IPAddress.Parse(txtAddressSubnet.Text).ToString();
-                }
-                
-            }
-
-            if (txtPreferredDNS.Text.Trim() != String.Empty)
-            {
-                if (!IPAddress.TryParse(txtPreferredDNS.Text, out ipAddress))
-                {
-                    errorProvider.SetError(txtPreferredDNS, "IP Address is not valid");
-                    txtPreferredDNS.Focus();
-                    isFormValid = false;
-                }
-                else
-                {
-                    txtPreferredDNS.Text = IPAddress.Parse(txtPreferredDNS.Text).ToString();
-                }
-            }
-
-            if (txtAlternateDNS.Text.Trim() != String.Empty)
-            {
-                if (!IPAddress.TryParse(txtAlternateDNS.Text, out ipAddress))
-                {
-                    errorProvider.SetError(txtAlternateDNS, "IP Address is not valid");
-                    txtAlternateDNS.Focus();
-                    isFormValid = false;
-                }
-                else
-                {
-                    txtAlternateDNS.Text = IPAddress.Parse(txtAlternateDNS.Text).ToString();
-                }
-            }
-
-            if (txtPreferredDNS.Text.Trim() == String.Empty && txtAlternateDNS.Text.Trim() == String.Empty && cmbDNSset.SelectedIndex == -1)
-            {
-                errorProvider.SetError(cmbDNSset, "Select a DNS Set");
-                cmbDNSset.Focus();
-                isFormValid = false;
-            }
-
-
 
             return isFormValid;
         }
@@ -251,53 +265,70 @@ namespace DNS_Roaming_Client
         /// <summary>
         /// Save the form details to the Rule object
         /// </summary>
-        private void SaveRule()
+        private bool SaveRule()
         {
             Logger.Debug("SaveRule");
 
-            if (thisRule == null) thisRule = new DNSRoamingRule();
+            bool wasSaveSucessful = true;
 
-            if (thisRule.ID == null)
+            try
             {
-                thisRule.ID = System.Guid.NewGuid().ToString();
-            }
 
-            thisRule.UseNetworkType = radioNetworkType.Checked;
+                if (thisRule == null) thisRule = new DNSRoamingRule();
 
-            thisRule.NetworkType = string.Empty;
-            if (listNetworkType.CheckedItems.Count>0)
-            {
-                for (int x = 0; x < listNetworkType.CheckedItems.Count; x++)
+                if (thisRule.ID == null)
                 {
-                    if (thisRule.NetworkType != String.Empty) thisRule.NetworkType += ",";
-                    thisRule.NetworkType += listNetworkType.CheckedItems[x].ToString();
+                    thisRule.ID = System.Guid.NewGuid().ToString();
                 }
+
+                thisRule.UseNetworkType = radioNetworkType.Checked;
+
+                thisRule.NetworkType = string.Empty;
+                if (listNetworkType.CheckedItems.Count > 0)
+                {
+                    for (int x = 0; x < listNetworkType.CheckedItems.Count; x++)
+                    {
+                        if (thisRule.NetworkType != String.Empty) thisRule.NetworkType += ",";
+                        thisRule.NetworkType += listNetworkType.CheckedItems[x].ToString();
+                    }
+                }
+
+                thisRule.AddressIsSpecific = radioAddressIsSpecific.Checked;
+                thisRule.AddressIsNotSpecific = radioAddressIsNotSpecific.Checked;
+
+                thisRule.AddressIP = txtAddressIP.Text;
+                thisRule.AddressSubnet = txtAddressSubnet.Text;
+
+                thisRule.DNSPreferred = txtPreferredDNS.Text;
+                if (txtAlternateDNS.Text.Trim() == ".   .   .") thisRule.DNSAlternative = String.Empty; else thisRule.DNSAlternative = txtAlternateDNS.Text;
+
+                thisRule.DNSSet = (cmbDNSset.SelectedItem == null) ? String.Empty : cmbDNSset.SelectedItem.ToString();
+
+                if (radioNetworkNameIs.Checked) thisRule.NetworkNameIs = cmbNetworkName.Text;
+                if (radioNetworkNameIsNot.Checked) thisRule.NetworkNameIsNot = cmbNetworkName.Text;
+
+                Logger.Info("Rule saved");
+                wasSaveSucessful = true;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+                wasSaveSucessful = false;
+                errorProvider.SetError(btnSave, "Error Saving");
             }
 
-            thisRule.AddressIsSpecific = radioAddressIsSpecific.Checked;
-            thisRule.AddressIsNotSpecific = radioAddressIsNotSpecific.Checked;
-
-            thisRule.AddressIP = txtAddressIP.Text;
-            thisRule.AddressSubnet = txtAddressSubnet.Text;
-
-            thisRule.DNSPreferred = txtPreferredDNS.Text;
-            if (txtAlternateDNS.Text.Trim() == ".   .   .") thisRule.DNSAlternative = String.Empty; else thisRule.DNSAlternative = txtAlternateDNS.Text;
-
-            thisRule.DNSSet = (cmbDNSset.SelectedItem == null) ? String.Empty: cmbDNSset.SelectedItem.ToString();
-
-            if (radioNetworkNameIs.Checked) thisRule.NetworkNameIs = cmbNetworkName.Text;
-            if (radioNetworkNameIsNot.Checked) thisRule.NetworkNameIsNot = cmbNetworkName.Text;
-
-            Logger.Info("Rule saved");
+            return wasSaveSucessful;
         }
 
             private void btnSave_Click(object sender, EventArgs e)
         {
             if (ValidateForm())
             {
-                SaveRule();
-                this.formCancelled = false;
-                this.Close();
+                if (SaveRule())
+                {
+                    this.formCancelled = false;
+                    this.Close();
+                }
             }
         }
 

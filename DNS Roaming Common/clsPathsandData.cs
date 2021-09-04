@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Security.AccessControl;
+using System.Security.Principal;
 
 namespace DNS_Roaming_Common
 {
@@ -29,13 +31,48 @@ namespace DNS_Roaming_Common
         /// </summary>
         private void ValidateDataPaths()
         {
-            string commonApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            Logger.Debug("ValidateDataPaths");
 
-            baseApplicationPath = Path.Combine(commonApplicationDataPath, "DNSRoaming");
-            if (!System.IO.Directory.Exists(baseApplicationPath)) System.IO.Directory.CreateDirectory(baseApplicationPath);
+            try
+            {
+                string commonApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
 
-            baseSettingsPath = Path.Combine(baseApplicationPath, "Settings");
-            if (!System.IO.Directory.Exists(baseSettingsPath)) System.IO.Directory.CreateDirectory(baseSettingsPath);
+                baseApplicationPath = Path.Combine(commonApplicationDataPath, "DNSRoaming");
+                if (!System.IO.Directory.Exists(baseApplicationPath))
+                {
+                    Logger.Info("Creating Log and Setting Folder");
+                    System.IO.Directory.CreateDirectory(baseApplicationPath);
+                }
+
+                baseSettingsPath = Path.Combine(baseApplicationPath, "Settings");
+                if (!System.IO.Directory.Exists(baseSettingsPath)) System.IO.Directory.CreateDirectory(baseSettingsPath);
+
+                SetDirectoryPermissions(baseApplicationPath);
+                SetDirectoryPermissions(baseSettingsPath);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+        }
+
+        private void SetDirectoryPermissions(string directoryPath)
+        {
+            Logger.Debug("SetDirectoryPermissions");
+
+            try
+            {
+                // Get directory access info
+                DirectoryInfo dinfo = new DirectoryInfo(directoryPath);
+                DirectorySecurity dSecurity = dinfo.GetAccessControl();
+
+                // Add the FileSystemAccessRule to the security settings. 
+                dSecurity.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null), FileSystemRights.FullControl, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
+
+                // Set the access control
+                dinfo.SetAccessControl(dSecurity);
+            }
+            catch { }
         }
 
     }

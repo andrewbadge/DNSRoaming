@@ -148,8 +148,9 @@ namespace DNS_Roaming_Common
         /// <summary>
         /// Save the objeect as a settings file in the Settings folder
         /// </summary>
-        public virtual void Save()
+        public virtual bool Save()
         {
+            bool SaveSuccessful = false;
             try
             {
                 //Set a New GUID if saving and the GUID is missing.
@@ -169,11 +170,15 @@ namespace DNS_Roaming_Common
                 XmlSerializer s = new XmlSerializer(GetType());
                 s.Serialize(w, this);
                 w.Close();
+
+                SaveSuccessful = true;
             }
             catch (Exception ex)
             {
                 Logger.Error(ex.Message);
             }
+
+            return SaveSuccessful;
 
         }
 

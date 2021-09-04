@@ -24,8 +24,8 @@ namespace DNS_Roaming_Service
             try
             {
                 InitializeComponent();
-                registerEvents();
                 LoadDNSRules();
+                registerEvents();
                 ConfigureServiceTimer();
             }
             catch (Exception exception)
@@ -200,7 +200,7 @@ namespace DNS_Roaming_Service
                 Logger.Error(ex.Message);
             }
 
-            //If no rules are loaded. the load the default and save the file
+            //If no rules are loaded then load the default and save the file
             if (ruleList.Count == 0)
             {
                 DNSRoamingRule newRule = DNSRoamingRuleDefault.GetDefaultRule();
