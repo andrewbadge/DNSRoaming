@@ -35,7 +35,6 @@
             this.ColWhen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colNetworkID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colThen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnRuleEdit = new System.Windows.Forms.Button();
             this.btnRuleNew = new System.Windows.Forms.Button();
             this.btnRuleRemove = new System.Windows.Forms.Button();
@@ -43,7 +42,10 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.linkGithub = new System.Windows.Forms.LinkLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.groupBox1.SuspendLayout();
+            this.tabControlSettings = new System.Windows.Forms.TabControl();
+            this.tabRules = new System.Windows.Forms.TabPage();
+            this.tabControlSettings.SuspendLayout();
+            this.tabRules.SuspendLayout();
             this.SuspendLayout();
             // 
             // listViewRules
@@ -55,13 +57,14 @@
             this.colThen});
             this.listViewRules.FullRowSelect = true;
             this.listViewRules.HideSelection = false;
-            this.listViewRules.Location = new System.Drawing.Point(6, 19);
+            this.listViewRules.Location = new System.Drawing.Point(17, 15);
             this.listViewRules.MultiSelect = false;
             this.listViewRules.Name = "listViewRules";
-            this.listViewRules.Size = new System.Drawing.Size(489, 201);
+            this.listViewRules.Size = new System.Drawing.Size(479, 221);
             this.listViewRules.TabIndex = 2;
             this.listViewRules.UseCompatibleStateImageBehavior = false;
             this.listViewRules.View = System.Windows.Forms.View.Details;
+            this.listViewRules.SelectedIndexChanged += new System.EventHandler(this.listViewRules_SelectedIndexChanged);
             this.listViewRules.DoubleClick += new System.EventHandler(this.listViewRules_DoubleClick);
             this.listViewRules.MouseHover += new System.EventHandler(this.listViewRules_MouseHover);
             // 
@@ -85,24 +88,12 @@
             this.colThen.Text = "Then set";
             this.colThen.Width = 150;
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.btnRuleEdit);
-            this.groupBox1.Controls.Add(this.btnRuleNew);
-            this.groupBox1.Controls.Add(this.btnRuleRemove);
-            this.groupBox1.Controls.Add(this.listViewRules);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(516, 270);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Rules";
-            // 
             // btnRuleEdit
             // 
-            this.btnRuleEdit.Location = new System.Drawing.Point(328, 226);
+            this.btnRuleEdit.Enabled = false;
+            this.btnRuleEdit.Location = new System.Drawing.Point(284, 250);
             this.btnRuleEdit.Name = "btnRuleEdit";
-            this.btnRuleEdit.Size = new System.Drawing.Size(75, 23);
+            this.btnRuleEdit.Size = new System.Drawing.Size(103, 23);
             this.btnRuleEdit.TabIndex = 5;
             this.btnRuleEdit.Text = "Edit";
             this.btnRuleEdit.UseVisualStyleBackColor = true;
@@ -110,9 +101,9 @@
             // 
             // btnRuleNew
             // 
-            this.btnRuleNew.Location = new System.Drawing.Point(247, 226);
+            this.btnRuleNew.Location = new System.Drawing.Point(175, 250);
             this.btnRuleNew.Name = "btnRuleNew";
-            this.btnRuleNew.Size = new System.Drawing.Size(75, 23);
+            this.btnRuleNew.Size = new System.Drawing.Size(103, 23);
             this.btnRuleNew.TabIndex = 4;
             this.btnRuleNew.Text = "New";
             this.btnRuleNew.UseVisualStyleBackColor = true;
@@ -120,9 +111,10 @@
             // 
             // btnRuleRemove
             // 
-            this.btnRuleRemove.Location = new System.Drawing.Point(409, 226);
+            this.btnRuleRemove.Enabled = false;
+            this.btnRuleRemove.Location = new System.Drawing.Point(393, 249);
             this.btnRuleRemove.Name = "btnRuleRemove";
-            this.btnRuleRemove.Size = new System.Drawing.Size(86, 24);
+            this.btnRuleRemove.Size = new System.Drawing.Size(103, 24);
             this.btnRuleRemove.TabIndex = 3;
             this.btnRuleRemove.Text = "Remove";
             this.btnRuleRemove.UseVisualStyleBackColor = true;
@@ -130,20 +122,20 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(350, 299);
+            this.btnSave.Location = new System.Drawing.Point(290, 333);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(103, 23);
             this.btnSave.TabIndex = 17;
-            this.btnSave.Text = "Save";
+            this.btnSave.Text = "Save and Close";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(431, 299);
+            this.btnCancel.Location = new System.Drawing.Point(399, 333);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(103, 23);
             this.btnCancel.TabIndex = 16;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -152,31 +144,55 @@
             // linkGithub
             // 
             this.linkGithub.AutoSize = true;
-            this.linkGithub.Location = new System.Drawing.Point(18, 299);
+            this.linkGithub.Location = new System.Drawing.Point(3, 333);
             this.linkGithub.Name = "linkGithub";
-            this.linkGithub.Size = new System.Drawing.Size(129, 13);
+            this.linkGithub.Size = new System.Drawing.Size(126, 13);
             this.linkGithub.TabIndex = 18;
             this.linkGithub.TabStop = true;
-            this.linkGithub.Text = "DNS Roaming on GitHub ";
+            this.linkGithub.Text = "DNS Roaming on GitHub";
             this.linkGithub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkGithub_LinkClicked);
+            // 
+            // tabControlSettings
+            // 
+            this.tabControlSettings.Controls.Add(this.tabRules);
+            this.tabControlSettings.Location = new System.Drawing.Point(2, 2);
+            this.tabControlSettings.Name = "tabControlSettings";
+            this.tabControlSettings.SelectedIndex = 0;
+            this.tabControlSettings.Size = new System.Drawing.Size(520, 316);
+            this.tabControlSettings.TabIndex = 19;
+            // 
+            // tabRules
+            // 
+            this.tabRules.Controls.Add(this.btnRuleEdit);
+            this.tabRules.Controls.Add(this.btnRuleNew);
+            this.tabRules.Controls.Add(this.listViewRules);
+            this.tabRules.Controls.Add(this.btnRuleRemove);
+            this.tabRules.Location = new System.Drawing.Point(4, 22);
+            this.tabRules.Name = "tabRules";
+            this.tabRules.Padding = new System.Windows.Forms.Padding(3);
+            this.tabRules.Size = new System.Drawing.Size(512, 290);
+            this.tabRules.TabIndex = 0;
+            this.tabRules.Text = "Rules";
+            this.tabRules.UseVisualStyleBackColor = true;
             // 
             // FrmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(536, 332);
+            this.ClientSize = new System.Drawing.Size(528, 364);
             this.ControlBox = false;
+            this.Controls.Add(this.tabControlSettings);
             this.Controls.Add(this.linkGithub);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DNS Roaming Settings";
-            this.groupBox1.ResumeLayout(false);
+            this.tabControlSettings.ResumeLayout(false);
+            this.tabRules.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -188,7 +204,6 @@
         private System.Windows.Forms.ColumnHeader colNetworkID;
         private System.Windows.Forms.ColumnHeader colThen;
         private System.Windows.Forms.ColumnHeader colID;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnRuleEdit;
         private System.Windows.Forms.Button btnRuleNew;
         private System.Windows.Forms.Button btnRuleRemove;
@@ -196,6 +211,8 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.LinkLabel linkGithub;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.TabControl tabControlSettings;
+        private System.Windows.Forms.TabPage tabRules;
     }
 }
 

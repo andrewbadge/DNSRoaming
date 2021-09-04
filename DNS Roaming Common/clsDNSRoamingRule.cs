@@ -33,21 +33,73 @@ namespace DNS_Roaming_Common
         public string NetworkType
         {
             get { return networkType; }
-            set { networkType = value; }
+            set 
+            { 
+                networkType = value; 
+                if (networkType != String.Empty)
+                {
+                    networkNameIs = string.Empty;
+                    networkNameIsNot = string.Empty;
+                }
+            }
         }
 
-        private string networkName;
-        public string NetworkName
+        private string networkNameIs;
+        public string NetworkNameIs
         {
-            get { return networkName; }
-            set { networkName = value; }
+            get { return networkNameIs; }
+            set 
+            { 
+                networkNameIs = value;
+                if (networkNameIs!= String.Empty)
+                {
+                    networkType = string.Empty;
+                    networkNameIsNot = string.Empty;
+                }
+            }
         }
 
-        private bool addressSpecific;
-        public bool AddressSpecific
+        private string networkNameIsNot;
+        public string NetworkNameIsNot
         {
-            get { return addressSpecific; }
-            set { addressSpecific = value; }
+            get { return networkNameIsNot; }
+            set
+            {
+                networkNameIsNot = value;
+                if (networkNameIsNot != String.Empty)
+                {
+                    networkType = string.Empty;
+                    networkNameIs = string.Empty;
+                }
+            }
+        }
+
+        private bool addressIsSpecific;
+        public bool AddressIsSpecific
+        {
+            get { return addressIsSpecific; }
+            set 
+            { 
+                addressIsSpecific = value;
+                if (addressIsSpecific)
+                {
+                    addressIsNotSpecific = false;
+                }
+            }
+        }
+
+        private bool addressIsNotSpecific;
+        public bool AddressIsNotSpecific
+        {
+            get { return addressIsNotSpecific; }
+            set
+            {
+                addressIsNotSpecific = value;
+                if (addressIsNotSpecific)
+                {
+                    addressIsSpecific = false;
+                }
+            }
         }
 
         private string addressIP;
@@ -202,7 +254,7 @@ namespace DNS_Roaming_Common
             newRule.DNSSet = "Quad9 + CloudFlare - No Malware";
             newRule.DNSPreferred = string.Empty;
             newRule.DNSAlternative = string.Empty;
-            newRule.AddressSpecific = false;
+            newRule.AddressIsSpecific = false;
 
             return newRule;
         }

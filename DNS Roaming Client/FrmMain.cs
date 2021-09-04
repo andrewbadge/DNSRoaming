@@ -12,6 +12,8 @@ namespace DNS_Roaming_Client
     {
         public FrmMain()
         {
+            Logger.Debug("FrmMain Initialize");
+
             InitializeComponent();
 
             PathsandData pathsandData = new PathsandData();
@@ -25,6 +27,8 @@ namespace DNS_Roaming_Client
 
         private void ForceClose()
         {
+            Logger.Debug("ForceClose");
+
             this.Close();
         }
 
@@ -35,6 +39,8 @@ namespace DNS_Roaming_Client
 
         private void menuSettings_Click(object sender, EventArgs e)
         {
+            Logger.Debug("Menu: Open FrmSettings");
+
             FrmSettings frmSettings = new FrmSettings();
             frmSettings.ShowDialog();
         }
@@ -46,19 +52,23 @@ namespace DNS_Roaming_Client
 
         private void contextMenuStrip_DoubleClick(object sender, EventArgs e)
         {
+            Logger.Debug("DoubleClick: Open FrmSettings");
+
             FrmSettings frmSettings = new FrmSettings();
             frmSettings.ShowDialog();
         }
 
         private void ConfigureTimer()
         {
+            Logger.Debug("ConfigureTimer");
+
             timerCheckServiceStatus.Interval = 5000;
             timerCheckServiceStatus.Enabled = true;
-
         }
 
         private void CheckServiceStatus()
         {
+            Logger.Debug("CheckServiceStatus");
 
             string serviceStatus = "Error";
 
@@ -120,6 +130,8 @@ namespace DNS_Roaming_Client
 
         private void menuLogsClient_Click(object sender, EventArgs e)
         {
+            Logger.Debug("Menu: Open Client logs");
+
             try
             {
                 PathsandData pathsandData = new PathsandData();
@@ -138,6 +150,8 @@ namespace DNS_Roaming_Client
 
         private void menuLogsService_Click(object sender, EventArgs e)
         {
+            Logger.Debug("Menu: Open Service logs");
+
             try
             {
                 PathsandData pathsandData = new PathsandData();
@@ -156,6 +170,8 @@ namespace DNS_Roaming_Client
 
         private void menuLogsFolder_Click(object sender, EventArgs e)
         {
+            Logger.Debug("Menu: Open Log Folder");
+
             try
             {
                 PathsandData pathsandData = new PathsandData();
@@ -169,6 +185,8 @@ namespace DNS_Roaming_Client
 
         private void menuAbout_Click(object sender, EventArgs e)
         {
+            Logger.Debug("Menu: Open About");
+
             try
             {
                 Process.Start(@"https://github.com/andrewbadge/DNSRoaming");
@@ -178,6 +196,11 @@ namespace DNS_Roaming_Client
                 Logger.Error(ex.Message);
             }
             
+        }
+
+        private void notifyIcon_DoubleClick(object sender, EventArgs e)
+        {
+            menuSettings_Click(sender, e);
         }
     }
 }

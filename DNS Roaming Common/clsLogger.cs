@@ -15,6 +15,10 @@ namespace DNS_Roaming_Common
             OtherError = 1000
         }
 
+        public static void Debug(string message)
+        {
+            logger.Debug(message);
+        }
         public static void Info(string message)
         {
             logger.Info(message);

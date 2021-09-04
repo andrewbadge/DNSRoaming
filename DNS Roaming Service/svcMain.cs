@@ -19,6 +19,8 @@ namespace DNS_Roaming_Service
 
         public svcMain()
         {
+            Logger.Debug("svcMain Initialize");
+
             try
             {
                 InitializeComponent();
@@ -65,6 +67,8 @@ namespace DNS_Roaming_Service
         /// </summary>
         private void registerEvents()
         {
+            Logger.Debug("registerEvents");
+
             NetworkChange.NetworkAddressChanged += new NetworkAddressChangedEventHandler(AddressChangedCallback);
             NetworkChange.NetworkAvailabilityChanged += new NetworkAvailabilityChangedEventHandler(AvailabilityChangedCallback);
 
@@ -149,6 +153,8 @@ namespace DNS_Roaming_Service
 
         static void ServiceTimerEvent(Object source, ElapsedEventArgs e)
         {
+            Logger.Debug("ServiceTimerEvent");
+
             //Reschedule the next Timer to a random internal 
             //between 5 and 60 mins
             Random randomNumber = new Random();
@@ -166,6 +172,8 @@ namespace DNS_Roaming_Service
         /// </summary>
         private static void LoadDNSRules()
         {
+            Logger.Debug("LoadDNSRules");
+
             ruleList = new List<DNSRoamingRule>();
 
             try
@@ -205,6 +213,8 @@ namespace DNS_Roaming_Service
         /// </summary>
         private static void ConfigureServiceTimer()
         {
+            Logger.Debug("ConfigureServiceTimer");
+
             serviceTimer = new System.Timers.Timer(10000);
             serviceTimer.Elapsed += ServiceTimerEvent;
             serviceTimer.AutoReset = true;
@@ -216,6 +226,8 @@ namespace DNS_Roaming_Service
         /// </summary>
         private static void CompareNetworkToRules()
         {
+            Logger.Debug("CompareNetworkToRules");
+
             if (isServicePaused) return;
 
             //Wait for 10 seconds for Network or DHCP to settle
@@ -232,6 +244,8 @@ namespace DNS_Roaming_Service
                     //Loop through each active network 
                     foreach (NetworkInterface currentNIC in currentNICs)
                     {
+                        Logger.Debug(String.Format("Processing Network [{0}]",currentNIC.Name));
+
                         //Setting up Variables
                         string currentIP = string.Empty;
                         string currentSubnet = string.Empty;
@@ -247,10 +261,14 @@ namespace DNS_Roaming_Service
                             //Loop through each rule
                             foreach (DNSRoamingRule thisRule in ruleList)
                             {
+                                Logger.Debug(String.Format("Processing Rule [{0}]", thisRule.ID));
+
                                 //Compare if the network type matches the rule
                                 bool ruleMatchedNetwork = false;
                                 if (thisRule.UseNetworkType)
                                 {
+                                    Logger.Debug("Rule uses Network Type");
+
                                     string[] networkTypes = thisRule.NetworkType.Split(',');
                                     foreach (string networkType in networkTypes)
                                     {
@@ -264,13 +282,23 @@ namespace DNS_Roaming_Service
                                 else
                                 {
                                     //Compare if the network name matches the rule
-                                    ruleMatchedNetwork = (networkName == thisRule.NetworkName);
+                                    if (thisRule.NetworkNameIs == String.Empty)
+                                    {
+                                        Logger.Debug("Rule uses Network Name Is Not");
+                                        ruleMatchedNetwork = (networkName != thisRule.NetworkNameIsNot);
+                                    }
+                                    else
+                                    {
+                                        Logger.Debug("Rule uses Network Name Is");
+                                        ruleMatchedNetwork = (networkName == thisRule.NetworkNameIs);
+                                    }
                                 }
 
                                 //Compare if the network address matches the rule
                                 bool ruleMatchedAddress = false;
-                                if (thisRule.AddressSpecific)
+                                if (thisRule.AddressIsSpecific || thisRule.AddressIsNotSpecific)
                                 {
+                                    Logger.Debug("Parsing current IPs");
 
                                     //Get the Current IP abd subnet and the Rules IP and Subnet
                                     IPAddress ip1 = IPAddress.Parse(currentIP);
@@ -280,9 +308,14 @@ namespace DNS_Roaming_Service
                                     IPAddress subnet2 = IPAddress.Parse(thisRule.AddressSubnet);
 
                                     //Get the NEtwork address for both and compare.
+                                    Logger.Debug("Getting Network Addreses");
                                     IPAddress network1 = ip1.GetNetworkAddress(subnet1);
                                     IPAddress network2 = ip2.GetNetworkAddress(subnet2);
-                                    ruleMatchedAddress = network1.Equals(network2);
+
+                                    if (thisRule.AddressIsSpecific)
+                                        ruleMatchedAddress = network1.Equals(network2);
+                                    else
+                                        ruleMatchedAddress = !network1.Equals(network2);
 
                                 }
                                 else
@@ -291,18 +324,22 @@ namespace DNS_Roaming_Service
                                 //If all the conditions match; then get the DNS settings and set a static address
                                 if (ruleMatchedNetwork && ruleMatchedAddress)
                                 {
+                                    Logger.Debug("All Rules Match");
+
                                     string dns1 = string.Empty;
                                     string dns2 = string.Empty;
 
                                     if (thisRule.DNSSet == String.Empty)
                                     {
                                         //Use manual DNS addresses
+                                        Logger.Debug("Setting specific DNS addresses");
                                         dns1 = thisRule.DNSPreferred;
                                         dns2 = thisRule.DNSAlternative;
                                     }
                                     else
                                     {
                                         //Use one of the predefined sets of DNS addresses
+                                        Logger.Debug(String.Format("Setting a DNS Set [{0}]", thisRule.DNSSet));
                                         NetworkingExtensions.GetDNSSetIPAddress(thisRule.DNSSet, out dns1, out dns2);
                                     }
 

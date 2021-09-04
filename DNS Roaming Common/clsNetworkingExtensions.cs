@@ -148,12 +148,12 @@ namespace DNS_Roaming_Common
             try { 
                 //Build the DNS address list
                 string dnsString = string.Empty;
-                if (preferredDNS == String.Empty) dnsString = String.Format(@"""{0}""", alternateDNS);
-                if (alternateDNS == String.Empty) dnsString = String.Format(@"""{0}""", preferredDNS);
-                if (dnsString == String.Empty) dnsString = String.Format(@"""{0}"",""{1}""", preferredDNS, alternateDNS);
+                if (preferredDNS == String.Empty) dnsString = String.Format(@"'{0}'", alternateDNS);
+                if (alternateDNS == String.Empty) dnsString = String.Format(@"'{0}'", preferredDNS);
+                if (dnsString == String.Empty) dnsString = String.Format(@"'{0}','{1}'", preferredDNS, alternateDNS);
 
                 //Build the Powershell Command
-                string argument = string.Format(@"-NoProfile -ExecutionPolicy unrestricted & {{Set-DnsClientServerAddress -InterfaceAlias (""{0}"") -ServerAddresses ({1}) }}", networkName, dnsString);
+                string argument = string.Format(@"-NoProfile -ExecutionPolicy unrestricted & {{Set-DnsClientServerAddress -InterfaceAlias ('{0}') -ServerAddresses ({1}) }}", networkName, dnsString);
 
                 //Execute the Powershell command
                 var startInfo = new ProcessStartInfo()
@@ -161,6 +161,7 @@ namespace DNS_Roaming_Common
                     FileName = "powershell.exe",
                     Arguments = argument,
                     UseShellExecute = false
+                
                 };
                 Process.Start(startInfo);
             }

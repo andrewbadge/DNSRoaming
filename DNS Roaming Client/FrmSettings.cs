@@ -73,11 +73,20 @@ namespace DNS_Roaming_Client
                 if (thisRule.UseNetworkType)
                     lvItem.SubItems.Add(String.Format("Type is {0}", thisRule.NetworkType));
                 else
-                    lvItem.SubItems.Add(String.Format("Name is {0}",thisRule.NetworkName));
+                {
+                    if (thisRule.NetworkNameIs == String.Empty)
+                        lvItem.SubItems.Add(String.Format("Name is not {0}", thisRule.NetworkNameIsNot));
+                    else
+                        lvItem.SubItems.Add(String.Format("Name is {0}", thisRule.NetworkNameIs));
+                }
 
-                if (thisRule.AddressSpecific)
-                    lvItem.SubItems.Add(String.Format("{0}/{1}", thisRule.AddressIP, thisRule.AddressSubnet));
-                else
+                if (thisRule.AddressIsSpecific ) 
+                    lvItem.SubItems.Add(String.Format("In {0}/{1}", thisRule.AddressIP, thisRule.AddressSubnet));
+
+                if (thisRule.AddressIsNotSpecific)
+                    lvItem.SubItems.Add(String.Format("Not in {0}/{1}", thisRule.AddressIP, thisRule.AddressSubnet));
+
+                if (!thisRule.AddressIsSpecific && !thisRule.AddressIsNotSpecific)
                     lvItem.SubItems.Add("Any Subnet");
 
                 if (thisRule.DNSPreferred == String.Empty && thisRule.DNSAlternative == String.Empty)
@@ -190,6 +199,7 @@ namespace DNS_Roaming_Client
             {
                 thisRule.Save();
             }
+            this.Close();
         }
 
         private void linkGithub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -212,6 +222,12 @@ namespace DNS_Roaming_Client
 
                 toolTip.Show(String.Format("Rule ID {0}", lvID), listViewRules);
             }
+        }
+
+        private void listViewRules_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnRuleEdit.Enabled = (listViewRules.SelectedItems.Count != 0);
+            btnRuleRemove.Enabled = (listViewRules.SelectedItems.Count != 0);
         }
     }
 }
