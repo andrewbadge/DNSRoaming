@@ -82,7 +82,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DnsBlack.ico" />
     <Content Include="Server.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

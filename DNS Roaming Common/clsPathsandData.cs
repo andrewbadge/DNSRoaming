@@ -23,37 +23,87 @@ namespace DNS_Roaming_Common
 
         public PathsandData()
         {
-            ValidateDataPaths();
+            PopulateDataPaths();
         }
 
         /// <summary>
-        /// Set the paths used int he app. If they don't exist then create
+        /// Set the paths used in the app. If they don't exist then create
         /// </summary>
-        private void ValidateDataPaths()
+        private void PopulateDataPaths()
         {
-            Logger.Debug("ValidateDataPaths");
+            Logger.Debug("PopulateDataPaths");
 
             try
             {
                 string commonApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-
                 baseApplicationPath = Path.Combine(commonApplicationDataPath, "DNSRoaming");
-                if (!System.IO.Directory.Exists(baseApplicationPath))
-                {
-                    Logger.Info("Creating Log and Setting Folder");
-                    System.IO.Directory.CreateDirectory(baseApplicationPath);
-                }
-
                 baseSettingsPath = Path.Combine(baseApplicationPath, "Settings");
-                if (!System.IO.Directory.Exists(baseSettingsPath)) System.IO.Directory.CreateDirectory(baseSettingsPath);
-
-                SetDirectoryPermissions(baseApplicationPath);
-                SetDirectoryPermissions(baseSettingsPath);
             }
             catch (Exception ex)
             {
                 Logger.Error(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// Does the Settings Path Exist?
+        /// </summary>
+        public bool SettingsPathExist()
+        {
+            Logger.Debug("SettingsPathExist");
+
+            bool settingsPathExist = false;
+
+            try
+            {
+                settingsPathExist = System.IO.Directory.Exists(baseSettingsPath);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+
+            return settingsPathExist;
+        }
+
+        /// <summary>
+        /// Set the paths used in the app. If they don't exist then create
+        /// </summary>
+        public void CreateDataPaths(bool RunningAsAService = false)
+        {
+            Logger.Debug("ValidateDataPaths");
+
+            try
+            {
+                PopulateDataPaths();
+
+                if (!System.IO.Directory.Exists(baseApplicationPath))
+                {
+                    Logger.Info("Creating Log Folder");
+                    System.IO.Directory.CreateDirectory(baseApplicationPath);
+                }
+
+                if (!System.IO.Directory.Exists(baseSettingsPath))
+                {
+                    Logger.Info("Creating Setting Folder");
+                    System.IO.Directory.CreateDirectory(baseSettingsPath);
+                }
+
+                if (RunningAsAService) SetDirectoryPermissions(baseApplicationPath);
+                if (RunningAsAService) SetDirectoryPermissions(baseSettingsPath);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Set the paths used in the app. If they don't exist then create
+        /// </summary>
+        public virtual void CreateDataPaths()
+        {
+            CreateDataPaths(false);
         }
 
         /// <summary>
@@ -95,7 +145,7 @@ namespace DNS_Roaming_Common
                 //If no ACL is found then add a new one
                 if (!matchingACLFound)
                 {
-                    Logger.Debug("Setting ACL found");
+                    Logger.Debug("Setting new ACL");
 
                     // Add the FileSystemAccessRule to the security settings. 
                     dSecurity.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null), FileSystemRights.Modify, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.NoPropagateInherit, AccessControlType.Allow));

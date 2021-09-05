@@ -137,7 +137,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DnsWhite.ico" />
     <Content Include="Server.ico" />
     <None Include="Resources\upload-file-16x16-1214209.png" />
   </ItemGroup>

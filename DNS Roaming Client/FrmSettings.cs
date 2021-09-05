@@ -13,13 +13,26 @@ namespace DNS_Roaming_Client
     {
         
         IList<DNSRoamingRule> ruleList = new List<DNSRoamingRule>();
-        
+        bool settingsPathExist = false;
+
         public FrmSettings()
         {
             InitializeComponent();
+            
             PathsandData pathsandData = new PathsandData();
+            settingsPathExist = pathsandData.SettingsPathExist();
+
+            InitialiseForm();
             InitialiseRules(pathsandData.BaseSettingsPath);
             ListRules();
+        }
+
+        private void InitialiseForm()
+        {
+            btnRuleNew.Enabled = settingsPathExist;
+
+            errorProvider.Clear();
+            if (!settingsPathExist) errorProvider.SetError(btnSave, "Settings Folder does not exist. Check if the Service is running");
         }
 
         /// <summary>
@@ -29,10 +42,11 @@ namespace DNS_Roaming_Client
         private void InitialiseRules(string settingPath)
         {
 
-            string[] settingFiles = Directory.GetFiles(settingPath);
+            if (!settingsPathExist) return;
 
             try
             {
+                string[] settingFiles = Directory.GetFiles(settingPath);
                 foreach (string settingFilename in settingFiles)
                 {
                     //Catch an exception for a specific file but continue to process the next
@@ -258,8 +272,8 @@ namespace DNS_Roaming_Client
 
         private void listViewRules_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnRuleEdit.Enabled = (listViewRules.SelectedItems.Count != 0);
-            btnRuleRemove.Enabled = (listViewRules.SelectedItems.Count != 0);
+            btnRuleEdit.Enabled = (settingsPathExist && listViewRules.SelectedItems.Count != 0);
+            btnRuleRemove.Enabled = (settingsPathExist && listViewRules.SelectedItems.Count != 0);
         }
     }
 }

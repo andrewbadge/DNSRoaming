@@ -240,7 +240,10 @@ namespace DNS_Roaming_Service
 
             try
             {
+                //Initialise Paths and set Permissions if neccessary
                 PathsandData pathsandData = new PathsandData();
+                pathsandData.CreateDataPaths(true);
+
                 string[] settingFiles = Directory.GetFiles(pathsandData.BaseSettingsPath);
                 foreach (string settingFilename in settingFiles)
                 {
