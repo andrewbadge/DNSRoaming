@@ -46,7 +46,7 @@ namespace DNS_Roaming_Client
 
             try
             {
-                string[] settingFiles = Directory.GetFiles(settingPath);
+                string[] settingFiles = Directory.GetFiles(settingPath, "*.xml", SearchOption.TopDirectoryOnly);
                 foreach (string settingFilename in settingFiles)
                 {
                     //Catch an exception for a specific file but continue to process the next

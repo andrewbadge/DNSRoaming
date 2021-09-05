@@ -41,8 +41,7 @@ namespace DNS_Roaming_Client
         {
             Logger.Debug("Menu: Open FrmSettings");
 
-            FrmSettings frmSettings = new FrmSettings();
-            frmSettings.ShowDialog();
+            OpenSettingsForm();
         }
 
         private void menuStopAndClose_Click(object sender, EventArgs e)
@@ -54,8 +53,18 @@ namespace DNS_Roaming_Client
         {
             Logger.Debug("DoubleClick: Open FrmSettings");
 
-            FrmSettings frmSettings = new FrmSettings();
-            frmSettings.ShowDialog();
+            OpenSettingsForm();
+        }
+
+        private void OpenSettingsForm()
+        {
+            Logger.Debug("OpenSettingsForm");
+
+            if (Application.OpenForms.OfType<FrmSettings>().Count() == 0)
+            {
+                FrmSettings frmSettings = new FrmSettings();
+                frmSettings.ShowDialog();
+            }
         }
 
         private void ConfigureTimer()

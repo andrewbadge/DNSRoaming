@@ -244,7 +244,7 @@ namespace DNS_Roaming_Service
                 PathsandData pathsandData = new PathsandData();
                 pathsandData.CreateDataPaths(true);
 
-                string[] settingFiles = Directory.GetFiles(pathsandData.BaseSettingsPath);
+                string[] settingFiles = Directory.GetFiles(pathsandData.BaseSettingsPath,"*.xml",SearchOption.TopDirectoryOnly);
                 foreach (string settingFilename in settingFiles)
                 {
                     //Catch an exception for a specific file but continue to process the next
