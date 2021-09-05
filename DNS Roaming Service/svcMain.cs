@@ -107,7 +107,7 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            if (!EventThrottled())
+            if (!IsEventThrottled())
             {
                 Logger.Info(String.Format("Settings file change detected"));
                 LoadDNSRules();
@@ -122,7 +122,7 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            if (!EventThrottled())
+            if (!IsEventThrottled())
             {
                 Logger.Info(String.Format("Settings file change detected"));
                 LoadDNSRules();
@@ -137,7 +137,7 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            if (!EventThrottled())
+            if (!IsEventThrottled())
             {
                 Logger.Info(String.Format("Settings file change detected"));
                 LoadDNSRules();
@@ -152,7 +152,7 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            if (!EventThrottled())
+            if (!IsEventThrottled())
             {
                 Logger.Info(String.Format("Settings file change detected"));
                 LoadDNSRules();
@@ -162,7 +162,7 @@ namespace DNS_Roaming_Service
 
         static void AddressChangedCallback(object sender, EventArgs e)
         {
-            if (!EventThrottled())
+            if (!IsEventThrottled())
             {
                 Logger.Info(String.Format("Address change detected"));
                 CompareNetworkToRules();
@@ -171,7 +171,7 @@ namespace DNS_Roaming_Service
 
         static void AvailabilityChangedCallback(object sender, EventArgs e)
         {
-            if (!EventThrottled())
+            if (!IsEventThrottled())
             {
                 Logger.Info(String.Format("Availability change detected"));
                 CompareNetworkToRules();
@@ -182,7 +182,7 @@ namespace DNS_Roaming_Service
         {
             Logger.Debug("ServiceTimerEvent");
 
-            if (!EventThrottled())
+            if (!IsEventThrottled())
             {
                 //Reschedule the next Timer to a random internal 
                 //between 5 and 60 mins
@@ -199,9 +199,9 @@ namespace DNS_Roaming_Service
         /// Determines whether an event should trigger a scan. Prevents lots of events triggering too frequently
         /// </summary>
         /// <returns></returns>
-        static bool EventThrottled()
+        static bool IsEventThrottled()
         {
-            Logger.Debug("EventThrottled");
+            Logger.Debug("IsEventThrottled");
 
             bool throttled = false;
             TimeSpan eventDelay = DateTime.Now.Subtract(lastEventTriggered);
@@ -297,6 +297,7 @@ namespace DNS_Roaming_Service
 
             //Wait for 10 seconds for Network or DHCP to settle
             System.Threading.Thread.Sleep(5000);
+            int rulesMatched = 0;
 
             try { 
 
@@ -391,6 +392,8 @@ namespace DNS_Roaming_Service
                                 {
                                     Logger.Debug("All Rules Match");
 
+                                    rulesMatched += 1;
+
                                     string dns1 = string.Empty;
                                     string dns2 = string.Empty;
 
@@ -431,7 +434,8 @@ namespace DNS_Roaming_Service
                     }
                 }
 
-                Logger.Info(String.Format("Rule check complete"));
+                Logger.Info(String.Format("Check complete. {0} matching Rules processed.",rulesMatched));
+
             }
             catch (Exception ex)
             {

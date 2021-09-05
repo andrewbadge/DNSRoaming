@@ -101,7 +101,7 @@ namespace DNS_Roaming_Common
         /// <summary>
         /// Set the paths used in the app. If they don't exist then create
         /// </summary>
-        public virtual void CreateDataPaths()
+        public void CreateDataPaths()
         {
             CreateDataPaths(false);
         }
@@ -121,38 +121,13 @@ namespace DNS_Roaming_Common
                 DirectoryInfo dinfo = new DirectoryInfo(directoryPath);
                 DirectorySecurity dSecurity = dinfo.GetAccessControl(AccessControlSections.All);
 
-                AuthorizationRuleCollection rules = dSecurity.GetAccessRules(true, true, typeof(NTAccount));
-                bool matchingACLFound = false;
+                
+                Logger.Debug("Setting new ACL");
 
-                Logger.Debug(String.Format("Checking {0} ACLs", rules.Count.ToString()));
-
-                //Find the ACL to see if the Users can modify the folder
-                foreach (AuthorizationRule rule in rules)
-                {
-                    var filesystemAccessRule = (FileSystemAccessRule)rule;
-                    if (filesystemAccessRule.IdentityReference.ToString() == "BUILTIN\\Users" 
-                        && (filesystemAccessRule.FileSystemRights.ToString() == "FullControl"
-                            || filesystemAccessRule.FileSystemRights.ToString().Contains("Modify")
-                            || filesystemAccessRule.FileSystemRights.ToString() == "Modify, Synchronize"))
-                    {
-                        Logger.Debug("Existing ACL found");
-
-                        matchingACLFound = true;
-                        break;
-                    }
-                }
-
-                //If no ACL is found then add a new one
-                if (!matchingACLFound)
-                {
-                    Logger.Debug("Setting new ACL");
-
-                    // Add the FileSystemAccessRule to the security settings. 
-                    dSecurity.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null), FileSystemRights.Modify, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
-
-                    // Set the access control
-                    dinfo.SetAccessControl(dSecurity);
-                }
+                // Add the FileSystemAccessRule to the security settings. 
+                dSecurity.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null), FileSystemRights.Modify, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.InheritOnly, AccessControlType.Allow));
+                dSecurity.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null), FileSystemRights.CreateFiles, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.InheritOnly, AccessControlType.Allow));
+                dinfo.SetAccessControl(dSecurity);
             }
             catch (Exception ex)
             {
