@@ -102,6 +102,8 @@ See the [Apache 2.0](https://github.com/andrewbadge/DNSRoaming/blob/main/LICENSE
 
 # Thanks
 
-To every random person answering questions on StackExchange
-
+@jsakamoto for the [ipaddressrange](https://github.com/jsakamoto/ipaddressrange) library
+ 
 To [Zky Icon](https://iconscout.com/contributors/zkyicon) for the [Server Dualtone Icon] used in this App. 
+
+To every random person answering questions on StackExchange
