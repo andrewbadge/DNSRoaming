@@ -50,6 +50,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="IPAddressRange, Version=4.2.0.0, Culture=neutral, PublicKeyToken=578e3c3d17e7c751, processorArchitecture=MSIL">
+      <HintPath>..\packages\IPAddressRange.4.2.0\lib\net45\IPAddressRange.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.7.10\lib\net45\NLog.dll</HintPath>

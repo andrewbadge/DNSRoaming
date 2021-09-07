@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?define Property_ProductVersion = "1.0.0.8" ?>
+<?define Property_ProductVersion = "1.0.0.9" ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:ui="http://schemas.microsoft.com/wix/UIExtension">
   <Product Id="*"
 	   Name="DNS Roaming" Language="1033"
@@ -57,6 +57,8 @@
             <File Id="ClientCommonDll" Source="..\DNS Roaming Client\bin\Release\DNS Roaming Common.dll"></File>
             <File Id="ClientNLogConfig" Source="..\DNS Roaming Client\bin\Release\NLog.config"></File>
             <File Id="ClientNLogDll" Source="..\DNS Roaming Client\bin\Release\NLog.dll"></File>
+            <File Id="ClientIPAddressRangeDLL" Source="..\DNS Roaming Client\bin\Release\IPAddressRange.dll"></File>
+            <File Id="ClientIPAddressRangeXML" Source="..\DNS Roaming Client\bin\Release\IPAddressRange.xml"></File>
             <File Id="ReadMe" Source="..\DNS Roaming Installer\ReadMe.txt"></File>
           </Component>
           <Directory Id="DNSRoamingServiceFolder" Name="Service">
@@ -65,6 +67,8 @@
               <File Id="ServiceCommonDll" Source="..\DNS Roaming Service\bin\Release\DNS Roaming Common.dll"></File>
               <File Id="ServiceNLogConfig" Source="..\DNS Roaming Service\bin\Release\NLog.config"></File>
               <File Id="ServiceNLogDll" Source="..\DNS Roaming Service\bin\Release\NLog.dll"></File>
+              <File Id="ServiceIPAddressRangeDLL" Source="..\DNS Roaming Service\bin\Release\IPAddressRange.dll"></File>
+              <File Id="ServiceIPAddressRangeXML" Source="..\DNS Roaming Service\bin\Release\IPAddressRange.xml"></File>
             </Component>
             <!-- Service Installation -->
             <Component Id="ServiceDNSRoaming" Guid="454f6513-3e4a-4a29-8310-6daea0e9e3a8" >

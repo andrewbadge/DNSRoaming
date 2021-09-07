@@ -4,9 +4,11 @@ D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Release\DNS Roaming
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Release\DNS Roaming Client.pdb
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Release\DNS Roaming Common.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Release\NLog.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Release\IPAddressRange.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Release\DNS Roaming Common.pdb
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Release\DNS Roaming Common.dll.config
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Release\NLog.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Release\IPAddressRange.xml
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\obj\Release\DNS Roaming Client.csprojAssemblyReference.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\obj\Release\DNS_Roaming_Client.FrmMain.resources
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\obj\Release\DNS_Roaming_Client.FrmSettings.resources

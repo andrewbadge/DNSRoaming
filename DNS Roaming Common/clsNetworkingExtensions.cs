@@ -41,7 +41,7 @@ namespace DNS_Roaming_Common
             return new IPAddress(broadcastAddress);
         }
 
-        public static void GetCurrentIPandSubNet(out String currentIP, out String currentSubnet)
+        public static void GetLANIPandSubnet(out String currentIP, out String currentSubnet)
         {
             string returnIP = string.Empty;
             string returnSubnet = string.Empty;
@@ -67,8 +67,32 @@ namespace DNS_Roaming_Common
                         }
                     }
                 }
+            }
 
+            currentIP = returnIP;
+            currentSubnet = returnSubnet;
 
+        }
+
+        public static void GetWANIPandSubnet(out String currentIP, out String currentSubnet)
+        {
+            string returnIP = string.Empty;
+            string returnSubnet = "255.255.255.255";
+
+            try { 
+                string url = "http://checkip.dyndns.org";
+                System.Net.WebRequest req = System.Net.WebRequest.Create(url);
+                System.Net.WebResponse resp = req.GetResponse();
+                System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
+                string response = sr.ReadToEnd().Trim();
+                string[] a = response.Split(':');
+                string a2 = a[1].Substring(1);
+                string[] a3 = a2.Split('<');
+                returnIP = a3[0];
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
             }
 
             currentIP = returnIP;
@@ -245,6 +269,25 @@ namespace DNS_Roaming_Common
                 }
 
             }
+        }
+
+        public static bool IPIsInRange(string currentIP, string ruleIP, string ruleSubnet)
+        {
+            bool isInRange = false;
+
+            try { 
+                IPAddress currentIPaddress = IPAddress.Parse(currentIP);
+                var ruleIPRange = NetTools.IPAddressRange.Parse(String.Format("{0}/{1}", ruleIP, ruleSubnet));
+
+                isInRange = ruleIPRange.Contains(currentIPaddress);
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+
+            return isInRange;
         }
 
     }

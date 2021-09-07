@@ -43,31 +43,35 @@
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.txtPreferredDNS = new System.Windows.Forms.TextBox();
             this.txtAlternateDNS = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupNetworks = new System.Windows.Forms.GroupBox();
+            this.radioNetworkNameIsNot = new System.Windows.Forms.RadioButton();
+            this.groupAddressSpecific = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.radioAddressIsNotSpecific = new System.Windows.Forms.RadioButton();
+            this.label2 = new System.Windows.Forms.Label();
             this.btnGetIPInfo = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtAddressIP = new System.Windows.Forms.TextBox();
             this.txtAddressSubnet = new System.Windows.Forms.TextBox();
             this.radioAddressIsSpecific = new System.Windows.Forms.RadioButton();
-            this.radioAddressAny = new System.Windows.Forms.RadioButton();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupDNSValues = new System.Windows.Forms.GroupBox();
             this.btnDNSsetCopy = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.radioNetworkNameIsNot = new System.Windows.Forms.RadioButton();
-            this.label2 = new System.Windows.Forms.Label();
-            this.radioAddressIsNotSpecific = new System.Windows.Forms.RadioButton();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.groupAddressOptions = new System.Windows.Forms.GroupBox();
+            this.radioAddressByAny = new System.Windows.Forms.RadioButton();
+            this.radioAddressByLAN = new System.Windows.Forms.RadioButton();
+            this.radioAddressByWAN = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.groupNetworks.SuspendLayout();
+            this.groupAddressSpecific.SuspendLayout();
+            this.groupDNSValues.SuspendLayout();
+            this.groupAddressOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // listNetworkType
             // 
             this.listNetworkType.FormattingEnabled = true;
-            this.listNetworkType.Location = new System.Drawing.Point(21, 48);
+            this.listNetworkType.Location = new System.Drawing.Point(21, 42);
             this.listNetworkType.Name = "listNetworkType";
             this.listNetworkType.Size = new System.Drawing.Size(325, 109);
             this.listNetworkType.Sorted = true;
@@ -76,7 +80,7 @@
             // radioNetworkNameIs
             // 
             this.radioNetworkNameIs.AutoSize = true;
-            this.radioNetworkNameIs.Location = new System.Drawing.Point(6, 163);
+            this.radioNetworkNameIs.Location = new System.Drawing.Point(6, 157);
             this.radioNetworkNameIs.Name = "radioNetworkNameIs";
             this.radioNetworkNameIs.Size = new System.Drawing.Size(75, 17);
             this.radioNetworkNameIs.TabIndex = 3;
@@ -87,7 +91,7 @@
             // 
             this.radioNetworkType.AutoSize = true;
             this.radioNetworkType.Checked = true;
-            this.radioNetworkType.Location = new System.Drawing.Point(6, 25);
+            this.radioNetworkType.Location = new System.Drawing.Point(6, 19);
             this.radioNetworkType.Name = "radioNetworkType";
             this.radioNetworkType.Size = new System.Drawing.Size(95, 17);
             this.radioNetworkType.TabIndex = 4;
@@ -98,7 +102,7 @@
             // cmbNetworkName
             // 
             this.cmbNetworkName.FormattingEnabled = true;
-            this.cmbNetworkName.Location = new System.Drawing.Point(21, 209);
+            this.cmbNetworkName.Location = new System.Drawing.Point(21, 203);
             this.cmbNetworkName.Name = "cmbNetworkName";
             this.cmbNetworkName.Size = new System.Drawing.Size(325, 21);
             this.cmbNetworkName.Sorted = true;
@@ -146,8 +150,9 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(303, 493);
+            this.btnCancel.Location = new System.Drawing.Point(303, 517);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(101, 23);
             this.btnCancel.TabIndex = 14;
@@ -157,7 +162,8 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(196, 492);
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Location = new System.Drawing.Point(196, 517);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(101, 23);
             this.btnSave.TabIndex = 15;
@@ -185,42 +191,77 @@
             this.txtAlternateDNS.TabIndex = 19;
             this.txtAlternateDNS.TextChanged += new System.EventHandler(this.txtAlternateDNS_TextChanged);
             // 
-            // groupBox1
+            // groupNetworks
             // 
-            this.groupBox1.Controls.Add(this.radioNetworkNameIsNot);
-            this.groupBox1.Controls.Add(this.listNetworkType);
-            this.groupBox1.Controls.Add(this.radioNetworkNameIs);
-            this.groupBox1.Controls.Add(this.radioNetworkType);
-            this.groupBox1.Controls.Add(this.cmbNetworkName);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(392, 248);
-            this.groupBox1.TabIndex = 20;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "When active network is";
+            this.groupNetworks.Controls.Add(this.radioNetworkNameIsNot);
+            this.groupNetworks.Controls.Add(this.listNetworkType);
+            this.groupNetworks.Controls.Add(this.radioNetworkNameIs);
+            this.groupNetworks.Controls.Add(this.radioNetworkType);
+            this.groupNetworks.Controls.Add(this.cmbNetworkName);
+            this.groupNetworks.Location = new System.Drawing.Point(12, 12);
+            this.groupNetworks.Name = "groupNetworks";
+            this.groupNetworks.Size = new System.Drawing.Size(392, 236);
+            this.groupNetworks.TabIndex = 20;
+            this.groupNetworks.TabStop = false;
+            this.groupNetworks.Text = "When active network is";
             // 
-            // groupBox2
+            // radioNetworkNameIsNot
             // 
-            this.groupBox2.Controls.Add(this.panel1);
-            this.groupBox2.Controls.Add(this.radioAddressIsNotSpecific);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.btnGetIPInfo);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.txtAddressIP);
-            this.groupBox2.Controls.Add(this.txtAddressSubnet);
-            this.groupBox2.Controls.Add(this.radioAddressIsSpecific);
-            this.groupBox2.Controls.Add(this.radioAddressAny);
-            this.groupBox2.Location = new System.Drawing.Point(12, 266);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(392, 100);
-            this.groupBox2.TabIndex = 21;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "And IP Address is in";
+            this.radioNetworkNameIsNot.AutoSize = true;
+            this.radioNetworkNameIsNot.Location = new System.Drawing.Point(6, 180);
+            this.radioNetworkNameIsNot.Name = "radioNetworkNameIsNot";
+            this.radioNetworkNameIsNot.Size = new System.Drawing.Size(93, 17);
+            this.radioNetworkNameIsNot.TabIndex = 6;
+            this.radioNetworkNameIsNot.Text = "or Name is not";
+            this.radioNetworkNameIsNot.UseVisualStyleBackColor = true;
+            // 
+            // groupAddressSpecific
+            // 
+            this.groupAddressSpecific.Controls.Add(this.panel1);
+            this.groupAddressSpecific.Controls.Add(this.radioAddressIsNotSpecific);
+            this.groupAddressSpecific.Controls.Add(this.label2);
+            this.groupAddressSpecific.Controls.Add(this.btnGetIPInfo);
+            this.groupAddressSpecific.Controls.Add(this.label1);
+            this.groupAddressSpecific.Controls.Add(this.txtAddressIP);
+            this.groupAddressSpecific.Controls.Add(this.txtAddressSubnet);
+            this.groupAddressSpecific.Controls.Add(this.radioAddressIsSpecific);
+            this.groupAddressSpecific.Location = new System.Drawing.Point(12, 307);
+            this.groupAddressSpecific.Name = "groupAddressSpecific";
+            this.groupAddressSpecific.Size = new System.Drawing.Size(392, 80);
+            this.groupAddressSpecific.TabIndex = 21;
+            this.groupAddressSpecific.TabStop = false;
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Location = new System.Drawing.Point(123, 14);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(2, 52);
+            this.panel1.TabIndex = 25;
+            // 
+            // radioAddressIsNotSpecific
+            // 
+            this.radioAddressIsNotSpecific.AutoSize = true;
+            this.radioAddressIsNotSpecific.Location = new System.Drawing.Point(8, 41);
+            this.radioAddressIsNotSpecific.Name = "radioAddressIsNotSpecific";
+            this.radioAddressIsNotSpecific.Size = new System.Drawing.Size(99, 17);
+            this.radioAddressIsNotSpecific.TabIndex = 24;
+            this.radioAddressIsNotSpecific.Text = "not in IP Range";
+            this.radioAddressIsNotSpecific.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(133, 21);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(45, 13);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "Address";
             // 
             // btnGetIPInfo
             // 
             this.btnGetIPInfo.Image = global::DNS_Roaming_Client.Properties.Resources.upload_file_16x16_1214209;
-            this.btnGetIPInfo.Location = new System.Drawing.Point(355, 42);
+            this.btnGetIPInfo.Location = new System.Drawing.Point(357, 19);
             this.btnGetIPInfo.Name = "btnGetIPInfo";
             this.btnGetIPInfo.Size = new System.Drawing.Size(19, 23);
             this.btnGetIPInfo.TabIndex = 22;
@@ -231,7 +272,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(131, 68);
+            this.label1.Location = new System.Drawing.Point(133, 45);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 21;
@@ -239,14 +280,14 @@
             // 
             // txtAddressIP
             // 
-            this.txtAddressIP.Location = new System.Drawing.Point(190, 42);
+            this.txtAddressIP.Location = new System.Drawing.Point(192, 19);
             this.txtAddressIP.Name = "txtAddressIP";
             this.txtAddressIP.Size = new System.Drawing.Size(156, 20);
             this.txtAddressIP.TabIndex = 20;
             // 
             // txtAddressSubnet
             // 
-            this.txtAddressSubnet.Location = new System.Drawing.Point(190, 68);
+            this.txtAddressSubnet.Location = new System.Drawing.Point(192, 45);
             this.txtAddressSubnet.Name = "txtAddressSubnet";
             this.txtAddressSubnet.Size = new System.Drawing.Size(156, 20);
             this.txtAddressSubnet.TabIndex = 19;
@@ -254,42 +295,30 @@
             // radioAddressIsSpecific
             // 
             this.radioAddressIsSpecific.AutoSize = true;
-            this.radioAddressIsSpecific.Location = new System.Drawing.Point(6, 42);
+            this.radioAddressIsSpecific.Checked = true;
+            this.radioAddressIsSpecific.Location = new System.Drawing.Point(8, 19);
             this.radioAddressIsSpecific.Name = "radioAddressIsSpecific";
             this.radioAddressIsSpecific.Size = new System.Drawing.Size(81, 17);
             this.radioAddressIsSpecific.TabIndex = 1;
+            this.radioAddressIsSpecific.TabStop = true;
             this.radioAddressIsSpecific.Text = "in IP Range";
             this.radioAddressIsSpecific.UseVisualStyleBackColor = true;
             // 
-            // radioAddressAny
+            // groupDNSValues
             // 
-            this.radioAddressAny.AutoSize = true;
-            this.radioAddressAny.Checked = true;
-            this.radioAddressAny.Location = new System.Drawing.Point(6, 20);
-            this.radioAddressAny.Name = "radioAddressAny";
-            this.radioAddressAny.Size = new System.Drawing.Size(83, 17);
-            this.radioAddressAny.TabIndex = 0;
-            this.radioAddressAny.TabStop = true;
-            this.radioAddressAny.Text = "Any address";
-            this.radioAddressAny.UseVisualStyleBackColor = true;
-            this.radioAddressAny.CheckedChanged += new System.EventHandler(this.radioAddressAny_CheckedChanged);
-            this.radioAddressAny.Click += new System.EventHandler(this.radioAddressAny_Click);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.btnDNSsetCopy);
-            this.groupBox3.Controls.Add(this.cmbDNSset);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Controls.Add(this.txtAlternateDNS);
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.txtPreferredDNS);
-            this.groupBox3.Location = new System.Drawing.Point(12, 372);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(392, 114);
-            this.groupBox3.TabIndex = 22;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Then set the DNS server to";
+            this.groupDNSValues.Controls.Add(this.btnDNSsetCopy);
+            this.groupDNSValues.Controls.Add(this.cmbDNSset);
+            this.groupDNSValues.Controls.Add(this.label3);
+            this.groupDNSValues.Controls.Add(this.label4);
+            this.groupDNSValues.Controls.Add(this.txtAlternateDNS);
+            this.groupDNSValues.Controls.Add(this.label5);
+            this.groupDNSValues.Controls.Add(this.txtPreferredDNS);
+            this.groupDNSValues.Location = new System.Drawing.Point(12, 393);
+            this.groupDNSValues.Name = "groupDNSValues";
+            this.groupDNSValues.Size = new System.Drawing.Size(392, 114);
+            this.groupDNSValues.TabIndex = 22;
+            this.groupDNSValues.TabStop = false;
+            this.groupDNSValues.Text = "Then set the DNS server to";
             // 
             // btnDNSsetCopy
             // 
@@ -302,53 +331,61 @@
             this.btnDNSsetCopy.Click += new System.EventHandler(this.btnDNSsetCopy_Click);
             this.btnDNSsetCopy.MouseHover += new System.EventHandler(this.btnDNSsetCopy_MouseHover);
             // 
-            // radioNetworkNameIsNot
+            // groupAddressOptions
             // 
-            this.radioNetworkNameIsNot.AutoSize = true;
-            this.radioNetworkNameIsNot.Location = new System.Drawing.Point(6, 186);
-            this.radioNetworkNameIsNot.Name = "radioNetworkNameIsNot";
-            this.radioNetworkNameIsNot.Size = new System.Drawing.Size(93, 17);
-            this.radioNetworkNameIsNot.TabIndex = 6;
-            this.radioNetworkNameIsNot.Text = "or Name is not";
-            this.radioNetworkNameIsNot.UseVisualStyleBackColor = true;
+            this.groupAddressOptions.Controls.Add(this.radioAddressByWAN);
+            this.groupAddressOptions.Controls.Add(this.radioAddressByLAN);
+            this.groupAddressOptions.Controls.Add(this.radioAddressByAny);
+            this.groupAddressOptions.Location = new System.Drawing.Point(12, 254);
+            this.groupAddressOptions.Name = "groupAddressOptions";
+            this.groupAddressOptions.Size = new System.Drawing.Size(392, 54);
+            this.groupAddressOptions.TabIndex = 23;
+            this.groupAddressOptions.TabStop = false;
+            this.groupAddressOptions.Text = "And IP Address In";
             // 
-            // label2
+            // radioAddressByAny
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(131, 44);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 13);
-            this.label2.TabIndex = 23;
-            this.label2.Text = "Address";
+            this.radioAddressByAny.AutoSize = true;
+            this.radioAddressByAny.Checked = true;
+            this.radioAddressByAny.Location = new System.Drawing.Point(6, 19);
+            this.radioAddressByAny.Name = "radioAddressByAny";
+            this.radioAddressByAny.Size = new System.Drawing.Size(83, 17);
+            this.radioAddressByAny.TabIndex = 1;
+            this.radioAddressByAny.Text = "Any address";
+            this.radioAddressByAny.UseVisualStyleBackColor = true;
+            this.radioAddressByAny.CheckedChanged += new System.EventHandler(this.radioAddressByAny_CheckedChanged);
             // 
-            // radioAddressIsNotSpecific
+            // radioAddressByLAN
             // 
-            this.radioAddressIsNotSpecific.AutoSize = true;
-            this.radioAddressIsNotSpecific.Location = new System.Drawing.Point(6, 64);
-            this.radioAddressIsNotSpecific.Name = "radioAddressIsNotSpecific";
-            this.radioAddressIsNotSpecific.Size = new System.Drawing.Size(99, 17);
-            this.radioAddressIsNotSpecific.TabIndex = 24;
-            this.radioAddressIsNotSpecific.Text = "not in IP Range";
-            this.radioAddressIsNotSpecific.UseVisualStyleBackColor = true;
+            this.radioAddressByLAN.AutoSize = true;
+            this.radioAddressByLAN.Location = new System.Drawing.Point(111, 19);
+            this.radioAddressByLAN.Name = "radioAddressByLAN";
+            this.radioAddressByLAN.Size = new System.Drawing.Size(101, 17);
+            this.radioAddressByLAN.TabIndex = 2;
+            this.radioAddressByLAN.Text = "By LAN address";
+            this.radioAddressByLAN.UseVisualStyleBackColor = true;
             // 
-            // panel1
+            // radioAddressByWAN
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Location = new System.Drawing.Point(121, 37);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(2, 52);
-            this.panel1.TabIndex = 25;
+            this.radioAddressByWAN.AutoSize = true;
+            this.radioAddressByWAN.Location = new System.Drawing.Point(228, 19);
+            this.radioAddressByWAN.Name = "radioAddressByWAN";
+            this.radioAddressByWAN.Size = new System.Drawing.Size(106, 17);
+            this.radioAddressByWAN.TabIndex = 3;
+            this.radioAddressByWAN.Text = "By WAN address";
+            this.radioAddressByWAN.UseVisualStyleBackColor = true;
             // 
             // FrmRule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(418, 528);
+            this.ClientSize = new System.Drawing.Size(416, 552);
             this.ControlBox = false;
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupAddressOptions);
+            this.Controls.Add(this.groupDNSValues);
+            this.Controls.Add(this.groupAddressSpecific);
+            this.Controls.Add(this.groupNetworks);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -357,12 +394,14 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "New Rule";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.groupNetworks.ResumeLayout(false);
+            this.groupNetworks.PerformLayout();
+            this.groupAddressSpecific.ResumeLayout(false);
+            this.groupAddressSpecific.PerformLayout();
+            this.groupDNSValues.ResumeLayout(false);
+            this.groupDNSValues.PerformLayout();
+            this.groupAddressOptions.ResumeLayout(false);
+            this.groupAddressOptions.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -382,11 +421,10 @@
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.TextBox txtAlternateDNS;
         private System.Windows.Forms.TextBox txtPreferredDNS;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupDNSValues;
+        private System.Windows.Forms.GroupBox groupAddressSpecific;
+        private System.Windows.Forms.GroupBox groupNetworks;
         private System.Windows.Forms.RadioButton radioAddressIsSpecific;
-        private System.Windows.Forms.RadioButton radioAddressAny;
         private System.Windows.Forms.TextBox txtAddressSubnet;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtAddressIP;
@@ -397,5 +435,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RadioButton radioNetworkNameIsNot;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.GroupBox groupAddressOptions;
+        private System.Windows.Forms.RadioButton radioAddressByWAN;
+        private System.Windows.Forms.RadioButton radioAddressByLAN;
+        private System.Windows.Forms.RadioButton radioAddressByAny;
     }
 }

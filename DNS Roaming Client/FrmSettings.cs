@@ -95,14 +95,32 @@ namespace DNS_Roaming_Client
                             lvItem.SubItems.Add(String.Format("Name is {0}", thisRule.NetworkNameIs));
                     }
 
-                    if (thisRule.AddressIsSpecific ) 
-                        lvItem.SubItems.Add(String.Format("In {0}/{1}", thisRule.AddressIP, thisRule.AddressSubnet));
 
-                    if (thisRule.AddressIsNotSpecific)
-                        lvItem.SubItems.Add(String.Format("Not in {0}/{1}", thisRule.AddressIP, thisRule.AddressSubnet));
+                    string addressTypePrefix = String.Empty;
+                    switch (thisRule.AddressByType)
+                    {
+                        case 1:
+                            addressTypePrefix = "LAN";
+                            break;
+                        case 2:
+                            addressTypePrefix = "WAN";
+                            break;
+                        default:
+                            //In case any other malformed value inthe Settings file
+                            if (thisRule.AddressByType != 0) thisRule.AddressByType = 0;
+                            break;
+                    }
 
-                    if (!thisRule.AddressIsSpecific && !thisRule.AddressIsNotSpecific)
+                    if (thisRule.AddressByType == 0)
                         lvItem.SubItems.Add("Any Subnet");
+                    else
+                    {
+                        if (thisRule.AddressIsSpecific)
+                            lvItem.SubItems.Add(String.Format("{0} In {1}/{2}", addressTypePrefix, thisRule.AddressIP, thisRule.AddressSubnet));
+
+                        if (thisRule.AddressIsNotSpecific)
+                            lvItem.SubItems.Add(String.Format("{0} Not in {1}/{2}", addressTypePrefix, thisRule.AddressIP, thisRule.AddressSubnet));
+                    }
 
                     if (thisRule.DNSPreferred == String.Empty && thisRule.DNSAlternative == String.Empty)
                         lvItem.SubItems.Add(thisRule.DNSSet);

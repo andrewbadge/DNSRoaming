@@ -123,6 +123,20 @@ namespace DNS_Roaming_Client
 
                 radioAddressIsSpecific.Checked = thisRule.AddressIsSpecific;
                 radioAddressIsNotSpecific.Checked = thisRule.AddressIsNotSpecific;
+                if (!(radioAddressIsSpecific.Checked || radioAddressIsNotSpecific.Checked)) radioAddressIsSpecific.Checked = true;
+
+                switch (thisRule.AddressByType)
+                {
+                    case 1:
+                        radioAddressByLAN.Checked = true;
+                        break;
+                    case 2:
+                        radioAddressByWAN.Checked = true;
+                        break;
+                    default:
+                        radioAddressByAny.Checked = true;
+                        break;
+                }
 
                 txtAddressIP.Text = thisRule.AddressIP;
                 txtAddressSubnet.Text = thisRule.AddressSubnet;
@@ -190,7 +204,7 @@ namespace DNS_Roaming_Client
                     isFormValid = false;
                 }
 
-                if (radioAddressIsSpecific.Checked)
+                if (radioAddressByLAN.Checked || radioAddressByWAN.Checked)
                 {
                     if (!IPAddress.TryParse(txtAddressIP.Text, out ipAddress))
                     {
@@ -293,6 +307,10 @@ namespace DNS_Roaming_Client
                     }
                 }
 
+                if (radioAddressByAny.Checked) thisRule.AddressByType = 0;
+                if (radioAddressByLAN.Checked) thisRule.AddressByType = 1;
+                if (radioAddressByWAN.Checked) thisRule.AddressByType = 2;
+
                 thisRule.AddressIsSpecific = radioAddressIsSpecific.Checked;
                 thisRule.AddressIsNotSpecific = radioAddressIsNotSpecific.Checked;
 
@@ -356,19 +374,14 @@ namespace DNS_Roaming_Client
             txtAlternateDNS.Text = String.Empty;
         }
 
-        private void radioAddressAny_Click(object sender, EventArgs e)
-        {
-
-        }
-
         /// <summary>
         /// If you choose any Network address, then clear the specific address entered.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void radioAddressAny_CheckedChanged(object sender, EventArgs e)
+        private void radioAddressByAny_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioAddressAny.Checked)
+            if (radioAddressByAny.Checked)
             {
                 txtAddressIP.Text = string.Empty;
                 txtAddressSubnet.Text = string.Empty;
@@ -386,14 +399,31 @@ namespace DNS_Roaming_Client
 
             string returnIP = string.Empty;
             string returnSubnet = string.Empty;
-            NetworkingExtensions.GetCurrentIPandSubNet(out returnIP,out returnSubnet);
 
-            if (returnIP != String.Empty && returnSubnet != String.Empty)
+            if (radioAddressByAny.Checked)
             {
-                txtAddressIP.Text = returnIP;
-                txtAddressSubnet.Text = returnSubnet;
+                radioAddressByLAN.Checked = true;
+                radioAddressIsSpecific.Checked = true;
+            }
 
-                if (radioAddressAny.Checked) radioAddressIsSpecific.Checked = true;
+            if (radioAddressByLAN.Checked)
+            {
+                NetworkingExtensions.GetLANIPandSubnet(out returnIP, out returnSubnet);
+                if (returnIP != String.Empty && returnSubnet != String.Empty)
+                {
+                    txtAddressIP.Text = returnIP;
+                    txtAddressSubnet.Text = returnSubnet;
+                }
+            }
+
+            if (radioAddressByWAN.Checked)
+            {
+                NetworkingExtensions.GetWANIPandSubnet(out returnIP, out returnSubnet);
+                if (returnIP != String.Empty && returnSubnet != String.Empty)
+                {
+                    txtAddressIP.Text = returnIP;
+                    txtAddressSubnet.Text = returnSubnet;
+                }
             }
 
         }

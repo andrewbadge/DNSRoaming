@@ -102,6 +102,16 @@ namespace DNS_Roaming_Common
             }
         }
 
+        private int addressByType;
+        public int AddressByType
+        {
+            get { return addressByType; }
+            set
+            {
+                addressByType = value;
+            }
+        }
+
         private string addressIP;
         public string AddressIP
         {

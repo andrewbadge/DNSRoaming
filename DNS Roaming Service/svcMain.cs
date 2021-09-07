@@ -362,26 +362,27 @@ namespace DNS_Roaming_Service
 
                                 //Compare if the network address matches the rule
                                 bool ruleMatchedAddress = false;
-                                if (thisRule.AddressIsSpecific || thisRule.AddressIsNotSpecific)
+                                //1=LAN, 2=WAN
+                                if (thisRule.AddressByType == 1 || thisRule.AddressByType == 2)
                                 {
                                     Logger.Debug("Parsing current IPs");
 
-                                    //Get the Current IP abd subnet and the Rules IP and Subnet
-                                    IPAddress ip1 = IPAddress.Parse(currentIP);
-                                    IPAddress subnet1 = IPAddress.Parse(currentSubnet);
-
-                                    IPAddress ip2 = IPAddress.Parse(thisRule.AddressIP);
-                                    IPAddress subnet2 = IPAddress.Parse(thisRule.AddressSubnet);
-
-                                    //Get the NEtwork address for both and compare.
-                                    Logger.Debug("Getting Network Addreses");
-                                    IPAddress network1 = ip1.GetNetworkAddress(subnet1);
-                                    IPAddress network2 = ip2.GetNetworkAddress(subnet2);
+                                    if (thisRule.AddressByType == 1)
+                                    {
+                                        //Parse the Current IP and subnet 
+                                        Logger.Debug(String.Format("Current LAN IP is [{0}]", currentIP));
+                                    }
+                                    else
+                                    {
+                                        //Get the WANIP and Parse
+                                        NetworkingExtensions.GetWANIPandSubnet(out currentIP, out currentSubnet);
+                                        Logger.Debug(String.Format("Current WAN IP is [{0}]", currentIP));
+                                    }
 
                                     if (thisRule.AddressIsSpecific)
-                                        ruleMatchedAddress = network1.Equals(network2);
+                                        ruleMatchedAddress = NetworkingExtensions.IPIsInRange(currentIP, thisRule.AddressIP, thisRule.AddressSubnet);
                                     else
-                                        ruleMatchedAddress = !network1.Equals(network2);
+                                        ruleMatchedAddress = !NetworkingExtensions.IPIsInRange(currentIP, thisRule.AddressIP, thisRule.AddressSubnet);
 
                                 }
                                 else
@@ -434,7 +435,7 @@ namespace DNS_Roaming_Service
                     }
                 }
 
-                Logger.Info(String.Format("Check complete. {0} matching Rules processed.",rulesMatched));
+                Logger.Info(String.Format("Check complete. Actioned {0} Rules.",rulesMatched));
 
             }
             catch (Exception ex)

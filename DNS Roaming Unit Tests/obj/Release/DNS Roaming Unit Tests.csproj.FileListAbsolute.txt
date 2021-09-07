@@ -7,11 +7,13 @@ D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Unit Tests\bin\Release\DNS Roa
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Unit Tests\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Unit Tests\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Unit Tests\bin\Release\NLog.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Unit Tests\bin\Release\IPAddressRange.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Unit Tests\bin\Release\DNS Roaming Common.pdb
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Unit Tests\bin\Release\DNS Roaming Common.dll.config
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Unit Tests\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Unit Tests\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Unit Tests\bin\Release\NLog.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Unit Tests\bin\Release\IPAddressRange.xml
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Unit Tests\obj\Release\DNS Roaming Unit Tests.csprojAssemblyReference.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Unit Tests\obj\Release\DNS Roaming Unit Tests.csproj.CoreCompileInputs.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Unit Tests\obj\Release\DNS Roaming Unit Tests.csproj.CopyComplete
