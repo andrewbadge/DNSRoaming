@@ -48,7 +48,7 @@ Or Jump to [DNS Set Definitions](https://github.com/andrewbadge/DNSRoaming/blob/
 
 [Deployment Examples](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/Readme.md)
 
-[Technical Details](https://github.com/andrewbadge/DNSRoaming/blob/main/help/Technical.md)
+[Technical Details](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/Technical.md)
 
 [FAQs](https://github.com/andrewbadge/DNSRoaming/blob/main/help/FAQ.md)
 
