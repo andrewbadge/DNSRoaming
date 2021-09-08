@@ -50,7 +50,7 @@ Or Jump to [DNS Set Definitions](https://github.com/andrewbadge/DNSRoaming/blob/
 
 [Technical Details](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/Technical.md)
 
-[FAQs](https://github.com/andrewbadge/DNSRoaming/blob/main/help/FAQ.md)
+[FAQs](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/FAQ.md)
 
 ## Found a issue or bug?
 
