@@ -59,9 +59,9 @@ See the [Troubleshooting](https://github.com/andrewbadge/DNSRoaming/blob/main/He
 In case you've found a bug, please open an issue on our GitHub.
 Or you just think what I've done is stupid; then keep it to yourself. ;-)
 
-## Got another DNS server suggestion?
+## Got a favourite DNS server you'd like added to DNS Sets?
 
-Let me know via the issues.
+Let me know via the issues. If you can include a link to DNS values and a about page please.
 
 # Licensing
 
