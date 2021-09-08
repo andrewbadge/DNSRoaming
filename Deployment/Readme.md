@@ -28,3 +28,16 @@ To send a standard rule to all PCs in a network; create the rule on your machine
 You could do this via Powershell with a GitHub Repo for the locations of your settings files.
 
 Hints: Rules based on a network name are unlikely to work on multiple PCs. Use Network Types.
+
+## Hardening DNS Roaming
+
+If the objective is to install DNS Roaming so the user is not aware of it (and cannot modify the rules); consider the following.
+
+Currently the installer will always:
+
+- Install the Client App
+- Set the Client app to start with Windows
+- Allow the BUILTIN\Users group to edit settings
+
+A future update may allow the Client to not be installed. In the interim you could just remove it manually.
+Additionally change the permissions for the %PROGRAMDATA%\DNSRoaming\Settings folder to Deny access to Users.
