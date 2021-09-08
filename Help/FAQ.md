@@ -12,6 +12,10 @@ My original objective was to get fast and effective blocking of malware links an
 
 Read about the [DNS Set Definitions](https://github.com/andrewbadge/DNSRoaming/blob/main/DNSSets.md)
 
+## Can DNS Roaming report on DNS traffic?
+
+No. DNS Roaming only sets the DNS server address. It does not see any traffic or queries the PC or Apps make to the DNS Servers.
+
 ## Limitations
 
 ### DNS Roaming only supports IPV4
