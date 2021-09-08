@@ -22,7 +22,7 @@ I haven't tested the installation in enough scenarios yet nor have I got feedbac
 DNS Roaming is a Client and Service to ensure the DNS Servers are set via a rule / policy rather than the network a PC is connected to. 
 This allows an adminstrator to force that Quad9 or CloudFlare's DNS server is set rather than an ISPs DNS.
 
-This is particularly useful if you want to block malware links for PCs you manage. In general this would apply to corporate or school laptops (devices that travel into different networks frequently..work then home and back to work again).
+This is particularly useful if you want to block malware links for PCs you manage. In general this would apply to MSPs, Corporate or school laptops (devices that travel into different networks frequently..work then home and back to work again).
 
 e.g.
 - If the connected Network is Wireless then set the DNS to Quad9.
