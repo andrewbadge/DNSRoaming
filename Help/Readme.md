@@ -1,10 +1,9 @@
-# Images
 
-Image files used in the documentation and Readme files and Screenshots.
+# Help and Troubleshooting
 
-# Screenshots
+## Screenshots
 
-## Tray Menu
+### Tray Menu
 
 Right client the Tray icon for:
 
@@ -15,13 +14,13 @@ Right client the Tray icon for:
 
 ![Tray Menu](https://github.com/andrewbadge/DNSRoaming/blob/main/Images/DNSRoamingClient-TrayMenu.PNG)
 
-## Settings
+### Settings
 
 List of Rules to Add, Edit or Remove
 
 ![Settings](https://github.com/andrewbadge/DNSRoaming/blob/main/Images/DNSRoamingClient-Settings.PNG)
 
-## Edit Rule
+### Edit Rule
 
 Editing a Rule
 
@@ -32,23 +31,23 @@ Editing a Rule
 
 ![Edit Rule](https://github.com/andrewbadge/DNSRoaming/blob/main/Images/DNSRoamingClient-EditRule.PNG)
 
-## DNS Sets
+### DNS Sets
 
-DNs Roaming has several preset DNS options you can choose from including Quad9 and CloudFlare. Use the copy button to move the values in the Preferred and Alternate DNS fields.
+DNS Roaming has several preset DNS options you can choose from including Quad9 and CloudFlare. Use the copy button to move the values in the Preferred and Alternate DNS fields.
 
 Alternatively you can set your own DNS servers.
 
 Read more about the [DNS Set Definitions](https://github.com/andrewbadge/DNSRoaming/blob/main/DNSSets.md)
 
-# Troubleshooting
+## Troubleshooting
 
-## Read the logs
+### Read the logs
 
 ![image](https://user-images.githubusercontent.com/15990355/131957665-10c4be59-9c59-4538-bdb7-65a0248305cd.png)
 
 Logs are also in the %ProgramData%\DNSRoaming folder.
 
-## DNS Roaming and a VPN
+### DNS Roaming and a VPN
 
 I've tested with FortiNet's VPN client and the VPN connection will force its own DNS settings. DNS Roaming will still change the NIC's settings but the VPN connection wins here.
 In this case its probably not terrible as you're connecting to a (hopefully) secure Enterprise network.
