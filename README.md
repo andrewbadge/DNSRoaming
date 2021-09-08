@@ -32,6 +32,8 @@ If you find this useful and would like me to continue working on it please [![Bu
 
 ## Why DNS Roaming?
 
+![image](https://user-images.githubusercontent.com/15990355/132497136-99aca035-9c05-4e2b-8f9a-3a6e39592118.png)
+
 DNS can play a strong part in the security of a PC. With the right DNS service; malicous links, sites and servers can be blocked. 
 If you have the money a service like CISCO Umbrella or DNS Filter are effective.
 
