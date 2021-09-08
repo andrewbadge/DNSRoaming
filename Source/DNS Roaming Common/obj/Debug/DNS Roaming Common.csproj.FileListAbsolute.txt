@@ -1,0 +1,25 @@
+D:\Andrew\Documents\GitHub\DNSRoaming\DNSRoamingCommon\obj\Debug\DNS Roaming Common.csproj.CoreCompileInputs.cache
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Common\bin\Debug\DNS Roaming Common.dll.config
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Common\bin\Debug\DNS Roaming Common.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Common\bin\Debug\DNS Roaming Common.pdb
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Common\bin\Debug\IPAddressRange.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Common\bin\Debug\NLog.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Common\bin\Debug\IPAddressRange.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Common\bin\Debug\NLog.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Common\obj\Debug\DNS Roaming Common.csproj.CoreCompileInputs.cache
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Common\obj\Debug\DNS Roaming Common.csproj.CopyComplete
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Common\obj\Debug\DNS Roaming Common.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Common\obj\Debug\DNS Roaming Common.pdb
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Common\obj\Debug\DNS Roaming Common.csprojAssemblyReference.cache
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Debug\DNS Roaming Common.dll.config
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Debug\DNS Roaming Common.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Debug\DNS Roaming Common.pdb
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Debug\IPAddressRange.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Debug\NLog.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Debug\IPAddressRange.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Debug\NLog.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Debug\DNS Roaming Common.csprojAssemblyReference.cache
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Debug\DNS Roaming Common.csproj.CoreCompileInputs.cache
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Debug\DNS Roaming Common.csproj.CopyComplete
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Debug\DNS Roaming Common.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Debug\DNS Roaming Common.pdb

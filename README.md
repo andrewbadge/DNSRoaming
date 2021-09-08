@@ -5,7 +5,7 @@
 Go to [Releases](https://github.com/andrewbadge/DNSRoaming/releases) and download the most recent release (and MSI file).
 Install the MSI manually, via a policy or script.
 
-NB: you will need Run as **Administrator** to install this MSI as a Windows Service is installed.
+NB: you will need **Run as Administrator** to install this MSI as a Windows Service is installed.
 
 System Requirements:
 - Windows 10/11 and a compatible PC
@@ -40,44 +40,17 @@ If you don't have the money then you rely on the configuration of the destinatio
 Of course if this is your managed corporate or home network then you have the control you need. 
 But do you have the control over your friends home network? Do you have control over each of your co-workers home networks? No.
 
-## Help and Screenshots
+## Help, Troubleshoot, Screenshots and more
 
-[Screenshots and Help](https://github.com/andrewbadge/DNSRoaming/blob/main/Images/Readme.md)
+[Help and Troubleshooting](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/Readme.md)
 
-[DNS Set Definitions](https://github.com/andrewbadge/DNSRoaming/blob/main/DNSSets.md)
+Or Jump to [DNS Set Definitions](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/DNSSets.md)
 
-[Deployment Examples](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment.md)
+[Deployment Examples](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/Readme.md)
 
-# Technical Stuff
-DNS Roaming is two components:
+[Technical Details](https://github.com/andrewbadge/DNSRoaming/blob/main/help/Technical.md)
 
-- a Client: to show the status of the service and configure settings
-- a Service: to parse the rules and set DNS servers
-
-All Code is written in C# with a WIX Toolkit based installer and compiled with [Visual Studio Community Edition 2019](https://visualstudio.microsoft.com/downloads/).
-
-### Configuration
-
-All Logs are saved to %ProgramData%\DNSRoaming
-
-All Settings file are in XML and are saved to %ProgramData%\DNSRoaming\Settings
-
-
-### Default Rule
-
-If no rules exist; a default rule will be created that will:
-
-- when connected to any Wireless Network
-- on any network address
-- set the DNS server to Quad (Preferred) and CloudFlare - No Malware (Alternative)
-
-# FAQ
-
-## Can I install the files manually?
-
-Sure. DNS Roaming won't care where the service and client files are located. If you copy the [Program Files] files (exes, dlls and config files) to any folder you can run the client and install the service manually (using "SC CREATE").
-
-NB: the log and settings files will always be stored under %ProgramData%\DNSRoaming 
+[FAQs](https://github.com/andrewbadge/DNSRoaming/blob/main/help/FAQ.md)
 
 ## Found a issue or bug?
 
@@ -85,12 +58,6 @@ See [Troubleshooting](https://github.com/andrewbadge/DNSRoaming/blob/main/Troubl
 
 In case you've found a bug, please open an issue on our GitHub.
 Or you just think what I've done is stupid; then keep it to yourself. ;-)
-
-## Why is Quad9 and CloudFlare default?
-
-My original objective was to get fast and effective blocking of malware links and URLs for free. Both of these services are well known and high quality. You can always set your own customer servers!
-
-Read about the [DNS Set Definitions](https://github.com/andrewbadge/DNSRoaming/blob/main/DNSSets.md)
 
 ## Got another DNS server suggestion?
 

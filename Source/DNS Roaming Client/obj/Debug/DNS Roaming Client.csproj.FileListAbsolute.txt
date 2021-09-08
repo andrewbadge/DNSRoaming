@@ -1,0 +1,56 @@
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Client\bin\Debug\DNS Roaming Client.exe.config
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Client\bin\Debug\DNS Roaming Client.exe
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Client\bin\Debug\DNS Roaming Client.pdb
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Client\obj\Debug\DNS Roaming Client.csprojAssemblyReference.cache
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Client\obj\Debug\DNS_Roaming_Client.Properties.Resources.resources
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Client\obj\Debug\DNS Roaming Client.csproj.GenerateResource.cache
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Client\obj\Debug\DNS Roaming Client.csproj.CoreCompileInputs.cache
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Client\obj\Debug\DNS Roaming Client.exe
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Client\obj\Debug\DNS Roaming Client.pdb
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Client\obj\Debug\DNS_Roaming_Client.Form1.resources
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Client\bin\Debug\NLog.dll
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Client\bin\Debug\NLog.xml
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Client\obj\Debug\DNS Roaming Client.csproj.CopyComplete
+D:\Andrew\Projects\DNS Roaming\DNS Roaming Client\obj\Debug\DNS_Roaming_Client.FrmRule.resources
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Debug\NLog.config
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Debug\DNS Roaming Client.exe.config
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Debug\DNS Roaming Client.exe
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Debug\DNS Roaming Client.pdb
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Debug\DNS Roaming Common.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Debug\NLog.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Debug\IPAddressRange.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Debug\DNS Roaming Common.pdb
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Debug\DNS Roaming Common.dll.config
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Debug\NLog.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\bin\Debug\IPAddressRange.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\obj\Debug\DNS Roaming Client.csprojAssemblyReference.cache
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\obj\Debug\DNS_Roaming_Client.FrmMain.resources
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\obj\Debug\DNS_Roaming_Client.FrmSettings.resources
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\obj\Debug\DNS_Roaming_Client.FrmRule.resources
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\obj\Debug\DNS_Roaming_Client.Properties.Resources.resources
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\obj\Debug\DNS Roaming Client.csproj.GenerateResource.cache
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\obj\Debug\DNS Roaming Client.csproj.CoreCompileInputs.cache
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\obj\Debug\DNS Roaming Client.csproj.CopyComplete
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\obj\Debug\DNS Roaming Client.exe
+D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Client\obj\Debug\DNS Roaming Client.pdb
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\NLog.config
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\DNS Roaming Client.exe.config
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\DNS Roaming Client.exe
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\DNS Roaming Client.pdb
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\DNS Roaming Common.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\NLog.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\IPAddressRange.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\DNS Roaming Common.pdb
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\DNS Roaming Common.dll.config
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\NLog.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\IPAddressRange.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.csprojAssemblyReference.cache
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS_Roaming_Client.FrmMain.resources
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS_Roaming_Client.FrmSettings.resources
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS_Roaming_Client.FrmRule.resources
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS_Roaming_Client.Properties.Resources.resources
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.csproj.GenerateResource.cache
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.csproj.CoreCompileInputs.cache
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.csproj.CopyComplete
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.exe
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.pdb
