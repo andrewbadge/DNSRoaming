@@ -54,7 +54,7 @@ Or Jump to [DNS Set Definitions](https://github.com/andrewbadge/DNSRoaming/blob/
 
 ## Found a issue or bug?
 
-See [Troubleshooting](https://github.com/andrewbadge/DNSRoaming/blob/main/Troubleshooting.md)
+See [Troubleshooting](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/Troubleshooting.md)
 
 In case you've found a bug, please open an issue on our GitHub.
 Or you just think what I've done is stupid; then keep it to yourself. ;-)
