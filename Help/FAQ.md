@@ -11,3 +11,9 @@ NB: the log and settings files will always be stored under %ProgramData%\DNSRoam
 My original objective was to get fast and effective blocking of malware links and URLs for free. Both of these services are well known and high quality. You can always set your own customer servers!
 
 Read about the [DNS Set Definitions](https://github.com/andrewbadge/DNSRoaming/blob/main/DNSSets.md)
+
+## Limitations
+
+### DNS Roaming only supports IPV4
+
+Currently DNS Roaming only supports IPV4 settings and configuration. In the future I'll make it compatible with IPV6 as well.
