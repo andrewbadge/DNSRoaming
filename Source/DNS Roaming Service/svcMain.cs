@@ -13,11 +13,14 @@ namespace DNS_Roaming_Service
     public partial class svcMain : ServiceBase
     {
         static IList<DNSRoamingRule> ruleList = new List<DNSRoamingRule>();
-        static FileSystemWatcher watcher;
+        static FileSystemWatcher watcherSettings;
+        static FileSystemWatcher watcherOptions;
         static bool isServicePaused = false;
         private static System.Timers.Timer serviceTimer;
         static DateTime lastEventTriggered = new DateTime(); 
         static int countEventSkipped = 0;
+
+        static bool disableIPV6 = false;
 
         public svcMain()
         {
@@ -26,6 +29,7 @@ namespace DNS_Roaming_Service
             try
             {
                 InitializeComponent();
+                LoadOptions();
                 LoadDNSRules();
                 registerEvents();
                 ConfigureServiceTimer();
@@ -75,9 +79,10 @@ namespace DNS_Roaming_Service
             NetworkChange.NetworkAvailabilityChanged += new NetworkAvailabilityChangedEventHandler(AvailabilityChangedCallback);
 
             PathsandData pathsandData = new PathsandData();
-            watcher = new FileSystemWatcher(pathsandData.BaseSettingsPath);
 
-            watcher.NotifyFilter = NotifyFilters.Attributes
+            //Watch the Settings folder for changes
+            watcherSettings = new FileSystemWatcher(pathsandData.BaseSettingsPath);
+            watcherSettings.NotifyFilter = NotifyFilters.Attributes
                                 | NotifyFilters.CreationTime
                                 | NotifyFilters.DirectoryName
                                 | NotifyFilters.FileName
@@ -86,14 +91,35 @@ namespace DNS_Roaming_Service
                                 | NotifyFilters.Security
                                 | NotifyFilters.Size;
 
-            watcher.Changed += SettingsFileChanged;
-            watcher.Created += SettingsFileCreated;
-            watcher.Deleted += SettingsFileDeleted;
-            watcher.Renamed += SettingsFileRenamed;
+            watcherSettings.Changed += SettingsFileChanged;
+            watcherSettings.Created += SettingsFileCreated;
+            watcherSettings.Deleted += SettingsFileDeleted;
+            watcherSettings.Renamed += SettingsFileRenamed;
 
-            watcher.Filter = "*.xml";
-            watcher.IncludeSubdirectories = false;
-            watcher.EnableRaisingEvents = true;
+            watcherSettings.Filter = "*.xml";
+            watcherSettings.IncludeSubdirectories = false;
+            watcherSettings.EnableRaisingEvents = true;
+
+            //Watch the Options folder for changes
+            watcherOptions = new FileSystemWatcher(pathsandData.BaseOptionsPath);
+
+            watcherOptions.NotifyFilter = NotifyFilters.Attributes
+                                | NotifyFilters.CreationTime
+                                | NotifyFilters.DirectoryName
+                                | NotifyFilters.FileName
+                                | NotifyFilters.LastAccess
+                                | NotifyFilters.LastWrite
+                                | NotifyFilters.Security
+                                | NotifyFilters.Size;
+
+            watcherOptions.Changed += OptionsFileChanged;
+            watcherOptions.Created += OptionsFileCreated;
+            watcherOptions.Deleted += OptionsFileDeleted;
+            watcherOptions.Renamed += OptionsFileRenamed;
+
+            watcherOptions.Filter = "*.xml";
+            watcherOptions.IncludeSubdirectories = false;
+            watcherOptions.EnableRaisingEvents = true;
 
             lastEventTriggered = DateTime.Now.AddDays(-1);
             countEventSkipped = 0;
@@ -158,6 +184,50 @@ namespace DNS_Roaming_Service
                 LoadDNSRules();
                 CompareNetworkToRules();
             }
+        }
+
+        private static void OptionsFileChanged(object sender, FileSystemEventArgs e)
+        {
+            if (e.ChangeType != WatcherChangeTypes.Changed)
+            {
+                return;
+            }
+
+            Logger.Info(String.Format("Options file change detected"));
+            LoadOptions();
+        }
+
+        private static void OptionsFileCreated(object sender, FileSystemEventArgs e)
+        {
+            if (e.ChangeType != WatcherChangeTypes.Created)
+            {
+                return;
+            }
+
+            Logger.Info(String.Format("Options file change detected"));
+            LoadOptions();
+        }
+
+        private static void OptionsFileDeleted(object sender, FileSystemEventArgs e)
+        {
+            if (e.ChangeType != WatcherChangeTypes.Deleted)
+            {
+                return;
+            }
+
+            Logger.Info(String.Format("Options file change detected"));
+            LoadOptions();
+        }
+
+        private static void OptionsFileRenamed(object sender, FileSystemEventArgs e)
+        {
+            if (e.ChangeType != WatcherChangeTypes.Renamed)
+            {
+                return;
+            }
+
+            Logger.Info(String.Format("Options file change detected"));
+            LoadOptions();
         }
 
         static void AddressChangedCallback(object sender, EventArgs e)
@@ -228,6 +298,27 @@ namespace DNS_Roaming_Service
         }
 
         #endregion
+
+        /// <summary>
+        /// Load Options from the Options File
+        /// </summary>
+        static private void LoadOptions()
+        {
+            Logger.Debug("LoadOptions");
+
+            try
+            {
+                DNSRoamingOption newOption = new DNSRoamingOption();
+                newOption.Load();
+                disableIPV6 = newOption.DisableIPV6;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+
+        }
+
 
         /// <summary>
         /// Interates the Settings Folder and loads each Setting File
@@ -318,9 +409,10 @@ namespace DNS_Roaming_Service
                         IList<string> currentDNSAddresses = new List<string>();
                         string networkName = string.Empty;
                         NetworkInterfaceType networkInterfaceType;
+                        bool isIPV6Enabled = false;
 
                         //Get name, Type, IP and Subnet
-                        NetworkingExtensions.GetNetworkAttributes(currentNIC, out currentIP, out currentSubnet, out networkName, out networkInterfaceType, out currentDNSAddresses);
+                        NetworkingExtensions.GetNetworkAttributes(currentNIC, out currentIP, out currentSubnet, out networkName, out networkInterfaceType, out currentDNSAddresses, out isIPV6Enabled);
 
                         if (currentIP != string.Empty && currentSubnet != string.Empty)
                         {
@@ -394,6 +486,8 @@ namespace DNS_Roaming_Service
                                     Logger.Debug("All Rules Match");
 
                                     rulesMatched += 1;
+
+                                    if (isIPV6Enabled && disableIPV6) NetworkingExtensions.DisableIPV6onNetworkInterface(networkName);
 
                                     string dns1 = string.Empty;
                                     string dns2 = string.Empty;

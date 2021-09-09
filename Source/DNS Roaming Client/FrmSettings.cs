@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -15,6 +14,7 @@ namespace DNS_Roaming_Client
         
         IList<DNSRoamingRule> ruleList = new List<DNSRoamingRule>();
         bool settingsPathExist = false;
+        bool optionsPathExist = false;
 
         public FrmSettings()
         {
@@ -22,10 +22,15 @@ namespace DNS_Roaming_Client
 
             this.Text = String.Format("DNS Roaming Settings (v{0})", Assembly.GetExecutingAssembly().GetName().Version.ToString());
 
+            //Check Paths in case there is a permissions issue
+            //or the client is before the service is ever run
             PathsandData pathsandData = new PathsandData();
             settingsPathExist = pathsandData.SettingsPathExist();
+            optionsPathExist = pathsandData.OptionsPathExist();
 
+            //Init all the details
             InitialiseForm();
+            InitialiseOptions();
             InitialiseRules(pathsandData.BaseSettingsPath);
             ListRules();
         }
@@ -36,6 +41,27 @@ namespace DNS_Roaming_Client
 
             errorProvider.Clear();
             if (!settingsPathExist) errorProvider.SetError(btnSave, "Settings Folder does not exist. Check if the Service is running");
+        }
+
+        /// <summary>
+        /// Load Options from the Options File
+        /// </summary>
+        private void InitialiseOptions()
+        {
+
+            if (!optionsPathExist) return;
+
+            try
+            {
+                DNSRoamingOption newOption = new DNSRoamingOption();
+                newOption.Load();
+                chkIPV6Disable.Checked = newOption.DisableIPV6;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+
         }
 
         /// <summary>
@@ -84,53 +110,57 @@ namespace DNS_Roaming_Client
 
             foreach (DNSRoamingRule thisRule in ruleList)
             {
-                try { 
-                    ListViewItem lvItem = new ListViewItem();
-                    lvItem.Text = thisRule.ID;
+                try {
 
-                    if (thisRule.UseNetworkType)
-                        lvItem.SubItems.Add(String.Format("Type is {0}", thisRule.NetworkType));
-                    else
+                    if (thisRule.ID != String.Empty)
                     {
-                        if (thisRule.NetworkNameIs == String.Empty)
-                            lvItem.SubItems.Add(String.Format("Name is not {0}", thisRule.NetworkNameIsNot));
+                        ListViewItem lvItem = new ListViewItem();
+                        lvItem.Text = thisRule.ID;
+
+                        if (thisRule.UseNetworkType)
+                            lvItem.SubItems.Add(String.Format("Type is {0}", thisRule.NetworkType));
                         else
-                            lvItem.SubItems.Add(String.Format("Name is {0}", thisRule.NetworkNameIs));
+                        {
+                            if (thisRule.NetworkNameIs == String.Empty)
+                                lvItem.SubItems.Add(String.Format("Name is not {0}", thisRule.NetworkNameIsNot));
+                            else
+                                lvItem.SubItems.Add(String.Format("Name is {0}", thisRule.NetworkNameIs));
+                        }
+
+
+                        string addressTypePrefix = String.Empty;
+                        switch (thisRule.AddressByType)
+                        {
+                            case 1:
+                                addressTypePrefix = "LAN";
+                                break;
+                            case 2:
+                                addressTypePrefix = "WAN";
+                                break;
+                            default:
+                                //In case any other malformed value inthe Settings file
+                                if (thisRule.AddressByType != 0) thisRule.AddressByType = 0;
+                                break;
+                        }
+
+                        if (thisRule.AddressByType == 0)
+                            lvItem.SubItems.Add("Any Subnet");
+                        else
+                        {
+                            if (thisRule.AddressIsSpecific)
+                                lvItem.SubItems.Add(String.Format("{0} In {1}/{2}", addressTypePrefix, thisRule.AddressIP, thisRule.AddressSubnet));
+
+                            if (thisRule.AddressIsNotSpecific)
+                                lvItem.SubItems.Add(String.Format("{0} Not in {1}/{2}", addressTypePrefix, thisRule.AddressIP, thisRule.AddressSubnet));
+                        }
+
+                        if (thisRule.DNSPreferred == String.Empty && thisRule.DNSAlternative == String.Empty)
+                            lvItem.SubItems.Add(thisRule.DNSSet);
+                        else
+                            lvItem.SubItems.Add(String.Format("{0},{1}", thisRule.DNSPreferred, thisRule.DNSAlternative).Trim());
+
+                        listViewRules.Items.Add(lvItem);
                     }
-
-
-                    string addressTypePrefix = String.Empty;
-                    switch (thisRule.AddressByType)
-                    {
-                        case 1:
-                            addressTypePrefix = "LAN";
-                            break;
-                        case 2:
-                            addressTypePrefix = "WAN";
-                            break;
-                        default:
-                            //In case any other malformed value inthe Settings file
-                            if (thisRule.AddressByType != 0) thisRule.AddressByType = 0;
-                            break;
-                    }
-
-                    if (thisRule.AddressByType == 0)
-                        lvItem.SubItems.Add("Any Subnet");
-                    else
-                    {
-                        if (thisRule.AddressIsSpecific)
-                            lvItem.SubItems.Add(String.Format("{0} In {1}/{2}", addressTypePrefix, thisRule.AddressIP, thisRule.AddressSubnet));
-
-                        if (thisRule.AddressIsNotSpecific)
-                            lvItem.SubItems.Add(String.Format("{0} Not in {1}/{2}", addressTypePrefix, thisRule.AddressIP, thisRule.AddressSubnet));
-                    }
-
-                    if (thisRule.DNSPreferred == String.Empty && thisRule.DNSAlternative == String.Empty)
-                        lvItem.SubItems.Add(thisRule.DNSSet);
-                    else
-                        lvItem.SubItems.Add(String.Format("{0},{1}", thisRule.DNSPreferred, thisRule.DNSAlternative).Trim());
-                
-                    listViewRules.Items.Add(lvItem);
                 }
                 catch (Exception ex)
                 {
@@ -226,7 +256,26 @@ namespace DNS_Roaming_Client
             }
         }
 
-        
+        private void SaveOptions()
+        {
+
+            if (!optionsPathExist) return;
+
+            try
+            {
+                DNSRoamingOption newOption = new DNSRoamingOption();
+                newOption.Load();
+                newOption.DisableIPV6 = chkIPV6Disable.Checked;
+                newOption.Save();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+
+        }
+
+
         private void listViewRules_DoubleClick(object sender, EventArgs e)
         {
             ListRuleEdit();
@@ -256,6 +305,8 @@ namespace DNS_Roaming_Client
         {
             bool saveFailed = false;
             errorProvider.Clear();
+
+            SaveOptions();
 
             foreach (DNSRoamingRule thisRule in ruleList)
             {

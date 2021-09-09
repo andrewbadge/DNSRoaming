@@ -4,3 +4,5 @@ D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Installer\bin\Release\DNS_Roam
 obj\Release\DNS Roaming Installer.wixproj.BindContentsFileListnull.txt
 obj\Release\DNS Roaming Installer.wixproj.BindOutputsFileListnull.txt
 obj\Release\DNS Roaming Installer.wixproj.BindBuiltOutputsFileListnull.txt
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Installer\bin\Release\DNS_Roaming_Installer.msi
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Installer\bin\Release\DNS_Roaming_Installer.wixpdb

@@ -79,20 +79,38 @@ namespace DNS_Roaming_Common
             string returnIP = string.Empty;
             string returnSubnet = "255.255.255.255";
 
-            try { 
-                string url = "http://checkip.dyndns.org";
-                System.Net.WebRequest req = System.Net.WebRequest.Create(url);
-                System.Net.WebResponse resp = req.GetResponse();
-                System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
-                string response = sr.ReadToEnd().Trim();
-                string[] a = response.Split(':');
-                string a2 = a[1].Substring(1);
-                string[] a3 = a2.Split('<');
-                returnIP = a3[0];
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex.Message);
+            bool queryDoAttempt = true;
+            int queryAttempts = 0;
+            int queryAttemptsMax = 2;
+
+            while (queryDoAttempt)
+            {    
+                try
+                {
+                    //Handle if the external query times out
+                    queryAttempts += 1;
+
+                    string url = "http://checkip.dyndns.org";
+                    System.Net.WebRequest req = System.Net.WebRequest.Create(url);
+                    System.Net.WebResponse resp = req.GetResponse();
+                    System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
+                    string response = sr.ReadToEnd().Trim();
+                    string[] a = response.Split(':');
+                    string a2 = a[1].Substring(1);
+                    string[] a3 = a2.Split('<');
+                    returnIP = a3[0];
+
+                    queryDoAttempt = false;
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex.Message);
+
+                    if (queryAttempts >= queryAttemptsMax)
+                        queryDoAttempt = false;
+                    else
+                        System.Threading.Thread.Sleep(2000);
+                }
             }
 
             currentIP = returnIP;
@@ -196,6 +214,33 @@ namespace DNS_Roaming_Common
 
         }
 
+        public static void DisableIPV6onNetworkInterface(string networkName)
+        {
+            Logger.Debug("DisableIPV6onNetworkInterface");
+
+            try
+            {
+                //Build the Powershell Command
+                string argument = string.Format(@"-NoProfile -ExecutionPolicy unrestricted & {{disable-NetAdapterBinding -Name '{0}' -ComponentID ms_tcpip6 }}", networkName);
+
+                //Execute the Powershell command
+                var startInfo = new ProcessStartInfo()
+                {
+                    FileName = "powershell.exe",
+                    Arguments = argument,
+                    UseShellExecute = false
+
+                };
+                Process.Start(startInfo);
+
+                Logger.Info(String.Format("IPV6 Disabled for {0}", networkName));
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+        }
+
         /// <summary>
         /// Return a list Network Interfaces that are active with IPV4
         /// </summary>
@@ -239,7 +284,7 @@ namespace DNS_Roaming_Common
         /// <param name="networkInterfaceType"></param>
         /// <param name="dnsAddress1"></param>
         /// <param name="dnsAddress2"></param>
-        public static void GetNetworkAttributes(NetworkInterface currentNIC, out string currentIP, out string currentSubnet, out string networkName, out NetworkInterfaceType networkInterfaceType, out IList<string> currentDNSAddresses)
+        public static void GetNetworkAttributes(NetworkInterface currentNIC, out string currentIP, out string currentSubnet, out string networkName, out NetworkInterfaceType networkInterfaceType, out IList<string> currentDNSAddresses, out bool isIPV6Enabled)
         {
             //Get name, Type, IP and Subnet
             networkName = currentNIC.Name;
@@ -247,6 +292,8 @@ namespace DNS_Roaming_Common
             currentIP = string.Empty;
             currentSubnet = string.Empty;
             currentDNSAddresses = new List<string>();
+
+            isIPV6Enabled = currentNIC.Supports(NetworkInterfaceComponent.IPv6);
 
             if (currentNIC.Supports(NetworkInterfaceComponent.IPv4))
             {

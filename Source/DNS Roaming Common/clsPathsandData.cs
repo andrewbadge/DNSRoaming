@@ -10,6 +10,7 @@ namespace DNS_Roaming_Common
 
         private string baseApplicationPath = string.Empty;
         private string baseSettingsPath = string.Empty;
+        private string baseOptionsPath = string.Empty;
 
         public string BaseApplicationPath
         {
@@ -19,6 +20,11 @@ namespace DNS_Roaming_Common
         public string BaseSettingsPath
         {
             get { return baseSettingsPath; }
+        }
+
+        public string BaseOptionsPath
+        {
+            get { return baseOptionsPath; }
         }
 
         public PathsandData()
@@ -38,6 +44,7 @@ namespace DNS_Roaming_Common
                 string commonApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
                 baseApplicationPath = Path.Combine(commonApplicationDataPath, "DNSRoaming");
                 baseSettingsPath = Path.Combine(baseApplicationPath, "Settings");
+                baseOptionsPath = Path.Combine(baseApplicationPath, "Options");
             }
             catch (Exception ex)
             {
@@ -67,6 +74,27 @@ namespace DNS_Roaming_Common
         }
 
         /// <summary>
+        /// Does the Options Path Exist?
+        /// </summary>
+        public bool OptionsPathExist()
+        {
+            Logger.Debug("OptionsPathExist");
+
+            bool optionsPathExist = false;
+
+            try
+            {
+                optionsPathExist = System.IO.Directory.Exists(baseOptionsPath);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+
+            return optionsPathExist;
+        }
+
+        /// <summary>
         /// Set the paths used in the app. If they don't exist then create
         /// </summary>
         public void CreateDataPaths(bool RunningAsAService = false)
@@ -89,8 +117,15 @@ namespace DNS_Roaming_Common
                     System.IO.Directory.CreateDirectory(baseSettingsPath);
                 }
 
+                if (!System.IO.Directory.Exists(baseOptionsPath))
+                {
+                    Logger.Info("Creating Options Folder");
+                    System.IO.Directory.CreateDirectory(baseOptionsPath);
+                }
+
                 if (RunningAsAService) SetDirectoryPermissions(baseApplicationPath);
                 if (RunningAsAService) SetDirectoryPermissions(baseSettingsPath);
+                if (RunningAsAService) SetDirectoryPermissions(baseOptionsPath);
             }
             catch (Exception ex)
             {

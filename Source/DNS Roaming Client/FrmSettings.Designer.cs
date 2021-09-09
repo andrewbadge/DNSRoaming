@@ -45,9 +45,15 @@
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabRules = new System.Windows.Forms.TabPage();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.tabOptions = new System.Windows.Forms.TabPage();
+            this.groupIPV6 = new System.Windows.Forms.GroupBox();
+            this.chkIPV6Disable = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabControlSettings.SuspendLayout();
             this.tabRules.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            this.tabOptions.SuspendLayout();
+            this.groupIPV6.SuspendLayout();
             this.SuspendLayout();
             // 
             // listViewRules
@@ -157,6 +163,7 @@
             // tabControlSettings
             // 
             this.tabControlSettings.Controls.Add(this.tabRules);
+            this.tabControlSettings.Controls.Add(this.tabOptions);
             this.tabControlSettings.Location = new System.Drawing.Point(2, 2);
             this.tabControlSettings.Name = "tabControlSettings";
             this.tabControlSettings.SelectedIndex = 0;
@@ -181,6 +188,46 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // tabOptions
+            // 
+            this.tabOptions.Controls.Add(this.groupIPV6);
+            this.tabOptions.Location = new System.Drawing.Point(4, 22);
+            this.tabOptions.Name = "tabOptions";
+            this.tabOptions.Size = new System.Drawing.Size(512, 290);
+            this.tabOptions.TabIndex = 1;
+            this.tabOptions.Text = "Options";
+            this.tabOptions.UseVisualStyleBackColor = true;
+            // 
+            // groupIPV6
+            // 
+            this.groupIPV6.Controls.Add(this.label1);
+            this.groupIPV6.Controls.Add(this.chkIPV6Disable);
+            this.groupIPV6.Location = new System.Drawing.Point(16, 16);
+            this.groupIPV6.Name = "groupIPV6";
+            this.groupIPV6.Size = new System.Drawing.Size(479, 100);
+            this.groupIPV6.TabIndex = 0;
+            this.groupIPV6.TabStop = false;
+            this.groupIPV6.Text = "IPV6";
+            // 
+            // chkIPV6Disable
+            // 
+            this.chkIPV6Disable.AutoSize = true;
+            this.chkIPV6Disable.Location = new System.Drawing.Point(24, 30);
+            this.chkIPV6Disable.Name = "chkIPV6Disable";
+            this.chkIPV6Disable.Size = new System.Drawing.Size(161, 17);
+            this.chkIPV6Disable.TabIndex = 0;
+            this.chkIPV6Disable.Text = "Disable IPV6 for all networks";
+            this.chkIPV6Disable.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(24, 54);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(309, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "(Recommended if you don\'t have a mature IPV6 implementation)";
+            // 
             // FrmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -200,6 +247,9 @@
             this.tabControlSettings.ResumeLayout(false);
             this.tabRules.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            this.tabOptions.ResumeLayout(false);
+            this.groupIPV6.ResumeLayout(false);
+            this.groupIPV6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -221,6 +271,10 @@
         private System.Windows.Forms.TabControl tabControlSettings;
         private System.Windows.Forms.TabPage tabRules;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.TabPage tabOptions;
+        private System.Windows.Forms.GroupBox groupIPV6;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox chkIPV6Disable;
     }
 }
 

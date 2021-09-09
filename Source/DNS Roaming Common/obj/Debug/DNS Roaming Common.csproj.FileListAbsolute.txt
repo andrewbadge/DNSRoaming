@@ -18,7 +18,6 @@ D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Debug\IPAddr
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Debug\NLog.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Debug\IPAddressRange.xml
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Debug\NLog.xml
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Debug\DNS Roaming Common.csprojAssemblyReference.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Debug\DNS Roaming Common.csproj.CoreCompileInputs.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Debug\DNS Roaming Common.csproj.CopyComplete
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Debug\DNS Roaming Common.dll

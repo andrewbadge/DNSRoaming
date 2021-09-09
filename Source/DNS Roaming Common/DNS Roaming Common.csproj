@@ -43,6 +43,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsDNSRoamingOption.cs" />
     <Compile Include="clsDNSRoamingRule.cs" />
     <Compile Include="clsLogger.cs" />
     <Compile Include="clsNetworkingExtensions.cs" />
