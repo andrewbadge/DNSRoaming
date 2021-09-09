@@ -18,7 +18,11 @@ Right client the Tray icon for:
 
 List of Rules to Add, Edit or Remove
 
-![Settings](https://github.com/andrewbadge/DNSRoaming/blob/main/Images/DNSRoamingClient-Settings.PNG)
+![image](https://user-images.githubusercontent.com/15990355/132672424-93c04192-c363-45f3-85f9-517297013cc2.png)
+
+Options
+
+![image](https://user-images.githubusercontent.com/15990355/132672476-a6cf52a6-7244-4597-853f-8d77a94d489d.png)
 
 ### Edit Rule
 
