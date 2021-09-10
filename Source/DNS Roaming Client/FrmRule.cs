@@ -165,6 +165,8 @@ namespace DNS_Roaming_Client
                     }
                 }
 
+                upDownDelaySeconds.Value = thisRule.DelaySeconds;
+
                 Logger.Info("Rule loaded");
             }
             catch (Exception ex)
@@ -324,6 +326,8 @@ namespace DNS_Roaming_Client
 
                 if (radioNetworkNameIs.Checked) thisRule.NetworkNameIs = cmbNetworkName.Text;
                 if (radioNetworkNameIsNot.Checked) thisRule.NetworkNameIsNot = cmbNetworkName.Text;
+
+                thisRule.DelaySeconds = (int)upDownDelaySeconds.Value;
 
                 Logger.Info("Rule saved");
                 wasSaveSucessful = true;

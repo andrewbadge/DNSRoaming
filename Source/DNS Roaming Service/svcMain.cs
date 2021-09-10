@@ -7,6 +7,7 @@ using System.Net.NetworkInformation;
 using System.ServiceProcess;
 using System.Timers;
 using DNS_Roaming_Common;
+using System.ComponentModel;
 
 namespace DNS_Roaming_Service
 {
@@ -16,11 +17,12 @@ namespace DNS_Roaming_Service
         static FileSystemWatcher watcherSettings;
         static FileSystemWatcher watcherOptions;
         static bool isServicePaused = false;
-        private static System.Timers.Timer serviceTimer;
         static DateTime lastEventTriggered = new DateTime(); 
         static int countEventSkipped = 0;
-
         static bool disableIPV6 = false;
+
+        static System.Timers.Timer serviceTimer;
+        static System.ComponentModel.BackgroundWorker backgroundWorker;
 
         public svcMain()
         {
@@ -29,6 +31,7 @@ namespace DNS_Roaming_Service
             try
             {
                 InitializeComponent();
+                InitializeBackgroundWorker();
                 LoadOptions();
                 LoadDNSRules();
                 registerEvents();
@@ -56,12 +59,14 @@ namespace DNS_Roaming_Service
         protected virtual void OnPause(string[] args)
         {
             Logger.Info("Service Paused");
+            if (backgroundWorker.IsBusy) backgroundWorker.CancelAsync();
             isServicePaused = true;
         }
 
         protected override void OnStop()
         {
             Logger.Info("Service Stopping");
+            if (backgroundWorker.IsBusy) backgroundWorker.CancelAsync();
         }
 
         #endregion
@@ -133,12 +138,9 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            if (!IsEventThrottled())
-            {
-                Logger.Info(String.Format("Settings file change detected"));
-                LoadDNSRules();
-                CompareNetworkToRules();
-            }
+            Logger.Info(String.Format("Settings file change detected"));
+            LoadDNSRules();
+            FireEvent();
         }
 
         private static void SettingsFileCreated(object sender, FileSystemEventArgs e)
@@ -148,12 +150,9 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            if (!IsEventThrottled())
-            {
-                Logger.Info(String.Format("Settings file change detected"));
-                LoadDNSRules();
-                CompareNetworkToRules();
-            }
+            Logger.Info(String.Format("Settings file change detected"));
+            LoadDNSRules();
+            FireEvent();
         }
 
         private static void SettingsFileDeleted(object sender, FileSystemEventArgs e)
@@ -163,12 +162,9 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            if (!IsEventThrottled())
-            {
-                Logger.Info(String.Format("Settings file change detected"));
-                LoadDNSRules();
-                CompareNetworkToRules();
-            }
+            Logger.Info(String.Format("Settings file change detected"));
+            LoadDNSRules();
+            FireEvent();
         }
 
         private static void SettingsFileRenamed(object sender, FileSystemEventArgs e)
@@ -178,12 +174,9 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            if (!IsEventThrottled())
-            {
-                Logger.Info(String.Format("Settings file change detected"));
-                LoadDNSRules();
-                CompareNetworkToRules();
-            }
+            Logger.Info(String.Format("Settings file change detected"));
+            LoadDNSRules();
+            FireEvent();
         }
 
         private static void OptionsFileChanged(object sender, FileSystemEventArgs e)
@@ -232,37 +225,78 @@ namespace DNS_Roaming_Service
 
         static void AddressChangedCallback(object sender, EventArgs e)
         {
-            if (!IsEventThrottled())
-            {
-                Logger.Info(String.Format("Address change detected"));
-                CompareNetworkToRules();
-            }
+            Logger.Info(String.Format("Address change detected"));
+            FireEvent();
         }
 
         static void AvailabilityChangedCallback(object sender, EventArgs e)
         {
-            if (!IsEventThrottled())
-            {
-                Logger.Info(String.Format("Availability change detected"));
-                CompareNetworkToRules();
-            }
+            Logger.Info(String.Format("Availability change detected"));
+            FireEvent();
+        }
+
+        private void InitializeBackgroundWorker()
+        {
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += new DoWorkEventHandler(backgroundWorker_DoWork);
+            backgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(backgroundWorker_WorkCompleted);
+        }
+
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Logger.Debug("backgroundWorker_DoWork");
+            CompareNetworkToRules();
+        }
+
+        private void backgroundWorker_WorkCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            //Worker Completed. No action really but leaving Event Empty.
+            Logger.Debug("backgroundWorker_WorkCompleted");
+        }
+
+        /// <summary>
+        /// Sets up the Timer which scans the network and rules periodically
+        /// </summary>
+        private static void ConfigureServiceTimer()
+        {
+            Logger.Debug("ConfigureServiceTimer");
+
+            serviceTimer = new System.Timers.Timer(10000);
+            serviceTimer.Elapsed += ServiceTimerEvent;
+            serviceTimer.AutoReset = true;
+            serviceTimer.Enabled = true;
         }
 
         static void ServiceTimerEvent(Object source, ElapsedEventArgs e)
         {
             Logger.Debug("ServiceTimerEvent");
 
-            if (!IsEventThrottled())
+            Logger.Info(String.Format("Periodically checking networks"));
+            if (FireEvent())
             {
                 //Reschedule the next Timer to a random internal 
                 //between 5 and 60 mins
                 Random randomNumber = new Random();
                 int timerDelay = randomNumber.Next(600, 3600) * 1000;
                 serviceTimer.Interval = timerDelay;
-
-                Logger.Info(String.Format("Periodically checking networks"));
-                CompareNetworkToRules();
             }
+        }
+
+        /// <summary>
+        /// R
+        /// </summary>
+        /// <returns>True if the Event was Fired, False if skipped</returns>
+        static bool FireEvent()
+        {
+            bool eventFired = false;
+
+            if (!IsEventThrottled())
+            {
+                eventFired = true;
+                backgroundWorker.RunWorkerAsync();
+            }
+            
+            return eventFired;
         }
 
         /// <summary>
@@ -276,22 +310,33 @@ namespace DNS_Roaming_Service
             bool throttled = false;
             TimeSpan eventDelay = DateTime.Now.Subtract(lastEventTriggered);
 
-            //If an event hasn't been actioned for more than 120 seconds
-            //or we already skipped 5 events
-            if (eventDelay.TotalSeconds > 120 || countEventSkipped > 5)
-            {
-                Logger.Debug("Event wasn't Throttled");
 
-                lastEventTriggered = DateTime.Now;
-                countEventSkipped = 0;
-                throttled = true;
-            }
-            else
+            if (backgroundWorker.IsBusy)
             {
                 countEventSkipped += 1;
-                throttled = false;
+                throttled = true;
 
-                Logger.Debug(string.Format("Event was Throttled ({0} skipped)", countEventSkipped));
+                Logger.Debug(string.Format("Event already in progress ({0} skipped)", countEventSkipped));
+            }
+            else
+            { 
+                //If an event hasn't been actioned for more than 120 seconds
+                //or we already skipped 5 events
+                if (eventDelay.TotalSeconds > 120 || countEventSkipped > 5)
+                {
+                    Logger.Debug("Event wasn't Throttled");
+
+                    lastEventTriggered = DateTime.Now;
+                    countEventSkipped = 0;
+                    throttled = false;
+                }
+                else
+                {
+                    countEventSkipped += 1;
+                    throttled = true;
+
+                    Logger.Debug(string.Format("Event was throttled ({0} skipped)", countEventSkipped));
+                }
             }
 
             return throttled;
@@ -364,18 +409,7 @@ namespace DNS_Roaming_Service
                 ruleList.Add(newRule);
             }
         }
-        /// <summary>
-        /// Sets up the Timer which scans the network and rules periodically
-        /// </summary>
-        private static void ConfigureServiceTimer()
-        {
-            Logger.Debug("ConfigureServiceTimer");
-
-            serviceTimer = new System.Timers.Timer(10000);
-            serviceTimer.Elapsed += ServiceTimerEvent;
-            serviceTimer.AutoReset = true;
-            serviceTimer.Enabled = true;
-        }
+        
 
         /// <summary>
         /// Checks each active network and compares to the rules. If matched then set the static DNS
@@ -385,9 +419,6 @@ namespace DNS_Roaming_Service
             Logger.Debug("CompareNetworkToRules");
 
             if (isServicePaused) return;
-
-            //Wait for 10 seconds for Network or DHCP to settle
-            System.Threading.Thread.Sleep(5000);
             int rulesMatched = 0;
 
             try { 
@@ -487,6 +518,12 @@ namespace DNS_Roaming_Service
 
                                     rulesMatched += 1;
 
+                                    if (thisRule.DelaySeconds > 0)
+                                    {
+                                        Logger.Debug(String.Format("Pausing for {0} seconds", thisRule.DelaySeconds));
+                                        System.Threading.Thread.Sleep(thisRule.DelaySeconds*1000);
+                                    }
+
                                     if (isIPV6Enabled && disableIPV6) NetworkingExtensions.DisableIPV6onNetworkInterface(networkName);
 
                                     string dns1 = string.Empty;
@@ -538,6 +575,13 @@ namespace DNS_Roaming_Service
             }
         }
 
+        /// <summary>
+        /// Does the (first 2) current DNS IPAddress amtches the potential new IPaddresses
+        /// </summary>
+        /// <param name="currentDNSAddresses"></param>
+        /// <param name="newDns1"></param>
+        /// <param name="newDns2"></param>
+        /// <returns></returns>
         private static bool CurrentDNSMatchNewDNS(IList<string> currentDNSAddresses, string newDns1, string newDns2)
         {
             //Only compare the Preferred and Alernate DNS as they're the only ones we're setting
@@ -560,6 +604,11 @@ namespace DNS_Roaming_Service
             return (currentDns1 == newDns1 && currentDns2 == newDns2);
         }
 
+        /// <summary>
+        /// Convert the list of IP Address to a single string delimited with commas
+        /// </summary>
+        /// <param name="currentDNSAddresses"></param>
+        /// <returns></returns>
         private static string ExpandCurrentDNS(IList<string> currentDNSAddresses)
         {
             string dnsString = string.Empty;

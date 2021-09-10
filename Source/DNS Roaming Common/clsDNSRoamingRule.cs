@@ -147,6 +147,13 @@ namespace DNS_Roaming_Common
             set { dnsAlternative = value; }
         }
 
+        private int delaySeconds = 5;
+        public int DelaySeconds
+        {
+            get { return delaySeconds; }
+            set { delaySeconds = value; }
+        }
+
         public DNSRoamingRule()
         {
             //Do not set a new GUID on intialisation.

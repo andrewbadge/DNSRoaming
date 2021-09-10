@@ -58,14 +58,18 @@
             this.btnDNSsetCopy = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.groupAddressOptions = new System.Windows.Forms.GroupBox();
-            this.radioAddressByAny = new System.Windows.Forms.RadioButton();
-            this.radioAddressByLAN = new System.Windows.Forms.RadioButton();
             this.radioAddressByWAN = new System.Windows.Forms.RadioButton();
+            this.radioAddressByLAN = new System.Windows.Forms.RadioButton();
+            this.radioAddressByAny = new System.Windows.Forms.RadioButton();
+            this.upDownDelaySeconds = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.groupNetworks.SuspendLayout();
             this.groupAddressSpecific.SuspendLayout();
             this.groupDNSValues.SuspendLayout();
             this.groupAddressOptions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.upDownDelaySeconds)).BeginInit();
             this.SuspendLayout();
             // 
             // listNetworkType
@@ -152,7 +156,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(303, 517);
+            this.btnCancel.Location = new System.Drawing.Point(303, 541);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(101, 23);
             this.btnCancel.TabIndex = 14;
@@ -163,7 +167,7 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(196, 517);
+            this.btnSave.Location = new System.Drawing.Point(196, 541);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(101, 23);
             this.btnSave.TabIndex = 15;
@@ -306,6 +310,9 @@
             // 
             // groupDNSValues
             // 
+            this.groupDNSValues.Controls.Add(this.label7);
+            this.groupDNSValues.Controls.Add(this.label6);
+            this.groupDNSValues.Controls.Add(this.upDownDelaySeconds);
             this.groupDNSValues.Controls.Add(this.btnDNSsetCopy);
             this.groupDNSValues.Controls.Add(this.cmbDNSset);
             this.groupDNSValues.Controls.Add(this.label3);
@@ -315,7 +322,7 @@
             this.groupDNSValues.Controls.Add(this.txtPreferredDNS);
             this.groupDNSValues.Location = new System.Drawing.Point(12, 393);
             this.groupDNSValues.Name = "groupDNSValues";
-            this.groupDNSValues.Size = new System.Drawing.Size(392, 114);
+            this.groupDNSValues.Size = new System.Drawing.Size(392, 144);
             this.groupDNSValues.TabIndex = 22;
             this.groupDNSValues.TabStop = false;
             this.groupDNSValues.Text = "Then set the DNS server to";
@@ -343,17 +350,15 @@
             this.groupAddressOptions.TabStop = false;
             this.groupAddressOptions.Text = "And IP Address In";
             // 
-            // radioAddressByAny
+            // radioAddressByWAN
             // 
-            this.radioAddressByAny.AutoSize = true;
-            this.radioAddressByAny.Checked = true;
-            this.radioAddressByAny.Location = new System.Drawing.Point(6, 19);
-            this.radioAddressByAny.Name = "radioAddressByAny";
-            this.radioAddressByAny.Size = new System.Drawing.Size(83, 17);
-            this.radioAddressByAny.TabIndex = 1;
-            this.radioAddressByAny.Text = "Any address";
-            this.radioAddressByAny.UseVisualStyleBackColor = true;
-            this.radioAddressByAny.CheckedChanged += new System.EventHandler(this.radioAddressByAny_CheckedChanged);
+            this.radioAddressByWAN.AutoSize = true;
+            this.radioAddressByWAN.Location = new System.Drawing.Point(228, 19);
+            this.radioAddressByWAN.Name = "radioAddressByWAN";
+            this.radioAddressByWAN.Size = new System.Drawing.Size(106, 17);
+            this.radioAddressByWAN.TabIndex = 3;
+            this.radioAddressByWAN.Text = "By WAN address";
+            this.radioAddressByWAN.UseVisualStyleBackColor = true;
             // 
             // radioAddressByLAN
             // 
@@ -365,22 +370,60 @@
             this.radioAddressByLAN.Text = "By LAN address";
             this.radioAddressByLAN.UseVisualStyleBackColor = true;
             // 
-            // radioAddressByWAN
+            // radioAddressByAny
             // 
-            this.radioAddressByWAN.AutoSize = true;
-            this.radioAddressByWAN.Location = new System.Drawing.Point(228, 19);
-            this.radioAddressByWAN.Name = "radioAddressByWAN";
-            this.radioAddressByWAN.Size = new System.Drawing.Size(106, 17);
-            this.radioAddressByWAN.TabIndex = 3;
-            this.radioAddressByWAN.Text = "By WAN address";
-            this.radioAddressByWAN.UseVisualStyleBackColor = true;
+            this.radioAddressByAny.AutoSize = true;
+            this.radioAddressByAny.Checked = true;
+            this.radioAddressByAny.Location = new System.Drawing.Point(6, 19);
+            this.radioAddressByAny.Name = "radioAddressByAny";
+            this.radioAddressByAny.Size = new System.Drawing.Size(83, 17);
+            this.radioAddressByAny.TabIndex = 1;
+            this.radioAddressByAny.TabStop = true;
+            this.radioAddressByAny.Text = "Any address";
+            this.radioAddressByAny.UseVisualStyleBackColor = true;
+            this.radioAddressByAny.CheckedChanged += new System.EventHandler(this.radioAddressByAny_CheckedChanged);
+            // 
+            // upDownDelaySeconds
+            // 
+            this.upDownDelaySeconds.Location = new System.Drawing.Point(111, 109);
+            this.upDownDelaySeconds.Maximum = new decimal(new int[] {
+            120,
+            0,
+            0,
+            0});
+            this.upDownDelaySeconds.Name = "upDownDelaySeconds";
+            this.upDownDelaySeconds.Size = new System.Drawing.Size(48, 20);
+            this.upDownDelaySeconds.TabIndex = 24;
+            this.upDownDelaySeconds.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(165, 111);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(47, 13);
+            this.label6.TabIndex = 25;
+            this.label6.Text = "seconds";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(18, 111);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(77, 13);
+            this.label7.TabIndex = 26;
+            this.label7.Text = "after a delay of";
             // 
             // FrmRule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(416, 552);
+            this.ClientSize = new System.Drawing.Size(416, 572);
             this.ControlBox = false;
             this.Controls.Add(this.groupAddressOptions);
             this.Controls.Add(this.groupDNSValues);
@@ -402,6 +445,7 @@
             this.groupDNSValues.PerformLayout();
             this.groupAddressOptions.ResumeLayout(false);
             this.groupAddressOptions.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.upDownDelaySeconds)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -439,5 +483,8 @@
         private System.Windows.Forms.RadioButton radioAddressByWAN;
         private System.Windows.Forms.RadioButton radioAddressByLAN;
         private System.Windows.Forms.RadioButton radioAddressByAny;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown upDownDelaySeconds;
     }
 }
