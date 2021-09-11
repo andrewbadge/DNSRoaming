@@ -32,7 +32,7 @@ e.g.
 - If the connected Network is Wireless then set the DNS to Quad9.
 - If the connected Network is Ethernet and in the 10.0.0.1/24 Subnet then set the DNS to 10.0.0.10 and 10.0.0.11.
 
-If you find this useful and would like me to continue working on it please [![Buy Me a Coffee](https://github.com/andrewbadge/DNSRoaming/blob/main/Images/BuyMeACoffee.png)](https://www.buymeacoffee.com/AndrewBadge)
+If you find this useful and would like me to continue working on it please [![Buy Me a Coffee](https://github.com/andrewbadge/DNSRoaming/blob/main/Images/BuyMeACoffee.png)](https://github.com/sponsors/andrewbadge) or Sponsor this project.
 
 ## Why DNS Roaming?
 
