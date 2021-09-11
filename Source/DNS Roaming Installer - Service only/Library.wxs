@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?define Property_ProductVersion = "1.0.0.11" ?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:ui="http://schemas.microsoft.com/wix/UIExtension">
+  <Product Id="*"
+	   Name="DNS Roaming" Language="1033"
+	   Version="$(var.Property_ProductVersion)" Manufacturer="Andrew Badge"
+	   UpgradeCode="51c343a3-fa8f-4286-859b-5dfd856d8681">
+    <Package InstallerVersion="200" Compressed="yes" Keywords='Installer' Description='DNS Roaming Service and Client'/>
+    <!-- Prevents MergeModule Missing Table errors?-->
+    <EnsureTable Id="Feature" />
+    <EnsureTable Id="FeatureComponents" />
+    <EnsureTable Id="Extension" />
+    <EnsureTable Id="Class" />
+    <EnsureTable Id="TypeLib" />
+    <EnsureTable Id="Condition" />
+    <EnsureTable Id="PublishComponent" />
+    <EnsureTable Id="ProgId" />
+    <EnsureTable Id="MIME" />
+    <EnsureTable Id="Verb" />
+
+    <!-- Make sure user logged in is an Admin -->
+    <Condition Message="You need to be an administrator to install [ProductName].">
+      Privileged
+    </Condition>
+
+    <!-- Make sure .NET 4.5 is installed -->
+    <PropertyRef Id="NETFRAMEWORK45" />
+    <Condition Message="This application requires .NET Framework 4.7.1. Please install the .NET Framework then run this installer again.">
+      <![CDATA[Installed OR NETFRAMEWORK45>="#461308"]]>
+    </Condition>
+
+    <!-- This information enables Windows Installer major upgrade functionality so users can seamlessly  -->
+    <!-- install a new version of the product and have the old version automatically uninstall behind    -->
+    <!-- the scenes. See the following topic in the MSDN Library for additional information:             -->
+    <!-- http://msdn.microsoft.com/library/default.asp?url=/library/en-us/msi/setup/major_upgrades.asp   -->
+    <!-- The windows installer does not recognise a Release Number (1.0.0.x) change as an upgrade,       -->
+    <!-- therefore we will upgrade when the version is newer or the same as the currently installed      -->
+    <!-- build. UPGRADEEXISTING and PATCHEXISTING represent these two states and their corresponding     -->
+    <!-- OnlyDetect='no' value will cause the currently installed version to be removed when             -->
+    <!-- RemoveExistingProducts operation is executed. NEWERVERSIONDETECTED will trigger an error.       -->
+    <Upgrade Id='115804ee-5a12-4aa7-a40a-cab8542f2f4f'>
+      <UpgradeVersion Property='UPGRADEEXISTING' OnlyDetect='no' MigrateFeatures='yes' Maximum='$(var.Property_ProductVersion)' IncludeMaximum='no' />
+      <UpgradeVersion Property='PATCHEXISTING' OnlyDetect='no' MigrateFeatures='yes' Minimum='$(var.Property_ProductVersion)' IncludeMinimum='yes' Maximum='$(var.Property_ProductVersion)' IncludeMaximum='yes' />
+      <UpgradeVersion Property='NEWERVERSIONDETECTED' OnlyDetect='yes' Minimum='$(var.Property_ProductVersion)' IncludeMinimum='no' />
+    </Upgrade>
+
+    <!-- Prevent older installers being run  -->
+    <CustomAction Id='CA_BlockOlderVersionInstall' Error='A later version of [ProductName] is already installed.' />
+
+    <!-- Files and Folders -->
+    <Media Id="1" Cabinet="DNSRoaming.cab" EmbedCab="yes" CompressionLevel="high"/>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="DNSRoamingFolder" Name="DNSRoaming">
+          <Component Id="ClientDNSRoamingFiles" Guid="ed803ee8-6061-4a81-a958-8cfa711fc051" >
+            <File Id="ReadMe" Source="..\DNS Roaming Installer - Service only\ReadMe.txt"></File>
+          </Component>
+          <Directory Id="DNSRoamingServiceFolder" Name="Service">
+
+            <Component Id="ServiceDNSRoamingFiles" Guid="94d5e475-b93c-4291-9caf-ff867d1336fc" >
+              <File Id="ServiceCommonDll" Source="..\DNS Roaming Service\bin\Release\DNS Roaming Common.dll"></File>
+              <File Id="ServiceNLogConfig" Source="..\DNS Roaming Service\bin\Release\NLog.config"></File>
+              <File Id="ServiceNLogDll" Source="..\DNS Roaming Service\bin\Release\NLog.dll"></File>
+              <File Id="ServiceIPAddressRangeDLL" Source="..\DNS Roaming Service\bin\Release\IPAddressRange.dll"></File>
+              <File Id="ServiceIPAddressRangeXML" Source="..\DNS Roaming Service\bin\Release\IPAddressRange.xml"></File>
+            </Component>
+            <!-- Service Installation -->
+            <Component Id="ServiceDNSRoaming" Guid="454f6513-3e4a-4a29-8310-6daea0e9e3a8" >
+              <File Id="ServiceDNSRoamingServiceExe" Source="..\DNS Roaming Service\bin\Release\DNS Roaming Service.exe"></File>
+              <ServiceInstall Name="DNSRoamingService" DisplayName="DNS Roaming Service" Description="Service used to automatically set secure DNS servers when roaming" Start="auto" Type="ownProcess" ErrorControl="normal"></ServiceInstall>
+              <ServiceControl Id="StartService" Start="install" Stop="both" Remove="uninstall" Name="DNSRoamingService" Wait="yes" />
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <!-- Feature Tree -->
+    <Feature Id="FeatureRequired" Title="Required Files" Level="1" AllowAdvertise ="no" Description ="Common Files that are always required for the DNS Roaming Service and Client"  Absent ="disallow">
+      <ComponentRef Id="ClientDNSRoamingFiles"  />
+      <ComponentRef Id="ServiceDNSRoamingFiles"  />
+      <ComponentRef Id="ServiceDNSRoaming"  />
+    </Feature>
+    
+    <!-- List of Install Sequence Numbers: http://wix.mindcapers.com/wiki/WiX_InstallExecuteSequence  -->
+    <InstallExecuteSequence>
+      <!-- Prevent older versions being installed -->
+      <Custom Action='CA_BlockOlderVersionInstall' After='FindRelatedProducts'>NEWERVERSIONDETECTED</Custom>
+      <!-- Remove old versions during updrade -->
+      <RemoveExistingProducts After="InstallFinalize" />
+    </InstallExecuteSequence>
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+    <Property Id='ARPURLINFOABOUT'>https://github.com/andrewbadge/DNSRoaming</Property>
+    <Property Id='ARPPRODUCTICON'>Server.ico</Property>
+    <Icon Id="Server.ico" SourceFile="Server.ico" />
+    <!-- <Property Id='REINSTALLMODE' Value='amus'/> -->
+    
+    <WixVariable Id="WixUILicenseRtf" Value="DNSRoamingLicense.rtf" />
+    <UIRef Id="WixUI_Minimal" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+    <!-- <util:Group Id="AdminUserGroup" Name="Administrators" /> -->
+    <!-- <util:Group Id="UserGroup" Name="Users"/> -->
+
+
+  </Product>
+  
+</Wix>
+

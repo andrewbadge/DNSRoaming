@@ -1,9 +1,0 @@
-..\DNS Roaming Client\bin\Release\DNS Roaming Common.dll
-..\DNS Roaming Client\bin\Release\DNS Roaming Client.exe
-..\DNS Roaming Client\bin\Release\NLog.config
-..\DNS Roaming Client\bin\Release\NLog.dll
-..\DNS Roaming Installer\ReadMe.txt
-..\DNS Roaming Service\bin\Release\DNS Roaming Common.dll
-..\DNS Roaming Service\bin\Release\DNS Roaming Service.exe
-..\DNS Roaming Service\bin\Release\NLog.config
-..\DNS Roaming Service\bin\Release\NLog.dll

@@ -1,0 +1,6 @@
+obj\Debug\Library.wixobj
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Installer - Service only\bin\Debug\DNSRoaming-ServiceOnly.msi
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Installer - Service only\bin\Debug\DNSRoaming-ServiceOnly.wixpdb
+obj\Debug\DNS Roaming Installer - Service only.wixproj.BindContentsFileListnull.txt
+obj\Debug\DNS Roaming Installer - Service only.wixproj.BindOutputsFileListnull.txt
+obj\Debug\DNS Roaming Installer - Service only.wixproj.BindBuiltOutputsFileListnull.txt

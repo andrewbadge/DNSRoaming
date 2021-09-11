@@ -1,6 +1,0 @@
-obj\Debug\Library.wixobj
-D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Installer\bin\Debug\DNS_Roaming_Installer.msi
-D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Installer\bin\Debug\DNS_Roaming_Installer.wixpdb
-obj\Debug\DNS Roaming Installer.wixproj.BindContentsFileListnull.txt
-obj\Debug\DNS Roaming Installer.wixproj.BindOutputsFileListnull.txt
-obj\Debug\DNS Roaming Installer.wixproj.BindBuiltOutputsFileListnull.txt

@@ -20,3 +20,4 @@ D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Release\DNS 
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Release\DNS Roaming Common.csproj.CopyComplete
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Release\DNS Roaming Common.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Release\DNS Roaming Common.pdb
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Release\DNS Roaming Common.csprojAssemblyReference.cache

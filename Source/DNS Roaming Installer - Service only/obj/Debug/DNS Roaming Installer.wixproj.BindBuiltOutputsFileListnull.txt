@@ -1,0 +1,2 @@
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Installer\bin\Debug\DNSRoaming-ServiceAndClient.msi
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Installer\bin\Debug\DNSRoaming-ServiceAndClient.wixpdb

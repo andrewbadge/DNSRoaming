@@ -1,0 +1,2 @@
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Installer - Service only\bin\Debug\DNSRoaming-ServiceOnly.msi
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Installer - Service only\bin\Debug\DNSRoaming-ServiceOnly.wixpdb

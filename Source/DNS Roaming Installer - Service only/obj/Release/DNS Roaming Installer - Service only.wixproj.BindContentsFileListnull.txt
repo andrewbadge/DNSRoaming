@@ -1,0 +1,7 @@
+..\DNS Roaming Installer - Service only\ReadMe.txt
+..\DNS Roaming Service\bin\Release\DNS Roaming Common.dll
+..\DNS Roaming Service\bin\Release\DNS Roaming Service.exe
+..\DNS Roaming Service\bin\Release\IPAddressRange.dll
+..\DNS Roaming Service\bin\Release\IPAddressRange.xml
+..\DNS Roaming Service\bin\Release\NLog.config
+..\DNS Roaming Service\bin\Release\NLog.dll
