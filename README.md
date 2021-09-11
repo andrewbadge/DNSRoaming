@@ -52,7 +52,7 @@ But do you have the control over your friends home network? Do you have control 
 
 Or Jump to [DNS Set Definitions](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/DNSSets.md)
 
-[Deployment Examples](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/Readme.md)
+[Deployment](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/Readme.md)
 
 [Technical Details](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/Technical.md)
 
