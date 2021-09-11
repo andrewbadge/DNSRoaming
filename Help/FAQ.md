@@ -29,4 +29,4 @@ As a workaround; DNS Roaming supports disabling IPV6 for Network Interface that 
 <del>The current install will install the Service and Client everytime. A future update may allow for the client to be optional.
 This would be particuarly useful for MSP distribution where the rules are preset and you don't want users changing them.</del>
 
-Resolved in v1.0.0.11
+Resolved in v1.0.0.11. See [Deployment](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/Readme.md) for more details.
