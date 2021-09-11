@@ -2,7 +2,7 @@
 
 ## Quick Start
 
-Go to [Releases](https://github.com/andrewbadge/DNSRoaming/releases) and download the most recent DNSRoaming-ServiceAndClient.msi file. 
+Go to [Releases](https://github.com/andrewbadge/DNSRoaming/releases) and download the most recent **DNSRoaming-ServiceAndClient.msi** file. 
 Install the MSI manually, via a policy or script.
 
 Once installed run the DNS Roaming Client to Create or Edit Rules
