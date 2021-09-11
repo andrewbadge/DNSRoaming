@@ -2,8 +2,12 @@
 
 ## Quick Start
 
-Go to [Releases](https://github.com/andrewbadge/DNSRoaming/releases) and download the most recent release (and MSI file).
+Go to [Releases](https://github.com/andrewbadge/DNSRoaming/releases) and download the most recent **DNSRoaming-ServiceAndClient.msi** file. 
 Install the MSI manually, via a policy or script.
+
+Once installed run the DNS Roaming Client to Create or Edit Rules
+
+![image](https://user-images.githubusercontent.com/15990355/132930618-01ad00db-d038-4674-a3e7-610707ab8252.png)
 
 NB: you will need **Run as Administrator** to install this MSI as a Windows Service is installed.
 
@@ -48,7 +52,7 @@ But do you have the control over your friends home network? Do you have control 
 
 Or Jump to [DNS Set Definitions](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/DNSSets.md)
 
-[Deployment Examples](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/Readme.md)
+[Deployment](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/Readme.md)
 
 [Technical Details](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/Technical.md)
 
