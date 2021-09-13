@@ -157,7 +157,7 @@ namespace DNS_Roaming_Client
                         if (thisRule.DNSPreferred == String.Empty && thisRule.DNSAlternative == String.Empty)
                             lvItem.SubItems.Add(thisRule.DNSSet);
                         else
-                            lvItem.SubItems.Add(String.Format("{0},{1}", thisRule.DNSPreferred, thisRule.DNSAlternative).Trim());
+                            lvItem.SubItems.Add(String.Format("{0}", NetworkingExtensions.ExpandIPString(thisRule.DNSPreferred, thisRule.DNSAlternative, thisRule.DNS2ndAlternative, thisRule.DNS3rdAlternative)));
 
                         listViewRules.Items.Add(lvItem);
                     }

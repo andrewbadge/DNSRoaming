@@ -147,6 +147,20 @@ namespace DNS_Roaming_Common
             set { dnsAlternative = value; }
         }
 
+        private string dns2ndAlternative;
+        public string DNS2ndAlternative
+        {
+            get { return dns2ndAlternative; }
+            set { dns2ndAlternative = value; }
+        }
+
+        private string dns3rdAlternative;
+        public string DNS3rdAlternative
+        {
+            get { return dns3rdAlternative; }
+            set { dns3rdAlternative = value; }
+        }
+
         private int delaySeconds = 5;
         public int DelaySeconds
         {

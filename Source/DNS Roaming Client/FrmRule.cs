@@ -1,5 +1,6 @@
 ﻿using DNS_Roaming_Common;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Net;
@@ -143,6 +144,8 @@ namespace DNS_Roaming_Client
 
                 txtPreferredDNS.Text = thisRule.DNSPreferred;
                 txtAlternateDNS.Text = thisRule.DNSAlternative;
+                txt2ndAlternateDNS.Text = thisRule.DNS2ndAlternative;
+                txt3rdAlternateDNS.Text = thisRule.DNS3rdAlternative;
 
                 index = cmbDNSset.Items.IndexOf(thisRule.DNSSet);
                 if (index != -1) cmbDNSset.SelectedIndex = index;
@@ -260,6 +263,34 @@ namespace DNS_Roaming_Client
                     }
                 }
 
+                if (txt2ndAlternateDNS.Text.Trim() != String.Empty)
+                {
+                    if (!IPAddress.TryParse(txt2ndAlternateDNS.Text, out ipAddress))
+                    {
+                        errorProvider.SetError(txt2ndAlternateDNS, "IP Address is not valid");
+                        txt2ndAlternateDNS.Focus();
+                        isFormValid = false;
+                    }
+                    else
+                    {
+                        txt2ndAlternateDNS.Text = IPAddress.Parse(txt2ndAlternateDNS.Text).ToString();
+                    }
+                }
+
+                if (txt3rdAlternateDNS.Text.Trim() != String.Empty)
+                {
+                    if (!IPAddress.TryParse(txt3rdAlternateDNS.Text, out ipAddress))
+                    {
+                        errorProvider.SetError(txt3rdAlternateDNS, "IP Address is not valid");
+                        txt3rdAlternateDNS.Focus();
+                        isFormValid = false;
+                    }
+                    else
+                    {
+                        txt3rdAlternateDNS.Text = IPAddress.Parse(txt3rdAlternateDNS.Text).ToString();
+                    }
+                }
+
                 if (txtPreferredDNS.Text.Trim() == String.Empty && txtAlternateDNS.Text.Trim() == String.Empty && cmbDNSset.SelectedIndex == -1)
                 {
                     errorProvider.SetError(cmbDNSset, "Select a DNS Set");
@@ -319,8 +350,54 @@ namespace DNS_Roaming_Client
                 thisRule.AddressIP = txtAddressIP.Text;
                 thisRule.AddressSubnet = txtAddressSubnet.Text;
 
-                thisRule.DNSPreferred = txtPreferredDNS.Text;
-                if (txtAlternateDNS.Text.Trim() == ".   .   .") thisRule.DNSAlternative = String.Empty; else thisRule.DNSAlternative = txtAlternateDNS.Text;
+                //Add addresses to a list to clear the empty values
+                IList<string> dNSAddressesList = new List<string>();
+                if (txtPreferredDNS.Text != String.Empty) dNSAddressesList.Add(txtPreferredDNS.Text);
+                if (txtAlternateDNS.Text != String.Empty) dNSAddressesList.Add(txtAlternateDNS.Text);
+                if (txt2ndAlternateDNS.Text != String.Empty) dNSAddressesList.Add(txt2ndAlternateDNS.Text);
+                if (txt3rdAlternateDNS.Text != String.Empty) dNSAddressesList.Add(txt3rdAlternateDNS.Text);
+
+                //Loop the list and add to the Rule
+                int dNSAddressIndex = 0;
+                foreach (string dNSAddress in dNSAddressesList)
+                {
+                    switch (dNSAddressIndex)
+                    {
+                        case 0:
+                            thisRule.DNSPreferred = dNSAddress;
+                            break;
+                        case 1:
+                            thisRule.DNSAlternative = dNSAddress;
+                            break;
+                        case 2:
+                            thisRule.DNS2ndAlternative = dNSAddress;
+                            break;
+                        case 3:
+                            thisRule.DNS3rdAlternative = dNSAddress;
+                            break;
+                    }
+                    dNSAddressIndex += 1;
+                }
+
+                //Clear the Remaining values
+                for (var i = dNSAddressIndex; i < 4; i++)
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            thisRule.DNSPreferred = String.Empty;
+                            break;
+                        case 1:
+                            thisRule.DNSAlternative = String.Empty;
+                            break;
+                        case 2:
+                            thisRule.DNS2ndAlternative = String.Empty;
+                            break;
+                        case 3:
+                            thisRule.DNS3rdAlternative = String.Empty;
+                            break;
+                    }
+                }
 
                 thisRule.DNSSet = (cmbDNSset.SelectedItem == null) ? String.Empty : cmbDNSset.SelectedItem.ToString();
 
@@ -376,6 +453,8 @@ namespace DNS_Roaming_Client
         {
             txtPreferredDNS.Text = String.Empty;
             txtAlternateDNS.Text = String.Empty;
+            txt2ndAlternateDNS.Text = String.Empty;
+            txt3rdAlternateDNS.Text = String.Empty;
         }
 
         /// <summary>
@@ -477,6 +556,16 @@ namespace DNS_Roaming_Client
         private void cmbNetworkName_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (radioNetworkType.Checked) radioNetworkNameIs.Checked = true;
+        }
+
+        private void txt2ndAlternateDNS_TextChanged(object sender, EventArgs e)
+        {
+            if (txt2ndAlternateDNS.Text != String.Empty) cmbDNSset.SelectedIndex = -1;
+        }
+
+        private void txt3rdAlternateDNS_TextChanged(object sender, EventArgs e)
+        {
+            if (txt3rdAlternateDNS.Text != String.Empty) cmbDNSset.SelectedIndex = -1;
         }
     }
 }

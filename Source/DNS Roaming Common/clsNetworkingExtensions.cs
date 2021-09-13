@@ -84,7 +84,7 @@ namespace DNS_Roaming_Common
             int queryAttemptsMax = 2;
 
             while (queryDoAttempt)
-            {    
+            {
                 try
                 {
                     //Handle if the external query times out
@@ -185,14 +185,15 @@ namespace DNS_Roaming_Common
             return Nic;
         }
 
-        public static void SetStaticDNSusingPowershell(string networkName, string preferredDNS, string alternateDNS)
+        public static void SetStaticDNSusingPowershell(string networkName, string ip1, string ip2, string ip3, string ip4)
         {
-            try { 
+            try
+            {
                 //Build the DNS address list
-                string dnsString = string.Empty;
-                if (preferredDNS == String.Empty) dnsString = String.Format(@"'{0}'", alternateDNS);
-                if (alternateDNS == String.Empty) dnsString = String.Format(@"'{0}'", preferredDNS);
-                if (dnsString == String.Empty) dnsString = String.Format(@"'{0}','{1}'", preferredDNS, alternateDNS);
+                string dnsString = ExpandIPString(ip1, ip2, ip3, ip4, true);
+                //if (preferredDNS == String.Empty) dnsString = String.Format(@"'{0}'", alternateDNS);
+                //if (alternateDNS == String.Empty) dnsString = String.Format(@"'{0}'", preferredDNS);
+                //if (dnsString == String.Empty) dnsString = String.Format(@"'{0}','{1}'", preferredDNS, alternateDNS);
 
                 //Build the Powershell Command
                 string argument = string.Format(@"-NoProfile -ExecutionPolicy unrestricted & {{Set-DnsClientServerAddress -InterfaceAlias ('{0}') -ServerAddresses ({1}) }}", networkName, dnsString);
@@ -203,7 +204,7 @@ namespace DNS_Roaming_Common
                     FileName = "powershell.exe",
                     Arguments = argument,
                     UseShellExecute = false
-                
+
                 };
                 Process.Start(startInfo);
             }
@@ -322,7 +323,8 @@ namespace DNS_Roaming_Common
         {
             bool isInRange = false;
 
-            try { 
+            try
+            {
                 IPAddress currentIPaddress = IPAddress.Parse(currentIP);
                 var ruleIPRange = NetTools.IPAddressRange.Parse(String.Format("{0}/{1}", ruleIP, ruleSubnet));
 
@@ -337,5 +339,53 @@ namespace DNS_Roaming_Common
             return isInRange;
         }
 
+        /// <summary>
+        /// Convert the list of IP Address to a single string delimited with commas
+        /// </summary>
+        /// <param name="currentDNSAddresses"></param>
+        /// <returns></returns>
+        public static string ExpandCurrentDNS(IList<string> currentDNSAddresses)
+        {
+            string dnsString = string.Empty;
+
+            foreach (String dnsAddress in currentDNSAddresses)
+            {
+                if (dnsAddress.ToString() != String.Empty)
+                {
+                    if (dnsString == string.Empty)
+                        dnsString += String.Format("{0}", dnsAddress.ToString());
+                    else
+                        dnsString += String.Format(",{0}", dnsAddress.ToString());
+                }
+            }
+
+            return dnsString;
+
+        }
+
+        public static string ExpandIPString(string ip1, string ip2, string ip3, string ip4, bool wrapInQuotes=false)
+        {
+            string expandedIPString = string.Empty;
+
+            IList<string> dNSAddressesList = new List<string>();
+            if (ip1 != String.Empty) dNSAddressesList.Add(ip1);
+            if (ip2 != String.Empty) dNSAddressesList.Add(ip2);
+            if (ip3 != String.Empty) dNSAddressesList.Add(ip3);
+            if (ip4 != String.Empty) dNSAddressesList.Add(ip4);
+
+            foreach (string dNSAddress in dNSAddressesList)
+            {
+                if (expandedIPString == String.Empty)
+                {
+                    if (wrapInQuotes) expandedIPString = String.Format(@"'{0}'", dNSAddress); else expandedIPString = dNSAddress;
+                }
+                else
+                {
+                    if (wrapInQuotes) expandedIPString += "," + String.Format(@"'{0}'", dNSAddress); else expandedIPString += "," + dNSAddress; 
+                }
+            }
+
+            return expandedIPString;
+        }
     }
 }

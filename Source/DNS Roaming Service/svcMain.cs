@@ -528,6 +528,8 @@ namespace DNS_Roaming_Service
 
                                     string dns1 = string.Empty;
                                     string dns2 = string.Empty;
+                                    string dns3 = string.Empty;
+                                    string dns4 = string.Empty;
 
                                     if (thisRule.DNSSet == String.Empty)
                                     {
@@ -535,6 +537,8 @@ namespace DNS_Roaming_Service
                                         Logger.Debug("Setting specific DNS addresses");
                                         dns1 = thisRule.DNSPreferred;
                                         dns2 = thisRule.DNSAlternative;
+                                        dns3 = thisRule.DNS2ndAlternative;
+                                        dns4 = thisRule.DNS3rdAlternative;
                                     }
                                     else
                                     {
@@ -544,17 +548,20 @@ namespace DNS_Roaming_Service
                                     }
 
                                     //Check if the current DNS and new DNS match
-                                    if (CurrentDNSMatchNewDNS(currentDNSAddresses, dns1 ,dns2))
+                                    string currentDNSString = NetworkingExtensions.ExpandCurrentDNS(currentDNSAddresses);
+                                    string newDNSString = NetworkingExtensions.ExpandIPString(dns1, dns2, dns3, dns4);
+
+                                    if (currentDNSString == newDNSString)
                                     {
                                         //If so then don't do anything
-                                        Logger.Info(String.Format("DNS already set for [{0}] to {1}", networkName, ExpandCurrentDNS(currentDNSAddresses)));
+                                        Logger.Info(String.Format("DNS already set for [{0}] to {1}", networkName, currentDNSString));
                                     }
                                     else
                                     {
                                         //else set the new DNS addresses
-                                        Logger.Info(String.Format("Old DNS for [{0}] was {1}", networkName, ExpandCurrentDNS(currentDNSAddresses)));
-                                        Logger.Info(String.Format("Setting DNS for [{0}] to {1},{2}", networkName, dns1, dns2));
-                                        NetworkingExtensions.SetStaticDNSusingPowershell(networkName, dns1, dns2);
+                                        Logger.Info(String.Format("Old DNS for [{0}] was {1}", networkName, currentDNSString));
+                                        Logger.Info(String.Format("Setting DNS for [{0}] to {1}", networkName, newDNSString));
+                                        NetworkingExtensions.SetStaticDNSusingPowershell(networkName, dns1, dns2, dns3, dns4);
                                     }
 
 
@@ -575,58 +582,7 @@ namespace DNS_Roaming_Service
             }
         }
 
-        /// <summary>
-        /// Does the (first 2) current DNS IPAddress amtches the potential new IPaddresses
-        /// </summary>
-        /// <param name="currentDNSAddresses"></param>
-        /// <param name="newDns1"></param>
-        /// <param name="newDns2"></param>
-        /// <returns></returns>
-        private static bool CurrentDNSMatchNewDNS(IList<string> currentDNSAddresses, string newDns1, string newDns2)
-        {
-            //Only compare the Preferred and Alernate DNS as they're the only ones we're setting
-            string currentDns1 = string.Empty;
-            string currentDns2 = string.Empty;
-            foreach (String dnsAddress in currentDNSAddresses)
-            {
-                if (dnsAddress.ToString() != String.Empty)
-                {
-                    if (currentDns1 == string.Empty)
-                        currentDns1 = dnsAddress.ToString();
-                    else
-                    {
-                        currentDns2 = dnsAddress.ToString();
-                        break;
-                    }
-                }
-            }
-
-            return (currentDns1 == newDns1 && currentDns2 == newDns2);
-        }
-
-        /// <summary>
-        /// Convert the list of IP Address to a single string delimited with commas
-        /// </summary>
-        /// <param name="currentDNSAddresses"></param>
-        /// <returns></returns>
-        private static string ExpandCurrentDNS(IList<string> currentDNSAddresses)
-        {
-            string dnsString = string.Empty;
-
-            foreach (String dnsAddress in currentDNSAddresses)
-            {
-                if (dnsAddress.ToString() != String.Empty)
-                {
-                    if (dnsString == string.Empty)
-                        dnsString += String.Format("{0}", dnsAddress.ToString());
-                    else
-                        dnsString += String.Format(",{0}", dnsAddress.ToString());
-                }
-            }
-
-            return dnsString;
-
-        }
+        
 
     }
 }
