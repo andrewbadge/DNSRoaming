@@ -135,6 +135,7 @@ function Download-File-If-Missing {
 # Download a precreated Default Rule
 $URL = "https://raw.githubusercontent.com/YOUROWNREPO/YOUROWNPATH/Rule-4444588d-4a33-25b8-817e-0fb02341e242.xml"
 $BaseFolder = "$env:ALLUSERSPROFILE\DNSRoaming\Settings"
+# Important! The Rule Filename GUID should match the Rule ID inside the file
 $Filename = "Rule-4444588d-4a33-25b8-817e-0fb02341e242.xml"
 Download-File-If-Missing $URL $BaseFolder $Filename
 
