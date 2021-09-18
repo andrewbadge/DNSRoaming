@@ -30,6 +30,16 @@ e.g.
 msiexec /i "C:\temp\DNSRoaming-ServiceAndClient.msi" /QN /L*V "C:\tmp\msilog.log"
 ```
 
+## Installation via a PowerShell Script
+
+This could be used from Intune or AD Group Policy. the intention of this script is to 
+
+1. Download a redefined Rule File (from your own distrubtion Repo)
+2. Download a redefined Options (from your own distrubtion Repo)
+3. Download and isnatll the DNS roaming MSI (from this Repo)
+
+See the Script [Deploy-Windows-DNSRoaming.ps1](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/Deploy-Windows-DNSRoaming.ps1)
+
 ## Distributing Rules
 
 To send a standard rule to all PCs in a network; create the rule on your machine and then copy Rule XML Files to the  %ProgramData%\DNSRoaming\Settings Folder on each PC.
