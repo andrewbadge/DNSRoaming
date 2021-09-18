@@ -20,6 +20,8 @@ namespace DNS_Roaming_Client
             ConfigureTimer();
         }
 
+        #region Form and Actions
+
         private void btnForceClose_Click(object sender, EventArgs e)
         {
             ForceClose();
@@ -32,30 +34,6 @@ namespace DNS_Roaming_Client
             this.Close();
         }
 
-        private void menuPause_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void menuSettings_Click(object sender, EventArgs e)
-        {
-            Logger.Debug("Menu: Open FrmSettings");
-
-            OpenSettingsForm();
-        }
-
-        private void menuStopAndClose_Click(object sender, EventArgs e)
-        {
-            ForceClose();
-        }
-
-        private void contextMenuStrip_DoubleClick(object sender, EventArgs e)
-        {
-            Logger.Debug("DoubleClick: Open FrmSettings");
-
-            OpenSettingsForm();
-        }
-
         private void OpenSettingsForm()
         {
             Logger.Debug("OpenSettingsForm");
@@ -66,6 +44,10 @@ namespace DNS_Roaming_Client
                 frmSettings.ShowDialog();
             }
         }
+
+        #endregion
+
+        #region Service Status
 
         private void ConfigureTimer()
         {
@@ -135,6 +117,29 @@ namespace DNS_Roaming_Client
             Random randomNumber = new Random();
             int timerDelay = randomNumber.Next(30, 600) * 1000;
             timerCheckServiceStatus.Interval = timerDelay;
+        }
+
+#endregion
+
+        #region Menus and Actions
+
+        private void menuSettings_Click(object sender, EventArgs e)
+        {
+            Logger.Debug("Menu: Open FrmSettings");
+
+            OpenSettingsForm();
+        }
+
+        private void menuStopAndClose_Click(object sender, EventArgs e)
+        {
+            ForceClose();
+        }
+
+        private void contextMenuStrip_DoubleClick(object sender, EventArgs e)
+        {
+            Logger.Debug("DoubleClick: Open FrmSettings");
+
+            OpenSettingsForm();
         }
 
         private void menuLogsClient_Click(object sender, EventArgs e)
@@ -211,5 +216,7 @@ namespace DNS_Roaming_Client
         {
             menuSettings_Click(sender, e);
         }
+
+        #endregion
     }
 }

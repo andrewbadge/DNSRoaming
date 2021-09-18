@@ -37,6 +37,8 @@ namespace DNS_Roaming_Client
             PopulateDNSset();
         }
 
+        #region Initialisation
+
         /// <summary>
         /// LLoad the list of NetwokrTypes from the enum
         /// </summary>
@@ -178,6 +180,10 @@ namespace DNS_Roaming_Client
             }
 
         }
+
+        #endregion
+
+        #region Saving and Validation
 
         /// <summary>
         /// Validate the form content is ready to save. if not an error prompt will be displayed
@@ -419,7 +425,7 @@ namespace DNS_Roaming_Client
             return wasSaveSucessful;
         }
 
-            private void btnSave_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
             if (ValidateForm())
             {
@@ -430,6 +436,10 @@ namespace DNS_Roaming_Client
                 }
             }
         }
+
+        #endregion
+
+        #region Form and Events
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -532,6 +542,23 @@ namespace DNS_Roaming_Client
             }
         }
 
+        private void cmbNetworkName_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (radioNetworkType.Checked) radioNetworkNameIs.Checked = true;
+        }
+
+        private void txt2ndAlternateDNS_TextChanged(object sender, EventArgs e)
+        {
+            if (txt2ndAlternateDNS.Text != String.Empty) cmbDNSset.SelectedIndex = -1;
+        }
+
+        private void txt3rdAlternateDNS_TextChanged(object sender, EventArgs e)
+        {
+            if (txt3rdAlternateDNS.Text != String.Empty) cmbDNSset.SelectedIndex = -1;
+        }
+
+        #endregion
+
         #region Tooltips
 
         private void btnGetIPInfo_MouseHover(object sender, EventArgs e)
@@ -553,19 +580,6 @@ namespace DNS_Roaming_Client
 
         #endregion
 
-        private void cmbNetworkName_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            if (radioNetworkType.Checked) radioNetworkNameIs.Checked = true;
-        }
-
-        private void txt2ndAlternateDNS_TextChanged(object sender, EventArgs e)
-        {
-            if (txt2ndAlternateDNS.Text != String.Empty) cmbDNSset.SelectedIndex = -1;
-        }
-
-        private void txt3rdAlternateDNS_TextChanged(object sender, EventArgs e)
-        {
-            if (txt3rdAlternateDNS.Text != String.Empty) cmbDNSset.SelectedIndex = -1;
-        }
+        
     }
 }

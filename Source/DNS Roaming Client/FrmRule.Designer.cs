@@ -55,6 +55,10 @@
             this.txtAddressSubnet = new System.Windows.Forms.TextBox();
             this.radioAddressIsSpecific = new System.Windows.Forms.RadioButton();
             this.groupDNSValues = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txt3rdAlternateDNS = new System.Windows.Forms.TextBox();
+            this.txt2ndAlternateDNS = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.upDownDelaySeconds = new System.Windows.Forms.NumericUpDown();
@@ -64,10 +68,7 @@
             this.radioAddressByWAN = new System.Windows.Forms.RadioButton();
             this.radioAddressByLAN = new System.Windows.Forms.RadioButton();
             this.radioAddressByAny = new System.Windows.Forms.RadioButton();
-            this.txt2ndAlternateDNS = new System.Windows.Forms.TextBox();
-            this.txt3rdAlternateDNS = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.groupNetworks.SuspendLayout();
             this.groupAddressSpecific.SuspendLayout();
@@ -160,7 +161,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(455, 501);
+            this.btnCancel.Location = new System.Drawing.Point(455, 509);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(101, 23);
             this.btnCancel.TabIndex = 14;
@@ -171,7 +172,7 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(348, 501);
+            this.btnSave.Location = new System.Drawing.Point(348, 509);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(101, 23);
             this.btnSave.TabIndex = 15;
@@ -314,6 +315,7 @@
             // 
             // groupDNSValues
             // 
+            this.groupDNSValues.Controls.Add(this.label10);
             this.groupDNSValues.Controls.Add(this.label9);
             this.groupDNSValues.Controls.Add(this.label8);
             this.groupDNSValues.Controls.Add(this.txt3rdAlternateDNS);
@@ -330,10 +332,44 @@
             this.groupDNSValues.Controls.Add(this.txtPreferredDNS);
             this.groupDNSValues.Location = new System.Drawing.Point(12, 346);
             this.groupDNSValues.Name = "groupDNSValues";
-            this.groupDNSValues.Size = new System.Drawing.Size(544, 144);
+            this.groupDNSValues.Size = new System.Drawing.Size(544, 156);
             this.groupDNSValues.TabIndex = 22;
             this.groupDNSValues.TabStop = false;
             this.groupDNSValues.Text = "Then set the DNS server to";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(303, 84);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(40, 13);
+            this.label9.TabIndex = 30;
+            this.label9.Text = "3rd Alt.";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(303, 58);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(43, 13);
+            this.label8.TabIndex = 29;
+            this.label8.Text = "2nd Alt.";
+            // 
+            // txt3rdAlternateDNS
+            // 
+            this.txt3rdAlternateDNS.Location = new System.Drawing.Point(357, 81);
+            this.txt3rdAlternateDNS.Name = "txt3rdAlternateDNS";
+            this.txt3rdAlternateDNS.Size = new System.Drawing.Size(156, 20);
+            this.txt3rdAlternateDNS.TabIndex = 28;
+            this.txt3rdAlternateDNS.TextChanged += new System.EventHandler(this.txt3rdAlternateDNS_TextChanged);
+            // 
+            // txt2ndAlternateDNS
+            // 
+            this.txt2ndAlternateDNS.Location = new System.Drawing.Point(357, 55);
+            this.txt2ndAlternateDNS.Name = "txt2ndAlternateDNS";
+            this.txt2ndAlternateDNS.Size = new System.Drawing.Size(156, 20);
+            this.txt2ndAlternateDNS.TabIndex = 27;
+            this.txt2ndAlternateDNS.TextChanged += new System.EventHandler(this.txt2ndAlternateDNS_TextChanged);
             // 
             // label7
             // 
@@ -426,46 +462,22 @@
             this.radioAddressByAny.UseVisualStyleBackColor = true;
             this.radioAddressByAny.CheckedChanged += new System.EventHandler(this.radioAddressByAny_CheckedChanged);
             // 
-            // txt2ndAlternateDNS
+            // label10
             // 
-            this.txt2ndAlternateDNS.Location = new System.Drawing.Point(357, 55);
-            this.txt2ndAlternateDNS.Name = "txt2ndAlternateDNS";
-            this.txt2ndAlternateDNS.Size = new System.Drawing.Size(156, 20);
-            this.txt2ndAlternateDNS.TabIndex = 27;
-            this.txt2ndAlternateDNS.TextChanged += new System.EventHandler(this.txt2ndAlternateDNS_TextChanged);
-            // 
-            // txt3rdAlternateDNS
-            // 
-            this.txt3rdAlternateDNS.Location = new System.Drawing.Point(357, 81);
-            this.txt3rdAlternateDNS.Name = "txt3rdAlternateDNS";
-            this.txt3rdAlternateDNS.Size = new System.Drawing.Size(156, 20);
-            this.txt3rdAlternateDNS.TabIndex = 28;
-            this.txt3rdAlternateDNS.TextChanged += new System.EventHandler(this.txt3rdAlternateDNS_TextChanged);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(303, 58);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(43, 13);
-            this.label8.TabIndex = 29;
-            this.label8.Text = "2nd Alt.";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(303, 84);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(40, 13);
-            this.label9.TabIndex = 30;
-            this.label9.Text = "3rd Alt.";
+            this.label10.AutoSize = true;
+            this.label10.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.label10.Location = new System.Drawing.Point(9, 130);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(203, 13);
+            this.label10.TabIndex = 31;
+            this.label10.Text = "*Advanced: use a long delay with caution";
             // 
             // FrmRule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(568, 536);
+            this.ClientSize = new System.Drawing.Size(568, 544);
             this.ControlBox = false;
             this.Controls.Add(this.groupAddressOptions);
             this.Controls.Add(this.groupDNSValues);
@@ -532,5 +544,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txt3rdAlternateDNS;
         private System.Windows.Forms.TextBox txt2ndAlternateDNS;
+        private System.Windows.Forms.Label label10;
     }
 }

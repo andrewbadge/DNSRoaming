@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Xml;
@@ -14,6 +15,8 @@ namespace DNS_Roaming_Common
     {
 
         private string ruleFileNameFullPath;
+
+        #region Properties
 
         private string ruleID;
         public string ID
@@ -167,6 +170,8 @@ namespace DNS_Roaming_Common
             get { return delaySeconds; }
             set { delaySeconds = value; }
         }
+
+        #endregion
 
         public DNSRoamingRule()
         {

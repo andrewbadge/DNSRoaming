@@ -11,12 +11,16 @@ namespace DNS_Roaming_Common
     {
         private string optionFileNameFullPath;
 
+        #region Properties
+
         private bool disableIPV6;
         public bool DisableIPV6
         {
             get { return disableIPV6; }
             set { disableIPV6 = value; }
         }
+
+        #endregion
 
         public DNSRoamingOption()
         {

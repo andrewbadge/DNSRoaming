@@ -74,6 +74,11 @@ namespace DNS_Roaming_Common
 
         }
 
+        /// <summary>
+        /// Gets the Current WAN IP from DYNDNS.ORG
+        /// </summary>
+        /// <param name="currentIP"></param>
+        /// <param name="currentSubnet"></param>
         public static void GetWANIPandSubnet(out String currentIP, out String currentSubnet)
         {
             string returnIP = string.Empty;
@@ -118,6 +123,12 @@ namespace DNS_Roaming_Common
 
         }
 
+        /// <summary>
+        /// Gets the DNS Addresses foir the states set name
+        /// </summary>
+        /// <param name="dnsSet"></param>
+        /// <param name="ipPreferred"></param>
+        /// <param name="ipAlternative"></param>
         public static void GetDNSSetIPAddress(string dnsSet, out string ipPreferred, out string ipAlternative)
         {
             switch (dnsSet)
@@ -185,15 +196,20 @@ namespace DNS_Roaming_Common
             return Nic;
         }
 
-        public static void SetStaticDNSusingPowershell(string networkName, string ip1, string ip2, string ip3, string ip4)
+        /// <summary>
+        /// Uses Powershell to Set the DNS Addresses for a NIC
+        /// </summary>
+        /// <param name="networkName"></param>
+        /// <param name="ip1"></param>
+        /// <param name="ip2"></param>
+        /// <param name="ip3"></param>
+        /// <param name="ip4"></param>
+        public static void SetStaticDNSusingPowershell(string networkName, DNSRoamingRule thisRule)
         {
             try
             {
                 //Build the DNS address list
-                string dnsString = ExpandIPString(ip1, ip2, ip3, ip4, true);
-                //if (preferredDNS == String.Empty) dnsString = String.Format(@"'{0}'", alternateDNS);
-                //if (alternateDNS == String.Empty) dnsString = String.Format(@"'{0}'", preferredDNS);
-                //if (dnsString == String.Empty) dnsString = String.Format(@"'{0}','{1}'", preferredDNS, alternateDNS);
+                string dnsString = NetworkingExtensions.GetNewDNSString(thisRule, true);
 
                 //Build the Powershell Command
                 string argument = string.Format(@"-NoProfile -ExecutionPolicy unrestricted & {{Set-DnsClientServerAddress -InterfaceAlias ('{0}') -ServerAddresses ({1}) }}", networkName, dnsString);
@@ -215,6 +231,10 @@ namespace DNS_Roaming_Common
 
         }
 
+        /// <summary>
+        /// Uses Powershell to Disbale IPV6 on the NIC
+        /// </summary>
+        /// <param name="networkName"></param>
         public static void DisableIPV6onNetworkInterface(string networkName)
         {
             Logger.Debug("DisableIPV6onNetworkInterface");
@@ -363,6 +383,15 @@ namespace DNS_Roaming_Common
 
         }
 
+        /// <summary>
+        /// Takes a list of IPs and creates a delimited string (ignoring blanks)
+        /// </summary>
+        /// <param name="ip1"></param>
+        /// <param name="ip2"></param>
+        /// <param name="ip3"></param>
+        /// <param name="ip4"></param>
+        /// <param name="wrapInQuotes"></param>
+        /// <returns></returns>
         public static string ExpandIPString(string ip1, string ip2, string ip3, string ip4, bool wrapInQuotes=false)
         {
             string expandedIPString = string.Empty;
@@ -386,6 +415,42 @@ namespace DNS_Roaming_Common
             }
 
             return expandedIPString;
+        }
+
+        /// <summary>
+        /// Based on the Rule returns either the static DNS IPs or IPs based on the predefined Set
+        /// </summary>
+        /// <param name="thisRule"></param>
+        /// <param name="wrapInQuotes"></param>
+        /// <returns></returns>
+        public static string GetNewDNSString(DNSRoamingRule thisRule, bool wrapInQuotes = false)
+        {
+            string newDNSString = string.Empty;
+
+            string dns1 = string.Empty;
+            string dns2 = string.Empty;
+            string dns3 = string.Empty;
+            string dns4 = string.Empty;
+
+            if (thisRule.DNSSet == String.Empty)
+            {
+                //Use manual DNS addresses
+                Logger.Debug("Setting specific DNS addresses");
+                dns1 = thisRule.DNSPreferred;
+                dns2 = thisRule.DNSAlternative;
+                dns3 = thisRule.DNS2ndAlternative;
+                dns4 = thisRule.DNS3rdAlternative;
+            }
+            else
+            {
+                //Use one of the predefined sets of DNS addresses
+                Logger.Debug(String.Format("Setting a DNS Set [{0}]", thisRule.DNSSet));
+                NetworkingExtensions.GetDNSSetIPAddress(thisRule.DNSSet, out dns1, out dns2);
+            }
+
+            newDNSString = NetworkingExtensions.ExpandIPString(dns1, dns2, dns3, dns4, wrapInQuotes);
+
+            return newDNSString;
         }
     }
 }

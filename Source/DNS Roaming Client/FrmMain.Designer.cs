@@ -153,7 +153,6 @@
             this.menuServiceStatus.Name = "menuServiceStatus";
             this.menuServiceStatus.Size = new System.Drawing.Size(133, 22);
             this.menuServiceStatus.Text = "Checking...";
-            this.menuServiceStatus.Click += new System.EventHandler(this.menuPause_Click);
             // 
             // toolStripSeparator1
             // 

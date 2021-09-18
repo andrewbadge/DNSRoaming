@@ -35,6 +35,8 @@ namespace DNS_Roaming_Client
             ListRules();
         }
 
+        #region Initialisation
+
         private void InitialiseForm()
         {
             btnRuleNew.Enabled = settingsPathExist;
@@ -169,6 +171,10 @@ namespace DNS_Roaming_Client
             }
         }
 
+        #endregion
+
+        #region Button Actions
+
         /// <summary>
         /// New Rule action
         /// </summary>
@@ -275,6 +281,9 @@ namespace DNS_Roaming_Client
 
         }
 
+        #endregion
+
+        #region Form Events
 
         private void listViewRules_DoubleClick(object sender, EventArgs e)
         {
@@ -347,5 +356,7 @@ namespace DNS_Roaming_Client
             btnRuleEdit.Enabled = (settingsPathExist && listViewRules.SelectedItems.Count != 0);
             btnRuleRemove.Enabled = (settingsPathExist && listViewRules.SelectedItems.Count != 0);
         }
+
+        #endregion
     }
 }

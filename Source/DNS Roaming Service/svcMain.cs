@@ -1,13 +1,11 @@
 ﻿using DNS_Roaming_Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
-using System.Net;
 using System.Net.NetworkInformation;
 using System.ServiceProcess;
 using System.Timers;
-using DNS_Roaming_Common;
-using System.ComponentModel;
 
 namespace DNS_Roaming_Service
 {
@@ -17,7 +15,7 @@ namespace DNS_Roaming_Service
         static FileSystemWatcher watcherSettings;
         static FileSystemWatcher watcherOptions;
         static bool isServicePaused = false;
-        static DateTime lastEventTriggered = new DateTime(); 
+        static DateTime lastEventTriggered = new DateTime();
         static int countEventSkipped = 0;
         static bool disableIPV6 = false;
 
@@ -295,7 +293,7 @@ namespace DNS_Roaming_Service
                 eventFired = true;
                 backgroundWorker.RunWorkerAsync();
             }
-            
+
             return eventFired;
         }
 
@@ -319,7 +317,7 @@ namespace DNS_Roaming_Service
                 Logger.Debug(string.Format("Event already in progress ({0} skipped)", countEventSkipped));
             }
             else
-            { 
+            {
                 //If an event hasn't been actioned for more than 120 seconds
                 //or we already skipped 5 events
                 if (eventDelay.TotalSeconds > 120 || countEventSkipped > 5)
@@ -343,6 +341,8 @@ namespace DNS_Roaming_Service
         }
 
         #endregion
+
+        #region Initialisation
 
         /// <summary>
         /// Load Options from the Options File
@@ -380,7 +380,7 @@ namespace DNS_Roaming_Service
                 PathsandData pathsandData = new PathsandData();
                 pathsandData.CreateDataPaths(true);
 
-                string[] settingFiles = Directory.GetFiles(pathsandData.BaseSettingsPath,"*.xml",SearchOption.TopDirectoryOnly);
+                string[] settingFiles = Directory.GetFiles(pathsandData.BaseSettingsPath, "*.xml", SearchOption.TopDirectoryOnly);
                 foreach (string settingFilename in settingFiles)
                 {
                     //Catch an exception for a specific file but continue to process the next
@@ -409,10 +409,12 @@ namespace DNS_Roaming_Service
                 ruleList.Add(newRule);
             }
         }
-        
+
+        #endregion
 
         /// <summary>
         /// Checks each active network and compares to the rules. If matched then set the static DNS
+        /// This is the Core activity for the DNS Roaming Service
         /// </summary>
         private static void CompareNetworkToRules()
         {
@@ -421,18 +423,18 @@ namespace DNS_Roaming_Service
             if (isServicePaused) return;
             int rulesMatched = 0;
 
-            try { 
+            try
+            {
 
                 if (ruleList.Count > 0)
                 {
                     Logger.Info(String.Format("Checking {0} rules", ruleList.Count));
 
-                    IList<NetworkInterface> currentNICs = NetworkingExtensions.GetActiveNetworks();
-
                     //Loop through each active network 
+                    IList<NetworkInterface> currentNICs = NetworkingExtensions.GetActiveNetworks();
                     foreach (NetworkInterface currentNIC in currentNICs)
                     {
-                        Logger.Debug(String.Format("Processing Network [{0}]",currentNIC.Name));
+                        Logger.Debug(String.Format("Processing Network [{0}]", currentNIC.Name));
 
                         //Setting up Variables
                         string currentIP = string.Empty;
@@ -521,50 +523,27 @@ namespace DNS_Roaming_Service
                                     if (thisRule.DelaySeconds > 0)
                                     {
                                         Logger.Debug(String.Format("Pausing for {0} seconds", thisRule.DelaySeconds));
-                                        System.Threading.Thread.Sleep(thisRule.DelaySeconds*1000);
+                                        System.Threading.Thread.Sleep(thisRule.DelaySeconds * 1000);
                                     }
 
                                     if (isIPV6Enabled && disableIPV6) NetworkingExtensions.DisableIPV6onNetworkInterface(networkName);
 
-                                    string dns1 = string.Empty;
-                                    string dns2 = string.Empty;
-                                    string dns3 = string.Empty;
-                                    string dns4 = string.Empty;
-
-                                    if (thisRule.DNSSet == String.Empty)
-                                    {
-                                        //Use manual DNS addresses
-                                        Logger.Debug("Setting specific DNS addresses");
-                                        dns1 = thisRule.DNSPreferred;
-                                        dns2 = thisRule.DNSAlternative;
-                                        dns3 = thisRule.DNS2ndAlternative;
-                                        dns4 = thisRule.DNS3rdAlternative;
-                                    }
-                                    else
-                                    {
-                                        //Use one of the predefined sets of DNS addresses
-                                        Logger.Debug(String.Format("Setting a DNS Set [{0}]", thisRule.DNSSet));
-                                        NetworkingExtensions.GetDNSSetIPAddress(thisRule.DNSSet, out dns1, out dns2);
-                                    }
-
                                     //Check if the current DNS and new DNS match
                                     string currentDNSString = NetworkingExtensions.ExpandCurrentDNS(currentDNSAddresses);
-                                    string newDNSString = NetworkingExtensions.ExpandIPString(dns1, dns2, dns3, dns4);
+                                    string newDNSString = NetworkingExtensions.GetNewDNSString(thisRule,false);
 
                                     if (currentDNSString == newDNSString)
                                     {
-                                        //If so then don't do anything
+                                        //If unchanged then don't do anything
                                         Logger.Info(String.Format("DNS already set for [{0}] to {1}", networkName, currentDNSString));
                                     }
                                     else
                                     {
-                                        //else set the new DNS addresses
+                                        //else if changed set the new DNS addresses
                                         Logger.Info(String.Format("Old DNS for [{0}] was {1}", networkName, currentDNSString));
                                         Logger.Info(String.Format("Setting DNS for [{0}] to {1}", networkName, newDNSString));
-                                        NetworkingExtensions.SetStaticDNSusingPowershell(networkName, dns1, dns2, dns3, dns4);
+                                        NetworkingExtensions.SetStaticDNSusingPowershell(networkName, thisRule);
                                     }
-
-
                                 }
                             }
                         }
@@ -573,7 +552,7 @@ namespace DNS_Roaming_Service
                     }
                 }
 
-                Logger.Info(String.Format("Check complete. Actioned {0} Rules.",rulesMatched));
+                Logger.Info(String.Format("Check complete. Actioned {0} Rules.", rulesMatched));
 
             }
             catch (Exception ex)
@@ -583,6 +562,5 @@ namespace DNS_Roaming_Service
         }
 
         
-
     }
 }

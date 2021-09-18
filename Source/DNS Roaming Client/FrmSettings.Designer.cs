@@ -44,16 +44,16 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabRules = new System.Windows.Forms.TabPage();
-            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tabOptions = new System.Windows.Forms.TabPage();
             this.groupIPV6 = new System.Windows.Forms.GroupBox();
-            this.chkIPV6Disable = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.chkIPV6Disable = new System.Windows.Forms.CheckBox();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tabControlSettings.SuspendLayout();
             this.tabRules.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.tabOptions.SuspendLayout();
             this.groupIPV6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // listViewRules
@@ -184,10 +184,6 @@
             this.tabRules.Text = "Rules";
             this.tabRules.UseVisualStyleBackColor = true;
             // 
-            // errorProvider
-            // 
-            this.errorProvider.ContainerControl = this;
-            // 
             // tabOptions
             // 
             this.tabOptions.Controls.Add(this.groupIPV6);
@@ -209,6 +205,16 @@
             this.groupIPV6.TabStop = false;
             this.groupIPV6.Text = "IPV6";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.label1.Location = new System.Drawing.Point(24, 54);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(310, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "* Recommended if you don\'t have a mature IPV6 implementation";
+            // 
             // chkIPV6Disable
             // 
             this.chkIPV6Disable.AutoSize = true;
@@ -219,14 +225,9 @@
             this.chkIPV6Disable.Text = "Disable IPV6 for all networks";
             this.chkIPV6Disable.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // errorProvider
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 54);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(309, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "(Recommended if you don\'t have a mature IPV6 implementation)";
+            this.errorProvider.ContainerControl = this;
             // 
             // FrmSettings
             // 
@@ -246,10 +247,10 @@
             this.Text = "DNS Roaming Settings";
             this.tabControlSettings.ResumeLayout(false);
             this.tabRules.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.tabOptions.ResumeLayout(false);
             this.groupIPV6.ResumeLayout(false);
             this.groupIPV6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
