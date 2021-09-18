@@ -137,6 +137,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Server-Paused.ico" />
+    <Content Include="Server-Stopped.ico" />
     <Content Include="Server.ico" />
     <None Include="Resources\upload-file-16x16-1214209.png" />
   </ItemGroup>

@@ -47,6 +47,7 @@
             this.menuStopAndClose = new System.Windows.Forms.ToolStripMenuItem();
             this.btnForceClose = new System.Windows.Forms.Button();
             this.timerCheckServiceStatus = new System.Windows.Forms.Timer(this.components);
+            this.IconList = new System.Windows.Forms.ImageList(this.components);
             this.contextMenuStrip.SuspendLayout();
             this.contextMenuLogs.SuspendLayout();
             this.SuspendLayout();
@@ -88,13 +89,13 @@
             this.toolStripSeparator1,
             this.menuStopAndClose});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(134, 126);
+            this.contextMenuStrip.Size = new System.Drawing.Size(181, 148);
             this.contextMenuStrip.DoubleClick += new System.EventHandler(this.contextMenuStrip_DoubleClick);
             // 
             // menuSettings
             // 
             this.menuSettings.Name = "menuSettings";
-            this.menuSettings.Size = new System.Drawing.Size(133, 22);
+            this.menuSettings.Size = new System.Drawing.Size(180, 22);
             this.menuSettings.Text = "Settings";
             this.menuSettings.Click += new System.EventHandler(this.menuSettings_Click);
             // 
@@ -102,7 +103,7 @@
             // 
             this.menuLogs.DropDown = this.contextMenuLogs;
             this.menuLogs.Name = "menuLogs";
-            this.menuLogs.Size = new System.Drawing.Size(133, 22);
+            this.menuLogs.Size = new System.Drawing.Size(180, 22);
             this.menuLogs.Text = "Logs";
             // 
             // contextMenuLogs
@@ -139,30 +140,31 @@
             // menuAbout
             // 
             this.menuAbout.Name = "menuAbout";
-            this.menuAbout.Size = new System.Drawing.Size(133, 22);
+            this.menuAbout.Size = new System.Drawing.Size(180, 22);
             this.menuAbout.Text = "About";
             this.menuAbout.Click += new System.EventHandler(this.menuAbout_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(130, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // menuServiceStatus
             // 
             this.menuServiceStatus.Name = "menuServiceStatus";
-            this.menuServiceStatus.Size = new System.Drawing.Size(133, 22);
+            this.menuServiceStatus.Size = new System.Drawing.Size(180, 22);
             this.menuServiceStatus.Text = "Checking...";
+            this.menuServiceStatus.Click += new System.EventHandler(this.menuServiceStatus_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(130, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // menuStopAndClose
             // 
             this.menuStopAndClose.Name = "menuStopAndClose";
-            this.menuStopAndClose.Size = new System.Drawing.Size(133, 22);
+            this.menuStopAndClose.Size = new System.Drawing.Size(180, 22);
             this.menuStopAndClose.Text = "Exit Client";
             this.menuStopAndClose.Click += new System.EventHandler(this.menuStopAndClose_Click);
             // 
@@ -179,6 +181,14 @@
             // timerCheckServiceStatus
             // 
             this.timerCheckServiceStatus.Tick += new System.EventHandler(this.timerCheckServiceStatus_Tick);
+            // 
+            // IconList
+            // 
+            this.IconList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("IconList.ImageStream")));
+            this.IconList.TransparentColor = System.Drawing.Color.Transparent;
+            this.IconList.Images.SetKeyName(0, "Server.ico");
+            this.IconList.Images.SetKeyName(1, "Server-Paused.ico");
+            this.IconList.Images.SetKeyName(2, "Server-Stopped.ico");
             // 
             // FrmMain
             // 
@@ -219,5 +229,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuLogsService;
         private System.Windows.Forms.ToolStripMenuItem menuLogsFolder;
         private System.Windows.Forms.ToolStripMenuItem menuAbout;
+        private System.Windows.Forms.ImageList IconList;
     }
 }

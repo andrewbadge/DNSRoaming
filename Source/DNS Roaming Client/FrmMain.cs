@@ -1,8 +1,10 @@
 ﻿using DNS_Roaming_Common;
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.ServiceProcess;
 using System.Windows.Forms;
 
@@ -18,6 +20,7 @@ namespace DNS_Roaming_Client
 
             PathsandData pathsandData = new PathsandData();
             ConfigureTimer();
+            InitialiseMenus();
         }
 
         #region Form and Actions
@@ -65,28 +68,36 @@ namespace DNS_Roaming_Client
 
             try
             {
+                int iconImageIndex = 0;
                 ServiceController sc = new ServiceController("DNSRoamingService");
                 switch (sc.Status)
                 {
                     case ServiceControllerStatus.Running:
                         serviceStatus = "Running";
+                        iconImageIndex = 0;
                         break;
                     case ServiceControllerStatus.Stopped:
                         serviceStatus = "Stopped";
+                        iconImageIndex = 2;
                         break;
                     case ServiceControllerStatus.Paused:
                         serviceStatus = "Paused";
+                        iconImageIndex = 1;
                         break;
                     case ServiceControllerStatus.StopPending:
                         serviceStatus = "Stopping";
+                        iconImageIndex = 2;
                         break;
                     case ServiceControllerStatus.StartPending:
                         serviceStatus = "Starting";
+                        iconImageIndex = 1;
                         break;
                     default:
                         serviceStatus = "Status Changing";
+                        iconImageIndex = 1;
                         break;
                 }
+                notifyIcon.Icon = Icon.FromHandle(((Bitmap)IconList.Images[iconImageIndex]).GetHicon());
                 menuServiceStatus.Text = String.Format("Service is {0}", serviceStatus);
             }
             catch (Exception ex)
@@ -122,6 +133,11 @@ namespace DNS_Roaming_Client
 #endregion
 
         #region Menus and Actions
+
+        private void InitialiseMenus()
+        {
+            menuAbout.Text = String.Format("About (v{0})", Assembly.GetExecutingAssembly().GetName().Version.ToString());
+        }
 
         private void menuSettings_Click(object sender, EventArgs e)
         {
@@ -218,5 +234,10 @@ namespace DNS_Roaming_Client
         }
 
         #endregion
+
+        private void menuServiceStatus_Click(object sender, EventArgs e)
+        {
+            timerCheckServiceStatus_Tick(null, null);
+        }
     }
 }
