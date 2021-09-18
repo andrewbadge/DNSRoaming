@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?define Property_ProductName = "DNS Roaming"?>
+<?define Property_UpgradeCode = "51c343a3-fa8f-4286-859b-5dfd856d8681"?>
 <?define Property_ProductVersion = "1.0.0.12" ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:ui="http://schemas.microsoft.com/wix/UIExtension">
   <Product Id="*"
-	   Name="DNS Roaming" Language="1033"
+	   Name="$(var.Property_ProductName)" Language="1033"
 	   Version="$(var.Property_ProductVersion)" Manufacturer="Andrew Badge"
-	   UpgradeCode="51c343a3-fa8f-4286-859b-5dfd856d8681">
+	   UpgradeCode="$(var.Property_UpgradeCode)">
     <Package InstallerVersion="200" Compressed="yes" Keywords='Installer' Description='DNS Roaming Service and Client'/>
     <!-- Prevents MergeModule Missing Table errors?-->
     <EnsureTable Id="Feature" />
@@ -38,7 +40,7 @@
     <!-- build. UPGRADEEXISTING and PATCHEXISTING represent these two states and their corresponding     -->
     <!-- OnlyDetect='no' value will cause the currently installed version to be removed when             -->
     <!-- RemoveExistingProducts operation is executed. NEWERVERSIONDETECTED will trigger an error.       -->
-    <Upgrade Id='115804ee-5a12-4aa7-a40a-cab8542f2f4f'>
+    <Upgrade Id='$(var.Property_UpgradeCode)'>
       <UpgradeVersion Property='UPGRADEEXISTING' OnlyDetect='no' MigrateFeatures='yes' Maximum='$(var.Property_ProductVersion)' IncludeMaximum='no' />
       <UpgradeVersion Property='PATCHEXISTING' OnlyDetect='no' MigrateFeatures='yes' Minimum='$(var.Property_ProductVersion)' IncludeMinimum='yes' Maximum='$(var.Property_ProductVersion)' IncludeMaximum='yes' />
       <UpgradeVersion Property='NEWERVERSIONDETECTED' OnlyDetect='yes' Minimum='$(var.Property_ProductVersion)' IncludeMinimum='no' />
@@ -87,7 +89,7 @@
       <!-- Prevent older versions being installed -->
       <Custom Action='CA_BlockOlderVersionInstall' After='FindRelatedProducts'>NEWERVERSIONDETECTED</Custom>
       <!-- Remove old versions during updrade -->
-      <RemoveExistingProducts After="InstallFinalize" />
+      <RemoveExistingProducts Before="InstallInitialize" />
     </InstallExecuteSequence>
 
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
