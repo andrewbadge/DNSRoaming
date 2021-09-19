@@ -12,13 +12,13 @@ Right client the Tray icon for:
 - Service Status: Is the service Installed, Running or Stopped
 - Logs: View a log or open the folder
 
-![Tray Menu](https://github.com/andrewbadge/DNSRoaming/blob/main/Images/DNSRoamingClient-TrayMenu.PNG)
+![Tray Menu](https://github.com/andrewbadge/DNSRoaming/raw/main/Images/DNSRoamingClient-TrayMenu.PNG)
 
 ### Settings
 
 List of Rules to Add, Edit or Remove
 
-![image](https://user-images.githubusercontent.com/15990355/132672424-93c04192-c363-45f3-85f9-517297013cc2.png)
+![image](https://github.com/andrewbadge/DNSRoaming/raw/main/Images/DNSRoamingClient-Settings.PNG)
 
 Options
 
@@ -37,7 +37,7 @@ Editing a Rule
 - Address: Can be any address or a specific address range (Defined by Address and subnet). Use the icon to fill your current network's address.
 - Set to: a preefined list or use a specific preferred or alernative network. Use the icon to fill copy down a DNS set to the feilds below.
 
-![Edit Rule](https://github.com/andrewbadge/DNSRoaming/blob/main/Images/DNSRoamingClient-EditRule.PNG)
+![Edit Rule](https://github.com/andrewbadge/DNSRoaming/raw/main/Images/DNSRoamingClient-EditRule.PNG)
 
 ### DNS Sets
 
