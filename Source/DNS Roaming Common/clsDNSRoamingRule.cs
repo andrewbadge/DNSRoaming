@@ -278,6 +278,44 @@ namespace DNS_Roaming_Common
             }
         }
 
+        /// <summary>
+        /// Clone the existing object without reference and a new GUID
+        /// </summary>
+        /// <returns></returns>
+        public virtual DNSRoamingRule Clone()
+        {
+            DNSRoamingRule newRule = new DNSRoamingRule();
+
+            try
+            {
+                newRule.AddressByType = addressByType;
+                newRule.AddressIP = addressIP;
+                newRule.AddressIsNotSpecific = addressIsNotSpecific;
+                newRule.AddressIsSpecific = addressIsSpecific;
+                newRule.AddressSubnet = addressSubnet;
+                newRule.DelaySeconds = delaySeconds;
+                newRule.DNS2ndAlternative = dns2ndAlternative;
+                newRule.DNS3rdAlternative = dns3rdAlternative;
+                newRule.DNSAlternative = dnsAlternative;
+                newRule.DNSPreferred = dnsPreferred;
+                newRule.DNSSet = dnsSet;
+                newRule.NetworkNameIs = networkNameIs;
+                newRule.NetworkNameIsNot = networkNameIsNot;
+                newRule.NetworkType = networkType;
+                newRule.UseNetworkType = useNetworkType;
+
+                Guid newGUID = Guid.NewGuid();
+                newRule.ID = newGUID.ToString();
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+
+            return newRule;
+        }
+
         #endregion
     }
 

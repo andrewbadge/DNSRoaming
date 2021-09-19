@@ -12,6 +12,9 @@ namespace DNS_Roaming_Client
 {
     public partial class FrmMain : Form
     {
+        private int notifyIconImageIndex = 0;
+        private int notifyIconImageState = 0;
+
         public FrmMain()
         {
             Logger.Debug("FrmMain Initialize");
@@ -19,6 +22,8 @@ namespace DNS_Roaming_Client
             InitializeComponent();
 
             PathsandData pathsandData = new PathsandData();
+            DNSRoamingNetworkInterfaces.IntialiseNetworkInterfaceTypes();
+
             ConfigureTimer();
             InitialiseMenus();
         }
@@ -68,36 +73,38 @@ namespace DNS_Roaming_Client
 
             try
             {
-                int iconImageIndex = 0;
+
                 ServiceController sc = new ServiceController("DNSRoamingService");
                 switch (sc.Status)
                 {
                     case ServiceControllerStatus.Running:
                         serviceStatus = "Running";
-                        iconImageIndex = 0;
+                        notifyIconImageIndex = 0;
                         break;
                     case ServiceControllerStatus.Stopped:
                         serviceStatus = "Stopped";
-                        iconImageIndex = 2;
+                        notifyIconImageIndex = 2;
                         break;
                     case ServiceControllerStatus.Paused:
                         serviceStatus = "Paused";
-                        iconImageIndex = 1;
+                        notifyIconImageIndex = 1;
                         break;
                     case ServiceControllerStatus.StopPending:
                         serviceStatus = "Stopping";
-                        iconImageIndex = 2;
+                        notifyIconImageIndex = 2;
                         break;
                     case ServiceControllerStatus.StartPending:
                         serviceStatus = "Starting";
-                        iconImageIndex = 1;
+                        notifyIconImageIndex = 1;
                         break;
                     default:
                         serviceStatus = "Status Changing";
-                        iconImageIndex = 1;
+                        notifyIconImageIndex = 1;
                         break;
                 }
-                notifyIcon.Icon = Icon.FromHandle(((Bitmap)IconList.Images[iconImageIndex]).GetHicon());
+                notifyIcon.Icon = Icon.FromHandle(((Bitmap)IconList.Images[notifyIconImageIndex]).GetHicon());
+                //Enable the Timer to rotate the icon if not running
+                timerNotifyIcon.Enabled = (notifyIconImageIndex != 0);
                 menuServiceStatus.Text = String.Format("Service is {0}", serviceStatus);
             }
             catch (Exception ex)
@@ -118,6 +125,36 @@ namespace DNS_Roaming_Client
 
         }
 
+        private void timerNotifyIcon_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (notifyIconImageIndex == 0)
+                {
+                    timerNotifyIcon.Enabled = false;
+                    return;
+                }
+                else
+                {
+                    if (notifyIconImageState == notifyIconImageIndex)
+                    {
+                        notifyIcon.Icon = Icon.FromHandle(((Bitmap)IconList.Images[0]).GetHicon());
+                        notifyIconImageState = 0;
+                    }
+                    else
+                    {
+                        notifyIcon.Icon = Icon.FromHandle(((Bitmap)IconList.Images[notifyIconImageIndex]).GetHicon());
+                        notifyIconImageState = notifyIconImageIndex;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+        
+        }
+
         private void timerCheckServiceStatus_Tick(object sender, EventArgs e)
         {
             Logger.Info(String.Format("Checking service state"));
@@ -130,7 +167,7 @@ namespace DNS_Roaming_Client
             timerCheckServiceStatus.Interval = timerDelay;
         }
 
-#endregion
+        #endregion
 
         #region Menus and Actions
 
@@ -225,7 +262,7 @@ namespace DNS_Roaming_Client
             {
                 Logger.Error(ex.Message);
             }
-            
+
         }
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
@@ -239,5 +276,7 @@ namespace DNS_Roaming_Client
         {
             timerCheckServiceStatus_Tick(null, null);
         }
+
+        
     }
 }

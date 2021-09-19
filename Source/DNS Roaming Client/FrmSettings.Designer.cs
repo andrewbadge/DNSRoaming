@@ -44,6 +44,7 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabRules = new System.Windows.Forms.TabPage();
+            this.btnRuleCopy = new System.Windows.Forms.Button();
             this.tabOptions = new System.Windows.Forms.TabPage();
             this.groupIPV6 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -99,7 +100,7 @@
             // btnRuleEdit
             // 
             this.btnRuleEdit.Enabled = false;
-            this.btnRuleEdit.Location = new System.Drawing.Point(284, 250);
+            this.btnRuleEdit.Location = new System.Drawing.Point(175, 250);
             this.btnRuleEdit.Name = "btnRuleEdit";
             this.btnRuleEdit.Size = new System.Drawing.Size(103, 23);
             this.btnRuleEdit.TabIndex = 5;
@@ -109,7 +110,7 @@
             // 
             // btnRuleNew
             // 
-            this.btnRuleNew.Location = new System.Drawing.Point(175, 250);
+            this.btnRuleNew.Location = new System.Drawing.Point(66, 250);
             this.btnRuleNew.Name = "btnRuleNew";
             this.btnRuleNew.Size = new System.Drawing.Size(103, 23);
             this.btnRuleNew.TabIndex = 4;
@@ -172,6 +173,7 @@
             // 
             // tabRules
             // 
+            this.tabRules.Controls.Add(this.btnRuleCopy);
             this.tabRules.Controls.Add(this.btnRuleEdit);
             this.tabRules.Controls.Add(this.btnRuleNew);
             this.tabRules.Controls.Add(this.listViewRules);
@@ -183,6 +185,17 @@
             this.tabRules.TabIndex = 0;
             this.tabRules.Text = "Rules";
             this.tabRules.UseVisualStyleBackColor = true;
+            // 
+            // btnRuleCopy
+            // 
+            this.btnRuleCopy.Enabled = false;
+            this.btnRuleCopy.Location = new System.Drawing.Point(284, 250);
+            this.btnRuleCopy.Name = "btnRuleCopy";
+            this.btnRuleCopy.Size = new System.Drawing.Size(103, 23);
+            this.btnRuleCopy.TabIndex = 6;
+            this.btnRuleCopy.Text = "Copy";
+            this.btnRuleCopy.UseVisualStyleBackColor = true;
+            this.btnRuleCopy.Click += new System.EventHandler(this.btnRuleCopy_Click);
             // 
             // tabOptions
             // 
@@ -276,6 +289,7 @@
         private System.Windows.Forms.GroupBox groupIPV6;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox chkIPV6Disable;
+        private System.Windows.Forms.Button btnRuleCopy;
     }
 }
 

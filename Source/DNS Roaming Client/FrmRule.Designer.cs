@@ -55,6 +55,7 @@
             this.txtAddressSubnet = new System.Windows.Forms.TextBox();
             this.radioAddressIsSpecific = new System.Windows.Forms.RadioButton();
             this.groupDNSValues = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txt3rdAlternateDNS = new System.Windows.Forms.TextBox();
@@ -68,7 +69,6 @@
             this.radioAddressByWAN = new System.Windows.Forms.RadioButton();
             this.radioAddressByLAN = new System.Windows.Forms.RadioButton();
             this.radioAddressByAny = new System.Windows.Forms.RadioButton();
-            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.groupNetworks.SuspendLayout();
             this.groupAddressSpecific.SuspendLayout();
@@ -337,6 +337,16 @@
             this.groupDNSValues.TabStop = false;
             this.groupDNSValues.Text = "Then set the DNS server to";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.label10.Location = new System.Drawing.Point(9, 130);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(203, 13);
+            this.label10.TabIndex = 31;
+            this.label10.Text = "*Advanced: use a long delay with caution";
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -461,16 +471,6 @@
             this.radioAddressByAny.Text = "Any address";
             this.radioAddressByAny.UseVisualStyleBackColor = true;
             this.radioAddressByAny.CheckedChanged += new System.EventHandler(this.radioAddressByAny_CheckedChanged);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label10.Location = new System.Drawing.Point(9, 130);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(203, 13);
-            this.label10.TabIndex = 31;
-            this.label10.Text = "*Advanced: use a long delay with caution";
             // 
             // FrmRule
             // 

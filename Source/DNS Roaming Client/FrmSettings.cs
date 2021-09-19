@@ -232,6 +232,36 @@ namespace DNS_Roaming_Client
         }
 
         /// <summary>
+        /// Copy a Rule action
+        /// </summary>
+        private void ListRuleCopy()
+        {
+            try
+            {
+                if (listViewRules.SelectedItems.Count != 0)
+                {
+                    string lvID = listViewRules.SelectedItems[0].Text;
+
+                    if (ruleList.Any(x => x.ID == lvID))
+                    {
+                        var thisRule = ruleList.FirstOrDefault(x => x.ID == lvID);
+
+                        //Copy the Rule and Set a new GUID
+                        DNSRoamingRule newRule = thisRule.Clone();
+                        ruleList.Add(newRule);
+
+                        //Refresh the Rules List
+                        ListRules();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+        }
+            }
+
+        /// <summary>
         /// Remove a Rule action
         /// </summary>
         private void ListRuleRemove()
@@ -354,9 +384,17 @@ namespace DNS_Roaming_Client
         private void listViewRules_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnRuleEdit.Enabled = (settingsPathExist && listViewRules.SelectedItems.Count != 0);
+            btnRuleCopy.Enabled = (settingsPathExist && listViewRules.SelectedItems.Count != 0);
             btnRuleRemove.Enabled = (settingsPathExist && listViewRules.SelectedItems.Count != 0);
         }
 
+        private void btnRuleCopy_Click(object sender, EventArgs e)
+        {
+            ListRuleCopy();
+        }
+
         #endregion
+
+
     }
 }

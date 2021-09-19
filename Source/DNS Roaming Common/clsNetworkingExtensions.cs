@@ -49,7 +49,7 @@ namespace DNS_Roaming_Common
             NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
             foreach (NetworkInterface n in adapters)
             {
-                if (n.NetworkInterfaceType == NetworkInterfaceType.Ethernet || n.NetworkInterfaceType == NetworkInterfaceType.Wireless80211)
+                if (n.NetworkInterfaceType != NetworkInterfaceType.Loopback)
                 {
                     if (n.OperationalStatus == OperationalStatus.Up)
                     {

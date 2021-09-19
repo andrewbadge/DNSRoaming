@@ -34,6 +34,8 @@ namespace DNS_Roaming_Service
                 LoadDNSRules();
                 registerEvents();
                 ConfigureServiceTimer();
+
+                DNSRoamingNetworkInterfaces.IntialiseNetworkInterfaceTypes();
             }
             catch (Exception exception)
             {
@@ -236,6 +238,7 @@ namespace DNS_Roaming_Service
         private void InitializeBackgroundWorker()
         {
             backgroundWorker = new BackgroundWorker();
+            backgroundWorker.WorkerSupportsCancellation = true;
             backgroundWorker.DoWork += new DoWorkEventHandler(backgroundWorker_DoWork);
             backgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(backgroundWorker_WorkCompleted);
         }
@@ -447,6 +450,8 @@ namespace DNS_Roaming_Service
                         //Get name, Type, IP and Subnet
                         NetworkingExtensions.GetNetworkAttributes(currentNIC, out currentIP, out currentSubnet, out networkName, out networkInterfaceType, out currentDNSAddresses, out isIPV6Enabled);
 
+                        Logger.Debug(String.Format("[{0}] has Type [{1}]", currentNIC.Name, DNSRoamingNetworkInterfaces.FormatNetworkInterfaceType(networkInterfaceType.ToString())));
+
                         if (currentIP != string.Empty && currentSubnet != string.Empty)
                         {
                             //Loop through each rule
@@ -463,11 +468,15 @@ namespace DNS_Roaming_Service
                                     string[] networkTypes = thisRule.NetworkType.Split(',');
                                     foreach (string networkType in networkTypes)
                                     {
-                                        if (networkInterfaceType.ToString() == networkType)
+                                        //Match the Type name if a standard .NET Interface type
+                                        //Or If the Customer Type matched the Type ID from the NIC
+                                        if ((networkInterfaceType.ToString() == networkType) || (DNSRoamingNetworkInterfaces.MatchCustomNetworkInterfaceType(networkInterfaceType.ToString(),networkType)))
                                         {
                                             ruleMatchedNetwork = true;
                                             break;
                                         }
+
+
                                     }
                                 }
                                 else

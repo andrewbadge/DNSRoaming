@@ -48,11 +48,19 @@ namespace DNS_Roaming_Client
 
             listNetworkType.Items.Clear();
 
+            //Add the standard .Net Types
             var values = Enum.GetValues(typeof(NetworkInterfaceType)).Cast<NetworkInterfaceType>();
             foreach (var v in values)
             {
                 listNetworkType.Items.Add(v.ToString());
             }
+
+            //Add the custom Types (used by VPNs and 3rd Party software)
+            IList<DNSRoamingNetworkInterfaceType> interfaceTypes = DNSRoamingNetworkInterfaces.GetNetworkInterfaceTypes();
+            foreach (DNSRoamingNetworkInterfaceType interfaceType in interfaceTypes)
+            {
+                listNetworkType.Items.Add(interfaceType.Name);
+            }    
         }
 
         /// <summary>
@@ -120,7 +128,13 @@ namespace DNS_Roaming_Client
                     foreach (string networkType in networkTypes)
                     {
                         index = listNetworkType.Items.IndexOf(networkType);
-                        if (index != -1) listNetworkType.SetItemChecked(index, true);
+                        if (index != -1)
+                        {
+                            //Check the Item
+                            listNetworkType.SetItemChecked(index, true);
+                            //Select it so its visible on screen
+                            listNetworkType.SelectedIndex = index;
+                        }
                     }
                 }
 
@@ -155,6 +169,7 @@ namespace DNS_Roaming_Client
                 if (thisRule.NetworkNameIs == String.Empty && thisRule.NetworkNameIsNot == String.Empty)
                 {
                     radioNetworkType.Checked = true;
+                    
                 }
                 else
                 {

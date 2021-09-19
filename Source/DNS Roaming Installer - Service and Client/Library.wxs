@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?define Property_ProductName = "DNS Roaming"?>
 <?define Property_UpgradeCode = "51c343a3-fa8f-4286-859b-5dfd856d8681"?>
-<?define Property_ProductVersion = "1.0.0.12" ?>
+<?define Property_ProductVersion = "1.0.0.14" ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:ui="http://schemas.microsoft.com/wix/UIExtension">
   <Product Id="*"
 	   Name="$(var.Property_ProductName)" Language="1033"
@@ -64,7 +64,6 @@
             <File Id="ReadMe" Source="..\DNS Roaming Installer - Service and Client\ReadMe.txt"></File>
           </Component>
           <Directory Id="DNSRoamingServiceFolder" Name="Service">
-
             <Component Id="ServiceDNSRoamingFiles" Guid="94d5e475-b93c-4291-9caf-ff867d1336fc" >
               <File Id="ServiceCommonDll" Source="..\DNS Roaming Service\bin\Release\DNS Roaming Common.dll"></File>
               <File Id="ServiceNLogConfig" Source="..\DNS Roaming Service\bin\Release\NLog.config"></File>
