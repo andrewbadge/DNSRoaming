@@ -17,9 +17,13 @@ namespace DNS_Roaming_Service
         static bool isServicePaused = false;
         static DateTime lastEventTriggered = new DateTime();
         static int countEventSkipped = 0;
-        static bool disableIPV6 = false;
+
+        //Options
+        static bool disableIPV6 = true;
+        static int daysToRetainLogs = 14;
 
         static System.Timers.Timer serviceTimer;
+        static System.Timers.Timer logTimer;
         static System.ComponentModel.BackgroundWorker backgroundWorker;
 
         public svcMain()
@@ -33,7 +37,7 @@ namespace DNS_Roaming_Service
                 LoadOptions();
                 LoadDNSRules();
                 registerEvents();
-                ConfigureServiceTimer();
+                ConfigureTimers();
 
                 DNSRoamingNetworkInterfaces.IntialiseNetworkInterfaceTypes();
             }
@@ -150,7 +154,7 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            Logger.Info(String.Format("Settings file change detected"));
+            Logger.Info(String.Format("Settings file create detected"));
             LoadDNSRules();
             FireEvent();
         }
@@ -162,7 +166,7 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            Logger.Info(String.Format("Settings file change detected"));
+            Logger.Info(String.Format("Settings file delete detected"));
             LoadDNSRules();
             FireEvent();
         }
@@ -174,7 +178,7 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            Logger.Info(String.Format("Settings file change detected"));
+            Logger.Info(String.Format("Settings file rename detected"));
             LoadDNSRules();
             FireEvent();
         }
@@ -197,7 +201,7 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            Logger.Info(String.Format("Options file change detected"));
+            Logger.Info(String.Format("Options file create detected"));
             LoadOptions();
         }
 
@@ -208,7 +212,7 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            Logger.Info(String.Format("Options file change detected"));
+            Logger.Info(String.Format("Options file delete detected"));
             LoadOptions();
         }
 
@@ -219,7 +223,7 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            Logger.Info(String.Format("Options file change detected"));
+            Logger.Info(String.Format("Options file rename detected"));
             LoadOptions();
         }
 
@@ -258,16 +262,29 @@ namespace DNS_Roaming_Service
         /// <summary>
         /// Sets up the Timer which scans the network and rules periodically
         /// </summary>
-        private static void ConfigureServiceTimer()
+        private static void ConfigureTimers()
         {
-            Logger.Debug("ConfigureServiceTimer");
+            Logger.Debug("ConfigureTimers");
 
-            serviceTimer = new System.Timers.Timer(10000);
+            //In 30 mins
+            serviceTimer = new System.Timers.Timer(1800000);
             serviceTimer.Elapsed += ServiceTimerEvent;
             serviceTimer.AutoReset = true;
             serviceTimer.Enabled = true;
+
+            //In nearly 6 hours. Deliberately offset from an exact hour
+            logTimer = new System.Timers.Timer(21000000);
+            logTimer.Elapsed += LogTimerEvent;
+            logTimer.AutoReset = true;
+            logTimer.Enabled = true;
+
         }
 
+        /// <summary>
+        /// Periodically check the network even if a network change event wasn't fired
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
         static void ServiceTimerEvent(Object source, ElapsedEventArgs e)
         {
             Logger.Debug("ServiceTimerEvent");
@@ -284,7 +301,49 @@ namespace DNS_Roaming_Service
         }
 
         /// <summary>
-        /// R
+        /// Periodically check for old log files and remove them
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        static void LogTimerEvent(Object source, ElapsedEventArgs e)
+        {
+            Logger.Debug("LogTimerEvent");
+
+            try
+            {
+                //Initialise Paths and set Permissions if neccessary
+                PathsandData pathsandData = new PathsandData();
+                pathsandData.CreateDataPaths(true);
+
+                string[] logFiles = Directory.GetFiles(pathsandData.BaseApplicationPath, "*Log*.txt", SearchOption.TopDirectoryOnly);
+                foreach (string logFilename in logFiles)
+                {
+                    //Catch an exception for a specific file but continue to process the next
+                    try
+                    {
+                        //If the log file is older than the retention days then delete
+                        if (System.IO.File.GetCreationTime(logFilename) < DateTime.Now.AddDays(-daysToRetainLogs))
+                        {
+                            File.Delete(logFilename);
+                        }
+                    }
+                    catch
+                    {
+                        Logger.Error(String.Format("Error removing log {0}", logFilename));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+
+        }
+
+
+
+        /// <summary>
+        /// Fires the event to check the network. Checks throttling settings
         /// </summary>
         /// <returns>True if the Event was Fired, False if skipped</returns>
         static bool FireEvent()
@@ -359,6 +418,8 @@ namespace DNS_Roaming_Service
                 DNSRoamingOption newOption = new DNSRoamingOption();
                 newOption.Load();
                 disableIPV6 = newOption.DisableIPV6;
+
+                daysToRetainLogs = newOption.DaysToRetainLogs;
             }
             catch (Exception ex)
             {

@@ -58,6 +58,8 @@ namespace DNS_Roaming_Client
                 DNSRoamingOption newOption = new DNSRoamingOption();
                 newOption.Load();
                 chkIPV6Disable.Checked = newOption.DisableIPV6;
+
+                retainLogDays.Value = newOption.DaysToRetainLogs;
             }
             catch (Exception ex)
             {
@@ -302,6 +304,7 @@ namespace DNS_Roaming_Client
                 DNSRoamingOption newOption = new DNSRoamingOption();
                 newOption.Load();
                 newOption.DisableIPV6 = chkIPV6Disable.Checked;
+                newOption.DaysToRetainLogs = (int)retainLogDays.Value;
                 newOption.Save();
             }
             catch (Exception ex)
@@ -393,8 +396,7 @@ namespace DNS_Roaming_Client
             ListRuleCopy();
         }
 
+
         #endregion
-
-
     }
 }

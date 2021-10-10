@@ -50,11 +50,17 @@
             this.label1 = new System.Windows.Forms.Label();
             this.chkIPV6Disable = new System.Windows.Forms.CheckBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.retainLogDays = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
             this.tabControlSettings.SuspendLayout();
             this.tabRules.SuspendLayout();
             this.tabOptions.SuspendLayout();
             this.groupIPV6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.retainLogDays)).BeginInit();
             this.SuspendLayout();
             // 
             // listViewRules
@@ -199,6 +205,7 @@
             // 
             // tabOptions
             // 
+            this.tabOptions.Controls.Add(this.groupBox1);
             this.tabOptions.Controls.Add(this.groupIPV6);
             this.tabOptions.Location = new System.Drawing.Point(4, 22);
             this.tabOptions.Name = "tabOptions";
@@ -213,7 +220,7 @@
             this.groupIPV6.Controls.Add(this.chkIPV6Disable);
             this.groupIPV6.Location = new System.Drawing.Point(16, 16);
             this.groupIPV6.Name = "groupIPV6";
-            this.groupIPV6.Size = new System.Drawing.Size(479, 100);
+            this.groupIPV6.Size = new System.Drawing.Size(479, 88);
             this.groupIPV6.TabIndex = 0;
             this.groupIPV6.TabStop = false;
             this.groupIPV6.Text = "IPV6";
@@ -242,6 +249,58 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.retainLogDays);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Location = new System.Drawing.Point(17, 110);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(479, 100);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Logs";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(26, 32);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(138, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Remove log files older than ";
+            // 
+            // retainLogDays
+            // 
+            this.retainLogDays.Location = new System.Drawing.Point(170, 32);
+            this.retainLogDays.Maximum = new decimal(new int[] {
+            365,
+            0,
+            0,
+            0});
+            this.retainLogDays.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.retainLogDays.Name = "retainLogDays";
+            this.retainLogDays.Size = new System.Drawing.Size(50, 20);
+            this.retainLogDays.TabIndex = 1;
+            this.retainLogDays.Value = new decimal(new int[] {
+            14,
+            0,
+            0,
+            0});
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(232, 34);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "days";
+            // 
             // FrmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -264,6 +323,9 @@
             this.groupIPV6.ResumeLayout(false);
             this.groupIPV6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.retainLogDays)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -290,6 +352,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox chkIPV6Disable;
         private System.Windows.Forms.Button btnRuleCopy;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown retainLogDays;
+        private System.Windows.Forms.Label label2;
     }
 }
 

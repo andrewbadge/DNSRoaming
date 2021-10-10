@@ -13,11 +13,18 @@ namespace DNS_Roaming_Common
 
         #region Properties
 
-        private bool disableIPV6;
+        private bool disableIPV6 = true;
         public bool DisableIPV6
         {
             get { return disableIPV6; }
             set { disableIPV6 = value; }
+        }
+
+        private int daysToRetainLogs = 14;
+        public int DaysToRetainLogs
+        {
+            get { return daysToRetainLogs; }
+            set { daysToRetainLogs = value; }
         }
 
         #endregion
