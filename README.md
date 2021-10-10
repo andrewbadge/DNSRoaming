@@ -4,7 +4,7 @@
 
 Go to [Releases](https://github.com/andrewbadge/DNSRoaming/releases) and download the most recent **DNSRoaming-ServiceAndClient.msi** file. 
 Install the MSI manually, via a policy or [script](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/Deploy-Windows-DNSRoaming.ps1).
-The current version is [v1.0.0.14-Beta](https://github.com/andrewbadge/DNSRoaming/releases/tag/Beta14) release the 19th Sept 2021.
+The current version is [v1.0.0.15-Beta](https://github.com/andrewbadge/DNSRoaming/releases/tag/Beta15) release the 10th Oct 2021.
 
 Once installed run the DNS Roaming Client from the Windows Start menu to Create or Edit Rules
 
