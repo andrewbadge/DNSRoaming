@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?define Property_ProductName = "DNS Roaming"?>
 <?define Property_UpgradeCode = "51c343a3-fa8f-4286-859b-5dfd856d8681"?>
-<?define Property_ProductVersion = "1.0.0.15" ?>
+<?define Property_ProductVersion = "1.0.0.16" ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:ui="http://schemas.microsoft.com/wix/UIExtension">
   <Product Id="*"
 	   Name="$(var.Property_ProductName)" Language="1033"
@@ -37,7 +37,7 @@
     <!-- http://msdn.microsoft.com/library/default.asp?url=/library/en-us/msi/setup/major_upgrades.asp   -->
     <!-- The windows installer does not recognise a Release Number (1.0.0.x) change as an upgrade,       -->
     <!-- therefore we will upgrade when the version is newer or the same as the currently installed      -->
-    <!-- build. UPGRADEEXISTING and PATCHEXISTING represent these two states and their corresponding     -->
+    <!-- build. UPGRADEEXISTING and PATCHEXISTING represent these two states and their corresponding     -->d
     <!-- OnlyDetect='no' value will cause the currently installed version to be removed when             -->
     <!-- RemoveExistingProducts operation is executed. NEWERVERSIONDETECTED will trigger an error.       -->
     <Upgrade Id='$(var.Property_UpgradeCode)'>
@@ -61,6 +61,7 @@
             <File Id="ClientNLogDll" Source="..\DNS Roaming Client\bin\Release\NLog.dll"></File>
             <File Id="ClientIPAddressRangeDLL" Source="..\DNS Roaming Client\bin\Release\IPAddressRange.dll"></File>
             <File Id="ClientIPAddressRangeXML" Source="..\DNS Roaming Client\bin\Release\IPAddressRange.xml"></File>
+            <File Id="ClientOctokitDll" Source="..\DNS Roaming Client\bin\Release\Octokit.dll"></File>
             <File Id="ReadMe" Source="..\DNS Roaming Installer - Service and Client\ReadMe.txt"></File>
           </Component>
           <Directory Id="DNSRoamingServiceFolder" Name="Service">
@@ -68,6 +69,7 @@
               <File Id="ServiceCommonDll" Source="..\DNS Roaming Service\bin\Release\DNS Roaming Common.dll"></File>
               <File Id="ServiceNLogConfig" Source="..\DNS Roaming Service\bin\Release\NLog.config"></File>
               <File Id="ServiceNLogDll" Source="..\DNS Roaming Service\bin\Release\NLog.dll"></File>
+              <File Id="ServiceOctokitDll" Source="..\DNS Roaming Client\bin\Release\Octokit.dll"></File>
               <File Id="ServiceIPAddressRangeDLL" Source="..\DNS Roaming Service\bin\Release\IPAddressRange.dll"></File>
               <File Id="ServiceIPAddressRangeXML" Source="..\DNS Roaming Service\bin\Release\IPAddressRange.xml"></File>
             </Component>
@@ -77,6 +79,15 @@
               <ServiceInstall Name="DNSRoamingService" DisplayName="DNS Roaming Service" Description="Service used to automatically set secure DNS servers when roaming" Start="auto" Type="ownProcess" ErrorControl="normal"></ServiceInstall>
               <ServiceControl Id="StartService" Start="install" Stop="both" Remove="uninstall" Name="DNSRoamingService" Wait="yes" />
             </Component>
+            <Component Id="RegistryEntries" Guid="04121b48-2fbe-42dd-ae0a-e7677e227024">
+              <RegistryKey Root="HKLM"
+                           Key="Software\DNSRoaming"
+                    Action="createAndRemoveOnUninstall">
+                <RegistryValue Type="string" Name="Version" Value="$(var.Property_ProductVersion)" KeyPath="yes"/>
+                <RegistryValue Type="string" Name="Path" Value="[DNSRoamingFolder]"/>
+                <RegistryValue Type="string" Name="Type" Value="ServiceandClient"/>
+              </RegistryKey>
+            </Component>
           </Directory>
         </Directory>
       </Directory>
@@ -85,8 +96,8 @@
       <Directory Id="ProgramMenuFolder" Name="Programs">
         <Directory Id="ApplicationProgramsFolder" Name="DNS Roaming">
           <Component Id="ApplicationShortcut" Guid="d1065617-65ab-46c7-b5d6-f6b5bb9191d2">
+            <RegistryValue Root="HKCU" Key="Software\DNSRoaming" Name="ShortcutConfigured" Type="integer" Value="1"/>
             <RemoveFolder Id="DNSRoamingFolder" On="uninstall"/>
-            <RegistryValue Root="HKCU" Key="Software\DNSRoaming" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
             <Shortcut Id="ApplicationStartMenuShortcut"
               Directory="ApplicationProgramsFolder"
               Name="DNS Roaming"
@@ -100,7 +111,7 @@
       <!-- Start up Shortcut -->
       <Directory Id="StartupFolder">
           <Component Id="ApplicationShortCutStartUp" Guid="dea2164f-12a4-459f-a47f-6bcd32037b49">
-            <RegistryValue Root="HKCU" Key="Software\DNSRoaming" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+            <RegistryValue Root="HKCU" Key="Software\DNSRoaming" Name="StartupConfigured" Type="integer" Value="1"/>
             <Shortcut Id="ApplicationStartupShortcut"
               Directory="StartupFolder"
               Name="DNS Roaming"
@@ -111,6 +122,7 @@
       </Directory>
     </Directory>
 
+    
     <!-- Feature Tree -->
     <Feature Id="FeatureRequired" Title="Required Files" Level="1" AllowAdvertise ="no" Description ="Common Files that are always required for the DNS Roaming Service and Client"  Absent ="disallow">
       <ComponentRef Id="ClientDNSRoamingFiles"  />
@@ -118,6 +130,7 @@
       <ComponentRef Id="ServiceDNSRoaming"  />
       <ComponentRef Id="ApplicationShortcut" />
       <ComponentRef Id="ApplicationShortCutStartUp" />
+      <ComponentRef Id="RegistryEntries" />
     </Feature>
     
     <!-- List of Install Sequence Numbers: http://wix.mindcapers.com/wiki/WiX_InstallExecuteSequence  -->

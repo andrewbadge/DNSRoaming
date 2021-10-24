@@ -27,6 +27,20 @@ namespace DNS_Roaming_Common
             set { daysToRetainLogs = value; }
         }
 
+        private bool autoUpdate = true;
+        public bool AutoUpdate
+        {
+            get { return autoUpdate; }
+            set { autoUpdate = value; }
+        }
+
+        private DateTime autoUpdateLastCheck = DateTime.Now.AddDays(-30);
+        public DateTime AutoUpdateLastCheck
+        {
+            get { return autoUpdateLastCheck; }
+            set { autoUpdateLastCheck = value; }
+        }
+
         #endregion
 
         public DNSRoamingOption()

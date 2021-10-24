@@ -25,8 +25,10 @@ D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\bin\Release\DNS
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\bin\Release\DNS Roaming Common.dll.config
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\bin\Release\NLog.xml
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\bin\Release\IPAddressRange.xml
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\obj\Release\DNS Roaming Service.csprojAssemblyReference.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\obj\Release\DNS Roaming Service.csproj.CoreCompileInputs.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\obj\Release\DNS Roaming Service.csproj.CopyComplete
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\obj\Release\DNS Roaming Service.exe
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\obj\Release\DNS Roaming Service.pdb
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\bin\Release\Octokit.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\bin\Release\Octokit.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\obj\Release\DNS Roaming Service.csproj.AssemblyReference.cache

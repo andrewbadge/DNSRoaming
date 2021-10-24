@@ -11,7 +11,8 @@ namespace DNS_Roaming_Common
         private string baseApplicationPath = string.Empty;
         private string baseSettingsPath = string.Empty;
         private string baseOptionsPath = string.Empty;
-
+        private string baseDownloadsPath = string.Empty;
+        
         public string BaseApplicationPath
         {
             get { return baseApplicationPath; }
@@ -25,6 +26,11 @@ namespace DNS_Roaming_Common
         public string BaseOptionsPath
         {
             get { return baseOptionsPath; }
+        }
+
+        public string BaseDownloadsPath
+        {
+            get { return baseDownloadsPath; }
         }
 
         public PathsandData()
@@ -45,6 +51,7 @@ namespace DNS_Roaming_Common
                 baseApplicationPath = Path.Combine(commonApplicationDataPath, "DNSRoaming");
                 baseSettingsPath = Path.Combine(baseApplicationPath, "Settings");
                 baseOptionsPath = Path.Combine(baseApplicationPath, "Options");
+                baseDownloadsPath = Path.Combine(baseApplicationPath, "Downloads");
             }
             catch (Exception ex)
             {
@@ -123,9 +130,16 @@ namespace DNS_Roaming_Common
                     System.IO.Directory.CreateDirectory(baseOptionsPath);
                 }
 
+                if (!System.IO.Directory.Exists(baseDownloadsPath))
+                {
+                    Logger.Info("Creating Downloads Folder");
+                    System.IO.Directory.CreateDirectory(baseDownloadsPath);
+                }
+
                 if (RunningAsAService) SetDirectoryPermissions(baseApplicationPath);
                 if (RunningAsAService) SetDirectoryPermissions(baseSettingsPath);
                 if (RunningAsAService) SetDirectoryPermissions(baseOptionsPath);
+                if (RunningAsAService) SetDirectoryPermissions(baseDownloadsPath);
             }
             catch (Exception ex)
             {

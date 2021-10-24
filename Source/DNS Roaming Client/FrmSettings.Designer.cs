@@ -46,21 +46,25 @@
             this.tabRules = new System.Windows.Forms.TabPage();
             this.btnRuleCopy = new System.Windows.Forms.Button();
             this.tabOptions = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.retainLogDays = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupIPV6 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.chkIPV6Disable = new System.Windows.Forms.CheckBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.retainLogDays = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.chkAutoupdate = new System.Windows.Forms.CheckBox();
             this.tabControlSettings.SuspendLayout();
             this.tabRules.SuspendLayout();
             this.tabOptions.SuspendLayout();
-            this.groupIPV6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.retainLogDays)).BeginInit();
+            this.groupIPV6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // listViewRules
@@ -205,6 +209,7 @@
             // 
             // tabOptions
             // 
+            this.tabOptions.Controls.Add(this.groupBox2);
             this.tabOptions.Controls.Add(this.groupBox1);
             this.tabOptions.Controls.Add(this.groupIPV6);
             this.tabOptions.Location = new System.Drawing.Point(4, 22);
@@ -213,6 +218,58 @@
             this.tabOptions.TabIndex = 1;
             this.tabOptions.Text = "Options";
             this.tabOptions.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.retainLogDays);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Location = new System.Drawing.Point(17, 110);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(479, 74);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Logs";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(232, 34);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "days";
+            // 
+            // retainLogDays
+            // 
+            this.retainLogDays.Location = new System.Drawing.Point(170, 32);
+            this.retainLogDays.Maximum = new decimal(new int[] {
+            365,
+            0,
+            0,
+            0});
+            this.retainLogDays.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.retainLogDays.Name = "retainLogDays";
+            this.retainLogDays.Size = new System.Drawing.Size(50, 20);
+            this.retainLogDays.TabIndex = 1;
+            this.retainLogDays.Value = new decimal(new int[] {
+            14,
+            0,
+            0,
+            0});
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(26, 32);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(138, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Remove log files older than ";
             // 
             // groupIPV6
             // 
@@ -249,57 +306,36 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // groupBox1
+            // groupBox2
             // 
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.retainLogDays);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(17, 110);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(479, 100);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Logs";
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.chkAutoupdate);
+            this.groupBox2.Location = new System.Drawing.Point(16, 190);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(479, 90);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Updates";
             // 
-            // label2
+            // label4
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(26, 32);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(138, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Remove log files older than ";
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.label4.Location = new System.Drawing.Point(27, 55);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(179, 13);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "* checks approximately every 3 days";
             // 
-            // retainLogDays
+            // chkAutoupdate
             // 
-            this.retainLogDays.Location = new System.Drawing.Point(170, 32);
-            this.retainLogDays.Maximum = new decimal(new int[] {
-            365,
-            0,
-            0,
-            0});
-            this.retainLogDays.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.retainLogDays.Name = "retainLogDays";
-            this.retainLogDays.Size = new System.Drawing.Size(50, 20);
-            this.retainLogDays.TabIndex = 1;
-            this.retainLogDays.Value = new decimal(new int[] {
-            14,
-            0,
-            0,
-            0});
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(232, 34);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "days";
+            this.chkAutoupdate.AutoSize = true;
+            this.chkAutoupdate.Location = new System.Drawing.Point(27, 31);
+            this.chkAutoupdate.Name = "chkAutoupdate";
+            this.chkAutoupdate.Size = new System.Drawing.Size(124, 17);
+            this.chkAutoupdate.TabIndex = 2;
+            this.chkAutoupdate.Text = "Automatically update";
+            this.chkAutoupdate.UseVisualStyleBackColor = true;
             // 
             // FrmSettings
             // 
@@ -320,12 +356,14 @@
             this.tabControlSettings.ResumeLayout(false);
             this.tabRules.ResumeLayout(false);
             this.tabOptions.ResumeLayout(false);
-            this.groupIPV6.ResumeLayout(false);
-            this.groupIPV6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.retainLogDays)).EndInit();
+            this.groupIPV6.ResumeLayout(false);
+            this.groupIPV6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -356,6 +394,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown retainLogDays;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox chkAutoupdate;
     }
 }
 

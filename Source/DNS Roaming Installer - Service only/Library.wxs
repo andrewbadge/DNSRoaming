@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?define Property_ProductName = "DNS Roaming"?>
 <?define Property_UpgradeCode = "51c343a3-fa8f-4286-859b-5dfd856d8681"?>
-<?define Property_ProductVersion = "1.0.0.15" ?>
+<?define Property_ProductVersion = "1.0.0.16" ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:ui="http://schemas.microsoft.com/wix/UIExtension">
   <Product Id="*"
 	   Name="$(var.Property_ProductName)" Language="1033"
@@ -63,6 +63,7 @@
               <File Id="ServiceCommonDll" Source="..\DNS Roaming Service\bin\Release\DNS Roaming Common.dll"></File>
               <File Id="ServiceNLogConfig" Source="..\DNS Roaming Service\bin\Release\NLog.config"></File>
               <File Id="ServiceNLogDll" Source="..\DNS Roaming Service\bin\Release\NLog.dll"></File>
+              <File Id="ServiceOctokitDll" Source="..\DNS Roaming Service\bin\Release\Octokit.dll"></File>
               <File Id="ServiceIPAddressRangeDLL" Source="..\DNS Roaming Service\bin\Release\IPAddressRange.dll"></File>
               <File Id="ServiceIPAddressRangeXML" Source="..\DNS Roaming Service\bin\Release\IPAddressRange.xml"></File>
             </Component>
@@ -71,6 +72,15 @@
               <File Id="ServiceDNSRoamingServiceExe" Source="..\DNS Roaming Service\bin\Release\DNS Roaming Service.exe"></File>
               <ServiceInstall Name="DNSRoamingService" DisplayName="DNS Roaming Service" Description="Service used to automatically set secure DNS servers when roaming" Start="auto" Type="ownProcess" ErrorControl="normal"></ServiceInstall>
               <ServiceControl Id="StartService" Start="install" Stop="both" Remove="uninstall" Name="DNSRoamingService" Wait="yes" />
+            </Component>
+            <Component Id="RegistryEntries" Guid="04121b48-2fbe-42dd-ae0a-e7677e227024">
+              <RegistryKey Root="HKLM"
+                           Key="Software\DNSRoaming"
+                    Action="createAndRemoveOnUninstall">
+                <RegistryValue Type="string" Name="Version" Value="$(var.Property_ProductVersion)" KeyPath="yes"/>
+                <RegistryValue Type="string" Name="Path" Value="[DNSRoamingFolder]"/>
+                <RegistryValue Type="string" Name="Type" Value="Serviceonly"/>
+              </RegistryKey>
             </Component>
           </Directory>
         </Directory>
@@ -82,6 +92,7 @@
       <ComponentRef Id="ClientDNSRoamingFiles"  />
       <ComponentRef Id="ServiceDNSRoamingFiles"  />
       <ComponentRef Id="ServiceDNSRoaming"  />
+      <ComponentRef Id="RegistryEntries" />
     </Feature>
     
     <!-- List of Install Sequence Numbers: http://wix.mindcapers.com/wiki/WiX_InstallExecuteSequence  -->

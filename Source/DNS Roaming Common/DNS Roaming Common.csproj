@@ -49,6 +49,7 @@
     <Compile Include="clsNetworkingExtensions.cs" />
     <Compile Include="clsNetworkInterfaceType.cs" />
     <Compile Include="clsPathsandData.cs" />
+    <Compile Include="clsUpdates.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -59,11 +60,15 @@
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.7.10\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="Octokit, Version=0.50.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Octokit.0.50.0\lib\net46\Octokit.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />

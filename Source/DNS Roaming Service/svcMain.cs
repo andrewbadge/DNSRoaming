@@ -21,9 +21,11 @@ namespace DNS_Roaming_Service
         //Options
         static bool disableIPV6 = true;
         static int daysToRetainLogs = 14;
+        static bool autoUpdate = true;
+        static DateTime autoUpdateLastCheck = DateTime.Now.AddDays(-30);
 
         static System.Timers.Timer serviceTimer;
-        static System.Timers.Timer logTimer;
+        static System.Timers.Timer logandUpdateTimer;
         static System.ComponentModel.BackgroundWorker backgroundWorker;
 
         public svcMain()
@@ -273,10 +275,10 @@ namespace DNS_Roaming_Service
             serviceTimer.Enabled = true;
 
             //In nearly 6 hours. Deliberately offset from an exact hour
-            logTimer = new System.Timers.Timer(21000000);
-            logTimer.Elapsed += LogTimerEvent;
-            logTimer.AutoReset = true;
-            logTimer.Enabled = true;
+            logandUpdateTimer = new System.Timers.Timer(21000000);
+            logandUpdateTimer.Elapsed += LogandUpdateTimerEvent;
+            logandUpdateTimer.AutoReset = true;
+            logandUpdateTimer.Enabled = true;
 
         }
 
@@ -305,33 +307,14 @@ namespace DNS_Roaming_Service
         /// </summary>
         /// <param name="source"></param>
         /// <param name="e"></param>
-        static void LogTimerEvent(Object source, ElapsedEventArgs e)
+        static void LogandUpdateTimerEvent(Object source, ElapsedEventArgs e)
         {
-            Logger.Debug("LogTimerEvent");
+            Logger.Debug("LogandUpdateTimerEvent");
 
             try
             {
-                //Initialise Paths and set Permissions if neccessary
-                PathsandData pathsandData = new PathsandData();
-                pathsandData.CreateDataPaths(true);
-
-                string[] logFiles = Directory.GetFiles(pathsandData.BaseApplicationPath, "*Log*.txt", SearchOption.TopDirectoryOnly);
-                foreach (string logFilename in logFiles)
-                {
-                    //Catch an exception for a specific file but continue to process the next
-                    try
-                    {
-                        //If the log file is older than the retention days then delete
-                        if (System.IO.File.GetCreationTime(logFilename) < DateTime.Now.AddDays(-daysToRetainLogs))
-                        {
-                            File.Delete(logFilename);
-                        }
-                    }
-                    catch
-                    {
-                        Logger.Error(String.Format("Error removing log {0}", logFilename));
-                    }
-                }
+                CleanLogFiles();
+                CheckforUpdates();
             }
             catch (Exception ex)
             {
@@ -340,7 +323,62 @@ namespace DNS_Roaming_Service
 
         }
 
+        private static void CleanLogFiles()
+        {
+            Logger.Debug("CleanLogFiles");
 
+            //Initialise Paths and set Permissions if neccessary
+            PathsandData pathsandData = new PathsandData();
+            pathsandData.CreateDataPaths(true);
+
+            string[] logFiles = Directory.GetFiles(pathsandData.BaseApplicationPath, "*Log*.txt", SearchOption.TopDirectoryOnly);
+            foreach (string logFilename in logFiles)
+            {
+                //Catch an exception for a specific file but continue to process the next
+                try
+                {
+                    //If the log file is older than the retention days then delete
+                    if (System.IO.File.GetCreationTime(logFilename) < DateTime.Now.AddDays(-daysToRetainLogs))
+                    {
+                        File.Delete(logFilename);
+                    }
+                }
+                catch
+                {
+                    Logger.Error(String.Format("Error removing log {0}", logFilename));
+                }
+            }
+        }
+
+        private static void CheckforUpdates()
+        {
+            if (!autoUpdate) return;
+
+            Logger.Debug("CheckforUpdates");
+
+            if (autoUpdateLastCheck.AddDays(3) < DateTime.Now)
+            {
+
+                //Save the new "last checked" date
+                autoUpdateLastCheck = DateTime.Now;
+
+                DNSRoamingOption newOption = new DNSRoamingOption();
+                newOption.Load();
+                newOption.AutoUpdateLastCheck = autoUpdateLastCheck;
+                newOption.Save();
+
+                //Check for updates
+                clsUpdates updates = new clsUpdates();
+                if (updates.NewerVersionAvailable())
+                {
+                    Logger.Info("GitHub Version is newer");
+                    updates.DownloadandExecuteLatestVersion();
+                }
+                else
+                    Logger.Info("No newer Version is available");
+
+            }
+        }
 
         /// <summary>
         /// Fires the event to check the network. Checks throttling settings
@@ -418,6 +456,9 @@ namespace DNS_Roaming_Service
                 DNSRoamingOption newOption = new DNSRoamingOption();
                 newOption.Load();
                 disableIPV6 = newOption.DisableIPV6;
+
+                autoUpdate = newOption.AutoUpdate;
+                autoUpdateLastCheck = newOption.AutoUpdateLastCheck;
 
                 daysToRetainLogs = newOption.DaysToRetainLogs;
             }
