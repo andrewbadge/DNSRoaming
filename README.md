@@ -77,6 +77,8 @@ See the [Apache 2.0](https://github.com/andrewbadge/DNSRoaming/blob/main/LICENSE
 # Thanks
 
 @jsakamoto for the [ipaddressrange](https://github.com/jsakamoto/ipaddressrange) library
+
+[Octokit](https://github.com/octokit) for the GitHub API library
  
 To [Zky Icon](https://iconscout.com/contributors/zkyicon) for the [Server Dualtone Icon] used in this App. 
 
