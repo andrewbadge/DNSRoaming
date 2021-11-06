@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?define Property_ProductName = "DNS Roaming"?>
 <?define Property_UpgradeCode = "51c343a3-fa8f-4286-859b-5dfd856d8681"?>
-<?define Property_ProductVersion = "1.0.0.16" ?>
+<?define Property_ProductVersion = "1.0.0.17" ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:ui="http://schemas.microsoft.com/wix/UIExtension">
   <Product Id="*"
 	   Name="$(var.Property_ProductName)" Language="1033"
@@ -37,7 +37,7 @@
     <!-- http://msdn.microsoft.com/library/default.asp?url=/library/en-us/msi/setup/major_upgrades.asp   -->
     <!-- The windows installer does not recognise a Release Number (1.0.0.x) change as an upgrade,       -->
     <!-- therefore we will upgrade when the version is newer or the same as the currently installed      -->
-    <!-- build. UPGRADEEXISTING and PATCHEXISTING represent these two states and their corresponding     -->d
+    <!-- build. UPGRADEEXISTING and PATCHEXISTING represent these two states and their corresponding     -->
     <!-- OnlyDetect='no' value will cause the currently installed version to be removed when             -->
     <!-- RemoveExistingProducts operation is executed. NEWERVERSIONDETECTED will trigger an error.       -->
     <Upgrade Id='$(var.Property_UpgradeCode)'>
@@ -61,7 +61,6 @@
             <File Id="ClientNLogDll" Source="..\DNS Roaming Client\bin\Release\NLog.dll"></File>
             <File Id="ClientIPAddressRangeDLL" Source="..\DNS Roaming Client\bin\Release\IPAddressRange.dll"></File>
             <File Id="ClientIPAddressRangeXML" Source="..\DNS Roaming Client\bin\Release\IPAddressRange.xml"></File>
-            <File Id="ClientOctokitDll" Source="..\DNS Roaming Client\bin\Release\Octokit.dll"></File>
             <File Id="ReadMe" Source="..\DNS Roaming Installer - Service and Client\ReadMe.txt"></File>
           </Component>
           <Directory Id="DNSRoamingServiceFolder" Name="Service">
@@ -69,7 +68,6 @@
               <File Id="ServiceCommonDll" Source="..\DNS Roaming Service\bin\Release\DNS Roaming Common.dll"></File>
               <File Id="ServiceNLogConfig" Source="..\DNS Roaming Service\bin\Release\NLog.config"></File>
               <File Id="ServiceNLogDll" Source="..\DNS Roaming Service\bin\Release\NLog.dll"></File>
-              <File Id="ServiceOctokitDll" Source="..\DNS Roaming Client\bin\Release\Octokit.dll"></File>
               <File Id="ServiceIPAddressRangeDLL" Source="..\DNS Roaming Service\bin\Release\IPAddressRange.dll"></File>
               <File Id="ServiceIPAddressRangeXML" Source="..\DNS Roaming Service\bin\Release\IPAddressRange.xml"></File>
             </Component>
@@ -87,6 +85,16 @@
                 <RegistryValue Type="string" Name="Path" Value="[DNSRoamingFolder]"/>
                 <RegistryValue Type="string" Name="Type" Value="ServiceandClient"/>
               </RegistryKey>
+            </Component>
+          </Directory>
+          <Directory Id="DNSRoamingUpdaterFolder" Name="Updater">
+            <Component Id="UpdaterDNSRoamingFiles" Guid="b731d8e9-f4d8-4570-b5e9-0a56c073bf7d" >
+              <File Id="UpdaterCommonDll" Source="..\DNS Roaming Updater\bin\Release\DNS Roaming Common.dll"></File>
+              <File Id="UpdaterNLogConfig" Source="..\DNS Roaming Updater\bin\Release\NLog.config"></File>
+              <File Id="UpdaterNLogDll" Source="..\DNS Roaming Updater\bin\Release\NLog.dll"></File>
+              <File Id="UpdaterOctokitDll" Source="..\DNS Roaming Updater\bin\Release\Octokit.dll"></File>
+              <File Id="UpdaterIPAddressRangeDLL" Source="..\DNS Roaming Updater\bin\Release\IPAddressRange.dll"></File>
+              <File Id="UpdaterIPAddressRangeXML" Source="..\DNS Roaming Updater\bin\Release\IPAddressRange.xml"></File>
             </Component>
           </Directory>
         </Directory>
@@ -126,6 +134,7 @@
     <!-- Feature Tree -->
     <Feature Id="FeatureRequired" Title="Required Files" Level="1" AllowAdvertise ="no" Description ="Common Files that are always required for the DNS Roaming Service and Client"  Absent ="disallow">
       <ComponentRef Id="ClientDNSRoamingFiles"  />
+      <ComponentRef Id="UpdaterDNSRoamingFiles"  />
       <ComponentRef Id="ServiceDNSRoamingFiles"  />
       <ComponentRef Id="ServiceDNSRoaming"  />
       <ComponentRef Id="ApplicationShortcut" />

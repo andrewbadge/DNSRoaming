@@ -14,6 +14,7 @@ namespace DNS_Roaming_Common
 
         private Version GetInstalledMSIVersion()
         {
+            Logger.Debug("GetInstalledMSIVersion");
 
             string registryKeyName = @"SOFTWARE\WOW6432Node\DNSRoaming";
             const string registryValueName = "Version";
@@ -49,6 +50,7 @@ namespace DNS_Roaming_Common
 
         private string GetInstalledMSIType()
         {
+            Logger.Debug("GetInstalledMSIType");
 
             string registryKeyName = @"SOFTWARE\WOW6432Node\DNSRoaming";
             const string registryValueName = "Type";
@@ -84,6 +86,8 @@ namespace DNS_Roaming_Common
 
         private async Task<Version> GetGitHubLatestVersionAsync()
         {
+            Logger.Debug("GetGitHubLatestVersionAsync");
+
             Version returnVersion = null;
 
             try
@@ -116,6 +120,8 @@ namespace DNS_Roaming_Common
 
         public bool NewerVersionAvailable()
         {
+            Logger.Debug("NewerVersionAvailable");
+
             bool newerVersionAvailable = false;
 
             try
@@ -144,12 +150,14 @@ namespace DNS_Roaming_Common
 
         private string GetDownloadURL()
         {
+            Logger.Debug("GetDownloadURL");
+
             string downloadURL = string.Empty;
             bool serviceandClient = false;
 
             //CheckAnnotationLevel to see if the Client is installed (or just the service)
+            Logger.Debug("Getting MSI Type");
             serviceandClient = (GetInstalledMSIType() == "ServiceandClient");
-
             //Loop each Asset in the release
             foreach (ReleaseAsset asset in latestRelease.Assets)
             {
@@ -157,6 +165,7 @@ namespace DNS_Roaming_Common
                 if (serviceandClient && asset.Name == "DNSRoaming-ServiceAndClient.msi")
                 {
                     downloadURL = asset.BrowserDownloadUrl;
+                    Logger.Debug(String.Format("ServiceAndClient URL ({0})", downloadURL));
                     break;
                 }
 
@@ -164,6 +173,7 @@ namespace DNS_Roaming_Common
                 if (!serviceandClient && asset.Name == "DNSRoaming-ServiceOnly.msi")
                 {
                     downloadURL = asset.BrowserDownloadUrl;
+                    Logger.Debug(String.Format("ServiceOnly URL ({0})", downloadURL));
                     break;
                 }
 
@@ -174,6 +184,8 @@ namespace DNS_Roaming_Common
 
         public bool DownloadandExecuteLatestVersion()
         {
+            Logger.Debug("DownloadandExecuteLatestVersion");
+
             bool downloadedandExecuted = false;
 
             try
@@ -187,31 +199,47 @@ namespace DNS_Roaming_Common
                     PathsandData pathsandData = new PathsandData();
 
                     string downloadURL = GetDownloadURL();
-                    string downloadedFile = Path.Combine(pathsandData.BaseDownloadsPath, "DNSRoaming.msi");
-
-                    //Remove the MSI is it already exists
-                    if (File.Exists(downloadedFile)) File.Exists(downloadedFile);
-
-                    //Download a new version from GitHub
-                    using (var webClient = new WebClient())
+                    if (downloadURL != string.Empty)
                     {
-                        webClient.DownloadFile(downloadURL, downloadedFile);
-                    }
+                        string downloadedFile = Path.Combine(pathsandData.BaseDownloadsPath, "DNSRoaming.msi");
 
-                    if (File.Exists(downloadedFile))
-                    {
-                        //Execute MSI
-                        Process process = new Process();
-                        process.StartInfo.FileName = "msiexec";
-                        process.StartInfo.WorkingDirectory = pathsandData.BaseDownloadsPath;
-                        process.StartInfo.Arguments = String.Format(" /i \"{0}\" /QN", downloadedFile);
-                        process.StartInfo.Verb = "runas";
-                        process.Start();
+                        Logger.Debug(String.Format("Downloading from ({0})", downloadURL));
+                        Logger.Debug(String.Format("Downloading to ({0})", downloadedFile));
 
-                        downloadedandExecuted = true;
+                        //Remove the MSI is it already exists
+                        if (File.Exists(downloadedFile)) File.Delete(downloadedFile);
+
+                        //Download a new version from GitHub
+                        using (var webClient = new WebClient())
+                        {
+                            Logger.Info("Downloading the update");
+                            webClient.DownloadFile(downloadURL, downloadedFile);
+                        }
+
+                        if (File.Exists(downloadedFile))
+                        {
+                            Logger.Info("File downloaded sucessfully. Executing update.");
+
+                            //Remove the MSI is it already exists
+                            string logFile = Path.Combine(pathsandData.BaseDownloadsPath, "MSIInstallation.log");
+                            if (File.Exists(logFile)) File.Delete(logFile);
+
+                            //Execute MSI
+                            Process process = new Process();
+                            process.StartInfo.FileName = "msiexec";
+                            process.StartInfo.WorkingDirectory = pathsandData.BaseDownloadsPath;
+                            //process.StartInfo.Arguments = String.Format(" /i \"{0}\" /QN /L*V \"{1}\" ", downloadedFile,logFile);
+                            process.StartInfo.Arguments = String.Format(" /i \"{0}\" /QN /L*V \"{1}\" ", downloadedFile, logFile);
+                            process.StartInfo.Verb = "runas";
+                            process.Start();
+
+                            downloadedandExecuted = true;
+                        }
+                        else
+                            Logger.Warn("Update failed to download.");
                     }
                     else
-                        Logger.Warn("Update failed to download.");
+                        Logger.Warn("Download URL was empty.");
                 }
             }
             catch (Exception ex)

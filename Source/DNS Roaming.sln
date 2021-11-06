@@ -15,6 +15,8 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "DNS Roaming Installer - Ser
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "DNS Roaming Installer - Service only", "DNS Roaming Installer - Service only\DNS Roaming Installer - Service only.wixproj", "{4C9A13EF-2A87-4D64-896B-11180C448C42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNS Roaming Updater", "DNS Roaming Updater\DNS Roaming Updater.csproj", "{38F2DAE9-BD7F-4EE8-A5AF-DD79CF490259}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,14 @@ Global
 		{4C9A13EF-2A87-4D64-896B-11180C448C42}.Release|Any CPU.ActiveCfg = Release|x86
 		{4C9A13EF-2A87-4D64-896B-11180C448C42}.Release|x86.ActiveCfg = Release|x86
 		{4C9A13EF-2A87-4D64-896B-11180C448C42}.Release|x86.Build.0 = Release|x86
+		{38F2DAE9-BD7F-4EE8-A5AF-DD79CF490259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38F2DAE9-BD7F-4EE8-A5AF-DD79CF490259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38F2DAE9-BD7F-4EE8-A5AF-DD79CF490259}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{38F2DAE9-BD7F-4EE8-A5AF-DD79CF490259}.Debug|x86.Build.0 = Debug|Any CPU
+		{38F2DAE9-BD7F-4EE8-A5AF-DD79CF490259}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38F2DAE9-BD7F-4EE8-A5AF-DD79CF490259}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38F2DAE9-BD7F-4EE8-A5AF-DD79CF490259}.Release|x86.ActiveCfg = Release|Any CPU
+		{38F2DAE9-BD7F-4EE8-A5AF-DD79CF490259}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

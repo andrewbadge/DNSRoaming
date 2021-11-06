@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Net.NetworkInformation;
 using System.ServiceProcess;
@@ -15,15 +16,18 @@ namespace DNS_Roaming_Service
         static FileSystemWatcher watcherSettings;
         static FileSystemWatcher watcherOptions;
         static bool isServicePaused = false;
+        
         static DateTime lastEventTriggered = new DateTime();
         static int countEventSkipped = 0;
+
+        static DateTime lastLoadOptionsTriggered = new DateTime();
+        static bool optionJustSaved = false;
 
         //Options
         static bool disableIPV6 = true;
         static int daysToRetainLogs = 14;
         static bool autoUpdate = true;
-        static DateTime autoUpdateLastCheck = DateTime.Now.AddDays(-30);
-
+        
         static System.Timers.Timer serviceTimer;
         static System.Timers.Timer logandUpdateTimer;
         static System.ComponentModel.BackgroundWorker backgroundWorker;
@@ -144,7 +148,7 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            Logger.Info(String.Format("Settings file change detected"));
+            Logger.Debug(String.Format("Settings file change detected"));
             LoadDNSRules();
             FireEvent();
         }
@@ -156,7 +160,7 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            Logger.Info(String.Format("Settings file create detected"));
+            Logger.Debug(String.Format("Settings file create detected"));
             LoadDNSRules();
             FireEvent();
         }
@@ -168,7 +172,7 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            Logger.Info(String.Format("Settings file delete detected"));
+            Logger.Debug(String.Format("Settings file delete detected"));
             LoadDNSRules();
             FireEvent();
         }
@@ -180,7 +184,7 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            Logger.Info(String.Format("Settings file rename detected"));
+            Logger.Debug(String.Format("Settings file rename detected"));
             LoadDNSRules();
             FireEvent();
         }
@@ -192,7 +196,7 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            Logger.Info(String.Format("Options file change detected"));
+            Logger.Debug(String.Format("Options file change detected"));
             LoadOptions();
         }
 
@@ -214,7 +218,7 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            Logger.Info(String.Format("Options file delete detected"));
+            Logger.Debug(String.Format("Options file delete detected"));
             LoadOptions();
         }
 
@@ -225,7 +229,7 @@ namespace DNS_Roaming_Service
                 return;
             }
 
-            Logger.Info(String.Format("Options file rename detected"));
+            Logger.Debug(String.Format("Options file rename detected"));
             LoadOptions();
         }
 
@@ -237,7 +241,7 @@ namespace DNS_Roaming_Service
 
         static void AvailabilityChangedCallback(object sender, EventArgs e)
         {
-            Logger.Info(String.Format("Availability change detected"));
+            Logger.Debug(String.Format("Availability change detected"));
             FireEvent();
         }
 
@@ -268,14 +272,12 @@ namespace DNS_Roaming_Service
         {
             Logger.Debug("ConfigureTimers");
 
-            //In 30 mins
-            serviceTimer = new System.Timers.Timer(1800000);
+            serviceTimer = new System.Timers.Timer(28 * 60 * 1000);
             serviceTimer.Elapsed += ServiceTimerEvent;
             serviceTimer.AutoReset = true;
             serviceTimer.Enabled = true;
 
-            //In nearly 6 hours. Deliberately offset from an exact hour
-            logandUpdateTimer = new System.Timers.Timer(21000000);
+            logandUpdateTimer = new System.Timers.Timer(7 * 60 * 1000);
             logandUpdateTimer.Elapsed += LogandUpdateTimerEvent;
             logandUpdateTimer.AutoReset = true;
             logandUpdateTimer.Enabled = true;
@@ -303,7 +305,7 @@ namespace DNS_Roaming_Service
         }
 
         /// <summary>
-        /// Periodically check for old log files and remove them
+        /// Periodically Do checks for old logs and updates
         /// </summary>
         /// <param name="source"></param>
         /// <param name="e"></param>
@@ -315,6 +317,12 @@ namespace DNS_Roaming_Service
             {
                 CleanLogFiles();
                 CheckforUpdates();
+
+                //Reschedule the next Timer to a random internal 
+                //between 60 and 120 mins
+                Random randomNumber = new Random();
+                int timerDelay = randomNumber.Next(3600, 7200) * 1000;
+                serviceTimer.Interval = timerDelay;
             }
             catch (Exception ex)
             {
@@ -323,6 +331,9 @@ namespace DNS_Roaming_Service
 
         }
 
+        /// <summary>
+        /// Check for old log files and remove them
+        /// </summary>
         private static void CleanLogFiles()
         {
             Logger.Debug("CleanLogFiles");
@@ -350,33 +361,40 @@ namespace DNS_Roaming_Service
             }
         }
 
-        private static void CheckforUpdates()
+        /// <summary>
+        /// Checks GitHub for a new version. If found downloads and installs
+        /// </summary>
+        /// <returns></returns>
+        private static bool CheckforUpdates()
         {
-            if (!autoUpdate) return;
+            if (!autoUpdate) return false;
 
             Logger.Debug("CheckforUpdates");
 
-            if (autoUpdateLastCheck.AddDays(3) < DateTime.Now)
+            string applicationPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            DirectoryInfo parentDirectory = System.IO.Directory.GetParent(applicationPath);
+            string updaterFolder = Path.Combine(parentDirectory.FullName, "Updater");
+            string updaterFilename = Path.Combine(updaterFolder, "DNS Roaming Updater.exe");
+            Logger.Debug(String.Format("Updater exe ({0})", updaterFilename));
+
+            if (File.Exists(updaterFilename))
             {
+                Logger.Debug("Starting Updater Application");
 
-                //Save the new "last checked" date
-                autoUpdateLastCheck = DateTime.Now;
+                //Execute Updater Application
+                Process process = new Process();
+                process.StartInfo.FileName = "DNS Roaming Updater.exe";
+                process.StartInfo.WorkingDirectory = updaterFolder;
+                process.StartInfo.Arguments = "";
+                process.StartInfo.Verb = "runas";
+                process.Start();
 
-                DNSRoamingOption newOption = new DNSRoamingOption();
-                newOption.Load();
-                newOption.AutoUpdateLastCheck = autoUpdateLastCheck;
-                newOption.Save();
-
-                //Check for updates
-                clsUpdates updates = new clsUpdates();
-                if (updates.NewerVersionAvailable())
-                {
-                    Logger.Info("GitHub Version is newer");
-                    updates.DownloadandExecuteLatestVersion();
-                }
-                else
-                    Logger.Info("No newer Version is available");
-
+                return true;
+            }
+            else
+            {
+                Logger.Warn("Updater application was not found");
+                return false;
             }
         }
 
@@ -453,13 +471,16 @@ namespace DNS_Roaming_Service
 
             try
             {
+                if (IsLoadOptionsThrottled())
+                {
+                    return;
+                }
+
                 DNSRoamingOption newOption = new DNSRoamingOption();
                 newOption.Load();
                 disableIPV6 = newOption.DisableIPV6;
 
                 autoUpdate = newOption.AutoUpdate;
-                autoUpdateLastCheck = newOption.AutoUpdateLastCheck;
-
                 daysToRetainLogs = newOption.DaysToRetainLogs;
             }
             catch (Exception ex)
@@ -467,6 +488,40 @@ namespace DNS_Roaming_Service
                 Logger.Error(ex.Message);
             }
 
+        }
+
+        static bool IsLoadOptionsThrottled()
+        {
+            Logger.Debug("IsLoadOptionsThrottled");
+
+            bool throttled = false;
+            TimeSpan eventDelay = DateTime.Now.Subtract(lastLoadOptionsTriggered);
+
+
+            if (optionJustSaved)
+            {
+                optionJustSaved = false;
+                throttled = true;
+                Logger.Debug("Option were juist saved. Load Options was throttled");
+            }
+            else
+            {
+                //If an event hasn't been actioned for more than 5 seconds
+                if (eventDelay.TotalSeconds > 5)
+                {
+                    Logger.Debug("Load Options wasn't Throttled");
+
+                    lastLoadOptionsTriggered = DateTime.Now;
+                    throttled = false;
+                }
+                else
+                {
+                    throttled = true;
+                    Logger.Debug("Load Options was throttled");
+                }
+            }
+
+            return throttled;
         }
 
 

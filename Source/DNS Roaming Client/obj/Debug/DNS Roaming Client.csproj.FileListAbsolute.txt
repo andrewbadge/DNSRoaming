@@ -40,12 +40,10 @@ D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\DNS Ro
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\DNS Roaming Common.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\NLog.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\IPAddressRange.dll
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\Octokit.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\DNS Roaming Common.pdb
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\DNS Roaming Common.dll.config
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\NLog.xml
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\IPAddressRange.xml
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\bin\Debug\Octokit.xml
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.csproj.AssemblyReference.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS_Roaming_Client.FrmMain.resources
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS_Roaming_Client.FrmSettings.resources
@@ -53,6 +51,6 @@ D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS_Ro
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS_Roaming_Client.Properties.Resources.resources
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.csproj.GenerateResource.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.csproj.CoreCompileInputs.cache
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.csproj.CopyComplete
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.exe
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.pdb
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.csproj.CopyComplete

@@ -5,3 +5,4 @@
 ..\DNS Roaming Service\bin\Release\IPAddressRange.xml
 ..\DNS Roaming Service\bin\Release\NLog.config
 ..\DNS Roaming Service\bin\Release\NLog.dll
+..\DNS Roaming Service\bin\Release\Octokit.dll

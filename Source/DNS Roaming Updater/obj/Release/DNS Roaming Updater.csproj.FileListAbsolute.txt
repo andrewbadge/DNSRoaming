@@ -1,0 +1,18 @@
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\bin\Release\NLog.config
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\bin\Release\DNS Roaming Updater.exe.config
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\bin\Release\DNS Roaming Updater.exe
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\bin\Release\DNS Roaming Updater.pdb
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\bin\Release\DNS Roaming Common.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\bin\Release\NLog.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\bin\Release\Octokit.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\bin\Release\IPAddressRange.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\bin\Release\DNS Roaming Common.pdb
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\bin\Release\DNS Roaming Common.dll.config
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\bin\Release\NLog.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\bin\Release\Octokit.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\bin\Release\IPAddressRange.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\obj\Release\DNS Roaming Updater.csproj.AssemblyReference.cache
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\obj\Release\DNS Roaming Updater.csproj.CoreCompileInputs.cache
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\obj\Release\DNS Roaming Updater.csproj.CopyComplete
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\obj\Release\DNS Roaming Updater.exe
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\obj\Release\DNS Roaming Updater.pdb

@@ -60,6 +60,8 @@ namespace DNS_Roaming_Client
                 chkIPV6Disable.Checked = newOption.DisableIPV6;
                 retainLogDays.Value = newOption.DaysToRetainLogs;
                 chkAutoupdate.Checked = newOption.AutoUpdate;
+                autoUpdateDays.Enabled = chkAutoupdate.Checked;
+                autoUpdateDays.Value = Math.Floor((decimal)newOption.AutoUpdateHours / 24);
             }
             catch (Exception ex)
             {
@@ -306,6 +308,7 @@ namespace DNS_Roaming_Client
                 newOption.DisableIPV6 = chkIPV6Disable.Checked;
                 newOption.DaysToRetainLogs = (int)retainLogDays.Value;
                 newOption.AutoUpdate = chkAutoupdate.Checked;
+                newOption.AutoUpdateHours = (int)autoUpdateDays.Value * 24;
                 newOption.Save();
             }
             catch (Exception ex)
@@ -397,7 +400,13 @@ namespace DNS_Roaming_Client
             ListRuleCopy();
         }
 
+        private void chkAutoupdate_CheckedChanged(object sender, EventArgs e)
+        {
+            autoUpdateDays.Enabled = chkAutoupdate.Checked;
+        }
 
         #endregion
+
+
     }
 }

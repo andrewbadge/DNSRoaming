@@ -34,11 +34,11 @@ namespace DNS_Roaming_Common
             set { autoUpdate = value; }
         }
 
-        private DateTime autoUpdateLastCheck = DateTime.Now.AddDays(-30);
-        public DateTime AutoUpdateLastCheck
+        private int autoUpdateHours = 72;
+        public int AutoUpdateHours
         {
-            get { return autoUpdateLastCheck; }
-            set { autoUpdateLastCheck = value; }
+            get { return autoUpdateHours; }
+            set { autoUpdateHours = value; }
         }
 
         #endregion
