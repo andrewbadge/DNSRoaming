@@ -150,7 +150,7 @@ $App = "DNS Roaming"
 # Base path where the download file will be stored
 $BaseFolder = "$env:ALLUSERSPROFILE\DNSRoaming\Downloads"
 # Local File name of the downloaded file
-$Filename = "DNSRoaming-ServiceOnly-Beta11.msi"
-# URL to download from
-$URL = "https://github.com/andrewbadge/DNSRoaming/releases/download/Beta11/DNSRoaming-ServiceOnly.msi"
+$Filename = "DNSRoaming-ServiceOnly-Beta18.msi"
+# URL to download from. NB: Beta 18 and above has Auto-Update
+$URL = "https://github.com/andrewbadge/DNSRoaming/releases/download/Beta18/DNSRoaming-ServiceOnly.msi"
 Install-MSI $App $URL $BaseFolder $Filename
