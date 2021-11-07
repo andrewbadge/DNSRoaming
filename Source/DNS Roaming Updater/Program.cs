@@ -18,11 +18,16 @@ namespace DNS_Roaming_Updater
                 Logger.Info("--------------------------");
                 Logger.Info(String.Format("Starting ({0})", Assembly.GetExecutingAssembly().GetName().Version.ToString()));
 
+                bool forceCheck = false;
+                bool forceDownloadandInstall = false;
+
                 LoadOptions();
-                if (autoUpdate)
+                ParseArgs(args, out forceCheck, out forceDownloadandInstall);
+
+                if (autoUpdate || forceCheck)
                 {
                     LoadUpdateData();
-                    CheckforUpdates();
+                    CheckforUpdates(forceCheck, forceDownloadandInstall);
                 }
                 else
                 {
@@ -40,6 +45,40 @@ namespace DNS_Roaming_Updater
             {
                 Logger.Error(ex.Message);
             }
+        }
+
+        static private void ParseArgs(string[] args, out bool forceCheck, out bool forceDownloadandInstall)
+        {
+            Logger.Debug("ParseArgs");
+
+            bool argForceCheck = false;
+            bool argForceDownloadandInstall = false;
+
+            try
+            {
+                if (args.Length > 0)
+                {
+                    foreach(string arg in args)
+                    {
+                        if (arg.ToLower().Trim() == "forcecheck") argForceCheck = true;
+                        if (arg.ToLower().Trim() == "forcedownloadandinstall")
+                        { 
+                            argForceCheck = true;
+                            argForceDownloadandInstall = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+            finally
+            {
+                forceCheck = argForceCheck;
+                forceDownloadandInstall = argForceDownloadandInstall;
+            }
+
         }
 
         /// <summary>
@@ -89,15 +128,18 @@ namespace DNS_Roaming_Updater
         /// Checks GitHub for a new version. If found downloads and installs
         /// </summary>
         /// <returns></returns>
-        private static bool CheckforUpdates()
+        private static bool CheckforUpdates(bool forceCheck, bool forceDownloadandInstall)
         {
-            if (!autoUpdate) return false;
+            if (!autoUpdate && !forceCheck) return false;
 
             Logger.Debug("CheckforUpdates");
 
-            if (autoUpdateLastCheck.AddHours(autoUpdateHours) < DateTime.Now)
+            if (autoUpdateLastCheck.AddHours(autoUpdateHours) < DateTime.Now || forceCheck)
             {
-                Logger.Debug("Update Check is due");
+                if (forceCheck)
+                    Logger.Debug("Forcing an Update Check");
+                else
+                    Logger.Debug("Update Check is due");
 
                 //Save the new "last checked" date
                 autoUpdateLastCheck = DateTime.Now;
@@ -110,9 +152,12 @@ namespace DNS_Roaming_Updater
 
                 //Check for updates
                 clsUpdates updates = new clsUpdates();
-                if (updates.NewerVersionAvailable())
+                if (updates.NewerVersionAvailable() || forceDownloadandInstall)
                 {
-                    Logger.Info("GitHub Version is newer");
+                    if (forceDownloadandInstall)
+                        Logger.Info("Forcing to download a new version");
+                    else
+                        Logger.Info("GitHub Version is newer");
                     return updates.DownloadandExecuteLatestVersion();
                 }
                 else

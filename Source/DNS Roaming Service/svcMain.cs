@@ -502,14 +502,14 @@ namespace DNS_Roaming_Service
             {
                 optionJustSaved = false;
                 throttled = true;
-                Logger.Debug("Option were juist saved. Load Options was throttled");
+                Logger.Debug("Option were just saved. Load Options was throttled");
             }
             else
             {
                 //If an event hasn't been actioned for more than 5 seconds
-                if (eventDelay.TotalSeconds > 5)
+                if (eventDelay.TotalSeconds > 30)
                 {
-                    Logger.Debug("Load Options wasn't Throttled");
+                    Logger.Debug("Load Options wasn't throttled");
 
                     lastLoadOptionsTriggered = DateTime.Now;
                     throttled = false;

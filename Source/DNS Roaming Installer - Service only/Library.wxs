@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?define Property_ProductName = "DNS Roaming"?>
 <?define Property_UpgradeCode = "51c343a3-fa8f-4286-859b-5dfd856d8681"?>
-<?define Property_ProductVersion = "1.0.0.17" ?>
+<?define Property_ProductVersion = "1.0.0.18" ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:ui="http://schemas.microsoft.com/wix/UIExtension">
   <Product Id="*"
 	   Name="$(var.Property_ProductName)" Language="1033"
@@ -63,7 +63,6 @@
               <File Id="ServiceCommonDll" Source="..\DNS Roaming Service\bin\Release\DNS Roaming Common.dll"></File>
               <File Id="ServiceNLogConfig" Source="..\DNS Roaming Service\bin\Release\NLog.config"></File>
               <File Id="ServiceNLogDll" Source="..\DNS Roaming Service\bin\Release\NLog.dll"></File>
-              <File Id="ServiceOctokitDll" Source="..\DNS Roaming Service\bin\Release\Octokit.dll"></File>
               <File Id="ServiceIPAddressRangeDLL" Source="..\DNS Roaming Service\bin\Release\IPAddressRange.dll"></File>
               <File Id="ServiceIPAddressRangeXML" Source="..\DNS Roaming Service\bin\Release\IPAddressRange.xml"></File>
             </Component>
