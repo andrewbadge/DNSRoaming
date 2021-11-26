@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?define Property_ProductName = "DNS Roaming"?>
 <?define Property_UpgradeCode = "51c343a3-fa8f-4286-859b-5dfd856d8681"?>
-<?define Property_ProductVersion = "1.0.0.18" ?>
+<?define Property_ProductVersion = "1.1.0.0" ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:ui="http://schemas.microsoft.com/wix/UIExtension">
   <Product Id="*"
 	   Name="$(var.Property_ProductName)" Language="1033"
@@ -84,6 +84,7 @@
           </Directory>
           <Directory Id="DNSRoamingUpdaterFolder" Name="Updater">
             <Component Id="UpdaterDNSRoamingFiles" Guid="b731d8e9-f4d8-4570-b5e9-0a56c073bf7d" >
+              <File Id="UpdaterCommonExe" Source="..\DNS Roaming Updater\bin\Release\DNS Roaming Updater.exe"></File>
               <File Id="UpdaterCommonDll" Source="..\DNS Roaming Updater\bin\Release\DNS Roaming Common.dll"></File>
               <File Id="UpdaterNLogConfig" Source="..\DNS Roaming Updater\bin\Release\NLog.config"></File>
               <File Id="UpdaterNLogDll" Source="..\DNS Roaming Updater\bin\Release\NLog.dll"></File>

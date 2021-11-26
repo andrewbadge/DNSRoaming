@@ -35,8 +35,8 @@ D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\NLog.xml
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\IPAddressRange.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\obj\Release\DNS Roaming Unit Tests.csproj.AssemblyReference.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\obj\Release\DNS Roaming Unit Tests.csproj.CoreCompileInputs.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\obj\Release\DNS Roaming Unit Tests.csproj.CopyComplete
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\obj\Release\DNS Roaming Unit Tests.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\obj\Release\DNS Roaming Unit Tests.pdb
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\obj\Release\DNS Roaming Unit Tests.csproj.AssemblyReference.cache

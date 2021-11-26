@@ -12,6 +12,7 @@
 ..\DNS Roaming Service\bin\Release\NLog.config
 ..\DNS Roaming Service\bin\Release\NLog.dll
 ..\DNS Roaming Updater\bin\Release\DNS Roaming Common.dll
+..\DNS Roaming Updater\bin\Release\DNS Roaming Updater.exe
 ..\DNS Roaming Updater\bin\Release\IPAddressRange.dll
 ..\DNS Roaming Updater\bin\Release\IPAddressRange.xml
 ..\DNS Roaming Updater\bin\Release\NLog.config
