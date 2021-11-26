@@ -4,7 +4,7 @@
 
 Go to [Releases](https://github.com/andrewbadge/DNSRoaming/releases) and download the most recent **DNSRoaming-ServiceAndClient.msi** file. 
 Install the MSI manually, via a policy or [script](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/Deploy-Windows-DNSRoaming.ps1).
-The current version is [v1.0.0.18-Beta](https://github.com/andrewbadge/DNSRoaming/releases/tag/Beta18) release the 7th Nov 2021.
+The current version is [v1.1.0.0](https://github.com/andrewbadge/DNSRoaming/releases/tag/Latest) release the 26th Nov 2021.
 
 Once installed run the DNS Roaming Client from the Windows Start menu to Create or Edit Rules
 
@@ -18,9 +18,9 @@ System Requirements:
 
 NB: it will probably work fine on older OS but its untested. Ensure [.NET Framework 4.7 is installed](https://www.microsoft.com/en-us/download/details.aspx?id=55167)
 
-## Why is it Beta?
+## No longer Beta?
 
-I haven't tested the installation in enough scenarios yet nor have I got feedback from anyone else. I believe the functionality and quality is solid but expected a random stuff-up until the first feedback is in.
+I tested the installation in enough scenarios in the work place with various device types and networks. I believe the functionality and quality is solid. Still waiting on any feedback, issues or suggestions.
 
 ## What is DNS Roaming
 
