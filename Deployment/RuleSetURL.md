@@ -1,6 +1,6 @@
 # What is RuleSetURL?
 
-RuleSetURL is a paramter when running the installer (MSI) to specify a set of DNS rules to download and auto-update.
+From v1.1.0.1 and onwards; RuleSetURL is a paramter when running the installer (MSI) to specify a set of DNS rules to download and auto-update.
 
 ## How to use the RuleSetURL
 
