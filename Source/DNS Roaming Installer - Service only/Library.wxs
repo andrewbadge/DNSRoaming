@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?define Property_ProductName = "DNS Roaming"?>
 <?define Property_UpgradeCode = "51c343a3-fa8f-4286-859b-5dfd856d8681"?>
-<?define Property_ProductVersion = "1.1.0.0" ?>
+<?define Property_ProductVersion = "1.1.0.1" ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:ui="http://schemas.microsoft.com/wix/UIExtension">
   <Product Id="*"
 	   Name="$(var.Property_ProductName)" Language="1033"
@@ -19,6 +19,8 @@
     <EnsureTable Id="ProgId" />
     <EnsureTable Id="MIME" />
     <EnsureTable Id="Verb" />
+
+    <Property Id="RULESETURL">None</Property>
 
     <!-- Make sure user logged in is an Admin -->
     <Condition Message="You need to be an administrator to install [ProductName].">
@@ -79,6 +81,7 @@
                 <RegistryValue Type="string" Name="Version" Value="$(var.Property_ProductVersion)" KeyPath="yes"/>
                 <RegistryValue Type="string" Name="Path" Value="[DNSRoamingFolder]"/>
                 <RegistryValue Type="string" Name="Type" Value="Serviceonly"/>
+                <RegistryValue Type="string" Name="RuleSetURL" Value="[RULESETURL]"/>
               </RegistryKey>
             </Component>
           </Directory>

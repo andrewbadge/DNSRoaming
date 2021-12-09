@@ -88,8 +88,7 @@ namespace DNS_Roaming_Client
                     try
                     {
                         DNSRoamingRule newRule = new DNSRoamingRule();
-                        newRule.Load(settingFilename);
-                        ruleList.Add(newRule);
+                        if (newRule.Load(settingFilename)) ruleList.Add(newRule);
                     }
                     catch
                     {
@@ -121,7 +120,13 @@ namespace DNS_Roaming_Client
                     if (thisRule.ID != String.Empty)
                     {
                         ListViewItem lvItem = new ListViewItem();
-                        lvItem.Text = thisRule.ID;
+                        lvItem.Text = string.Empty;
+                        if (thisRule.RuleWasDownloaded)
+                            lvItem.ImageIndex = 0;
+                        else
+                            lvItem.ImageIndex = -1;
+
+                        lvItem.SubItems.Add(thisRule.ID);
 
                         if (thisRule.UseNetworkType)
                             lvItem.SubItems.Add(String.Format("Type is {0}", thisRule.NetworkType));
@@ -209,10 +214,9 @@ namespace DNS_Roaming_Client
         {
             try
             {
-                if (listViewRules.SelectedItems.Count != 0)
+                string lvID = GetSelectedRuleID();
+                if (lvID != string.Empty)
                 {
-                    string lvID = listViewRules.SelectedItems[0].Text;
-
                     if (ruleList.Any(x => x.ID == lvID))
                     {
                         var thisRule = ruleList.FirstOrDefault(x => x.ID == lvID);
@@ -242,10 +246,9 @@ namespace DNS_Roaming_Client
         {
             try
             {
-                if (listViewRules.SelectedItems.Count != 0)
+                string lvID = GetSelectedRuleID();
+                if (lvID != string.Empty)
                 {
-                    string lvID = listViewRules.SelectedItems[0].Text;
-
                     if (ruleList.Any(x => x.ID == lvID))
                     {
                         var thisRule = ruleList.FirstOrDefault(x => x.ID == lvID);
@@ -272,10 +275,9 @@ namespace DNS_Roaming_Client
         {
             try
             {
-                if (listViewRules.SelectedItems.Count != 0)
+                string lvID = GetSelectedRuleID();
+                if (lvID != string.Empty)
                 {
-                    string lvID = listViewRules.SelectedItems[0].Text;
-
                     if (ruleList.Any(x => x.ID == lvID))
                     {
                         var thisRule = ruleList.FirstOrDefault(x => x.ID == lvID);
@@ -380,10 +382,9 @@ namespace DNS_Roaming_Client
 
         private void listViewRules_MouseHover(object sender, EventArgs e)
         {
-            if (listViewRules.SelectedItems.Count != 0)
+            string lvID = GetSelectedRuleID();
+            if (lvID != string.Empty)
             {
-                string lvID = listViewRules.SelectedItems[0].Text;
-
                 toolTip.Show(String.Format("Rule ID {0}", lvID), listViewRules);
             }
         }
@@ -403,6 +404,16 @@ namespace DNS_Roaming_Client
         private void chkAutoupdate_CheckedChanged(object sender, EventArgs e)
         {
             autoUpdateDays.Enabled = chkAutoupdate.Checked;
+        }
+
+        private string GetSelectedRuleID()
+        {
+            string lvID = string.Empty;
+            if (listViewRules.SelectedItems.Count != 0)
+            {
+                lvID = listViewRules.SelectedItems[0].SubItems[1].Text;
+            }
+            return lvID;
         }
 
         #endregion

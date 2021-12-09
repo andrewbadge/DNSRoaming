@@ -38,6 +38,6 @@ D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\bin\Debug\NLog.
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\bin\Debug\IPAddressRange.xml
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\obj\Debug\DNS Roaming Service.csproj.AssemblyReference.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\obj\Debug\DNS Roaming Service.csproj.CoreCompileInputs.cache
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\obj\Debug\DNS Roaming Service.csproj.CopyComplete
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\obj\Debug\DNS Roaming Service.exe
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\obj\Debug\DNS Roaming Service.pdb
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Service\obj\Debug\DNS Roaming Service.csproj.CopyComplete

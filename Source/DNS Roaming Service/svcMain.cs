@@ -41,6 +41,7 @@ namespace DNS_Roaming_Service
                 InitializeComponent();
                 InitializeBackgroundWorker();
                 LoadOptions();
+                DownloadRuleSet(false);
                 LoadDNSRules();
                 registerEvents();
                 ConfigureTimers();
@@ -316,6 +317,7 @@ namespace DNS_Roaming_Service
             try
             {
                 CleanLogFiles();
+                DownloadRuleSet(true);
                 CheckforUpdates();
 
                 //Reschedule the next Timer to a random internal 
@@ -547,8 +549,7 @@ namespace DNS_Roaming_Service
                     try
                     {
                         DNSRoamingRule newRule = new DNSRoamingRule();
-                        newRule.Load(settingFilename);
-                        ruleList.Add(newRule);
+                        if (newRule.Load(settingFilename)) ruleList.Add(newRule);
                     }
                     catch
                     {
@@ -571,6 +572,42 @@ namespace DNS_Roaming_Service
         }
 
         #endregion
+
+        static private void DownloadRuleSet(bool checkLastCheckDate = false)
+        {
+            Logger.Debug("DownloadRuleSet");
+
+            try
+            {
+                bool doRuleSetCheck = false;
+                RuleSetData ruleSetData = new RuleSetData();
+                ruleSetData.Load();
+
+                if (checkLastCheckDate)
+                {
+                    //Every 3 days
+                    int autoUpdateHours = 72;
+                    doRuleSetCheck = (ruleSetData.AutoUpdateLastCheck.AddHours(autoUpdateHours) < DateTime.Now);
+                }
+                else
+                    doRuleSetCheck = true;
+
+                if (doRuleSetCheck)
+                {
+                    //Save the last time new rules were downloaded
+                    ruleSetData.AutoUpdateLastCheck = DateTime.Now;
+                    ruleSetData.Save();
+
+                    //Do the download
+                    clsRuleSet ruleSet = new clsRuleSet();
+                    ruleSet.CheckRegistryForRuleSet();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+        }
 
         /// <summary>
         /// Checks each active network and compares to the rules. If matched then set the static DNS

@@ -69,6 +69,7 @@
             this.radioAddressByWAN = new System.Windows.Forms.RadioButton();
             this.radioAddressByLAN = new System.Windows.Forms.RadioButton();
             this.radioAddressByAny = new System.Windows.Forms.RadioButton();
+            this.lblRuleDownloaded = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.groupNetworks.SuspendLayout();
             this.groupAddressSpecific.SuspendLayout();
@@ -161,7 +162,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(455, 509);
+            this.btnCancel.Location = new System.Drawing.Point(455, 521);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(101, 23);
             this.btnCancel.TabIndex = 14;
@@ -172,7 +173,7 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(348, 509);
+            this.btnSave.Location = new System.Drawing.Point(348, 521);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(101, 23);
             this.btnSave.TabIndex = 15;
@@ -472,13 +473,26 @@
             this.radioAddressByAny.UseVisualStyleBackColor = true;
             this.radioAddressByAny.CheckedChanged += new System.EventHandler(this.radioAddressByAny_CheckedChanged);
             // 
+            // lblRuleDownloaded
+            // 
+            this.lblRuleDownloaded.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.lblRuleDownloaded.Location = new System.Drawing.Point(12, 505);
+            this.lblRuleDownloaded.Name = "lblRuleDownloaded";
+            this.lblRuleDownloaded.Size = new System.Drawing.Size(330, 42);
+            this.lblRuleDownloaded.TabIndex = 32;
+            this.lblRuleDownloaded.Text = "*Warning: this rule was downloaded and will be overwritten periodically. Manual c" +
+    "hanges may be lost.";
+            this.lblRuleDownloaded.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblRuleDownloaded.Visible = false;
+            // 
             // FrmRule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(568, 544);
+            this.ClientSize = new System.Drawing.Size(568, 556);
             this.ControlBox = false;
+            this.Controls.Add(this.lblRuleDownloaded);
             this.Controls.Add(this.groupAddressOptions);
             this.Controls.Add(this.groupDNSValues);
             this.Controls.Add(this.groupAddressSpecific);
@@ -545,5 +559,6 @@
         private System.Windows.Forms.TextBox txt3rdAlternateDNS;
         private System.Windows.Forms.TextBox txt2ndAlternateDNS;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblRuleDownloaded;
     }
 }

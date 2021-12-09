@@ -171,6 +171,13 @@ namespace DNS_Roaming_Common
             set { delaySeconds = value; }
         }
 
+        private bool ruleWasDownloaded = false;
+        public bool RuleWasDownloaded
+        {
+            get { return ruleWasDownloaded; }
+            set { ruleWasDownloaded = value; }
+        }
+
         #endregion
 
         public DNSRoamingRule()
@@ -236,8 +243,9 @@ namespace DNS_Roaming_Common
 
         }
 
-        public virtual void Load(string settingFiletoLoad)
+        public virtual bool Load(string settingFiletoLoad)
         {
+            bool loadSuccessful = false;
             try
             {
                 bool validFile = true;
@@ -269,13 +277,17 @@ namespace DNS_Roaming_Common
                     }
                     xr.Close();
                     sr.Close();
+
+                    loadSuccessful = true;
                 }
 
             }
             catch (Exception ex)
             {
                 Logger.Error(ex.Message);
+                loadSuccessful = false;
             }
+            return loadSuccessful;
         }
 
         /// <summary>

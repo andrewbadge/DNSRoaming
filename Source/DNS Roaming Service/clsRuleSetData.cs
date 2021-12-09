@@ -7,9 +7,9 @@ using System.Xml.Serialization;
 namespace DNS_Roaming_Common
 {
     [Serializable]
-    public class UpdateData
+    public class RuleSetData
     {
-        private string updateDataFileNameFullPath;
+        private string ruleSetDataFileNameFullPath;
 
         #region Properties
 
@@ -22,7 +22,7 @@ namespace DNS_Roaming_Common
 
         #endregion
 
-        public UpdateData()
+        public RuleSetData()
         {
             PopulateFilename();
         }
@@ -38,7 +38,7 @@ namespace DNS_Roaming_Common
             try
             {
                 //Write the object to the file
-                StreamWriter w = new StreamWriter(updateDataFileNameFullPath);
+                StreamWriter w = new StreamWriter(ruleSetDataFileNameFullPath);
                 XmlSerializer s = new XmlSerializer(GetType());
                 s.Serialize(w, this);
                 w.Close();
@@ -58,7 +58,7 @@ namespace DNS_Roaming_Common
         {
             try
             {
-                File.Delete(updateDataFileNameFullPath);
+                File.Delete(ruleSetDataFileNameFullPath);
             }
             catch (Exception ex)
             {
@@ -73,9 +73,9 @@ namespace DNS_Roaming_Common
             {
                 bool validFile = true;
 
-                if (File.Exists(updateDataFileNameFullPath))
+                if (File.Exists(ruleSetDataFileNameFullPath))
                 {
-                    System.IO.FileInfo fileInfo = new FileInfo(updateDataFileNameFullPath);
+                    System.IO.FileInfo fileInfo = new FileInfo(ruleSetDataFileNameFullPath);
                     if (fileInfo.Length == 0)
                         validFile = false;
                 }
@@ -84,7 +84,7 @@ namespace DNS_Roaming_Common
 
                 if (validFile)
                 {
-                    StreamReader sr = new StreamReader(updateDataFileNameFullPath);
+                    StreamReader sr = new StreamReader(ruleSetDataFileNameFullPath);
                     XmlTextReader xr = new XmlTextReader(sr);
                     XmlSerializer xs = new XmlSerializer(GetType());
                     object c;
@@ -112,7 +112,7 @@ namespace DNS_Roaming_Common
         private void PopulateFilename()
         {
             PathsandData pathsandData = new PathsandData();
-            updateDataFileNameFullPath = String.Format(@"{0}\UpdateData.xml", pathsandData.BaseOptionsPath);
+            ruleSetDataFileNameFullPath = String.Format(@"{0}\RuleSetData.xml", pathsandData.BaseOptionsPath);
         }
 
         #endregion

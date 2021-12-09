@@ -187,6 +187,8 @@ namespace DNS_Roaming_Client
 
                 upDownDelaySeconds.Value = thisRule.DelaySeconds;
 
+                lblRuleDownloaded.Visible = thisRule.RuleWasDownloaded;
+
                 Logger.Info("Rule loaded");
             }
             catch (Exception ex)

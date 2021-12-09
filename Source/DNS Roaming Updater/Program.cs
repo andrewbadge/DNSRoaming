@@ -111,7 +111,7 @@ namespace DNS_Roaming_Updater
 
             try
             {
-                DNSRoamingUpdateData updateData = new DNSRoamingUpdateData();
+                UpdateData updateData = new UpdateData();
                 updateData.Load();
                 autoUpdateLastCheck = updateData.AutoUpdateLastCheck;
 
@@ -145,7 +145,7 @@ namespace DNS_Roaming_Updater
                 autoUpdateLastCheck = DateTime.Now;
 
                 Logger.Debug("Saving last update check date");
-                DNSRoamingUpdateData updateData = new DNSRoamingUpdateData();
+                UpdateData updateData = new UpdateData();
                 updateData.Load();
                 updateData.AutoUpdateLastCheck = autoUpdateLastCheck;
                 updateData.Save();
