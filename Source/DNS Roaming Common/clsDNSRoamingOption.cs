@@ -41,6 +41,13 @@ namespace DNS_Roaming_Common
             set { autoUpdateHours = value; }
         }
 
+        private int ruleSetUpdateHours = 72;
+        public int RuleSetUpdateHours
+        {
+            get { return ruleSetUpdateHours; }
+            set { ruleSetUpdateHours = value; }
+        }
+
         #endregion
 
         public DNSRoamingOption()

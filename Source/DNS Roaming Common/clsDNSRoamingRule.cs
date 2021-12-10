@@ -178,6 +178,13 @@ namespace DNS_Roaming_Common
             set { ruleWasDownloaded = value; }
         }
 
+        private string ruleDownloadURL = string.Empty;
+        public string RuleDownloadURL
+        {
+            get { return ruleDownloadURL; }
+            set { ruleDownloadURL = value; }
+        }
+
         #endregion
 
         public DNSRoamingRule()

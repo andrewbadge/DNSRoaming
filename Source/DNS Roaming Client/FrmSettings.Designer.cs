@@ -31,10 +31,12 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSettings));
             this.listViewRules = new System.Windows.Forms.ListView();
+            this.colImage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColWhen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colNetworkID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colThen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.btnRuleEdit = new System.Windows.Forms.Button();
             this.btnRuleNew = new System.Windows.Forms.Button();
             this.btnRuleRemove = new System.Windows.Forms.Button();
@@ -58,8 +60,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.chkIPV6Disable = new System.Windows.Forms.CheckBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.imageList = new System.Windows.Forms.ImageList(this.components);
-            this.colImage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label4 = new System.Windows.Forms.Label();
+            this.ruleSetUpdateDays = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtRuleSetURL = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.tabControlSettings.SuspendLayout();
             this.tabRules.SuspendLayout();
             this.tabOptions.SuspendLayout();
@@ -69,6 +74,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.retainLogDays)).BeginInit();
             this.groupIPV6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ruleSetUpdateDays)).BeginInit();
             this.SuspendLayout();
             // 
             // listViewRules
@@ -94,6 +100,11 @@
             this.listViewRules.DoubleClick += new System.EventHandler(this.listViewRules_DoubleClick);
             this.listViewRules.MouseHover += new System.EventHandler(this.listViewRules_MouseHover);
             // 
+            // colImage
+            // 
+            this.colImage.Text = "";
+            this.colImage.Width = 32;
+            // 
             // colID
             // 
             this.colID.Text = "ID";
@@ -113,6 +124,12 @@
             // 
             this.colThen.Text = "Then set";
             this.colThen.Width = 150;
+            // 
+            // imageList
+            // 
+            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
+            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList.Images.SetKeyName(0, "download.png");
             // 
             // btnRuleEdit
             // 
@@ -228,12 +245,17 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.txtRuleSetURL);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.ruleSetUpdateDays);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.autoUpdateDays);
             this.groupBox2.Controls.Add(this.chkAutoupdate);
-            this.groupBox2.Location = new System.Drawing.Point(16, 190);
+            this.groupBox2.Location = new System.Drawing.Point(16, 166);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(479, 74);
+            this.groupBox2.Size = new System.Drawing.Size(479, 106);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Updates";
@@ -241,7 +263,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(242, 28);
+            this.label5.Location = new System.Drawing.Point(250, 22);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 13);
             this.label5.TabIndex = 5;
@@ -249,7 +271,7 @@
             // 
             // autoUpdateDays
             // 
-            this.autoUpdateDays.Location = new System.Drawing.Point(186, 28);
+            this.autoUpdateDays.Location = new System.Drawing.Point(194, 22);
             this.autoUpdateDays.Maximum = new decimal(new int[] {
             365,
             0,
@@ -272,7 +294,7 @@
             // chkAutoupdate
             // 
             this.chkAutoupdate.AutoSize = true;
-            this.chkAutoupdate.Location = new System.Drawing.Point(27, 31);
+            this.chkAutoupdate.Location = new System.Drawing.Point(27, 25);
             this.chkAutoupdate.Name = "chkAutoupdate";
             this.chkAutoupdate.Size = new System.Drawing.Size(153, 17);
             this.chkAutoupdate.TabIndex = 2;
@@ -285,9 +307,9 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.retainLogDays);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(17, 110);
+            this.groupBox1.Location = new System.Drawing.Point(17, 96);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(479, 74);
+            this.groupBox1.Size = new System.Drawing.Size(479, 60);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Logs";
@@ -295,7 +317,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(241, 34);
+            this.label3.Location = new System.Drawing.Point(249, 28);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 13);
             this.label3.TabIndex = 2;
@@ -303,7 +325,7 @@
             // 
             // retainLogDays
             // 
-            this.retainLogDays.Location = new System.Drawing.Point(185, 32);
+            this.retainLogDays.Location = new System.Drawing.Point(193, 26);
             this.retainLogDays.Maximum = new decimal(new int[] {
             365,
             0,
@@ -326,7 +348,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(26, 32);
+            this.label2.Location = new System.Drawing.Point(26, 26);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(138, 13);
             this.label2.TabIndex = 0;
@@ -338,7 +360,7 @@
             this.groupIPV6.Controls.Add(this.chkIPV6Disable);
             this.groupIPV6.Location = new System.Drawing.Point(16, 16);
             this.groupIPV6.Name = "groupIPV6";
-            this.groupIPV6.Size = new System.Drawing.Size(479, 88);
+            this.groupIPV6.Size = new System.Drawing.Size(479, 74);
             this.groupIPV6.TabIndex = 0;
             this.groupIPV6.TabStop = false;
             this.groupIPV6.Text = "IPV6";
@@ -347,7 +369,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label1.Location = new System.Drawing.Point(24, 54);
+            this.label1.Location = new System.Drawing.Point(24, 48);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(310, 13);
             this.label1.TabIndex = 1;
@@ -356,7 +378,7 @@
             // chkIPV6Disable
             // 
             this.chkIPV6Disable.AutoSize = true;
-            this.chkIPV6Disable.Location = new System.Drawing.Point(24, 30);
+            this.chkIPV6Disable.Location = new System.Drawing.Point(24, 24);
             this.chkIPV6Disable.Name = "chkIPV6Disable";
             this.chkIPV6Disable.Size = new System.Drawing.Size(161, 17);
             this.chkIPV6Disable.TabIndex = 0;
@@ -367,16 +389,62 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // imageList
+            // label4
             // 
-            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
-            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList.Images.SetKeyName(0, "download.png");
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(250, 51);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(29, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "days";
             // 
-            // colImage
+            // ruleSetUpdateDays
             // 
-            this.colImage.Text = "";
-            this.colImage.Width = 32;
+            this.ruleSetUpdateDays.Location = new System.Drawing.Point(194, 51);
+            this.ruleSetUpdateDays.Maximum = new decimal(new int[] {
+            365,
+            0,
+            0,
+            0});
+            this.ruleSetUpdateDays.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.ruleSetUpdateDays.Name = "ruleSetUpdateDays";
+            this.ruleSetUpdateDays.Size = new System.Drawing.Size(50, 20);
+            this.ruleSetUpdateDays.TabIndex = 7;
+            this.ruleSetUpdateDays.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(27, 78);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(32, 13);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "URL:";
+            // 
+            // txtRuleSetURL
+            // 
+            this.txtRuleSetURL.Location = new System.Drawing.Point(65, 75);
+            this.txtRuleSetURL.Name = "txtRuleSetURL";
+            this.txtRuleSetURL.Size = new System.Drawing.Size(408, 20);
+            this.txtRuleSetURL.TabIndex = 10;
+            this.txtRuleSetURL.WordWrap = false;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(27, 53);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(148, 13);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "Re-download Rule Sets every";
             // 
             // FrmSettings
             // 
@@ -406,6 +474,7 @@
             this.groupIPV6.ResumeLayout(false);
             this.groupIPV6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ruleSetUpdateDays)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -442,6 +511,11 @@
         private System.Windows.Forms.NumericUpDown autoUpdateDays;
         private System.Windows.Forms.ImageList imageList;
         private System.Windows.Forms.ColumnHeader colImage;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown ruleSetUpdateDays;
+        private System.Windows.Forms.TextBox txtRuleSetURL;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }
 

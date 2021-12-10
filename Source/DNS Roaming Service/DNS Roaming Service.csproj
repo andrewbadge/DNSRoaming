@@ -59,7 +59,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="clsRuleSetData.cs" />
     <Compile Include="clsRuleSet.cs" />
     <Compile Include="svcMain.cs">
       <SubType>Component</SubType>

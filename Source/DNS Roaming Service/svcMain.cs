@@ -41,7 +41,7 @@ namespace DNS_Roaming_Service
                 InitializeComponent();
                 InitializeBackgroundWorker();
                 LoadOptions();
-                DownloadRuleSet(false);
+                CheckRegistryForRuleSet();
                 LoadDNSRules();
                 registerEvents();
                 ConfigureTimers();
@@ -317,7 +317,7 @@ namespace DNS_Roaming_Service
             try
             {
                 CleanLogFiles();
-                DownloadRuleSet(true);
+                DownloadRuleSet();
                 CheckforUpdates();
 
                 //Reschedule the next Timer to a random internal 
@@ -573,34 +573,60 @@ namespace DNS_Roaming_Service
 
         #endregion
 
-        static private void DownloadRuleSet(bool checkLastCheckDate = false)
+        private void CheckRegistryForRuleSet()
+        {
+            Logger.Debug("CheckRegistryForRuleSet");
+
+            try
+            {
+                //Do the download
+                clsRuleSet ruleSet = new clsRuleSet();
+                ruleSet.CheckRegistryForRuleSet();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+        }
+
+        static private void DownloadRuleSet()
         {
             Logger.Debug("DownloadRuleSet");
 
             try
             {
                 bool doRuleSetCheck = false;
+                bool isValidURL = false;
+                Uri ruleSetUri = null;
+
                 RuleSetData ruleSetData = new RuleSetData();
                 ruleSetData.Load();
 
-                if (checkLastCheckDate)
+                if (ruleSetData.RuleSetDownloadURL != string.Empty)
+                {
+                    isValidURL = Uri.TryCreate(ruleSetData.RuleSetDownloadURL, UriKind.Absolute, out ruleSetUri) && (ruleSetUri.Scheme == Uri.UriSchemeHttp || ruleSetUri.Scheme == Uri.UriSchemeHttps);
+                }
+
+                if (isValidURL)
                 {
                     //Every 3 days
                     int autoUpdateHours = 72;
                     doRuleSetCheck = (ruleSetData.AutoUpdateLastCheck.AddHours(autoUpdateHours) < DateTime.Now);
-                }
-                else
-                    doRuleSetCheck = true;
 
-                if (doRuleSetCheck)
-                {
-                    //Save the last time new rules were downloaded
-                    ruleSetData.AutoUpdateLastCheck = DateTime.Now;
-                    ruleSetData.Save();
+                    if (doRuleSetCheck)
+                    {
+                        //Save the last time new rules were downloaded
+                        ruleSetData.AutoUpdateLastCheck = DateTime.Now;
+                        ruleSetData.Save();
 
-                    //Do the download
-                    clsRuleSet ruleSet = new clsRuleSet();
-                    ruleSet.CheckRegistryForRuleSet();
+                        //Do the download
+                        clsRuleSet ruleSet = new clsRuleSet();
+                        string ruleSetFilename = ruleSet.DownloadRuleSet(ruleSetUri);
+                        if (ruleSetFilename != String.Empty)
+                        {
+                            ruleSet.ParseRuleSet(ruleSetFilename);
+                        }
+                    }
                 }
             }
             catch (Exception ex)

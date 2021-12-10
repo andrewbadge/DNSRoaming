@@ -20,6 +20,13 @@ namespace DNS_Roaming_Common
             set { autoUpdateLastCheck = value; }
         }
 
+        private string ruleSetDownloadURL = string.Empty;
+        public string RuleSetDownloadURL
+        {
+            get { return ruleSetDownloadURL; }
+            set { ruleSetDownloadURL = value; }
+        }
+
         #endregion
 
         public RuleSetData()

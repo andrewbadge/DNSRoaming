@@ -19,11 +19,11 @@ namespace DNS_Roaming_Service
             try
             {
 
-                RegistryKey regKey = Registry.LocalMachine.OpenSubKey(registryKeyName);
+                RegistryKey regKey = Registry.LocalMachine.OpenSubKey(registryKeyName,true);
                 if (regKey == null)
                 {
                     registryKeyName = @"SOFTWARE\DNSRoaming";
-                    regKey = Registry.LocalMachine.OpenSubKey(registryKeyName);
+                    regKey = Registry.LocalMachine.OpenSubKey(registryKeyName,true);
                 }
 
                 //Not installed?
@@ -44,6 +44,16 @@ namespace DNS_Roaming_Service
                     {
                         ParseRuleSet(ruleSetFilename);
                     }
+
+                    //Save the URL and clear the registry
+                    //Even if the URL is invalid
+                    RuleSetData ruleSetData = new RuleSetData();
+                    ruleSetData.Load();
+                    ruleSetData.RuleSetDownloadURL = ruleSetURL;
+                    ruleSetData.Save();
+
+                    regKey.SetValue(registryValueName, string.Empty);
+                    
                 }
 
 
@@ -54,7 +64,7 @@ namespace DNS_Roaming_Service
             }
         }
 
-        private string DownloadRuleSet(Uri ruleSetUri)
+        public string DownloadRuleSet(Uri ruleSetUri)
         {
             Logger.Debug("DownloadRuleSet");
 
@@ -87,7 +97,7 @@ namespace DNS_Roaming_Service
             return ruleSetFilename;
         }
 
-        private void ParseRuleSet(string ruleSetFilename)
+        public void ParseRuleSet(string ruleSetFilename)
         {
             Logger.Debug("ParseRuleSet");
 
@@ -102,7 +112,20 @@ namespace DNS_Roaming_Service
                     {
                         string[] ruleParts = ruleLine.Split(',');
 
-                        //Each line must be the localfilename,url
+                        //Expecting url
+                        if (ruleParts.Length == 1)
+                        {
+                            Uri ruleUri;
+                            bool isValidURL = Uri.TryCreate(ruleParts[0], UriKind.Absolute, out ruleUri) && (ruleUri.Scheme == Uri.UriSchemeHttp || ruleUri.Scheme == Uri.UriSchemeHttps);
+
+                            if (isValidURL)
+                            {
+                                DownloadandReplaceRule(ruleUri.ToString());
+                            }
+                        }
+
+                        //Expecting localfilename,url
+                        //This is the orignal format but now we derive the filename from the GUID in the Rule
                         if (ruleParts.Length == 2)
                         {
                             Uri ruleUri;
@@ -110,7 +133,7 @@ namespace DNS_Roaming_Service
 
                             if (isValidURL)
                             {
-                                DownloadandReplaceRule(ruleUri.ToString(), ruleParts[0]);
+                                DownloadandReplaceRule(ruleUri.ToString());
                             }
                         }
                     }
@@ -123,18 +146,16 @@ namespace DNS_Roaming_Service
             }
         }
 
-        public void DownloadandReplaceRule(string ruleURL, string ruleFileName)
+        public void DownloadandReplaceRule(string ruleURL)
         {
             Logger.Debug("DownloadandReplaceRule");
 
-            string localFilename = string.Empty;
+            PathsandData pathsandData = new PathsandData();
+            string localFilename = Path.Combine(pathsandData.BaseDownloadsPath, "TmpDownloadedRule.xml");
 
             try
             {
-                Logger.Info(String.Format("Downloading a new version of rule {0} from {1}", ruleFileName, ruleURL));
-
-                PathsandData pathsandData = new PathsandData();
-                localFilename = Path.Combine(pathsandData.BaseSettingsPath, ruleFileName);
+                Logger.Info(String.Format("Downloading a new version of rule from {0}",ruleURL));
 
                 //Remove the download File is it already exists
                 if (File.Exists(localFilename)) File.Delete(localFilename);
@@ -150,16 +171,19 @@ namespace DNS_Roaming_Service
                 if (newRule.Load(localFilename))
                 {
                     newRule.RuleWasDownloaded = true;
+                    newRule.RuleDownloadURL = ruleURL;
                     newRule.Save();
                 }
-                else
-                    //Remove the download File if there is an exception. Eg. Parsing failed
-                    File.Delete(localFilename);
 
             }
             catch (Exception ex)
             {
                 Logger.Error(ex.Message);
+            }
+            finally
+            {
+                //Remove the download File is it already exists
+                if (File.Exists(localFilename)) File.Delete(localFilename);
             }
         }
 

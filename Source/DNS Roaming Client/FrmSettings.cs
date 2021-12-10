@@ -62,6 +62,11 @@ namespace DNS_Roaming_Client
                 chkAutoupdate.Checked = newOption.AutoUpdate;
                 autoUpdateDays.Enabled = chkAutoupdate.Checked;
                 autoUpdateDays.Value = Math.Floor((decimal)newOption.AutoUpdateHours / 24);
+                ruleSetUpdateDays.Value = Math.Floor((decimal)newOption.RuleSetUpdateHours / 24);
+
+                RuleSetData ruleSetData = new RuleSetData();
+                ruleSetData.Load();
+                txtRuleSetURL.Text = ruleSetData.RuleSetDownloadURL;
             }
             catch (Exception ex)
             {
@@ -305,13 +310,30 @@ namespace DNS_Roaming_Client
 
             try
             {
+                //Save the Misc Options
                 DNSRoamingOption newOption = new DNSRoamingOption();
                 newOption.Load();
                 newOption.DisableIPV6 = chkIPV6Disable.Checked;
                 newOption.DaysToRetainLogs = (int)retainLogDays.Value;
                 newOption.AutoUpdate = chkAutoupdate.Checked;
                 newOption.AutoUpdateHours = (int)autoUpdateDays.Value * 24;
+                newOption.RuleSetUpdateHours = (int)ruleSetUpdateDays.Value * 24;
                 newOption.Save();
+
+                //Validate the URL and clear it if not a valid URL
+                //Futre tasks to do a validation process
+                Uri ruleUri;
+                bool isValidURL = Uri.TryCreate(txtRuleSetURL.Text, UriKind.Absolute, out ruleUri) && (ruleUri.Scheme == Uri.UriSchemeHttp || ruleUri.Scheme == Uri.UriSchemeHttps);
+                if (isValidURL)
+                    txtRuleSetURL.Text = ruleUri.ToString();
+                else
+                    txtRuleSetURL.Text = string.Empty;
+
+                //Save the RuleSet URL
+                RuleSetData ruleSetData = new RuleSetData();
+                ruleSetData.Load();
+                ruleSetData.RuleSetDownloadURL = txtRuleSetURL.Text;
+                ruleSetData.Save();
             }
             catch (Exception ex)
             {
@@ -416,8 +438,8 @@ namespace DNS_Roaming_Client
             return lvID;
         }
 
-        #endregion
 
+        #endregion
 
     }
 }

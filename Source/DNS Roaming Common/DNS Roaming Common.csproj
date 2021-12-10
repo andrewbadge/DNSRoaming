@@ -49,6 +49,7 @@
     <Compile Include="clsNetworkingExtensions.cs" />
     <Compile Include="clsNetworkInterfaceType.cs" />
     <Compile Include="clsPathsandData.cs" />
+    <Compile Include="clsRuleSetData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
