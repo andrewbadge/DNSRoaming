@@ -9,33 +9,40 @@ When running the MSI from the command line, you can specify the RULESETURL param
 msiexec /i "[MSIPath]\DNSRoaming-ServiceAndClient.msi" /QN RULESETURL="http://mydomain.com/ruleset.txt"
 ```
 
+NB: Ensure the parameter is RULESETURL (exactly and uppercase). Wix seems particular about this.
+
 ## Format of the RuleSet File
 
 The RuleSet file can be any name but is expected to a text file containing one or more lines of:
-- Rule File Name
 - Rule Download URL
 
 Delimited by a comma
 
 e.g.
 ```
-Rule-8cc5f9f4-cea8-43b3-a215-dc846d614ad2.xml,https://http://mydomain.com/ruleA.xml
-Rule-b7d757f1-a824-4ec5-82b6-64b9176953a0.xml,https://http://mydomain.com/ruleB.xml
+https://http://mydomain.com/ruleA.xml
+https://http://mydomain.com/ruleB.xml
 ```
+
+NB: the old format of Rule Filename, Rule URL will still work. The Filename is just ignored.
 
 ## When are the rules downloaded
 
-- When the service is started (including after installation)
-- Every 3 days
+- When the service is started after installation
+- Every 3 days (by Default). You can change the frequency in Client / Settings
 
 # Some important points!
 
-- The Rule File Name should be in the format Rule-[GUID].xml where the GUID matches the contents GUID in the XML file
-- If the Filename and the file's GUID don't match; saving the rule in the UI will create a new file
 - The ruleset file can't be more than 10KB
 - Its expected to be a text file. Other file contents will not parse.
 
 # How to Stop DNSRoaming downloading rules
 
-The RULESETURL url is saved by the installer into the registry into HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\DNSRoaming.
-Clear or Delete the RULESETURL value and the service will no longer check for downloads.
+The RULESETURL url is saved by the installer into the registry into HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\DNSRoaming if set via the MSI parameter.
+Once the service loads this value is moved into the RuleSetData.xml file in the Options folder.
+
+There are 2 ways to stop DNS Roaming download more rules:
+1. Open the Client and Settings. Open the Options Tab and clear the URL
+![image](https://user-images.githubusercontent.com/15990355/145539656-a999966e-f4cb-4992-b2da-d48470e53744.png)
+
+2. Open the RuleSetData.xml file and Clear or Delete the RULESETURL value.
