@@ -86,7 +86,7 @@ namespace DNS_Roaming_Common
 
             bool queryDoAttempt = true;
             int queryAttempts = 0;
-            int queryAttemptsMax = 2;
+            int queryAttemptsMax = 3;
 
             while (queryDoAttempt)
             {
@@ -95,17 +95,69 @@ namespace DNS_Roaming_Common
                     //Handle if the external query times out
                     queryAttempts += 1;
 
-                    string url = "http://checkip.dyndns.org";
-                    System.Net.WebRequest req = System.Net.WebRequest.Create(url);
-                    System.Net.WebResponse resp = req.GetResponse();
-                    System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
-                    string response = sr.ReadToEnd().Trim();
-                    string[] a = response.Split(':');
-                    string a2 = a[1].Substring(1);
-                    string[] a3 = a2.Split('<');
-                    returnIP = a3[0];
+                    if (queryAttempts == 1)
+                    {
+                        string url = "http://ifconfig.io/ip";
+                        System.Net.WebRequest req = System.Net.WebRequest.Create(url);
+                        System.Net.WebResponse resp = req.GetResponse();
+                        System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
+                        string response = sr.ReadToEnd().Trim();
+                        
+                        if (IsValidIPAddress(response))
+                        {
+                            returnIP = response;
+                            queryDoAttempt = false;
+                        }
+                        else
+                        {
+                            returnIP = string.Empty;
+                            queryDoAttempt = true;
+                        }
+                    }
 
-                    queryDoAttempt = false;
+                    if (queryAttempts == 2)
+                    {
+                        string url = "http://ipinfo.io/ip";
+                        System.Net.WebRequest req = System.Net.WebRequest.Create(url);
+                        System.Net.WebResponse resp = req.GetResponse();
+                        System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
+                        string response = sr.ReadToEnd().Trim();
+                        returnIP = response;
+
+                        if (IsValidIPAddress(response))
+                        {
+                            returnIP = response;
+                            queryDoAttempt = false;
+                        }
+                        else
+                        {
+                            returnIP = string.Empty;
+                            queryDoAttempt = true;
+                        }
+                    }
+
+                    if (queryAttempts == 3)
+                    {
+                        string url = "http://checkip.dyndns.org";
+                        System.Net.WebRequest req = System.Net.WebRequest.Create(url);
+                        System.Net.WebResponse resp = req.GetResponse();
+                        System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
+                        string response = sr.ReadToEnd().Trim();
+                        string[] a = response.Split(':');
+                        string a2 = a[1].Substring(1);
+                        string[] a3 = a2.Split('<');
+                        
+                        if (IsValidIPAddress(a3[0]))
+                        {
+                            returnIP = a3[0];
+                            queryDoAttempt = false;
+                        }
+                        else
+                        {
+                            returnIP = string.Empty;
+                            queryDoAttempt = true;
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -121,6 +173,46 @@ namespace DNS_Roaming_Common
             currentIP = returnIP;
             currentSubnet = returnSubnet;
 
+        }
+
+        static public bool IsValidURL(string URL)
+        {
+            bool isValidURL = false;
+            Uri returnURI = null;
+
+            try
+            {
+                if (URL != string.Empty)
+                {
+                    isValidURL = Uri.TryCreate(URL, UriKind.Absolute, out returnURI) && (returnURI.Scheme == Uri.UriSchemeHttp || returnURI.Scheme == Uri.UriSchemeHttps);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+
+            return isValidURL;
+        }
+
+        static public bool IsValidIPAddress(string ipAddress)
+        {
+            bool isValidIP = false;
+            IPAddress returnIPAddress;
+            
+            try
+            {
+                if (ipAddress != string.Empty)
+                {
+                    isValidIP = IPAddress.TryParse(ipAddress, out returnIPAddress);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+
+            return isValidIP;
         }
 
         /// <summary>

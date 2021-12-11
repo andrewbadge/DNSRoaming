@@ -53,3 +53,4 @@ D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Ro
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.csproj.CoreCompileInputs.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.exe
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.pdb
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.csproj.CopyComplete
