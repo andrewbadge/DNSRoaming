@@ -164,6 +164,13 @@ namespace DNS_Roaming_Common
             set { dns3rdAlternative = value; }
         }
 
+        private bool resetToDHCP = false;
+        public bool ResetToDHCP
+        {
+            get { return resetToDHCP; }
+            set { resetToDHCP = value; }
+        }
+
         private int delaySeconds = 5;
         public int DelaySeconds
         {

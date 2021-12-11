@@ -200,10 +200,7 @@ namespace DNS_Roaming_Common
         /// Uses Powershell to Set the DNS Addresses for a NIC
         /// </summary>
         /// <param name="networkName"></param>
-        /// <param name="ip1"></param>
-        /// <param name="ip2"></param>
-        /// <param name="ip3"></param>
-        /// <param name="ip4"></param>
+        /// <param name="rule"></param>
         public static void SetStaticDNSusingPowershell(string networkName, DNSRoamingRule thisRule)
         {
             try
@@ -213,6 +210,34 @@ namespace DNS_Roaming_Common
 
                 //Build the Powershell Command
                 string argument = string.Format(@"-NoProfile -ExecutionPolicy unrestricted & {{Set-DnsClientServerAddress -InterfaceAlias ('{0}') -ServerAddresses ({1}) }}", networkName, dnsString);
+
+                //Execute the Powershell command
+                var startInfo = new ProcessStartInfo()
+                {
+                    FileName = "powershell.exe",
+                    Arguments = argument,
+                    UseShellExecute = false
+
+                };
+                Process.Start(startInfo);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+
+        }
+
+        /// <summary>
+        /// Uses Powershell to Reset (to default) the DNS Addresses for a NIC
+        /// </summary>
+        /// <param name="networkName"></param>
+        public static void SetDefaultDNSusingPowershell(string networkName)
+        {
+            try
+            {
+                //Build the Powershell Command
+                string argument = string.Format(@"-NoProfile -ExecutionPolicy unrestricted & {{Set-DnsClientServerAddress -InterfaceAlias ('{0}') -ResetServerAddresses }}", networkName);
 
                 //Execute the Powershell command
                 var startInfo = new ProcessStartInfo()

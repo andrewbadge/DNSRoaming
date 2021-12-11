@@ -168,8 +168,7 @@ namespace DNS_Roaming_Client
 
                 if (thisRule.NetworkNameIs == String.Empty && thisRule.NetworkNameIsNot == String.Empty)
                 {
-                    radioNetworkType.Checked = true;
-                    
+                    radioNetworkType.Checked = true;   
                 }
                 else
                 {
@@ -184,6 +183,8 @@ namespace DNS_Roaming_Client
                         cmbNetworkName.Text = thisRule.NetworkNameIs;
                     }
                 }
+
+                chkResetToDHCP.Checked = thisRule.ResetToDHCP;
 
                 upDownDelaySeconds.Value = thisRule.DelaySeconds;
 
@@ -314,7 +315,7 @@ namespace DNS_Roaming_Client
                     }
                 }
 
-                if (txtPreferredDNS.Text.Trim() == String.Empty && txtAlternateDNS.Text.Trim() == String.Empty && cmbDNSset.SelectedIndex == -1)
+                if (!chkResetToDHCP.Checked && txtPreferredDNS.Text.Trim() == String.Empty && txtAlternateDNS.Text.Trim() == String.Empty && cmbDNSset.SelectedIndex == -1)
                 {
                     errorProvider.SetError(cmbDNSset, "Select a DNS Set");
                     cmbDNSset.Focus();
@@ -422,6 +423,7 @@ namespace DNS_Roaming_Client
                     }
                 }
 
+                thisRule.ResetToDHCP = chkResetToDHCP.Checked;
                 thisRule.DNSSet = (cmbDNSset.SelectedItem == null) ? String.Empty : cmbDNSset.SelectedItem.ToString();
 
                 if (radioNetworkNameIs.Checked) thisRule.NetworkNameIs = cmbNetworkName.Text;
@@ -468,12 +470,20 @@ namespace DNS_Roaming_Client
 
         private void txtPreferredDNS_TextChanged(object sender, EventArgs e)
         {
-            if (txtPreferredDNS.Text != String.Empty) cmbDNSset.SelectedIndex = -1;
+            if (txtPreferredDNS.Text != String.Empty)
+            {
+                cmbDNSset.SelectedIndex = -1;
+                chkResetToDHCP.Checked = false;
+            }
         }
 
         private void txtAlternateDNS_TextChanged(object sender, EventArgs e)
         {
-            if (txtAlternateDNS.Text != String.Empty) cmbDNSset.SelectedIndex = -1;
+            if (txtAlternateDNS.Text != String.Empty)
+            {
+                cmbDNSset.SelectedIndex = -1;
+                chkResetToDHCP.Checked = false;
+            }
         }
 
         private void cmbDNSset_SelectedIndexChanged(object sender, EventArgs e)
@@ -482,6 +492,7 @@ namespace DNS_Roaming_Client
             txtAlternateDNS.Text = String.Empty;
             txt2ndAlternateDNS.Text = String.Empty;
             txt3rdAlternateDNS.Text = String.Empty;
+            chkResetToDHCP.Checked = false;
         }
 
         /// <summary>
@@ -566,12 +577,32 @@ namespace DNS_Roaming_Client
 
         private void txt2ndAlternateDNS_TextChanged(object sender, EventArgs e)
         {
-            if (txt2ndAlternateDNS.Text != String.Empty) cmbDNSset.SelectedIndex = -1;
+            if (txt2ndAlternateDNS.Text != String.Empty)
+            {
+                cmbDNSset.SelectedIndex = -1;
+                chkResetToDHCP.Checked = false;
+            }
         }
 
         private void txt3rdAlternateDNS_TextChanged(object sender, EventArgs e)
         {
-            if (txt3rdAlternateDNS.Text != String.Empty) cmbDNSset.SelectedIndex = -1;
+            if (txt3rdAlternateDNS.Text != String.Empty)
+            {
+                cmbDNSset.SelectedIndex = -1;
+                chkResetToDHCP.Checked = false;
+            }
+        }
+
+        private void chkResetToDHCP_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkResetToDHCP.Checked)
+            {
+                cmbDNSset.SelectedIndex = -1;
+                txtPreferredDNS.Text = String.Empty;
+                txtAlternateDNS.Text = String.Empty;
+                txt2ndAlternateDNS.Text = String.Empty;
+                txt3rdAlternateDNS.Text = String.Empty;
+            }
         }
 
         #endregion
@@ -594,6 +625,7 @@ namespace DNS_Roaming_Client
         {
             toolTip.Show("Pick from the list of Network Interfaces on your PC", cmbNetworkName);
         }
+
 
         #endregion
 

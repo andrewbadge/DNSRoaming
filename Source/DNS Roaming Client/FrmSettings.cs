@@ -170,11 +170,15 @@ namespace DNS_Roaming_Client
                                 lvItem.SubItems.Add(String.Format("{0} Not in {1}/{2}", addressTypePrefix, thisRule.AddressIP, thisRule.AddressSubnet));
                         }
 
-                        if (thisRule.DNSPreferred == String.Empty && thisRule.DNSAlternative == String.Empty)
-                            lvItem.SubItems.Add(thisRule.DNSSet);
+                        if (thisRule.ResetToDHCP)
+                            lvItem.SubItems.Add("Reset to Automatic/DHCP");
                         else
-                            lvItem.SubItems.Add(String.Format("{0}", NetworkingExtensions.ExpandIPString(thisRule.DNSPreferred, thisRule.DNSAlternative, thisRule.DNS2ndAlternative, thisRule.DNS3rdAlternative)));
-
+                        {
+                            if (thisRule.DNSPreferred == String.Empty && thisRule.DNSAlternative == String.Empty)
+                                lvItem.SubItems.Add(thisRule.DNSSet);
+                            else
+                                lvItem.SubItems.Add(String.Format("{0}", NetworkingExtensions.ExpandIPString(thisRule.DNSPreferred, thisRule.DNSAlternative, thisRule.DNS2ndAlternative, thisRule.DNS3rdAlternative)));
+                        }
                         listViewRules.Items.Add(lvItem);
                     }
                 }

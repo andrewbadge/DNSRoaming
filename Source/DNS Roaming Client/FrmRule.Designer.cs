@@ -55,6 +55,9 @@
             this.txtAddressSubnet = new System.Windows.Forms.TextBox();
             this.radioAddressIsSpecific = new System.Windows.Forms.RadioButton();
             this.groupDNSValues = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.chkResetToDHCP = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -83,7 +86,7 @@
             this.listNetworkType.FormattingEnabled = true;
             this.listNetworkType.Location = new System.Drawing.Point(21, 42);
             this.listNetworkType.Name = "listNetworkType";
-            this.listNetworkType.Size = new System.Drawing.Size(235, 109);
+            this.listNetworkType.Size = new System.Drawing.Size(235, 124);
             this.listNetworkType.Sorted = true;
             this.listNetworkType.TabIndex = 0;
             // 
@@ -124,7 +127,7 @@
             // 
             this.cmbDNSset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDNSset.FormattingEnabled = true;
-            this.cmbDNSset.Location = new System.Drawing.Point(6, 19);
+            this.cmbDNSset.Location = new System.Drawing.Point(113, 48);
             this.cmbDNSset.Name = "cmbDNSset";
             this.cmbDNSset.Size = new System.Drawing.Size(325, 21);
             this.cmbDNSset.Sorted = true;
@@ -134,7 +137,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 55);
+            this.label3.Location = new System.Drawing.Point(6, 83);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(16, 13);
             this.label3.TabIndex = 9;
@@ -143,7 +146,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(31, 55);
+            this.label4.Location = new System.Drawing.Point(31, 83);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(76, 13);
             this.label4.TabIndex = 11;
@@ -152,7 +155,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(32, 81);
+            this.label5.Location = new System.Drawing.Point(32, 109);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(75, 13);
             this.label5.TabIndex = 12;
@@ -162,7 +165,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(455, 521);
+            this.btnCancel.Location = new System.Drawing.Point(455, 553);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(101, 23);
             this.btnCancel.TabIndex = 14;
@@ -173,7 +176,7 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(348, 521);
+            this.btnSave.Location = new System.Drawing.Point(348, 553);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(101, 23);
             this.btnSave.TabIndex = 15;
@@ -187,7 +190,7 @@
             // 
             // txtPreferredDNS
             // 
-            this.txtPreferredDNS.Location = new System.Drawing.Point(113, 52);
+            this.txtPreferredDNS.Location = new System.Drawing.Point(113, 80);
             this.txtPreferredDNS.Name = "txtPreferredDNS";
             this.txtPreferredDNS.Size = new System.Drawing.Size(156, 20);
             this.txtPreferredDNS.TabIndex = 18;
@@ -195,7 +198,7 @@
             // 
             // txtAlternateDNS
             // 
-            this.txtAlternateDNS.Location = new System.Drawing.Point(113, 81);
+            this.txtAlternateDNS.Location = new System.Drawing.Point(113, 109);
             this.txtAlternateDNS.Name = "txtAlternateDNS";
             this.txtAlternateDNS.Size = new System.Drawing.Size(156, 20);
             this.txtAlternateDNS.TabIndex = 19;
@@ -316,6 +319,9 @@
             // 
             // groupDNSValues
             // 
+            this.groupDNSValues.Controls.Add(this.label12);
+            this.groupDNSValues.Controls.Add(this.label11);
+            this.groupDNSValues.Controls.Add(this.chkResetToDHCP);
             this.groupDNSValues.Controls.Add(this.label10);
             this.groupDNSValues.Controls.Add(this.label9);
             this.groupDNSValues.Controls.Add(this.label8);
@@ -333,16 +339,45 @@
             this.groupDNSValues.Controls.Add(this.txtPreferredDNS);
             this.groupDNSValues.Location = new System.Drawing.Point(12, 346);
             this.groupDNSValues.Name = "groupDNSValues";
-            this.groupDNSValues.Size = new System.Drawing.Size(544, 156);
+            this.groupDNSValues.Size = new System.Drawing.Size(544, 185);
             this.groupDNSValues.TabIndex = 22;
             this.groupDNSValues.TabStop = false;
             this.groupDNSValues.Text = "Then set the DNS server to";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(32, 56);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(49, 13);
+            this.label12.TabIndex = 34;
+            this.label12.Text = "DNS Set";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 56);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(16, 13);
+            this.label11.TabIndex = 33;
+            this.label11.Text = "or";
+            // 
+            // chkResetToDHCP
+            // 
+            this.chkResetToDHCP.AutoSize = true;
+            this.chkResetToDHCP.Location = new System.Drawing.Point(9, 26);
+            this.chkResetToDHCP.Name = "chkResetToDHCP";
+            this.chkResetToDHCP.Size = new System.Drawing.Size(157, 17);
+            this.chkResetToDHCP.TabIndex = 32;
+            this.chkResetToDHCP.Text = "Reset to Automatic / DHCP";
+            this.chkResetToDHCP.UseVisualStyleBackColor = true;
+            this.chkResetToDHCP.CheckedChanged += new System.EventHandler(this.chkResetToDHCP_CheckedChanged);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label10.Location = new System.Drawing.Point(9, 130);
+            this.label10.Location = new System.Drawing.Point(9, 158);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(203, 13);
             this.label10.TabIndex = 31;
@@ -351,7 +386,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(303, 84);
+            this.label9.Location = new System.Drawing.Point(303, 112);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(40, 13);
             this.label9.TabIndex = 30;
@@ -360,7 +395,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(303, 58);
+            this.label8.Location = new System.Drawing.Point(303, 86);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(43, 13);
             this.label8.TabIndex = 29;
@@ -368,7 +403,7 @@
             // 
             // txt3rdAlternateDNS
             // 
-            this.txt3rdAlternateDNS.Location = new System.Drawing.Point(357, 81);
+            this.txt3rdAlternateDNS.Location = new System.Drawing.Point(357, 109);
             this.txt3rdAlternateDNS.Name = "txt3rdAlternateDNS";
             this.txt3rdAlternateDNS.Size = new System.Drawing.Size(156, 20);
             this.txt3rdAlternateDNS.TabIndex = 28;
@@ -376,7 +411,7 @@
             // 
             // txt2ndAlternateDNS
             // 
-            this.txt2ndAlternateDNS.Location = new System.Drawing.Point(357, 55);
+            this.txt2ndAlternateDNS.Location = new System.Drawing.Point(357, 83);
             this.txt2ndAlternateDNS.Name = "txt2ndAlternateDNS";
             this.txt2ndAlternateDNS.Size = new System.Drawing.Size(156, 20);
             this.txt2ndAlternateDNS.TabIndex = 27;
@@ -385,7 +420,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 109);
+            this.label7.Location = new System.Drawing.Point(6, 137);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(77, 13);
             this.label7.TabIndex = 26;
@@ -394,7 +429,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(143, 109);
+            this.label6.Location = new System.Drawing.Point(143, 137);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(47, 13);
             this.label6.TabIndex = 25;
@@ -402,7 +437,7 @@
             // 
             // upDownDelaySeconds
             // 
-            this.upDownDelaySeconds.Location = new System.Drawing.Point(89, 107);
+            this.upDownDelaySeconds.Location = new System.Drawing.Point(89, 135);
             this.upDownDelaySeconds.Maximum = new decimal(new int[] {
             120,
             0,
@@ -420,7 +455,7 @@
             // btnDNSsetCopy
             // 
             this.btnDNSsetCopy.Image = global::DNS_Roaming_Client.Properties.Resources.upload_file_16x16_1214209;
-            this.btnDNSsetCopy.Location = new System.Drawing.Point(519, 55);
+            this.btnDNSsetCopy.Location = new System.Drawing.Point(519, 83);
             this.btnDNSsetCopy.Name = "btnDNSsetCopy";
             this.btnDNSsetCopy.Size = new System.Drawing.Size(19, 23);
             this.btnDNSsetCopy.TabIndex = 23;
@@ -476,7 +511,7 @@
             // lblRuleDownloaded
             // 
             this.lblRuleDownloaded.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.lblRuleDownloaded.Location = new System.Drawing.Point(12, 505);
+            this.lblRuleDownloaded.Location = new System.Drawing.Point(9, 534);
             this.lblRuleDownloaded.Name = "lblRuleDownloaded";
             this.lblRuleDownloaded.Size = new System.Drawing.Size(330, 42);
             this.lblRuleDownloaded.TabIndex = 32;
@@ -490,7 +525,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(568, 556);
+            this.ClientSize = new System.Drawing.Size(568, 588);
             this.ControlBox = false;
             this.Controls.Add(this.lblRuleDownloaded);
             this.Controls.Add(this.groupAddressOptions);
@@ -560,5 +595,8 @@
         private System.Windows.Forms.TextBox txt2ndAlternateDNS;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label lblRuleDownloaded;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.CheckBox chkResetToDHCP;
     }
 }

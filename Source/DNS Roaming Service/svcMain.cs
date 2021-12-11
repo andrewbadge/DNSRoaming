@@ -757,21 +757,29 @@ namespace DNS_Roaming_Service
 
                                     if (isIPV6Enabled && disableIPV6) NetworkingExtensions.DisableIPV6onNetworkInterface(networkName);
 
-                                    //Check if the current DNS and new DNS match
-                                    string currentDNSString = NetworkingExtensions.ExpandCurrentDNS(currentDNSAddresses);
-                                    string newDNSString = NetworkingExtensions.GetNewDNSString(thisRule,false);
-
-                                    if (currentDNSString == newDNSString)
+                                    if (thisRule.ResetToDHCP)
                                     {
-                                        //If unchanged then don't do anything
-                                        Logger.Info(String.Format("DNS already set for [{0}] to {1}", networkName, currentDNSString));
+                                        Logger.Info(String.Format("Reset DNS to Automatic/DHCP for [{0}]", networkName));
+                                        NetworkingExtensions.SetDefaultDNSusingPowershell(networkName);
                                     }
                                     else
                                     {
-                                        //else if changed set the new DNS addresses
-                                        Logger.Info(String.Format("Old DNS for [{0}] was {1}", networkName, currentDNSString));
-                                        Logger.Info(String.Format("Setting DNS for [{0}] to {1}", networkName, newDNSString));
-                                        NetworkingExtensions.SetStaticDNSusingPowershell(networkName, thisRule);
+                                        //Check if the current DNS and new DNS match
+                                        string currentDNSString = NetworkingExtensions.ExpandCurrentDNS(currentDNSAddresses);
+                                        string newDNSString = NetworkingExtensions.GetNewDNSString(thisRule, false);
+
+                                        if (currentDNSString == newDNSString)
+                                        {
+                                            //If unchanged then don't do anything
+                                            Logger.Info(String.Format("DNS already set for [{0}] to {1}", networkName, currentDNSString));
+                                        }
+                                        else
+                                        {
+                                            //else if changed set the new DNS addresses
+                                            Logger.Info(String.Format("Old DNS for [{0}] was {1}", networkName, currentDNSString));
+                                            Logger.Info(String.Format("Setting DNS for [{0}] to {1}", networkName, newDNSString));
+                                            NetworkingExtensions.SetStaticDNSusingPowershell(networkName, thisRule);
+                                        }
                                     }
                                 }
                             }
