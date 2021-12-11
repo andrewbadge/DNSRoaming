@@ -110,30 +110,46 @@ namespace DNS_Roaming_Service
                 {
                     foreach (string ruleLine in System.IO.File.ReadLines(ruleSetFilename))
                     {
-                        string[] ruleParts = ruleLine.Split(',');
-
-                        //Expecting url
-                        if (ruleParts.Length == 1)
+                        //Ignore Blank Lines
+                        if (ruleLine.Trim() != string.Empty)
                         {
-                            Uri ruleUri;
-                            bool isValidURL = Uri.TryCreate(ruleParts[0], UriKind.Absolute, out ruleUri) && (ruleUri.Scheme == Uri.UriSchemeHttp || ruleUri.Scheme == Uri.UriSchemeHttps);
-
-                            if (isValidURL)
+                            if (!ruleLine.Trim().StartsWith("//"))
                             {
-                                DownloadandReplaceRule(ruleUri.ToString());
-                            }
-                        }
 
-                        //Expecting localfilename,url
-                        //This is the orignal format but now we derive the filename from the GUID in the Rule
-                        if (ruleParts.Length == 2)
-                        {
-                            Uri ruleUri;
-                            bool isValidURL = Uri.TryCreate(ruleParts[1], UriKind.Absolute, out ruleUri) && (ruleUri.Scheme == Uri.UriSchemeHttp || ruleUri.Scheme == Uri.UriSchemeHttps);
+                                if (ruleLine.Trim().ToLower() == "deleteallrules")
+                                {
+                                    //Delete all existing Rule Files
+                                    DeleteAllRules();
+                                }
+                                else
+                                {
+                                    string[] ruleParts = ruleLine.Split(',');
 
-                            if (isValidURL)
-                            {
-                                DownloadandReplaceRule(ruleUri.ToString());
+                                    //Expecting url
+                                    if (ruleParts.Length == 1)
+                                    {
+                                        Uri ruleUri;
+                                        bool isValidURL = Uri.TryCreate(ruleParts[0], UriKind.Absolute, out ruleUri) && (ruleUri.Scheme == Uri.UriSchemeHttp || ruleUri.Scheme == Uri.UriSchemeHttps);
+
+                                        if (isValidURL)
+                                        {
+                                            DownloadandReplaceRule(ruleUri.ToString());
+                                        }
+                                    }
+
+                                    //Expecting localfilename,url
+                                    //This is the orignal format but now we derive the filename from the GUID in the Rule
+                                    if (ruleParts.Length == 2)
+                                    {
+                                        Uri ruleUri;
+                                        bool isValidURL = Uri.TryCreate(ruleParts[1], UriKind.Absolute, out ruleUri) && (ruleUri.Scheme == Uri.UriSchemeHttp || ruleUri.Scheme == Uri.UriSchemeHttps);
+
+                                        if (isValidURL)
+                                        {
+                                            DownloadandReplaceRule(ruleUri.ToString());
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -184,6 +200,38 @@ namespace DNS_Roaming_Service
             {
                 //Remove the download File is it already exists
                 if (File.Exists(localFilename)) File.Delete(localFilename);
+            }
+        }
+
+        private void DeleteAllRules()
+        {
+            Logger.Debug("DeleteAllRules");
+
+            try
+            {
+                Logger.Debug("Deleting all existing Rules");
+
+                //Initialise Paths and set Permissions if neccessary
+                PathsandData pathsandData = new PathsandData();
+                pathsandData.CreateDataPaths(true);
+
+                string[] settingFiles = Directory.GetFiles(pathsandData.BaseSettingsPath, "*.xml", SearchOption.TopDirectoryOnly);
+                foreach (string settingFilename in settingFiles)
+                {
+                    //Catch an exception for a specific file but continue to process the next
+                    try
+                    {
+                        File.Delete(settingFilename);
+                    }
+                    catch
+                    {
+                        Logger.Error(String.Format("Error loading rule {0}", settingFilename));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
             }
         }
 

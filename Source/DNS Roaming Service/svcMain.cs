@@ -742,7 +742,7 @@ namespace DNS_Roaming_Service
                                 else
                                     ruleMatchedAddress = true;
 
-                                //If all the conditions match; then get the DNS settings and set a static address
+                                //If all the conditions match; then get the DNS settings and set the new vale (stastic address or Reset)
                                 if (ruleMatchedNetwork && ruleMatchedAddress)
                                 {
                                     Logger.Debug("All Rules Match");
@@ -759,7 +759,7 @@ namespace DNS_Roaming_Service
 
                                     if (thisRule.ResetToDHCP)
                                     {
-                                        Logger.Info(String.Format("Reset DNS to Automatic/DHCP for [{0}]", networkName));
+                                        Logger.Info(String.Format("Reset DNS for [{0}] to Automatic/DHCP", networkName));
                                         NetworkingExtensions.SetDefaultDNSusingPowershell(networkName);
                                     }
                                     else
