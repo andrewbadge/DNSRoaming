@@ -14,7 +14,7 @@ NB: Ensure the parameter is RULESETURL (exactly and uppercase). Wix seems partic
 ## Format of the RuleSet File
 
 The RuleSet file can be any name but is expected to a text file containing one or more lines of:
-- DeleteAllRules
+- DeleteAllRules (Optional)
 - Rule Download URL (http://domain.com/filename.txt or https://domain.com/filename.txt)
 - Comments starting with //
 
