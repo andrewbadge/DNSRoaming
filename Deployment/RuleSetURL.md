@@ -14,17 +14,24 @@ NB: Ensure the parameter is RULESETURL (exactly and uppercase). Wix seems partic
 ## Format of the RuleSet File
 
 The RuleSet file can be any name but is expected to a text file containing one or more lines of:
-- Rule Download URL
+- DeleteAllRules
+- Rule Download URL (http://domain.com/filename.txt or https://domain.com/filename.txt)
+- Comments starting with //
 
 Delimited by a comma
 
 e.g.
 ```
+// Delete all Rules first
+DeleteAllRules
+// My Rule A
 https://http://mydomain.com/ruleA.xml
+// My Rule B
 https://http://mydomain.com/ruleB.xml
 ```
 
 NB: the old format of Rule Filename, Rule URL will still work. The Filename is just ignored.
+The RuleSet file must be public without authentication; although querystrings will work.
 
 ## When are the rules downloaded
 
