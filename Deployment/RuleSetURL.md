@@ -31,7 +31,6 @@ https://http://mydomain.com/ruleB.xml
 ```
 
 NB: the old format of Rule Filename, Rule URL will still work. The Filename is just ignored.
-The RuleSet file must be public without authentication; although querystrings will work.
 
 ## When are the rules downloaded
 
@@ -42,6 +41,7 @@ The RuleSet file must be public without authentication; although querystrings wi
 
 - The ruleset file can't be more than 10KB
 - Its expected to be a text file. Other file contents will not parse.
+- The RuleSet file must be public without authentication; although querystrings will work
 
 # How to Stop DNSRoaming downloading rules
 
