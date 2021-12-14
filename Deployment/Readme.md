@@ -45,6 +45,8 @@ See the Script [Deploy-Windows-DNSRoaming.ps1](https://github.com/andrewbadge/DN
 To send a standard rule to all PCs in a network; create the rule on your machine and then copy Rule XML Files to the  %ProgramData%\DNSRoaming\Settings Folder on each PC.
 You could do this via Powershell with a GitHub Repo for the locations of your settings files.
 
+Alternatively use the [the RULESETURL parameter](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/RuleSetURL.md) when executing the MSI.
+
 Hints: Rules based on a network name are unlikely to work on multiple PCs. Use Network Types.
 
 ## Hardening DNS Roaming
