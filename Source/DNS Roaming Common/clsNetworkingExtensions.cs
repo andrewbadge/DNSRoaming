@@ -97,77 +97,94 @@ namespace DNS_Roaming_Common
 
                     if (queryAttempts == 1)
                     {
-                        string url = "http://ifconfig.io/ip";
-                        System.Net.WebRequest req = System.Net.WebRequest.Create(url);
-                        System.Net.WebResponse resp = req.GetResponse();
-                        System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
-                        string response = sr.ReadToEnd().Trim();
-                        
-                        if (IsValidIPAddress(response))
+                        returnIP = string.Empty;
+                        queryDoAttempt = true;
+                        try
                         {
-                            returnIP = response;
-                            queryDoAttempt = false;
+                            string url = "http://ifconfig.io/ip";
+                            System.Net.WebRequest req = System.Net.WebRequest.Create(url);
+                            System.Net.WebResponse resp = req.GetResponse();
+                            System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
+                            string response = sr.ReadToEnd().Trim();
+
+                            if (IsValidIPAddress(response))
+                            {
+                                returnIP = response;
+                                queryDoAttempt = false;
+                            }
+                            else
+                            {
+                                returnIP = string.Empty;
+                                queryDoAttempt = true;
+                            }
                         }
-                        else
-                        {
-                            returnIP = string.Empty;
-                            queryDoAttempt = true;
-                        }
+                        catch { }
                     }
 
                     if (queryAttempts == 2)
                     {
-                        string url = "http://ipinfo.io/ip";
-                        System.Net.WebRequest req = System.Net.WebRequest.Create(url);
-                        System.Net.WebResponse resp = req.GetResponse();
-                        System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
-                        string response = sr.ReadToEnd().Trim();
-                        returnIP = response;
-
-                        if (IsValidIPAddress(response))
+                        returnIP = string.Empty;
+                        queryDoAttempt = true;
+                        try
                         {
+                            string url = "http://ipinfo.io/ip";
+                            System.Net.WebRequest req = System.Net.WebRequest.Create(url);
+                            System.Net.WebResponse resp = req.GetResponse();
+                            System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
+                            string response = sr.ReadToEnd().Trim();
                             returnIP = response;
-                            queryDoAttempt = false;
+
+                            if (IsValidIPAddress(response))
+                            {
+                                returnIP = response;
+                                queryDoAttempt = false;
+                            }
+                            else
+                            {
+                                returnIP = string.Empty;
+                                queryDoAttempt = true;
+                            }
                         }
-                        else
-                        {
-                            returnIP = string.Empty;
-                            queryDoAttempt = true;
-                        }
+                        catch { }
                     }
 
                     if (queryAttempts == 3)
                     {
-                        string url = "http://checkip.dyndns.org";
-                        System.Net.WebRequest req = System.Net.WebRequest.Create(url);
-                        System.Net.WebResponse resp = req.GetResponse();
-                        System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
-                        string response = sr.ReadToEnd().Trim();
-                        string[] a = response.Split(':');
-                        string a2 = a[1].Substring(1);
-                        string[] a3 = a2.Split('<');
-                        
-                        if (IsValidIPAddress(a3[0]))
+                        returnIP = string.Empty;
+                        queryDoAttempt = true;
+                        try
                         {
-                            returnIP = a3[0];
-                            queryDoAttempt = false;
+                            string url = "http://checkip.dyndns.org";
+                            System.Net.WebRequest req = System.Net.WebRequest.Create(url);
+                            System.Net.WebResponse resp = req.GetResponse();
+                            System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
+                            string response = sr.ReadToEnd().Trim();
+                            string[] a = response.Split(':');
+                            string a2 = a[1].Substring(1);
+                            string[] a3 = a2.Split('<');
+
+                            if (IsValidIPAddress(a3[0]))
+                            {
+                                returnIP = a3[0];
+                                queryDoAttempt = false;
+                            }
+                            else
+                            {
+                                returnIP = string.Empty;
+                                queryDoAttempt = true;
+                            }
                         }
-                        else
-                        {
-                            returnIP = string.Empty;
-                            queryDoAttempt = true;
-                        }
+                        catch { }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error(ex.Message);
-
-                    if (queryAttempts >= queryAttemptsMax)
-                        queryDoAttempt = false;
-                    else
-                        System.Threading.Thread.Sleep(2000);
+                    Logger.Error(ex.Message);    
                 }
+
+                //If a failed attempt then wait a few seconds incase the network if still initialising
+                if (queryDoAttempt) System.Threading.Thread.Sleep(5000);
+
             }
 
             currentIP = returnIP;

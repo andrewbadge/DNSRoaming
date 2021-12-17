@@ -1,6 +1,7 @@
 ﻿using DNS_Roaming_Common;
 using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 
@@ -8,6 +9,11 @@ namespace DNS_Roaming_Service
 {
     class clsRuleSet
     {
+        /// <summary>
+        /// Check the Registry for the RuleURL to download (set by the MSI) 
+        /// saves it to the config XML file and parses the file
+        /// Called on service start
+        /// </summary>
         public void CheckRegistryForRuleSet()
         {
             Logger.Debug("CheckRegistryForRuleSet");
@@ -34,29 +40,43 @@ namespace DNS_Roaming_Service
                         ruleSetURL = (string)regValue;
                 }
 
-                Uri ruleSetUri;
-                bool isValidURL = Uri.TryCreate(ruleSetURL, UriKind.Absolute, out ruleSetUri) && (ruleSetUri.Scheme == Uri.UriSchemeHttp || ruleSetUri.Scheme == Uri.UriSchemeHttps);
-
-                if (isValidURL)
+                //If the command is to clear the URL?
+                if (ruleSetURL.Trim().ToLower() == "clear")
                 {
-                    string ruleSetFilename = DownloadRuleSet(ruleSetUri);
-                    if (ruleSetFilename != String.Empty)
-                    {
-                        ParseRuleSet(ruleSetFilename);
-                    }
-
-                    //Save the URL and clear the registry
-                    //Even if the URL is invalid
+                    //Clear the URI
                     RuleSetData ruleSetData = new RuleSetData();
                     ruleSetData.Load();
-                    ruleSetData.RuleSetDownloadURL = ruleSetURL;
+                    ruleSetData.RuleSetDownloadURL = String.Empty;
                     ruleSetData.Save();
 
                     regKey.SetValue(registryValueName, string.Empty);
-                    
                 }
+                else
+                {
+                    //Otherwise check if its a valid URI
+                    Uri ruleSetUri;
+                    bool isValidURL = Uri.TryCreate(ruleSetURL, UriKind.Absolute, out ruleSetUri) && (ruleSetUri.Scheme == Uri.UriSchemeHttp || ruleSetUri.Scheme == Uri.UriSchemeHttps);
 
+                    if (isValidURL)
+                    {
+                        //Parse the rule the first time
+                        string ruleSetFilename = DownloadRuleSet(ruleSetUri);
+                        if (ruleSetFilename != String.Empty)
+                        {
+                            ParseRuleSet(ruleSetFilename);
+                        }
 
+                        //Save the URL and clear the registry
+                        //Even if the URL is invalid as that might be a server side issue
+                        RuleSetData ruleSetData = new RuleSetData();
+                        ruleSetData.Load();
+                        ruleSetData.RuleSetDownloadURL = ruleSetURL;
+                        ruleSetData.Save();
+
+                        regKey.SetValue(registryValueName, string.Empty);
+
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -64,6 +84,12 @@ namespace DNS_Roaming_Service
             }
         }
 
+        /// <summary>
+        /// Downloads a RuleSet defined by a URL
+        /// Called when chekcing the registry and periodically if the RuleSet URL is set
+        /// </summary>
+        /// <param name="ruleSetUri"></param>
+        /// <returns></returns>
         public string DownloadRuleSet(Uri ruleSetUri)
         {
             Logger.Debug("DownloadRuleSet");
@@ -97,6 +123,10 @@ namespace DNS_Roaming_Service
             return ruleSetFilename;
         }
 
+        /// <summary>
+        /// Parses a downloaded rule file
+        /// </summary>
+        /// <param name="ruleSetFilename"></param>
         public void ParseRuleSet(string ruleSetFilename)
         {
             Logger.Debug("ParseRuleSet");
@@ -108,6 +138,10 @@ namespace DNS_Roaming_Service
                 FileInfo fi = new FileInfo(ruleSetFilename);
                 if (fi.Length < (10 * 1024))
                 {
+                    bool deleteAllRulesTriggered = false;
+                    IList<string> newRuleGUIDs = new List<string>();
+                    string returnRuleGuid = string.Empty;
+                    
                     foreach (string ruleLine in System.IO.File.ReadLines(ruleSetFilename))
                     {
                         //Ignore Blank Lines
@@ -119,7 +153,8 @@ namespace DNS_Roaming_Service
                                 if (ruleLine.Trim().ToLower() == "deleteallrules")
                                 {
                                     //Delete all existing Rule Files
-                                    DeleteAllRules();
+                                    //Perform after all lines are read so a different can be checked
+                                    deleteAllRulesTriggered = true;
                                 }
                                 else
                                 {
@@ -133,7 +168,8 @@ namespace DNS_Roaming_Service
 
                                         if (isValidURL)
                                         {
-                                            DownloadandReplaceRule(ruleUri.ToString());
+                                            DownloadandReplaceRule(ruleUri.ToString(), out returnRuleGuid);
+                                            if (returnRuleGuid != string.Empty) newRuleGUIDs.Add(returnRuleGuid);
                                         }
                                     }
 
@@ -146,13 +182,16 @@ namespace DNS_Roaming_Service
 
                                         if (isValidURL)
                                         {
-                                            DownloadandReplaceRule(ruleUri.ToString());
+                                            DownloadandReplaceRule(ruleUri.ToString(), out returnRuleGuid);
+                                            if (returnRuleGuid != string.Empty) newRuleGUIDs.Add(returnRuleGuid);
                                         }
                                     }
                                 }
                             }
                         }
                     }
+
+                    if (deleteAllRulesTriggered) DeleteAllRules(newRuleGUIDs);
                 }
 
             }
@@ -162,12 +201,19 @@ namespace DNS_Roaming_Service
             }
         }
 
-        public void DownloadandReplaceRule(string ruleURL)
+        /// <summary>
+        /// Downloads a rule (set in a Rule File)
+        /// Parses the Rule file and retutrns the GUID
+        /// </summary>
+        /// <param name="ruleURL"></param>
+        /// <param name="returnRuleGuid"></param>
+        public void DownloadandReplaceRule(string ruleURL, out string returnRuleGuid)
         {
             Logger.Debug("DownloadandReplaceRule");
 
             PathsandData pathsandData = new PathsandData();
             string localFilename = Path.Combine(pathsandData.BaseDownloadsPath, "TmpDownloadedRule.xml");
+            returnRuleGuid = string.Empty;
 
             try
             {
@@ -189,6 +235,8 @@ namespace DNS_Roaming_Service
                     newRule.RuleWasDownloaded = true;
                     newRule.RuleDownloadURL = ruleURL;
                     newRule.Save();
+
+                    returnRuleGuid = newRule.ID;
                 }
 
             }
@@ -203,7 +251,12 @@ namespace DNS_Roaming_Service
             }
         }
 
-        private void DeleteAllRules()
+        /// <summary>
+        /// Deletes all rules except for the ones listed (recently downloaded)
+        /// Called when the DeleteAllRules command is listed in a RuleSet file
+        /// </summary>
+        /// <param name="ruleGUIDsToRetain"></param>
+        private void DeleteAllRules(IList<string> ruleGUIDsToRetain)
         {
             Logger.Debug("DeleteAllRules");
 
@@ -221,7 +274,13 @@ namespace DNS_Roaming_Service
                     //Catch an exception for a specific file but continue to process the next
                     try
                     {
-                        File.Delete(settingFilename);
+                        FileInfo settingsFile = new FileInfo(settingFilename);
+                        string fileNameGUID = settingsFile.Name.Replace("Rule-","").Replace(".xml", "");
+                        if (!ruleGUIDsToRetain.Contains(fileNameGUID))
+                        {
+                            //File was not in the list of Rules just added
+                            File.Delete(settingFilename);
+                        }
                     }
                     catch
                     {
