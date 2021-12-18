@@ -11,6 +11,13 @@ msiexec /i "[MSIPath]\DNSRoaming-ServiceAndClient.msi" /QN RULESETURL="http://my
 
 NB: Ensure the parameter is RULESETURL (exactly and uppercase). Wix seems particular about this.
 
+## How to remove (clear) the RuleSetURL
+
+When running the MSI from the command line, you specify the RULESETURL parameter as "clear".
+```
+msiexec /i "[MSIPath]\DNSRoaming-ServiceAndClient.msi" /QN RULESETURL="clear"
+```
+
 ## Format of the RuleSet File
 
 The RuleSet file can be any name but is expected to a text file containing one or more lines of:
