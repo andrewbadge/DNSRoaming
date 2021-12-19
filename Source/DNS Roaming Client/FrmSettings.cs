@@ -124,6 +124,7 @@ namespace DNS_Roaming_Client
 
                     if (thisRule.ID != String.Empty)
                     {
+                        //Image for whether the rule was downloaded
                         ListViewItem lvItem = new ListViewItem();
                         lvItem.Text = string.Empty;
                         if (thisRule.RuleWasDownloaded)
@@ -131,8 +132,10 @@ namespace DNS_Roaming_Client
                         else
                             lvItem.ImageIndex = -1;
 
+                        //Rule GUID (hidden)
                         lvItem.SubItems.Add(thisRule.ID);
 
+                        //Network Type
                         if (thisRule.UseNetworkType)
                             lvItem.SubItems.Add(String.Format("Type is {0}", thisRule.NetworkType));
                         else
@@ -143,7 +146,7 @@ namespace DNS_Roaming_Client
                                 lvItem.SubItems.Add(String.Format("Name is {0}", thisRule.NetworkNameIs));
                         }
 
-
+                        //Address Filter
                         string addressTypePrefix = String.Empty;
                         switch (thisRule.AddressByType)
                         {
@@ -158,7 +161,6 @@ namespace DNS_Roaming_Client
                                 if (thisRule.AddressByType != 0) thisRule.AddressByType = 0;
                                 break;
                         }
-
                         if (thisRule.AddressByType == 0)
                             lvItem.SubItems.Add("Any Subnet");
                         else
@@ -170,6 +172,21 @@ namespace DNS_Roaming_Client
                                 lvItem.SubItems.Add(String.Format("{0} Not in {1}/{2}", addressTypePrefix, thisRule.AddressIP, thisRule.AddressSubnet));
                         }
 
+                        //And PING
+                        switch (thisRule.PingType)
+                        {
+                            case 1:
+                                lvItem.SubItems.Add(String.Format("{0}", thisRule.PingAddress));
+                                break;
+                            case 2:
+                                lvItem.SubItems.Add(String.Format("Not {0}",thisRule.PingAddress));
+                                break;
+                            default:
+                                lvItem.SubItems.Add("-");
+                                break;
+                        }
+
+                        //Action
                         if (thisRule.ResetToDHCP)
                             lvItem.SubItems.Add("Reset to Automatic/DHCP");
                         else

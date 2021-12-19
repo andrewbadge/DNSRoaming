@@ -192,6 +192,23 @@ namespace DNS_Roaming_Common
             set { ruleDownloadURL = value; }
         }
 
+        private int pingType;
+        public int PingType
+        {
+            get { return pingType; }
+            set
+            {
+                pingType = value;
+            }
+        }
+
+        private string pingAddress;
+        public string PingAddress
+        {
+            get { return pingAddress; }
+            set { pingAddress = value; }
+        }
+
         #endregion
 
         public DNSRoamingRule()

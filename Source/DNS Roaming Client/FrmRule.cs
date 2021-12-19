@@ -185,10 +185,24 @@ namespace DNS_Roaming_Client
                 }
 
                 chkResetToDHCP.Checked = thisRule.ResetToDHCP;
-
                 upDownDelaySeconds.Value = thisRule.DelaySeconds;
-
                 lblRuleDownloaded.Visible = thisRule.RuleWasDownloaded;
+
+                switch (thisRule.PingType)
+                {
+                    case 1:
+                        radioPINGSuccess.Checked = true;
+                        txtPINGAddress.Text = thisRule.PingAddress;
+                        break;
+                    case 2:
+                        radioPINGFail.Checked = true;
+                        txtPINGAddress.Text = thisRule.PingAddress;
+                        break;
+                    default:
+                        radioDoNotPING.Checked = true;
+                        txtPINGAddress.Text = string.Empty;
+                        break;
+                }
 
                 Logger.Info("Rule loaded");
             }
@@ -243,7 +257,7 @@ namespace DNS_Roaming_Client
                     }
                     else
                     {
-                        txtAddressIP.Text = IPAddress.Parse(txtAddressIP.Text).ToString();
+                        txtAddressIP.Text = IPAddressFormat(txtAddressIP.Text);
                     }
 
                     if (!IPAddress.TryParse(txtAddressSubnet.Text, out ipAddress))
@@ -254,7 +268,7 @@ namespace DNS_Roaming_Client
                     }
                     else
                     {
-                        txtAddressSubnet.Text = IPAddress.Parse(txtAddressSubnet.Text).ToString();
+                        txtAddressSubnet.Text = IPAddressFormat(txtAddressSubnet.Text);
                     }
 
                 }
@@ -269,7 +283,7 @@ namespace DNS_Roaming_Client
                     }
                     else
                     {
-                        txtPreferredDNS.Text = IPAddress.Parse(txtPreferredDNS.Text).ToString();
+                        txtPreferredDNS.Text = IPAddressFormat(txtPreferredDNS.Text);
                     }
                 }
 
@@ -283,7 +297,7 @@ namespace DNS_Roaming_Client
                     }
                     else
                     {
-                        txtAlternateDNS.Text = IPAddress.Parse(txtAlternateDNS.Text).ToString();
+                        txtAlternateDNS.Text = IPAddressFormat(txtAlternateDNS.Text);
                     }
                 }
 
@@ -297,7 +311,7 @@ namespace DNS_Roaming_Client
                     }
                     else
                     {
-                        txt2ndAlternateDNS.Text = IPAddress.Parse(txt2ndAlternateDNS.Text).ToString();
+                        txt2ndAlternateDNS.Text = IPAddressFormat(txt2ndAlternateDNS.Text);
                     }
                 }
 
@@ -311,7 +325,7 @@ namespace DNS_Roaming_Client
                     }
                     else
                     {
-                        txt3rdAlternateDNS.Text = IPAddress.Parse(txt3rdAlternateDNS.Text).ToString();
+                        txt3rdAlternateDNS.Text = IPAddressFormat(txt3rdAlternateDNS.Text);
                     }
                 }
 
@@ -322,6 +336,15 @@ namespace DNS_Roaming_Client
                     isFormValid = false;
                 }
 
+                if (!radioDoNotPING.Checked && txtPINGAddress.Text.Trim() == string.Empty)
+                {
+                    errorProvider.SetError(txtPINGAddress, "Set an IP to PING");
+                    txtPINGAddress.Focus();
+                    isFormValid = false;
+                }
+                else
+                    txtPINGAddress.Text = IPAddressFormat(txtPINGAddress.Text);
+
             }
             catch (Exception ex)
             {
@@ -331,6 +354,22 @@ namespace DNS_Roaming_Client
             }
 
             return isFormValid;
+        }
+
+        private string IPAddressFormat(string ipaddress)
+        {
+            string returnIPAddress = string.Empty;
+            try
+            {
+                returnIPAddress = IPAddress.Parse(ipaddress).ToString();
+            }            
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+
+            return returnIPAddress;
+
         }
 
         /// <summary>
@@ -430,6 +469,17 @@ namespace DNS_Roaming_Client
                 if (radioNetworkNameIsNot.Checked) thisRule.NetworkNameIsNot = cmbNetworkName.Text;
 
                 thisRule.DelaySeconds = (int)upDownDelaySeconds.Value;
+
+                if (radioDoNotPING.Checked)
+                {
+                    thisRule.PingType = 0;
+                    thisRule.PingAddress = string.Empty;
+                }
+                else
+                {
+                    thisRule.PingAddress = txtPINGAddress.Text;
+                    thisRule.PingType = radioPINGSuccess.Checked ? 1 : 2;
+                }
 
                 Logger.Info("Rule saved");
                 wasSaveSucessful = true;
@@ -626,9 +676,13 @@ namespace DNS_Roaming_Client
             toolTip.Show("Pick from the list of Network Interfaces on your PC", cmbNetworkName);
         }
 
+        private void radioDoNotPING_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioDoNotPING.Checked) txtPINGAddress.Text = string.Empty;
+        }
 
         #endregion
 
-        
+
     }
 }

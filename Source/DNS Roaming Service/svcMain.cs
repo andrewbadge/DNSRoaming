@@ -742,8 +742,22 @@ namespace DNS_Roaming_Service
                                 else
                                     ruleMatchedAddress = true;
 
+                                //Compare if the network address matches the rule
+                                bool ruleMatchedPING = false;
+                                if (thisRule.PingType > 0 && thisRule.PingAddress != string.Empty)
+                                {
+                                    bool pingSuccess = NetworkingExtensions.PingAddress(thisRule.PingAddress);
+                                    Logger.Debug(String.Format("PING sucess for [{0}] was {1}", thisRule.PingAddress,pingSuccess));
+
+                                    //If                PING Success (Type=1)                     or PING Failed (Type=2)
+                                    ruleMatchedPING = ((thisRule.PingType == 1 && pingSuccess) || (thisRule.PingType == 2 && !pingSuccess));
+                                }
+                                else
+                                    //Do Not PING (Type=0)
+                                    ruleMatchedPING = true;
+
                                 //If all the conditions match; then get the DNS settings and set the new vale (stastic address or Reset)
-                                if (ruleMatchedNetwork && ruleMatchedAddress)
+                                if (ruleMatchedNetwork && ruleMatchedAddress && ruleMatchedPING)
                                 {
                                     Logger.Debug("All Rules Match");
 

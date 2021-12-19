@@ -75,7 +75,7 @@ namespace DNS_Roaming_Common
         }
 
         /// <summary>
-        /// Gets the Current WAN IP from DYNDNS.ORG
+        /// Gets the Current WAN IP from CHECKIP.DYNDNS.ORG, IFCONFIG.IO or IPINFO.ORG
         /// </summary>
         /// <param name="currentIP"></param>
         /// <param name="currentSubnet"></param>
@@ -585,6 +585,32 @@ namespace DNS_Roaming_Common
             newDNSString = NetworkingExtensions.ExpandIPString(dns1, dns2, dns3, dns4, wrapInQuotes);
 
             return newDNSString;
+        }
+
+        /// <summary>
+        /// Pings a address (URL or IP) and return
+        /// </summary>
+        /// <param name="address"></param>
+        /// <returns></returns>
+        public static bool PingAddress(string address)
+        {
+            bool pingSuccessful = false;
+            int timeout = 5000; 
+
+            try
+            {
+                Ping pingSender = new Ping();
+                
+                // Send the request.
+                PingReply reply = pingSender.Send(address, timeout);
+                pingSuccessful = (reply.Status == IPStatus.Success);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+
+            return pingSuccessful;
         }
     }
 }

@@ -49,6 +49,11 @@
             this.btnRuleCopy = new System.Windows.Forms.Button();
             this.tabOptions = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtRuleSetURL = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.ruleSetUpdateDays = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.autoUpdateDays = new System.Windows.Forms.NumericUpDown();
             this.chkAutoupdate = new System.Windows.Forms.CheckBox();
@@ -60,21 +65,17 @@
             this.label1 = new System.Windows.Forms.Label();
             this.chkIPV6Disable = new System.Windows.Forms.CheckBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label4 = new System.Windows.Forms.Label();
-            this.ruleSetUpdateDays = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtRuleSetURL = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.colPING = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControlSettings.SuspendLayout();
             this.tabRules.SuspendLayout();
             this.tabOptions.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ruleSetUpdateDays)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.autoUpdateDays)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.retainLogDays)).BeginInit();
             this.groupIPV6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ruleSetUpdateDays)).BeginInit();
             this.SuspendLayout();
             // 
             // listViewRules
@@ -84,6 +85,7 @@
             this.colID,
             this.ColWhen,
             this.colNetworkID,
+            this.colPING,
             this.colThen});
             this.listViewRules.FullRowSelect = true;
             this.listViewRules.HideSelection = false;
@@ -91,7 +93,7 @@
             this.listViewRules.Location = new System.Drawing.Point(17, 15);
             this.listViewRules.MultiSelect = false;
             this.listViewRules.Name = "listViewRules";
-            this.listViewRules.Size = new System.Drawing.Size(479, 221);
+            this.listViewRules.Size = new System.Drawing.Size(567, 221);
             this.listViewRules.SmallImageList = this.imageList;
             this.listViewRules.TabIndex = 2;
             this.listViewRules.UseCompatibleStateImageBehavior = false;
@@ -134,7 +136,7 @@
             // btnRuleEdit
             // 
             this.btnRuleEdit.Enabled = false;
-            this.btnRuleEdit.Location = new System.Drawing.Point(175, 250);
+            this.btnRuleEdit.Location = new System.Drawing.Point(263, 247);
             this.btnRuleEdit.Name = "btnRuleEdit";
             this.btnRuleEdit.Size = new System.Drawing.Size(103, 23);
             this.btnRuleEdit.TabIndex = 5;
@@ -144,7 +146,7 @@
             // 
             // btnRuleNew
             // 
-            this.btnRuleNew.Location = new System.Drawing.Point(66, 250);
+            this.btnRuleNew.Location = new System.Drawing.Point(154, 247);
             this.btnRuleNew.Name = "btnRuleNew";
             this.btnRuleNew.Size = new System.Drawing.Size(103, 23);
             this.btnRuleNew.TabIndex = 4;
@@ -155,7 +157,7 @@
             // btnRuleRemove
             // 
             this.btnRuleRemove.Enabled = false;
-            this.btnRuleRemove.Location = new System.Drawing.Point(393, 249);
+            this.btnRuleRemove.Location = new System.Drawing.Point(481, 246);
             this.btnRuleRemove.Name = "btnRuleRemove";
             this.btnRuleRemove.Size = new System.Drawing.Size(103, 24);
             this.btnRuleRemove.TabIndex = 3;
@@ -165,7 +167,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(290, 333);
+            this.btnSave.Location = new System.Drawing.Point(399, 333);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(103, 23);
             this.btnSave.TabIndex = 17;
@@ -176,7 +178,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(399, 333);
+            this.btnCancel.Location = new System.Drawing.Point(508, 333);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(103, 23);
             this.btnCancel.TabIndex = 16;
@@ -202,7 +204,7 @@
             this.tabControlSettings.Location = new System.Drawing.Point(2, 2);
             this.tabControlSettings.Name = "tabControlSettings";
             this.tabControlSettings.SelectedIndex = 0;
-            this.tabControlSettings.Size = new System.Drawing.Size(520, 316);
+            this.tabControlSettings.Size = new System.Drawing.Size(612, 316);
             this.tabControlSettings.TabIndex = 19;
             // 
             // tabRules
@@ -215,7 +217,7 @@
             this.tabRules.Location = new System.Drawing.Point(4, 22);
             this.tabRules.Name = "tabRules";
             this.tabRules.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRules.Size = new System.Drawing.Size(512, 290);
+            this.tabRules.Size = new System.Drawing.Size(604, 290);
             this.tabRules.TabIndex = 0;
             this.tabRules.Text = "Rules";
             this.tabRules.UseVisualStyleBackColor = true;
@@ -223,7 +225,7 @@
             // btnRuleCopy
             // 
             this.btnRuleCopy.Enabled = false;
-            this.btnRuleCopy.Location = new System.Drawing.Point(284, 250);
+            this.btnRuleCopy.Location = new System.Drawing.Point(372, 247);
             this.btnRuleCopy.Name = "btnRuleCopy";
             this.btnRuleCopy.Size = new System.Drawing.Size(103, 23);
             this.btnRuleCopy.TabIndex = 6;
@@ -259,6 +261,63 @@
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Updates";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(27, 53);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(148, 13);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "Re-download Rule Sets every";
+            // 
+            // txtRuleSetURL
+            // 
+            this.txtRuleSetURL.Location = new System.Drawing.Point(65, 75);
+            this.txtRuleSetURL.Name = "txtRuleSetURL";
+            this.txtRuleSetURL.Size = new System.Drawing.Size(408, 20);
+            this.txtRuleSetURL.TabIndex = 10;
+            this.txtRuleSetURL.WordWrap = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(27, 78);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(32, 13);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "URL:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(250, 51);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(29, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "days";
+            // 
+            // ruleSetUpdateDays
+            // 
+            this.ruleSetUpdateDays.Location = new System.Drawing.Point(194, 51);
+            this.ruleSetUpdateDays.Maximum = new decimal(new int[] {
+            365,
+            0,
+            0,
+            0});
+            this.ruleSetUpdateDays.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.ruleSetUpdateDays.Name = "ruleSetUpdateDays";
+            this.ruleSetUpdateDays.Size = new System.Drawing.Size(50, 20);
+            this.ruleSetUpdateDays.TabIndex = 7;
+            this.ruleSetUpdateDays.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
             // 
             // label5
             // 
@@ -389,69 +448,17 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // label4
+            // colPING
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(250, 51);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(29, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "days";
-            // 
-            // ruleSetUpdateDays
-            // 
-            this.ruleSetUpdateDays.Location = new System.Drawing.Point(194, 51);
-            this.ruleSetUpdateDays.Maximum = new decimal(new int[] {
-            365,
-            0,
-            0,
-            0});
-            this.ruleSetUpdateDays.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.ruleSetUpdateDays.Name = "ruleSetUpdateDays";
-            this.ruleSetUpdateDays.Size = new System.Drawing.Size(50, 20);
-            this.ruleSetUpdateDays.TabIndex = 7;
-            this.ruleSetUpdateDays.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(27, 78);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(32, 13);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "URL:";
-            // 
-            // txtRuleSetURL
-            // 
-            this.txtRuleSetURL.Location = new System.Drawing.Point(65, 75);
-            this.txtRuleSetURL.Name = "txtRuleSetURL";
-            this.txtRuleSetURL.Size = new System.Drawing.Size(408, 20);
-            this.txtRuleSetURL.TabIndex = 10;
-            this.txtRuleSetURL.WordWrap = false;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(27, 53);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(148, 13);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "Re-download Rule Sets every";
+            this.colPING.Text = "and PING";
+            this.colPING.Width = 90;
             // 
             // FrmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(528, 364);
+            this.ClientSize = new System.Drawing.Size(618, 364);
             this.ControlBox = false;
             this.Controls.Add(this.tabControlSettings);
             this.Controls.Add(this.linkGithub);
@@ -467,6 +474,7 @@
             this.tabOptions.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ruleSetUpdateDays)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.autoUpdateDays)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -474,7 +482,6 @@
             this.groupIPV6.ResumeLayout(false);
             this.groupIPV6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ruleSetUpdateDays)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -516,6 +523,7 @@
         private System.Windows.Forms.TextBox txtRuleSetURL;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ColumnHeader colPING;
     }
 }
 
