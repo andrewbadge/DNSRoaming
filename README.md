@@ -18,16 +18,12 @@ System Requirements:
 
 NB: it will probably work fine on older OS but its untested. Ensure [.NET Framework 4.7 is installed](https://www.microsoft.com/en-us/download/details.aspx?id=55167)
 
-## No longer Beta?
-
-I tested the installation in enough scenarios in the work place with various device types and networks. I believe the functionality and quality is solid. Still waiting on any feedback, issues or suggestions.
-
 ## What is DNS Roaming
 
 DNS Roaming is a Client and Service to ensure the DNS Servers are set via a rule / policy rather than the network a PC is connected to. 
 This allows an adminstrator to force that Quad9 or CloudFlare's DNS server is set rather than an ISPs DNS.
 
-This is particularly useful if you want to block malware links for PCs you manage. In general this would apply to MSPs, Corporate or school laptops (devices that travel into different networks frequently..work then home and back to work again).
+This is particularly useful if you want to block malware links for PCs you manage. In general this would apply to MSPs, Corporate or school laptops (devices that travel into different networks frequently; work then home and back to work again).
 
 e.g.
 - If the connected Network is Wireless then set the DNS to Quad9.
@@ -51,9 +47,13 @@ But do you have the control over your friends home network? Do you have control 
 
 [Help and Troubleshooting](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/Readme.md)
 
-Or Jump to [DNS Set Definitions](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/DNSSets.md)
+[DNS Set Definitions](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/DNSSets.md)
 
-[Deployment](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/Readme.md), [Automatic Updates](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/DNS-Roaming-Updater.md) and [the RULESETURL parameter](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/RuleSetURL.md)
+[Deployment](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/Readme.md)
+
+[Automatic Updates](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/DNS-Roaming-Updater.md) 
+
+[the RULESETURL parameter](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/RuleSetURL.md)
 
 [Technical Details](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/Technical.md)
 
@@ -68,7 +68,7 @@ Or you just think what I've done is stupid; then keep it to yourself. ;-)
 
 ## Got a favourite DNS server you'd like added to DNS Sets?
 
-Let me know via the issues. If you can include a link to DNS values and a about page please.
+Let me know via the issues. If you can include a link to DNS values and an about page for the service please.
 
 # Licensing
 
