@@ -35,6 +35,7 @@
             this.colID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColWhen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colNetworkID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colPING = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colThen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.btnRuleEdit = new System.Windows.Forms.Button();
@@ -65,7 +66,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.chkIPV6Disable = new System.Windows.Forms.CheckBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.colPING = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControlSettings.SuspendLayout();
             this.tabRules.SuspendLayout();
             this.tabOptions.SuspendLayout();
@@ -93,7 +93,7 @@
             this.listViewRules.Location = new System.Drawing.Point(17, 15);
             this.listViewRules.MultiSelect = false;
             this.listViewRules.Name = "listViewRules";
-            this.listViewRules.Size = new System.Drawing.Size(567, 221);
+            this.listViewRules.Size = new System.Drawing.Size(581, 221);
             this.listViewRules.SmallImageList = this.imageList;
             this.listViewRules.TabIndex = 2;
             this.listViewRules.UseCompatibleStateImageBehavior = false;
@@ -122,6 +122,11 @@
             this.colNetworkID.Text = "and Network";
             this.colNetworkID.Width = 150;
             // 
+            // colPING
+            // 
+            this.colPING.Text = "and PING";
+            this.colPING.Width = 90;
+            // 
             // colThen
             // 
             this.colThen.Text = "Then set";
@@ -136,7 +141,7 @@
             // btnRuleEdit
             // 
             this.btnRuleEdit.Enabled = false;
-            this.btnRuleEdit.Location = new System.Drawing.Point(263, 247);
+            this.btnRuleEdit.Location = new System.Drawing.Point(277, 246);
             this.btnRuleEdit.Name = "btnRuleEdit";
             this.btnRuleEdit.Size = new System.Drawing.Size(103, 23);
             this.btnRuleEdit.TabIndex = 5;
@@ -146,7 +151,7 @@
             // 
             // btnRuleNew
             // 
-            this.btnRuleNew.Location = new System.Drawing.Point(154, 247);
+            this.btnRuleNew.Location = new System.Drawing.Point(168, 247);
             this.btnRuleNew.Name = "btnRuleNew";
             this.btnRuleNew.Size = new System.Drawing.Size(103, 23);
             this.btnRuleNew.TabIndex = 4;
@@ -157,7 +162,7 @@
             // btnRuleRemove
             // 
             this.btnRuleRemove.Enabled = false;
-            this.btnRuleRemove.Location = new System.Drawing.Point(481, 246);
+            this.btnRuleRemove.Location = new System.Drawing.Point(495, 246);
             this.btnRuleRemove.Name = "btnRuleRemove";
             this.btnRuleRemove.Size = new System.Drawing.Size(103, 24);
             this.btnRuleRemove.TabIndex = 3;
@@ -225,7 +230,7 @@
             // btnRuleCopy
             // 
             this.btnRuleCopy.Enabled = false;
-            this.btnRuleCopy.Location = new System.Drawing.Point(372, 247);
+            this.btnRuleCopy.Location = new System.Drawing.Point(386, 247);
             this.btnRuleCopy.Name = "btnRuleCopy";
             this.btnRuleCopy.Size = new System.Drawing.Size(103, 23);
             this.btnRuleCopy.TabIndex = 6;
@@ -240,7 +245,7 @@
             this.tabOptions.Controls.Add(this.groupIPV6);
             this.tabOptions.Location = new System.Drawing.Point(4, 22);
             this.tabOptions.Name = "tabOptions";
-            this.tabOptions.Size = new System.Drawing.Size(512, 290);
+            this.tabOptions.Size = new System.Drawing.Size(604, 290);
             this.tabOptions.TabIndex = 1;
             this.tabOptions.Text = "Options";
             this.tabOptions.UseVisualStyleBackColor = true;
@@ -257,7 +262,7 @@
             this.groupBox2.Controls.Add(this.chkAutoupdate);
             this.groupBox2.Location = new System.Drawing.Point(16, 166);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(479, 106);
+            this.groupBox2.Size = new System.Drawing.Size(573, 106);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Updates";
@@ -273,7 +278,7 @@
             // 
             // txtRuleSetURL
             // 
-            this.txtRuleSetURL.Location = new System.Drawing.Point(65, 75);
+            this.txtRuleSetURL.Location = new System.Drawing.Point(91, 75);
             this.txtRuleSetURL.Name = "txtRuleSetURL";
             this.txtRuleSetURL.Size = new System.Drawing.Size(408, 20);
             this.txtRuleSetURL.TabIndex = 10;
@@ -284,9 +289,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(27, 78);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(32, 13);
+            this.label6.Size = new System.Drawing.Size(58, 13);
             this.label6.TabIndex = 9;
-            this.label6.Text = "URL:";
+            this.label6.Text = "From URL:";
             // 
             // label4
             // 
@@ -368,7 +373,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(17, 96);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(479, 60);
+            this.groupBox1.Size = new System.Drawing.Size(572, 60);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Logs";
@@ -419,7 +424,7 @@
             this.groupIPV6.Controls.Add(this.chkIPV6Disable);
             this.groupIPV6.Location = new System.Drawing.Point(16, 16);
             this.groupIPV6.Name = "groupIPV6";
-            this.groupIPV6.Size = new System.Drawing.Size(479, 74);
+            this.groupIPV6.Size = new System.Drawing.Size(573, 74);
             this.groupIPV6.TabIndex = 0;
             this.groupIPV6.TabStop = false;
             this.groupIPV6.Text = "IPV6";
@@ -448,17 +453,12 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // colPING
-            // 
-            this.colPING.Text = "and PING";
-            this.colPING.Width = 90;
-            // 
             // FrmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(618, 364);
+            this.ClientSize = new System.Drawing.Size(616, 364);
             this.ControlBox = false;
             this.Controls.Add(this.tabControlSettings);
             this.Controls.Add(this.linkGithub);

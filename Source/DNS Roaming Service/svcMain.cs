@@ -677,124 +677,131 @@ namespace DNS_Roaming_Service
                             //Loop through each rule
                             foreach (DNSRoamingRule thisRule in ruleList)
                             {
-                                Logger.Debug(String.Format("Processing Rule [{0}]", thisRule.ID));
-
-                                //Compare if the network type matches the rule
-                                bool ruleMatchedNetwork = false;
-                                if (thisRule.UseNetworkType)
+                                try
                                 {
-                                    Logger.Debug("Rule uses Network Type");
+                                    Logger.Debug(String.Format("Processing Rule [{0}]", thisRule.ID));
 
-                                    string[] networkTypes = thisRule.NetworkType.Split(',');
-                                    foreach (string networkType in networkTypes)
+                                    //Compare if the network type matches the rule
+                                    bool ruleMatchedNetwork = false;
+                                    if (thisRule.UseNetworkType)
                                     {
-                                        //Match the Type name if a standard .NET Interface type
-                                        //Or If the Customer Type matched the Type ID from the NIC
-                                        if ((networkInterfaceType.ToString() == networkType) || (DNSRoamingNetworkInterfaces.MatchCustomNetworkInterfaceType(networkInterfaceType.ToString(),networkType)))
+                                        Logger.Debug("Rule uses Network Type");
+
+                                        string[] networkTypes = thisRule.NetworkType.Split(',');
+                                        foreach (string networkType in networkTypes)
                                         {
-                                            ruleMatchedNetwork = true;
-                                            break;
+                                            //Match the Type name if a standard .NET Interface type
+                                            //Or If the Customer Type matched the Type ID from the NIC
+                                            if ((networkInterfaceType.ToString() == networkType) || (DNSRoamingNetworkInterfaces.MatchCustomNetworkInterfaceType(networkInterfaceType.ToString(), networkType)))
+                                            {
+                                                ruleMatchedNetwork = true;
+                                                break;
+                                            }
                                         }
-
-
-                                    }
-                                }
-                                else
-                                {
-                                    //Compare if the network name matches the rule
-                                    if (thisRule.NetworkNameIs == String.Empty)
-                                    {
-                                        Logger.Debug("Rule uses Network Name Is Not");
-                                        ruleMatchedNetwork = (networkName != thisRule.NetworkNameIsNot);
                                     }
                                     else
                                     {
-                                        Logger.Debug("Rule uses Network Name Is");
-                                        ruleMatchedNetwork = (networkName == thisRule.NetworkNameIs);
-                                    }
-                                }
-
-                                //Compare if the network address matches the rule
-                                bool ruleMatchedAddress = false;
-                                //1=LAN, 2=WAN
-                                if (thisRule.AddressByType == 1 || thisRule.AddressByType == 2)
-                                {
-                                    Logger.Debug("Parsing current IPs");
-
-                                    if (thisRule.AddressByType == 1)
-                                    {
-                                        //Parse the Current IP and subnet 
-                                        Logger.Debug(String.Format("Current LAN IP is [{0}]", currentIP));
-                                    }
-                                    else
-                                    {
-                                        //Get the WANIP and Parse
-                                        NetworkingExtensions.GetWANIPandSubnet(out currentIP, out currentSubnet);
-                                        Logger.Debug(String.Format("Current WAN IP is [{0}]", currentIP));
-                                    }
-
-                                    if (thisRule.AddressIsSpecific)
-                                        ruleMatchedAddress = NetworkingExtensions.IPIsInRange(currentIP, thisRule.AddressIP, thisRule.AddressSubnet);
-                                    else
-                                        ruleMatchedAddress = !NetworkingExtensions.IPIsInRange(currentIP, thisRule.AddressIP, thisRule.AddressSubnet);
-
-                                }
-                                else
-                                    ruleMatchedAddress = true;
-
-                                //Compare if the network address matches the rule
-                                bool ruleMatchedPING = false;
-                                if (thisRule.PingType > 0 && thisRule.PingAddress != string.Empty)
-                                {
-                                    bool pingSuccess = NetworkingExtensions.PingAddress(thisRule.PingAddress);
-                                    Logger.Debug(String.Format("PING sucess for [{0}] was {1}", thisRule.PingAddress,pingSuccess));
-
-                                    //If                PING Success (Type=1)                     or PING Failed (Type=2)
-                                    ruleMatchedPING = ((thisRule.PingType == 1 && pingSuccess) || (thisRule.PingType == 2 && !pingSuccess));
-                                }
-                                else
-                                    //Do Not PING (Type=0)
-                                    ruleMatchedPING = true;
-
-                                //If all the conditions match; then get the DNS settings and set the new vale (stastic address or Reset)
-                                if (ruleMatchedNetwork && ruleMatchedAddress && ruleMatchedPING)
-                                {
-                                    Logger.Debug("All Rules Match");
-
-                                    rulesMatched += 1;
-
-                                    if (thisRule.DelaySeconds > 0)
-                                    {
-                                        Logger.Debug(String.Format("Pausing for {0} seconds", thisRule.DelaySeconds));
-                                        System.Threading.Thread.Sleep(thisRule.DelaySeconds * 1000);
-                                    }
-
-                                    if (isIPV6Enabled && disableIPV6) NetworkingExtensions.DisableIPV6onNetworkInterface(networkName);
-
-                                    if (thisRule.ResetToDHCP)
-                                    {
-                                        Logger.Info(String.Format("Reset DNS for [{0}] to Automatic/DHCP", networkName));
-                                        NetworkingExtensions.SetDefaultDNSusingPowershell(networkName);
-                                    }
-                                    else
-                                    {
-                                        //Check if the current DNS and new DNS match
-                                        string currentDNSString = NetworkingExtensions.ExpandCurrentDNS(currentDNSAddresses);
-                                        string newDNSString = NetworkingExtensions.GetNewDNSString(thisRule, false);
-
-                                        if (currentDNSString == newDNSString)
+                                        //Compare if the network name matches the rule
+                                        if (thisRule.NetworkNameIs == String.Empty)
                                         {
-                                            //If unchanged then don't do anything
-                                            Logger.Info(String.Format("DNS already set for [{0}] to {1}", networkName, currentDNSString));
+                                            Logger.Debug("Rule uses Network Name Is Not");
+                                            ruleMatchedNetwork = (networkName != thisRule.NetworkNameIsNot);
                                         }
                                         else
                                         {
-                                            //else if changed set the new DNS addresses
-                                            Logger.Info(String.Format("Old DNS for [{0}] was {1}", networkName, currentDNSString));
-                                            Logger.Info(String.Format("Setting DNS for [{0}] to {1}", networkName, newDNSString));
-                                            NetworkingExtensions.SetStaticDNSusingPowershell(networkName, thisRule);
+                                            Logger.Debug("Rule uses Network Name Is");
+                                            ruleMatchedNetwork = (networkName == thisRule.NetworkNameIs);
                                         }
                                     }
+
+                                    //Compare if the network address matches the rule
+                                    bool ruleMatchedAddress = false;
+                                    //1=LAN, 2=WAN
+                                    if (thisRule.AddressByType == 1 || thisRule.AddressByType == 2)
+                                    {
+                                        Logger.Debug("Parsing current IPs");
+
+                                        if (thisRule.AddressByType == 1)
+                                        {
+                                            //Parse the Current IP and subnet 
+                                            Logger.Debug(String.Format("Current LAN IP is [{0}]", currentIP));
+                                        }
+                                        else
+                                        {
+                                            //Get the WANIP and Parse
+                                            NetworkingExtensions.GetWANIPandSubnet(out currentIP, out currentSubnet);
+                                            Logger.Debug(String.Format("Current WAN IP is [{0}]", currentIP));
+                                        }
+
+                                        if (thisRule.AddressIsSpecific)
+                                            ruleMatchedAddress = NetworkingExtensions.IPIsInRange(currentIP, thisRule.AddressIP, thisRule.AddressSubnet);
+                                        else
+                                            ruleMatchedAddress = !NetworkingExtensions.IPIsInRange(currentIP, thisRule.AddressIP, thisRule.AddressSubnet);
+
+                                    }
+                                    else
+                                        ruleMatchedAddress = true;
+
+                                    //Compare if the network address matches the rule
+                                    bool ruleMatchedPING = false;
+                                    if (thisRule.PingType > 0 && thisRule.PingAddress != string.Empty)
+                                    {
+                                        bool pingSuccess = NetworkingExtensions.PingAddress(thisRule.PingAddress);
+                                        Logger.Debug(String.Format("PING sucess for [{0}] was {1}", thisRule.PingAddress, pingSuccess));
+
+                                        //If                PING Success (Type=1)                     or PING Failed (Type=2)
+                                        ruleMatchedPING = ((thisRule.PingType == 1 && pingSuccess) || (thisRule.PingType == 2 && !pingSuccess));
+                                    }
+                                    else
+                                        //Do Not PING (Type=0)
+                                        ruleMatchedPING = true;
+
+                                    //If all the conditions match; then get the DNS settings and set the new vale (stastic address or Reset)
+                                    if (ruleMatchedNetwork && ruleMatchedAddress && ruleMatchedPING)
+                                    {
+                                        Logger.Debug("All Rules Match");
+
+                                        rulesMatched += 1;
+
+                                        if (thisRule.DelaySeconds > 0)
+                                        {
+                                            Logger.Debug(String.Format("Pausing for {0} seconds", thisRule.DelaySeconds));
+                                            System.Threading.Thread.Sleep(thisRule.DelaySeconds * 1000);
+                                        }
+
+                                        if (isIPV6Enabled && disableIPV6) NetworkingExtensions.DisableIPV6onNetworkInterface(networkName);
+
+                                        if (thisRule.ResetToDHCP)
+                                        {
+                                            Logger.Info(String.Format("Reset DNS for [{0}] to Automatic/DHCP", networkName));
+                                            NetworkingExtensions.SetDefaultDNSusingPowershell(networkName);
+                                        }
+                                        else
+                                        {
+                                            //Check if the current DNS and new DNS match
+                                            string currentDNSString = NetworkingExtensions.ExpandCurrentDNS(currentDNSAddresses);
+                                            string newDNSString = NetworkingExtensions.GetNewDNSString(thisRule, false);
+
+                                            if (currentDNSString == newDNSString)
+                                            {
+                                                //If unchanged then don't do anything
+                                                Logger.Info(String.Format("DNS already set for [{0}] to {1}", networkName, currentDNSString));
+                                            }
+                                            else
+                                            {
+                                                //else if changed set the new DNS addresses
+                                                Logger.Info(String.Format("Old DNS for [{0}] was {1}", networkName, currentDNSString));
+                                                Logger.Info(String.Format("Setting DNS for [{0}] to {1}", networkName, newDNSString));
+                                                NetworkingExtensions.SetStaticDNSusingPowershell(networkName, thisRule);
+                                            }
+                                        }
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    //Catch the Exception for a Single NIC and rule.
+                                    //So if something raises an exception the next rule will continue to be processed
+                                    Logger.Error(ex.Message);
                                 }
                             }
                         }

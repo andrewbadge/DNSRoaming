@@ -86,7 +86,6 @@ namespace DNS_Roaming_Common
 
             bool queryDoAttempt = true;
             int queryAttempts = 0;
-            int queryAttemptsMax = 3;
 
             while (queryDoAttempt)
             {
@@ -175,6 +174,11 @@ namespace DNS_Roaming_Common
                             }
                         }
                         catch { }
+                    }
+
+                    if (queryAttempts > 3)
+                    {
+                        throw new Exception("Too many attempts");
                     }
                 }
                 catch (Exception ex)
