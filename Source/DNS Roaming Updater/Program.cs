@@ -130,47 +130,58 @@ namespace DNS_Roaming_Updater
         /// <returns></returns>
         private static bool CheckforUpdates(bool forceCheck, bool forceDownloadandInstall)
         {
-            if (!autoUpdate && !forceCheck) return false;
+            bool updatesFound = false;
 
-            Logger.Debug("CheckforUpdates");
-
-            if (autoUpdateLastCheck.AddHours(autoUpdateHours) < DateTime.Now || forceCheck)
+            try
             {
-                if (forceCheck)
-                    Logger.Debug("Forcing an Update Check");
-                else
-                    Logger.Debug("Update Check is due");
+                if (!autoUpdate && !forceCheck) return false;
 
-                //Save the new "last checked" date
-                autoUpdateLastCheck = DateTime.Now;
+                Logger.Debug("CheckforUpdates");
 
-                Logger.Debug("Saving last update check date");
-                UpdateData updateData = new UpdateData();
-                updateData.Load();
-                updateData.AutoUpdateLastCheck = autoUpdateLastCheck;
-                updateData.Save();
-
-                //Check for updates
-                clsUpdates updates = new clsUpdates();
-                if (updates.NewerVersionAvailable() || forceDownloadandInstall)
+                if (autoUpdateLastCheck.AddHours(autoUpdateHours) < DateTime.Now || forceCheck)
                 {
-                    if (forceDownloadandInstall)
-                        Logger.Info("Forcing to download a new version");
+                    if (forceCheck)
+                        Logger.Debug("Forcing an Update Check");
                     else
-                        Logger.Info("GitHub Version is newer");
-                    return updates.DownloadandExecuteLatestVersion();
+                        Logger.Debug("Update Check is due");
+
+                    //Save the new "last checked" date
+                    autoUpdateLastCheck = DateTime.Now;
+
+                    Logger.Debug("Saving last update check date");
+                    UpdateData updateData = new UpdateData();
+                    updateData.Load();
+                    updateData.AutoUpdateLastCheck = autoUpdateLastCheck;
+                    updateData.Save();
+
+                    //Check for updates
+                    clsUpdates updates = new clsUpdates();
+                    if (updates.NewerVersionAvailable() || forceDownloadandInstall)
+                    {
+                        if (forceDownloadandInstall)
+                            Logger.Info("Forcing to download a new version");
+                        else
+                            Logger.Info("GitHub Version is newer");
+                        updatesFound = updates.DownloadandExecuteLatestVersion();
+                    }
+                    else
+                    {
+                        Logger.Info("No newer Version is available");
+                        updatesFound = false;
+                    }
                 }
                 else
                 {
-                    Logger.Info("No newer Version is available");
-                    return false;
+                    Logger.Debug("Update Check is not due yet");
+                    updatesFound = false;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Logger.Debug("Update Check is not due yet");
-                return false;
+                Logger.Error(ex.Message);
             }
+
+            return updatesFound;
         }
     }
 }

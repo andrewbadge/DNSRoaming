@@ -13,6 +13,5 @@ D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\bin\Debug\Octok
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\bin\Debug\IPAddressRange.xml
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\obj\Debug\DNS Roaming Updater.csproj.AssemblyReference.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\obj\Debug\DNS Roaming Updater.csproj.CoreCompileInputs.cache
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\obj\Debug\DNS Roaming Updater.csproj.CopyComplete
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\obj\Debug\DNS Roaming Updater.exe
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\obj\Debug\DNS Roaming Updater.pdb

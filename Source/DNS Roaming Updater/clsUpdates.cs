@@ -142,6 +142,7 @@ namespace DNS_Roaming_Common
             catch (Exception ex)
             {
                 Logger.Error(ex.Message);
+                throw new Exception("Unable to determine the GitHub Version");
             }
 
             return newerVersionAvailable;
