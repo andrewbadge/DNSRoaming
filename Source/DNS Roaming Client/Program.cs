@@ -15,7 +15,8 @@ namespace DNS_Roaming_Client
         static void Main()
         {
             Mutex mutex = new System.Threading.Mutex(false, "DNSRoamingClientMutex");
-            try {
+            try
+            {
                 Logger.Info("--------------------------");
                 Logger.Info(String.Format("Starting ({0})", Assembly.GetExecutingAssembly().GetName().Version.ToString()));
 

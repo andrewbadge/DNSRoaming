@@ -25,11 +25,11 @@ namespace DNS_Roaming_Service
             try
             {
 
-                RegistryKey regKey = Registry.LocalMachine.OpenSubKey(registryKeyName,true);
+                RegistryKey regKey = Registry.LocalMachine.OpenSubKey(registryKeyName, true);
                 if (regKey == null)
                 {
                     registryKeyName = @"SOFTWARE\DNSRoaming";
-                    regKey = Registry.LocalMachine.OpenSubKey(registryKeyName,true);
+                    regKey = Registry.LocalMachine.OpenSubKey(registryKeyName, true);
                 }
 
                 //Not installed?
@@ -141,7 +141,7 @@ namespace DNS_Roaming_Service
                     bool deleteAllRulesTriggered = false;
                     IList<string> newRuleGUIDs = new List<string>();
                     string returnRuleGuid = string.Empty;
-                    
+
                     foreach (string ruleLine in System.IO.File.ReadLines(ruleSetFilename))
                     {
                         //Ignore Blank Lines
@@ -217,7 +217,7 @@ namespace DNS_Roaming_Service
 
             try
             {
-                Logger.Info(String.Format("Downloading a new version of rule from {0}",ruleURL));
+                Logger.Info(String.Format("Downloading a new version of rule from {0}", ruleURL));
 
                 //Remove the download File is it already exists
                 if (File.Exists(localFilename)) File.Delete(localFilename);
@@ -275,7 +275,7 @@ namespace DNS_Roaming_Service
                     try
                     {
                         FileInfo settingsFile = new FileInfo(settingFilename);
-                        string fileNameGUID = settingsFile.Name.Replace("Rule-","").Replace(".xml", "");
+                        string fileNameGUID = settingsFile.Name.Replace("Rule-", "").Replace(".xml", "");
                         if (!ruleGUIDsToRetain.Contains(fileNameGUID))
                         {
                             //File was not in the list of Rules just added

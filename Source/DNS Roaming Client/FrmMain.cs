@@ -152,7 +152,7 @@ namespace DNS_Roaming_Client
             {
                 Logger.Error(ex.Message);
             }
-        
+
         }
 
         private void timerCheckServiceStatus_Tick(object sender, EventArgs e)
@@ -277,6 +277,6 @@ namespace DNS_Roaming_Client
             timerCheckServiceStatus_Tick(null, null);
         }
 
-        
+
     }
 }

@@ -89,101 +89,109 @@ namespace DNS_Roaming_Common
 
             while (queryDoAttempt)
             {
-                try
+                //Handle if the external query times out
+                queryAttempts += 1;
+
+                if (queryAttempts == 1)
                 {
-                    //Handle if the external query times out
-                    queryAttempts += 1;
-
-                    if (queryAttempts == 1)
+                    returnIP = string.Empty;
+                    queryDoAttempt = true;
+                    try
                     {
-                        returnIP = string.Empty;
-                        queryDoAttempt = true;
-                        try
-                        {
-                            string url = "http://ifconfig.io/ip";
-                            System.Net.WebRequest req = System.Net.WebRequest.Create(url);
-                            System.Net.WebResponse resp = req.GetResponse();
-                            System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
-                            string response = sr.ReadToEnd().Trim();
+                        string url = "http://ifconfig.io/ip";
+                        System.Net.WebRequest req = System.Net.WebRequest.Create(url);
+                        System.Net.WebResponse resp = req.GetResponse();
+                        System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
+                        string response = sr.ReadToEnd().Trim();
 
-                            if (IsValidIPAddress(response))
-                            {
-                                returnIP = response;
-                                queryDoAttempt = false;
-                            }
-                            else
-                            {
-                                returnIP = string.Empty;
-                                queryDoAttempt = true;
-                            }
-                        }
-                        catch { }
-                    }
-
-                    if (queryAttempts == 2)
-                    {
-                        returnIP = string.Empty;
-                        queryDoAttempt = true;
-                        try
+                        if (IsValidIPAddress(response))
                         {
-                            string url = "http://ipinfo.io/ip";
-                            System.Net.WebRequest req = System.Net.WebRequest.Create(url);
-                            System.Net.WebResponse resp = req.GetResponse();
-                            System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
-                            string response = sr.ReadToEnd().Trim();
                             returnIP = response;
-
-                            if (IsValidIPAddress(response))
-                            {
-                                returnIP = response;
-                                queryDoAttempt = false;
-                            }
-                            else
-                            {
-                                returnIP = string.Empty;
-                                queryDoAttempt = true;
-                            }
+                            queryDoAttempt = false;
                         }
-                        catch { }
+                        else
+                        {
+                            returnIP = string.Empty;
+                            queryDoAttempt = true;
+                        }
                     }
-
-                    if (queryAttempts == 3)
+                    catch (Exception ex)
                     {
+                        Logger.Error(ex.Message);
                         returnIP = string.Empty;
                         queryDoAttempt = true;
-                        try
-                        {
-                            string url = "http://checkip.dyndns.org";
-                            System.Net.WebRequest req = System.Net.WebRequest.Create(url);
-                            System.Net.WebResponse resp = req.GetResponse();
-                            System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
-                            string response = sr.ReadToEnd().Trim();
-                            string[] a = response.Split(':');
-                            string a2 = a[1].Substring(1);
-                            string[] a3 = a2.Split('<');
-
-                            if (IsValidIPAddress(a3[0]))
-                            {
-                                returnIP = a3[0];
-                                queryDoAttempt = false;
-                            }
-                            else
-                            {
-                                returnIP = string.Empty;
-                                queryDoAttempt = true;
-                            }
-                        }
-                        catch { }
-                    }
-
-                    if (queryAttempts > 3)
-                    {
-                        throw new Exception("Too many attempts");
                     }
                 }
-                catch (Exception ex)
+
+                if (queryAttempts == 2)
                 {
-                    Logger.Error(ex.Message);    
+                    returnIP = string.Empty;
+                    queryDoAttempt = true;
+                    try
+                    {
+                        string url = "http://ipinfo.io/ip";
+                        System.Net.WebRequest req = System.Net.WebRequest.Create(url);
+                        System.Net.WebResponse resp = req.GetResponse();
+                        System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
+                        string response = sr.ReadToEnd().Trim();
+                        returnIP = response;
+
+                        if (IsValidIPAddress(response))
+                        {
+                            returnIP = response;
+                            queryDoAttempt = false;
+                        }
+                        else
+                        {
+                            returnIP = string.Empty;
+                            queryDoAttempt = true;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error(ex.Message);
+                        returnIP = string.Empty;
+                        queryDoAttempt = true;
+                    }
+                }
+
+                if (queryAttempts == 3)
+                {
+                    returnIP = string.Empty;
+                    queryDoAttempt = true;
+                    try
+                    {
+                        string url = "http://checkip.dyndns.org";
+                        System.Net.WebRequest req = System.Net.WebRequest.Create(url);
+                        System.Net.WebResponse resp = req.GetResponse();
+                        System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
+                        string response = sr.ReadToEnd().Trim();
+                        string[] a = response.Split(':');
+                        string a2 = a[1].Substring(1);
+                        string[] a3 = a2.Split('<');
+
+                        if (IsValidIPAddress(a3[0]))
+                        {
+                            returnIP = a3[0];
+                            queryDoAttempt = false;
+                        }
+                        else
+                        {
+                            returnIP = string.Empty;
+                            queryDoAttempt = true;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error(ex.Message);
+                        returnIP = string.Empty;
+                        queryDoAttempt = true;
+                    }
+                }
+
+                if (queryAttempts > 3)
+                {
+                    throw new Exception("Too many attempts to get WAN IP");
                 }
 
                 //If a failed attempt then wait a few seconds incase the network if still initialising
@@ -220,7 +228,7 @@ namespace DNS_Roaming_Common
         {
             bool isValidIP = false;
             IPAddress returnIPAddress;
-            
+
             try
             {
                 if (ipAddress != string.Empty)
@@ -530,7 +538,7 @@ namespace DNS_Roaming_Common
         /// <param name="ip4"></param>
         /// <param name="wrapInQuotes"></param>
         /// <returns></returns>
-        public static string ExpandIPString(string ip1, string ip2, string ip3, string ip4, bool wrapInQuotes=false)
+        public static string ExpandIPString(string ip1, string ip2, string ip3, string ip4, bool wrapInQuotes = false)
         {
             string expandedIPString = string.Empty;
 
@@ -548,7 +556,7 @@ namespace DNS_Roaming_Common
                 }
                 else
                 {
-                    if (wrapInQuotes) expandedIPString += "," + String.Format(@"'{0}'", dNSAddress); else expandedIPString += "," + dNSAddress; 
+                    if (wrapInQuotes) expandedIPString += "," + String.Format(@"'{0}'", dNSAddress); else expandedIPString += "," + dNSAddress;
                 }
             }
 
@@ -599,12 +607,12 @@ namespace DNS_Roaming_Common
         public static bool PingAddress(string address)
         {
             bool pingSuccessful = false;
-            int timeout = 5000; 
+            int timeout = 5000;
 
             try
             {
                 Ping pingSender = new Ping();
-                
+
                 // Send the request.
                 PingReply reply = pingSender.Send(address, timeout);
                 pingSuccessful = (reply.Status == IPStatus.Success);

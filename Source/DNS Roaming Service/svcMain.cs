@@ -16,7 +16,7 @@ namespace DNS_Roaming_Service
         static FileSystemWatcher watcherSettings;
         static FileSystemWatcher watcherOptions;
         static bool isServicePaused = false;
-        
+
         static DateTime lastEventTriggered = new DateTime();
         static int countEventSkipped = 0;
 
@@ -27,7 +27,7 @@ namespace DNS_Roaming_Service
         static bool disableIPV6 = true;
         static int daysToRetainLogs = 14;
         static bool autoUpdate = true;
-        
+
         static System.Timers.Timer serviceTimer;
         static System.Timers.Timer logandUpdateTimer;
         static System.ComponentModel.BackgroundWorker backgroundWorker;
@@ -819,6 +819,6 @@ namespace DNS_Roaming_Service
             }
         }
 
-        
+
     }
 }

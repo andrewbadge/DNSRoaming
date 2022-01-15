@@ -1,6 +1,6 @@
-﻿using System;
+﻿using DNS_Roaming_Common;
+using System;
 using System.Reflection;
-using DNS_Roaming_Common;
 
 namespace DNS_Roaming_Updater
 {
@@ -58,11 +58,11 @@ namespace DNS_Roaming_Updater
             {
                 if (args.Length > 0)
                 {
-                    foreach(string arg in args)
+                    foreach (string arg in args)
                     {
                         if (arg.ToLower().Trim() == "forcecheck") argForceCheck = true;
                         if (arg.ToLower().Trim() == "forcedownloadandinstall")
-                        { 
+                        {
                             argForceCheck = true;
                             argForceDownloadandInstall = true;
                         }

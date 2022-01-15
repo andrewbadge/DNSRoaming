@@ -11,7 +11,7 @@ namespace DNS_Roaming_Client
 {
     public partial class FrmSettings : Form
     {
-        
+
         IList<DNSRoamingRule> ruleList = new List<DNSRoamingRule>();
         bool settingsPathExist = false;
         bool optionsPathExist = false;
@@ -99,7 +99,7 @@ namespace DNS_Roaming_Client
                     {
                         Logger.Error(String.Format("Error loading rule {0}", settingFilename));
                     }
-                
+
                 }
             }
             catch (Exception ex)
@@ -120,7 +120,8 @@ namespace DNS_Roaming_Client
 
             foreach (DNSRoamingRule thisRule in ruleList)
             {
-                try {
+                try
+                {
 
                     if (thisRule.ID != String.Empty)
                     {
@@ -179,7 +180,7 @@ namespace DNS_Roaming_Client
                                 lvItem.SubItems.Add(String.Format("{0}", thisRule.PingAddress));
                                 break;
                             case 2:
-                                lvItem.SubItems.Add(String.Format("Not {0}",thisRule.PingAddress));
+                                lvItem.SubItems.Add(String.Format("Not {0}", thisRule.PingAddress));
                                 break;
                             default:
                                 lvItem.SubItems.Add("-");
@@ -291,8 +292,8 @@ namespace DNS_Roaming_Client
             catch (Exception ex)
             {
                 Logger.Error(ex.Message);
-        }
             }
+        }
 
         /// <summary>
         /// Remove a Rule action

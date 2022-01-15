@@ -30,7 +30,7 @@ namespace DNS_Roaming_Common
 
         public DNSRoamingNetworkInterfaceType()
         {
-            
+
         }
 
         public DNSRoamingNetworkInterfaceType(int newID, string newName)
@@ -55,7 +55,8 @@ namespace DNS_Roaming_Common
         {
             Logger.Debug("IntialiseNetworkInterfaceTypes");
 
-            try {
+            try
+            {
                 PathsandData pathsandData = new PathsandData();
 
                 string filename = Path.Combine(pathsandData.BaseOptionsPath, "CustomNetworkInterfaceTypes.xml");
@@ -96,7 +97,7 @@ namespace DNS_Roaming_Common
                 using (FileStream stream = File.OpenWrite(filename))
                 {
                     List<DNSRoamingNetworkInterfaceType> list = new List<DNSRoamingNetworkInterfaceType>();
-                
+
                     //Add the custom type
                     DNSRoamingNetworkInterfaceType newType = new DNSRoamingNetworkInterfaceType(53, "Proprietary Virtual (VPN)");
                     list.Add(newType);

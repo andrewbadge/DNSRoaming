@@ -146,7 +146,7 @@ namespace DNS_Roaming_Common
             }
 
             return newerVersionAvailable;
-                
+
         }
 
         private string GetDownloadURL()

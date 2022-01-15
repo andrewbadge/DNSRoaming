@@ -32,25 +32,25 @@ namespace DNS_Roaming_Common
         public static void Error(string message)
         {
             logger.Error("Error:{0}", message);
-            LogEvent(message, EventLogEntryType.Error, (int)eventID.OtherError); 
+            LogEvent(message, EventLogEntryType.Error, (int)eventID.OtherError);
         }
 
         public static void Info(string message, Int32 eventID)
         {
             logger.Info(message);
-            LogEvent(message, EventLogEntryType.Information, eventID); 
+            LogEvent(message, EventLogEntryType.Information, eventID);
         }
 
         public static void Warn(string message, Int32 eventID)
         {
             logger.Warn("Warning:{0}", message);
-            LogEvent(message, EventLogEntryType.Warning, eventID); 
+            LogEvent(message, EventLogEntryType.Warning, eventID);
         }
 
         public static void Error(string message, Int32 eventID)
         {
-            logger.Error("Error:{0}",message);
-            LogEvent(message, EventLogEntryType.Error, eventID); 
+            logger.Error("Error:{0}", message);
+            LogEvent(message, EventLogEntryType.Error, eventID);
         }
 
 
@@ -68,6 +68,6 @@ namespace DNS_Roaming_Common
             }
             catch { }
         }
-                
+
     }
 }

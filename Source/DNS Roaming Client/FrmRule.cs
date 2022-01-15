@@ -15,7 +15,8 @@ namespace DNS_Roaming_Client
         public DNSRoamingRule ThisRule
         {
             get { return thisRule; }
-            set {
+            set
+            {
                 thisRule = value;
                 LoadRule();
             }
@@ -60,7 +61,7 @@ namespace DNS_Roaming_Client
             foreach (DNSRoamingNetworkInterfaceType interfaceType in interfaceTypes)
             {
                 listNetworkType.Items.Add(interfaceType.Name);
-            }    
+            }
         }
 
         /// <summary>
@@ -168,7 +169,7 @@ namespace DNS_Roaming_Client
 
                 if (thisRule.NetworkNameIs == String.Empty && thisRule.NetworkNameIsNot == String.Empty)
                 {
-                    radioNetworkType.Checked = true;   
+                    radioNetworkType.Checked = true;
                 }
                 else
                 {
@@ -362,7 +363,7 @@ namespace DNS_Roaming_Client
             try
             {
                 returnIPAddress = IPAddress.Parse(ipaddress).ToString();
-            }            
+            }
             catch (Exception ex)
             {
                 Logger.Error(ex.Message);
@@ -669,7 +670,7 @@ namespace DNS_Roaming_Client
             toolTip.Show("Copy the selected DNS Set's IPs to the fields", btnDNSsetCopy);
         }
 
-        
+
 
         private void cmbNetworkName_MouseHover(object sender, EventArgs e)
         {

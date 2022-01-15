@@ -8,13 +8,14 @@ namespace DNS_Roaming_Service
 {
     static class Program
     {
-        
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         static void Main()
         {
-            try { 
+            try
+            {
                 Logger.Info("--------------------------");
                 Logger.Info(String.Format("Starting ({0})", Assembly.GetExecutingAssembly().GetName().Version.ToString()));
 
@@ -54,8 +55,8 @@ namespace DNS_Roaming_Service
 
             Console.WriteLine("Press any key to stop the services and end the process...");
             Console.ReadKey();
-            
-            MethodInfo onStopMethod = typeof(ServiceBase).GetMethod("OnStop",BindingFlags.Instance | BindingFlags.NonPublic);
+
+            MethodInfo onStopMethod = typeof(ServiceBase).GetMethod("OnStop", BindingFlags.Instance | BindingFlags.NonPublic);
             foreach (ServiceBase service in servicesToRun)
             {
                 Console.Write("Stopping DNS Roaming Service...");

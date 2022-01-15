@@ -12,7 +12,7 @@ namespace DNS_Roaming_Common
         private string baseSettingsPath = string.Empty;
         private string baseOptionsPath = string.Empty;
         private string baseDownloadsPath = string.Empty;
-        
+
         public string BaseApplicationPath
         {
             get { return baseApplicationPath; }
@@ -170,7 +170,7 @@ namespace DNS_Roaming_Common
                 DirectoryInfo dinfo = new DirectoryInfo(directoryPath);
                 DirectorySecurity dSecurity = dinfo.GetAccessControl(AccessControlSections.All);
 
-                
+
                 Logger.Debug("Setting new ACL");
 
                 // Add the FileSystemAccessRule to the security settings. 

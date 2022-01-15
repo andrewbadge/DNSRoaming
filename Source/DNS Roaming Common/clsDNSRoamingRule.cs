@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Xml;
@@ -36,9 +35,9 @@ namespace DNS_Roaming_Common
         public string NetworkType
         {
             get { return networkType; }
-            set 
-            { 
-                networkType = value; 
+            set
+            {
+                networkType = value;
                 if (networkType != String.Empty)
                 {
                     networkNameIs = string.Empty;
@@ -51,10 +50,10 @@ namespace DNS_Roaming_Common
         public string NetworkNameIs
         {
             get { return networkNameIs; }
-            set 
-            { 
+            set
+            {
                 networkNameIs = value;
-                if (networkNameIs!= String.Empty)
+                if (networkNameIs != String.Empty)
                 {
                     networkType = string.Empty;
                     networkNameIsNot = string.Empty;
@@ -81,8 +80,8 @@ namespace DNS_Roaming_Common
         public bool AddressIsSpecific
         {
             get { return addressIsSpecific; }
-            set 
-            { 
+            set
+            {
                 addressIsSpecific = value;
                 if (addressIsSpecific)
                 {
@@ -261,7 +260,7 @@ namespace DNS_Roaming_Common
             try
             {
                 if (ruleID == null) return;
-                
+
                 PathsandData pathsandData = new PathsandData();
                 ruleFileNameFullPath = String.Format(@"{0}\Rule-{1}.xml", pathsandData.BaseSettingsPath, ruleID);
 

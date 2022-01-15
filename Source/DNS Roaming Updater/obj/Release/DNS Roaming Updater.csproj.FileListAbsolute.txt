@@ -15,3 +15,4 @@ D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\obj\Release\DNS
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\obj\Release\DNS Roaming Updater.csproj.CoreCompileInputs.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\obj\Release\DNS Roaming Updater.exe
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\obj\Release\DNS Roaming Updater.pdb
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Updater\obj\Release\DNS Roaming Updater.csproj.CopyComplete
