@@ -39,6 +39,8 @@ namespace DNS_Roaming_Client
 
         private void InitialiseForm()
         {
+            tabControlSettings.SelectedTab = tabControlSettings.TabPages["tabRules"];
+
             btnRuleNew.Enabled = settingsPathExist;
 
             errorProvider.Clear();
@@ -67,6 +69,20 @@ namespace DNS_Roaming_Client
                 RuleSetData ruleSetData = new RuleSetData();
                 ruleSetData.Load();
                 txtRuleSetURL.Text = ruleSetData.RuleSetDownloadURL;
+
+                chkUpdateDoHAddresses.Checked = newOption.InsertNewDoHAddresses;
+
+                if (newOption.ForceDoHAutoUpgrade>=0 && newOption.ForceDoHAutoUpgrade < 3)
+                    cmbDoHAutoUpgrade.SelectedIndex = newOption.ForceDoHAutoUpgrade;
+                else
+                    cmbDoHAutoUpgrade.SelectedIndex = 0;
+
+                if (newOption.ForceDoHFallbackToUdp >= 0 && newOption.ForceDoHFallbackToUdp < 3)
+                    cmbDoHFallbackToUDP.SelectedIndex = newOption.ForceDoHFallbackToUdp;
+                else
+                    cmbDoHFallbackToUDP.SelectedIndex = 0;
+                
+
             }
             catch (Exception ex)
             {
@@ -340,6 +356,9 @@ namespace DNS_Roaming_Client
                 newOption.AutoUpdate = chkAutoupdate.Checked;
                 newOption.AutoUpdateHours = (int)autoUpdateDays.Value * 24;
                 newOption.RuleSetUpdateHours = (int)ruleSetUpdateDays.Value * 24;
+                newOption.InsertNewDoHAddresses = chkUpdateDoHAddresses.Checked;
+                newOption.ForceDoHAutoUpgrade = cmbDoHAutoUpgrade.SelectedIndex;
+                newOption.ForceDoHFallbackToUdp = cmbDoHFallbackToUDP.SelectedIndex;
                 newOption.Save();
 
                 //Validate the URL and clear it if not a valid URL
@@ -461,7 +480,44 @@ namespace DNS_Roaming_Client
         }
 
 
-        #endregion
+        
 
+        /// <summary>
+        /// If Either DoH option is not default, then set a value
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmbDoHFallbackToUDP_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbDoHFallbackToUDP.SelectedIndex == 0)
+            {
+                if (cmbDoHAutoUpgrade.SelectedIndex != 0) cmbDoHAutoUpgrade.SelectedIndex = 0;
+            }
+            else
+            {
+                //If Disable Fallback set then then set to AutoUpgrade 
+                if (cmbDoHAutoUpgrade.SelectedIndex == 0) cmbDoHAutoUpgrade.SelectedIndex = 1;
+            }
+        }
+
+        /// <summary>
+        /// If Either DoH option is not default, then set a value
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmbDoHAutoUpgrade_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbDoHAutoUpgrade.SelectedIndex == 0)
+            {
+                if (cmbDoHFallbackToUDP.SelectedIndex != 0) cmbDoHFallbackToUDP.SelectedIndex = 0;
+            }
+            else
+            {
+                //If AutoUpgrade Set then Default to Disable Fallback
+                if (cmbDoHFallbackToUDP.SelectedIndex == 0) cmbDoHFallbackToUDP.SelectedIndex = 2;
+            }
+        }
+
+        #endregion
     }
 }

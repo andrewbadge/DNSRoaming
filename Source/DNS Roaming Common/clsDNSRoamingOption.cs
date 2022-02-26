@@ -13,12 +13,10 @@ namespace DNS_Roaming_Common
 
         #region Properties
 
-        private bool disableIPV6 = true;
-        public bool DisableIPV6
-        {
-            get { return disableIPV6; }
-            set { disableIPV6 = value; }
-        }
+        public bool DisableIPV6 { get; set; }
+        public bool InsertNewDoHAddresses { get; set; }
+        public int ForceDoHFallbackToUdp { get; set; }
+        public int ForceDoHAutoUpgrade { get; set; }
 
         private int daysToRetainLogs = 14;
         public int DaysToRetainLogs
@@ -27,12 +25,7 @@ namespace DNS_Roaming_Common
             set { daysToRetainLogs = value; }
         }
 
-        private bool autoUpdate = true;
-        public bool AutoUpdate
-        {
-            get { return autoUpdate; }
-            set { autoUpdate = value; }
-        }
+        public bool AutoUpdate { get; set; }
 
         private int autoUpdateHours = 72;
         public int AutoUpdateHours

@@ -28,6 +28,11 @@ namespace DNS_Roaming_Service
         static int daysToRetainLogs = 14;
         static bool autoUpdate = true;
 
+        //DoH
+        static bool InsertNewDoHAddresses = false;
+        static int ForceDoHFallbackToUdp = 0;
+        static int ForceDoHAutoUpgrade = 0;
+
         static System.Timers.Timer serviceTimer;
         static System.Timers.Timer logandUpdateTimer;
         static System.ComponentModel.BackgroundWorker backgroundWorker;
@@ -41,6 +46,7 @@ namespace DNS_Roaming_Service
                 InitializeComponent();
                 InitializeBackgroundWorker();
                 LoadOptions();
+                InitialiseDoH();
                 CheckRegistryForRuleSet();
                 LoadDNSRules();
                 registerEvents();
@@ -484,6 +490,11 @@ namespace DNS_Roaming_Service
 
                 autoUpdate = newOption.AutoUpdate;
                 daysToRetainLogs = newOption.DaysToRetainLogs;
+
+                //DoH Options
+                InsertNewDoHAddresses = newOption.InsertNewDoHAddresses;
+                ForceDoHFallbackToUdp = newOption.ForceDoHFallbackToUdp;
+                ForceDoHAutoUpgrade = newOption.ForceDoHAutoUpgrade;
             }
             catch (Exception ex)
             {
@@ -572,6 +583,28 @@ namespace DNS_Roaming_Service
         }
 
         #endregion
+
+        private void InitialiseDoH()
+        {
+            Logger.Debug("InitialiseDoH");
+
+            try
+            {
+                if (InsertNewDoHAddresses) NetworkingExtensions.InsertMissingDoHAddresses();
+
+                if (ForceDoHFallbackToUdp == 0 || ForceDoHAutoUpgrade == 0)
+                {
+                    ForceDoHFallbackToUdp = 0;
+                    ForceDoHAutoUpgrade = 0;
+                }
+                else
+                    NetworkingExtensions.ModifyDoHAddresses((ForceDoHFallbackToUdp==1), (ForceDoHAutoUpgrade==1));
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+        }
 
         private void CheckRegistryForRuleSet()
         {

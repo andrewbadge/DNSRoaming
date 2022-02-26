@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Web.Script.Serialization;
 
 namespace DNS_Roaming_Common
 {
@@ -624,5 +625,274 @@ namespace DNS_Roaming_Common
 
             return pingSuccessful;
         }
+
+        /// <summary>
+        /// Gets a List of ServerAddress (IP) to DNS over HTTP addresses
+        /// </summary>
+        /// <returns></returns>
+        public static Dictionary<string, string> GetDoHList()
+        {
+            var doHList = new Dictionary<string, string>()
+            {
+                //Quad9
+                { "9.9.9.9","https://dns.quad9.net/dns-query" },
+                { "149.112.112.112","https://dns.quad9.net/dns-query" },
+                
+                //CloudFlare 
+                { "1.1.1.1","https://1.1.1.1/dns-query" },
+                { "1.0.0.1","https://1.0.0.1/dns-query" },
+                
+                //CloudFlare - No Malware
+                { "1.1.1.2","https://1.1.1.2/dns-query" },
+                { "1.0.0.2","https://1.0.0.2/dns-query" },
+                
+                //Google
+                { "8.8.8.8","https://dns.google/dns-query" },
+                { "8.8.4.4","https://dns.google/dns-query" },
+
+                //CleanBrowsing Guide
+                //https://cleanbrowsing.org/guides/dnsoverhttps/
+
+                //CleanBrowsing - Security 
+                { "185.228.168.9","https://doh.cleanbrowsing.org/doh/security-filter" },
+                { "185.228.169.9","https://doh.cleanbrowsing.org/doh/security-filter" },
+                //CleanBrowsing - Family
+                { "185.228.168.168","https://doh.cleanbrowsing.org/doh/family-filter" },
+                { "185.228.169.168","https://doh.cleanbrowsing.org/doh/family-filter" },
+                //CleanBrowsing - Adult
+                { "185.228.168.10","https://doh.cleanbrowsing.org/doh/adult-filter" },
+                { "185.228.168.11","https://doh.cleanbrowsing.org/doh/adult-filter" },
+
+                //https://kb.adguard.com/en/general/dns-providers
+                //AdGuard - Default
+                { "94.140.14.14","https://dns.adguard.com/dns-query" },
+                { "94.140.15.15","https://dns.adguard.com/dns-query" }
+
+            };
+
+            return doHList;
+        }
+
+        /// <summary>
+        /// Gets all DOH Adddresses currently configured on the PC
+        /// </summary>
+        /// <returns></returns>
+        public static DoHResult[] GetAllDoHAddresses()
+        {
+            Logger.Debug("GetAllDoHAddresses");
+
+            try
+            {
+                //Build the Powershell Command
+                string argument = string.Format(@"-NoProfile -ExecutionPolicy unrestricted & {{Get-DnsClientDohServerAddress | Select-Object -Property ServerAddress,AllowFallbackToUdp,AutoUpgrade,DohTemplate | ConvertTo-Json }}");
+
+                //Execute the Powershell command
+                var startInfo = new ProcessStartInfo()
+                {
+                    FileName = "powershell.exe",
+                    Arguments = argument,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
+                };
+                var process = new Process();
+                process.StartInfo = startInfo;
+                process.Start();
+                string result = process.StandardOutput.ReadToEnd();
+
+                if (result != string.Empty)
+                {
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    DoHResult[] dohResults = js.Deserialize<DoHResult[]>(result);
+                    return dohResults;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Compares the List of DOH addresess, the current ones on the PC and inserts the missing ones
+        /// </summary>
+        public static void InsertMissingDoHAddresses()
+        {
+            Logger.Debug("InsertMissingDoHAddresses");
+
+            //Get the List of New DoH Addresses
+            Dictionary<string, string> newDoHList = GetDoHList();
+
+            //Get the List of Current DoH Addresses in the PC
+            DoHResult[] currentDoHList = GetAllDoHAddresses();
+
+            //Loop through each. If missing then Insert
+            foreach (KeyValuePair<string, string> doHEntry in newDoHList)
+            {
+                bool doHAddressFound = false;
+                foreach (DoHResult result in currentDoHList)
+                {
+                    //If the ServerAddress matches
+                    if (doHEntry.Key ==  result.ServerAddress)
+                    {
+                        doHAddressFound = true;
+                        break;
+                    }
+                }
+
+                //If not found; Add
+                if (!doHAddressFound) AddDoHAddress(doHEntry.Key, doHEntry.Value, false, false);
+            }
+
+            
+        }
+
+        /// <summary>
+        /// Configures all current DoH address on the PC to be used automatically or not
+        /// </summary>
+        /// <param name="allowFallbackToUdp"></param>
+        /// <param name="autoUpgrade"></param>
+        public static void ModifyDoHAddresses(bool allowFallbackToUdp, bool autoUpgrade)
+        {
+            Logger.Debug("ModifyDoHAddresses");
+
+            DoHResult[] dohResults = GetAllDoHAddresses();
+            if (dohResults != null)
+            {
+                foreach(DoHResult result in dohResults)
+                {
+                    if (result.AllowFallbackToUdp != allowFallbackToUdp || result.AutoUpgrade != autoUpgrade )
+                    {
+                        UpsertDoHAddress(result.ServerAddress, result.DohTemplate, allowFallbackToUdp, autoUpgrade);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sets the configuration of a DoH server on the PC
+        /// </summary>
+        /// <param name="serverAddress"></param>
+        /// <param name="allowFallbackToUdp"></param>
+        /// <param name="autoUpgrade"></param>
+        /// <returns></returns>
+        private static bool SetDoHAddress(string serverAddress, bool allowFallbackToUdp, bool autoUpgrade)
+        {
+            Logger.Debug(String.Format("SetDoHAddress for [{0}]",serverAddress));
+
+            bool success = false;
+
+            try
+            {
+                //Build the Powershell Command
+                string argument = string.Format(@"-NoProfile -ExecutionPolicy unrestricted & {{Set-DnsClientDohServerAddress -ServerAddress {0} -AllowFallbackToUdp {1} -AutoUpgrade {2} }}", serverAddress, FormatPowershellBoolean(allowFallbackToUdp), FormatPowershellBoolean(autoUpgrade));
+
+                //Execute the Powershell command
+                var startInfo = new ProcessStartInfo()
+                {
+                    FileName = "powershell.exe",
+                    Arguments = argument,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
+                };
+                var process = new Process();
+                process.StartInfo = startInfo;
+                process.Start();
+                string result = process.StandardOutput.ReadToEnd();
+
+                success = (result == string.Empty);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+
+            return success;
+        }
+
+        /// <summary>
+        /// Adds a configuration of a DoH server on the PC
+        /// </summary>
+        /// <param name="serverAddress"></param>
+        /// <param name="dohTemplate"></param>
+        /// <param name="allowFallbackToUdp"></param>
+        /// <param name="autoUpgrade"></param>
+        private static void AddDoHAddress(string serverAddress, string dohTemplate, bool allowFallbackToUdp, bool autoUpgrade)
+        {
+            Logger.Debug(String.Format("AddDoHAddress for [{0}]", serverAddress));
+
+            try
+            {
+                //Build the Powershell Command
+                string argument = string.Format(@"-NoProfile -ExecutionPolicy unrestricted & {{Add-DnsClientDohServerAddress -ServerAddress {0} -DohTemplate {1} -AllowFallbackToUdp {2} -AutoUpgrade {3} }}", serverAddress, dohTemplate, FormatPowershellBoolean(allowFallbackToUdp), FormatPowershellBoolean(autoUpgrade));
+
+                //Execute the Powershell command
+                var startInfo = new ProcessStartInfo()
+                {
+                    FileName = "powershell.exe",
+                    Arguments = argument,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+                var process = new Process();
+                process.StartInfo = startInfo;
+                process.Start();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Sets the configuration of a DoH server on the PC.
+        /// If missing then Adds it
+        /// </summary>
+        /// <param name="serverAddress"></param>
+        /// <param name="dohTemplate"></param>
+        /// <param name="allowFallbackToUdp"></param>
+        /// <param name="autoUpgrade"></param>
+        public static void UpsertDoHAddress(string serverAddress, string dohTemplate, bool allowFallbackToUdp, bool autoUpgrade)
+        {
+            Logger.Debug(String.Format("UpsertDoHAddress for [{0}]", serverAddress));
+
+            try
+            {
+                if (!SetDoHAddress(serverAddress, allowFallbackToUdp, autoUpgrade))
+                {
+                    AddDoHAddress(serverAddress, dohTemplate, allowFallbackToUdp, autoUpgrade);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Formats a boolean as a PowerShell compatible string
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private static string FormatPowershellBoolean(bool value)
+        {
+            return value ? "$true" : "$false";  
+        }
+
     }
+
+    public class DoHResult
+    {
+        public string ServerAddress { get; set; }
+
+        public bool AllowFallbackToUdp { get; set; }
+
+        public bool AutoUpgrade { get; set; }
+
+        public string DohTemplate { get; set; }
+    } 
 }
