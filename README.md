@@ -20,7 +20,7 @@ NB: it will probably work fine on older OS but its untested. Ensure [.NET Framew
 
 ## What is DNS Roaming
 
-DNS Roaming is a Client and Service to ensure the DNS Servers are set via a rule / policy rather than the network a PC is connected to. 
+DNS Roaming is a free and Open Source Client and Service to ensure the DNS Servers are set via a rule / policy rather than the network a PC is connected to. 
 This allows an adminstrator to force that Quad9 or CloudFlare's DNS server is set rather than an ISPs DNS.
 
 This is particularly useful if you want to block malware links for PCs you manage. In general this would apply to MSPs, Corporate or school laptops (devices that travel into different networks frequently; work then home and back to work again).
