@@ -1,4 +1,5 @@
 ﻿using DNS_Roaming_Common;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -590,20 +591,40 @@ namespace DNS_Roaming_Service
 
             try
             {
-                if (InsertNewDoHAddresses) NetworkingExtensions.InsertMissingDoHAddresses();
-
-                if (ForceDoHFallbackToUdp == 0 || ForceDoHAutoUpgrade == 0)
+                //DoH Options are for Windows 11 and above
+                if (IsWindows11())
                 {
-                    ForceDoHFallbackToUdp = 0;
-                    ForceDoHAutoUpgrade = 0;
+                    if (InsertNewDoHAddresses) NetworkingExtensions.InsertMissingDoHAddresses();
+
+                    if (ForceDoHFallbackToUdp == 0 || ForceDoHAutoUpgrade == 0)
+                    {
+                        ForceDoHFallbackToUdp = 0;
+                        ForceDoHAutoUpgrade = 0;
+                    }
+                    else
+                        NetworkingExtensions.ModifyDoHAddresses((ForceDoHFallbackToUdp == 1), (ForceDoHAutoUpgrade == 1));
                 }
-                else
-                    NetworkingExtensions.ModifyDoHAddresses((ForceDoHFallbackToUdp==1), (ForceDoHAutoUpgrade==1));
             }
             catch (Exception ex)
             {
                 Logger.Error(ex.Message);
             }
+        }
+
+
+        /// <summary>
+        /// Use the Registry to Determine if Windows 11
+        /// Environment, and WinAPIs are returning compatibility results which is useless
+        /// </summary>
+        /// <returns></returns>
+        public bool IsWindows11()
+        {
+            var reg = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
+
+            var currentBuildStr = (string)reg.GetValue("CurrentBuild");
+            var currentBuild = int.Parse(currentBuildStr);
+
+            return currentBuild >= 22000;
         }
 
         private void CheckRegistryForRuleSet()
