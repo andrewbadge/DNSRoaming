@@ -117,7 +117,7 @@ namespace DNS_Roaming_Common
                     }
                     catch (Exception ex)
                     {
-                        Logger.Error(ex.Message);
+                        Logger.Debug(ex.Message);
                         returnIP = string.Empty;
                         queryDoAttempt = true;
                     }
@@ -149,7 +149,7 @@ namespace DNS_Roaming_Common
                     }
                     catch (Exception ex)
                     {
-                        Logger.Error(ex.Message);
+                        Logger.Debug(ex.Message);
                         returnIP = string.Empty;
                         queryDoAttempt = true;
                     }
@@ -183,7 +183,7 @@ namespace DNS_Roaming_Common
                     }
                     catch (Exception ex)
                     {
-                        Logger.Error(ex.Message);
+                        Logger.Debug(ex.Message);
                         returnIP = string.Empty;
                         queryDoAttempt = true;
                     }
@@ -619,7 +619,7 @@ namespace DNS_Roaming_Common
             }
             catch (Exception ex)
             {
-                Logger.Error(ex.Message);
+                Logger.Debug(ex.Message);
             }
 
             return pingSuccessful;

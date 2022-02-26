@@ -747,14 +747,19 @@ namespace DNS_Roaming_Service
                                     if (thisRule.PingType > 0 && thisRule.PingAddress != string.Empty)
                                     {
                                         bool pingSuccess = NetworkingExtensions.PingAddress(thisRule.PingAddress);
-                                        Logger.Debug(String.Format("PING sucess for [{0}] was {1}", thisRule.PingAddress, pingSuccess));
+                                        if (pingSuccess)
+                                            Logger.Info(String.Format("PING for [{0}] was successful", thisRule.PingAddress));
+                                        else
+                                            Logger.Info(String.Format("PING for [{0}] failed", thisRule.PingAddress));
 
                                         //If                PING Success (Type=1)                     or PING Failed (Type=2)
                                         ruleMatchedPING = ((thisRule.PingType == 1 && pingSuccess) || (thisRule.PingType == 2 && !pingSuccess));
                                     }
                                     else
+                                    {
                                         //Do Not PING (Type=0)
                                         ruleMatchedPING = true;
+                                    }
 
                                     //If all the conditions match; then get the DNS settings and set the new vale (stastic address or Reset)
                                     if (ruleMatchedNetwork && ruleMatchedAddress && ruleMatchedPING)

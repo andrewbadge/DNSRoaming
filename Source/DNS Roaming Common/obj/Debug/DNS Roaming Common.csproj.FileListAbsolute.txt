@@ -22,4 +22,3 @@ D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Debug\DNS Ro
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Debug\DNS Roaming Common.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Debug\DNS Roaming Common.pdb
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Debug\DNS Roaming Common.csproj.AssemblyReference.cache
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Debug\DNS Roaming Common.csproj.CopyComplete
