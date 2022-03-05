@@ -103,8 +103,9 @@ namespace DNS_Roaming_Service
                 //Initialise Paths and set Permissions if neccessary
                 PathsandData pathsandData = new PathsandData();
                 pathsandData.CreateDataPaths(true);
-                string localFilename = Path.Combine(pathsandData.BaseDownloadsPath, "dnsset.txt");
-
+                Guid g = Guid.NewGuid();
+                string localFilename = Path.Combine(pathsandData.BaseDownloadsPath, String.Format("TmpDNSSet{0}.txt", g.ToString()));
+                
                 //Remove the download File is it already exists
                 if (File.Exists(localFilename)) File.Delete(localFilename);
 
@@ -212,7 +213,8 @@ namespace DNS_Roaming_Service
             Logger.Debug("DownloadandReplaceRule");
 
             PathsandData pathsandData = new PathsandData();
-            string localFilename = Path.Combine(pathsandData.BaseDownloadsPath, "TmpDownloadedRule.xml");
+            Guid g = Guid.NewGuid();
+            string localFilename = Path.Combine(pathsandData.BaseDownloadsPath, String.Format("TmpDownloadedRule{0}.xml",g.ToString()));
             returnRuleGuid = string.Empty;
 
             try

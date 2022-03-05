@@ -28,6 +28,7 @@ namespace DNS_Roaming_Service
         static bool disableIPV6 = true;
         static int daysToRetainLogs = 14;
         static bool autoUpdate = true;
+        static int hoursToUpdateRuleSet = 72;
 
         //DoH
         static bool InsertNewDoHAddresses = false;
@@ -285,7 +286,7 @@ namespace DNS_Roaming_Service
             serviceTimer.AutoReset = true;
             serviceTimer.Enabled = true;
 
-            logandUpdateTimer = new System.Timers.Timer(7 * 60 * 1000);
+            logandUpdateTimer = new System.Timers.Timer(2 * 60 * 1000);
             logandUpdateTimer.Elapsed += LogandUpdateTimerEvent;
             logandUpdateTimer.AutoReset = true;
             logandUpdateTimer.Enabled = true;
@@ -324,6 +325,7 @@ namespace DNS_Roaming_Service
             try
             {
                 CleanLogFiles();
+                CleanTmpDownloads();
                 DownloadRuleSet();
                 CheckforUpdates();
 
@@ -366,6 +368,45 @@ namespace DNS_Roaming_Service
                 catch
                 {
                     Logger.Error(String.Format("Error removing log {0}", logFilename));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Check for old tmp Downloaded files and remove them
+        /// Normally they should be cleaned as part of an update but
+        /// if an exception or restarted occured there might be old files
+        /// </summary>
+        private static void CleanTmpDownloads()
+        {
+            Logger.Debug("CleanTmpDownloads");
+
+            //Initialise Paths and set Permissions if neccessary
+            PathsandData pathsandData = new PathsandData();
+            pathsandData.CreateDataPaths(true);
+
+            //Remove old download files if they exist
+            string localFilename = Path.Combine(pathsandData.BaseDownloadsPath, "DNSSet.txt");
+            if (File.Exists(localFilename)) File.Delete(localFilename);
+            localFilename = Path.Combine(pathsandData.BaseDownloadsPath, "DNSRoaming.msi");
+            if (File.Exists(localFilename)) File.Delete(localFilename);
+
+            //File any tmp files in the Downloads folder
+            string[] logFiles = Directory.GetFiles(pathsandData.BaseDownloadsPath, "Tmp*.*", SearchOption.TopDirectoryOnly);
+            foreach (string logFilename in logFiles)
+            {
+                //Catch an exception for a specific file but continue to process the next
+                try
+                {
+                    //If the log file is older than the retention days then delete
+                    if (System.IO.File.GetCreationTime(logFilename) < DateTime.Now.AddDays(-1))
+                    {
+                        File.Delete(logFilename);
+                    }
+                }
+                catch
+                {
+                    Logger.Error(String.Format("Error removing download {0}", logFilename));
                 }
             }
         }
@@ -490,6 +531,7 @@ namespace DNS_Roaming_Service
                 disableIPV6 = newOption.DisableIPV6;
 
                 autoUpdate = newOption.AutoUpdate;
+                hoursToUpdateRuleSet = newOption.RuleSetUpdateHours;
                 daysToRetainLogs = newOption.DaysToRetainLogs;
 
                 //DoH Options
@@ -663,9 +705,7 @@ namespace DNS_Roaming_Service
 
                 if (isValidURL)
                 {
-                    //Every 3 days
-                    int autoUpdateHours = 72;
-                    doRuleSetCheck = (ruleSetData.AutoUpdateLastCheck.AddHours(autoUpdateHours) < DateTime.Now);
+                    doRuleSetCheck = (ruleSetData.AutoUpdateLastCheck.AddHours(hoursToUpdateRuleSet) < DateTime.Now);
 
                     if (doRuleSetCheck)
                     {
@@ -679,6 +719,7 @@ namespace DNS_Roaming_Service
                         if (ruleSetFilename != String.Empty)
                         {
                             ruleSet.ParseRuleSet(ruleSetFilename);
+                            File.Delete(ruleSetFilename);
                         }
                     }
                 }

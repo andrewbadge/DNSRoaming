@@ -202,8 +202,9 @@ namespace DNS_Roaming_Common
                     string downloadURL = GetDownloadURL();
                     if (downloadURL != string.Empty)
                     {
-                        string downloadedFile = Path.Combine(pathsandData.BaseDownloadsPath, "DNSRoaming.msi");
-
+                        Guid g = Guid.NewGuid();
+                        string downloadedFile = Path.Combine(pathsandData.BaseDownloadsPath, String.Format("TmpDRInstall{0}.msi", g.ToString()));
+                        
                         Logger.Debug(String.Format("Downloading from ({0})", downloadURL));
                         Logger.Debug(String.Format("Downloading to ({0})", downloadedFile));
 
