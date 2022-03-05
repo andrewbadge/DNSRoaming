@@ -29,10 +29,20 @@ If no rules exist; a default rule will be created that will:
 
 ## Does DNS Roaming connect to any servers or services?
 
+### Updates
+
+Periodically the DNS Roaming Updater will connect to this Repository in GitHub to check for new releases. Releases are downloaded from this repo only.
+
+### Rules with a WAN Condition
+
 The DNS Roaming Service will connect to http://checkip.dyndns.org to get the WAN IP address.
 This is the only outbound connection the Service or client makes.
 
 DNS Roaming only updates the network's DNS settings. It does not see or intercept the traffic between your PC, Apps and the DNS server.
+
+### Rule Sets
+
+If a RuleSet is defined (URL to automatically download a set of rules from); then the DNS Service will periodically download from the URL defined.
 
 ## Compiling DNS Roaming for yourself
 
