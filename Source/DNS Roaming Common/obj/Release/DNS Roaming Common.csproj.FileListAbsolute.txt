@@ -14,20 +14,13 @@ D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\DNS 
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\DNS Roaming Common.pdb
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\IPAddressRange.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\NLog.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\System.Security.AccessControl.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\System.Security.Principal.Windows.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\IPAddressRange.xml
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\NLog.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\System.Security.AccessControl.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\System.Security.Principal.Windows.xml
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Release\DNS Roaming Common.csproj.CoreCompileInputs.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Release\DNS Roaming Common.csproj.CopyComplete
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Release\DNS Roaming Common.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Release\DNS Roaming Common.pdb
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\DnsClient.dll
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\Microsoft.Win32.Registry.dll
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\System.Buffers.dll
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\System.Security.AccessControl.dll
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\System.Security.Principal.Windows.dll
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\DnsClient.xml
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\Microsoft.Win32.Registry.xml
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\System.Buffers.xml
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\System.Security.AccessControl.xml
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\System.Security.Principal.Windows.xml
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Release\DNS Roaming Common.csproj.AssemblyReference.cache

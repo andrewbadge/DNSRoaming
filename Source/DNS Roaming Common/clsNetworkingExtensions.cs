@@ -1,5 +1,4 @@
-﻿using DnsClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -882,50 +881,6 @@ namespace DNS_Roaming_Common
         private static string FormatPowershellBoolean(bool value)
         {
             return value ? "$true" : "$false";  
-        }
-
-        /// <summary>
-        /// Tests resolving a DNS Query against a specific server
-        /// Returns true if successful.
-        /// Returns false if the query gets an error response or an exception is thrown 
-        /// </summary>
-        /// <param name="dnsServer"></param>
-        /// <param name="domainName"></param>
-        /// <returns></returns>
-        public static bool TestDNSQuery(string dnsServer, string domainName, string queryType)
-        {
-            try
-            {
-                QueryType dnsQueryType;
-                switch (queryType.ToLower())
-                {
-                    case "a":
-                        dnsQueryType = QueryType.A;
-                        break;
-                    case "txt":
-                        dnsQueryType = QueryType.TXT;
-                        break;
-                    default:
-                        dnsQueryType = QueryType.CNAME;
-                        break;
-                }
-
-                var endpoint = new IPEndPoint(IPAddress.Parse(dnsServer), 53);
-                var client = new LookupClient(endpoint);
-                var queryOptions = new DnsQueryOptions();
-                queryOptions.UseCache = false;
-
-                var dnsQuestion = new DnsQuestion(domainName, dnsQueryType);
-
-                var result = client.Query(dnsQuestion);
-
-                return !result.HasError;
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex.Message);
-                return false;
-            }
         }
 
     }

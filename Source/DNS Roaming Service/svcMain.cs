@@ -1,10 +1,12 @@
 ﻿using DNS_Roaming_Common;
+using DnsClient;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.ServiceProcess;
 using System.Timers;
@@ -951,7 +953,7 @@ namespace DNS_Roaming_Service
 
             if (thisRule.DNSQueryType > 0 && thisRule.DNSQueryServer != string.Empty && thisRule.DNSQueryDomainName != string.Empty)
             {
-                bool dnsQuerySuccess = NetworkingExtensions.TestDNSQuery(thisRule.DNSQueryServer, thisRule.DNSQueryDomainName, thisRule.DNSQueryRecordType);
+                bool dnsQuerySuccess = TestDNSQuery(thisRule.DNSQueryServer, thisRule.DNSQueryDomainName, thisRule.DNSQueryRecordType);
                 if (dnsQuerySuccess)
                     Logger.Info(String.Format("Query for [{0}] was successful", thisRule.DNSQueryDomainName));
                 else
@@ -967,6 +969,50 @@ namespace DNS_Roaming_Service
             }
 
             return ruleMatchedDNSQuery;
+        }
+
+        /// <summary>
+        /// Tests resolving a DNS Query against a specific server
+        /// Returns true if successful.
+        /// Returns false if the query gets an error response or an exception is thrown 
+        /// </summary>
+        /// <param name="dnsServer"></param>
+        /// <param name="domainName"></param>
+        /// <returns></returns>
+        public static bool TestDNSQuery(string dnsServer, string domainName, string queryType)
+        {
+            try
+            {
+                QueryType dnsQueryType;
+                switch (queryType.ToLower())
+                {
+                    case "a":
+                        dnsQueryType = QueryType.A;
+                        break;
+                    case "txt":
+                        dnsQueryType = QueryType.TXT;
+                        break;
+                    default:
+                        dnsQueryType = QueryType.CNAME;
+                        break;
+                }
+
+                var endpoint = new IPEndPoint(IPAddress.Parse(dnsServer), 53);
+                var client = new LookupClient(endpoint);
+                var queryOptions = new DnsQueryOptions();
+                queryOptions.UseCache = false;
+
+                var dnsQuestion = new DnsQuestion(domainName, dnsQueryType);
+
+                var result = client.Query(dnsQuestion);
+
+                return !result.HasError;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+                return false;
+            }
         }
 
     }

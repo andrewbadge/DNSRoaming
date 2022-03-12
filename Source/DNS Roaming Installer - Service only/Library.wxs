@@ -67,6 +67,11 @@
               <File Id="ServiceNLogDll" Source="..\DNS Roaming Service\bin\Release\NLog.dll"></File>
               <File Id="ServiceIPAddressRangeDLL" Source="..\DNS Roaming Service\bin\Release\IPAddressRange.dll"></File>
               <File Id="ServiceIPAddressRangeXML" Source="..\DNS Roaming Service\bin\Release\IPAddressRange.xml"></File>
+              <File Id="ServiceDNSClientDLL" Source="..\DNS Roaming Service\bin\Release\DNSClient.dll"></File>
+              <File Id="ServiceMicrosoftWin32RegistryDLL" Source="..\DNS Roaming Service\bin\Release\Microsoft.Win32.Registry.dll"></File>
+              <File Id="ServiceSystemBuffersDLL" Source="..\DNS Roaming Service\bin\Release\System.Buffers.dll"></File>
+              <File Id="ServiceSystemSecurityAccessControlDLL" Source="..\DNS Roaming Service\bin\Release\System.Security.AccessControl.dll"></File>
+              <File Id="ServiceSystemSecurityPrincipalWindowsDLL" Source="..\DNS Roaming Service\bin\Release\System.Security.Principal.Windows.dll"></File>
             </Component>
             <!-- Service Installation -->
             <Component Id="ServiceDNSRoaming" Guid="454f6513-3e4a-4a29-8310-6daea0e9e3a8" >
