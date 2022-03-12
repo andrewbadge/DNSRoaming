@@ -138,7 +138,7 @@
             // 
             // colPING
             // 
-            this.colPING.Text = "and PING";
+            this.colPING.Text = "and";
             this.colPING.Width = 90;
             // 
             // colThen

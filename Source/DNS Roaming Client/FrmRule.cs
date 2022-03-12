@@ -205,6 +205,28 @@ namespace DNS_Roaming_Client
                         break;
                 }
 
+                switch (thisRule.DNSQueryType)
+                {
+                    case 1:
+                        radioDNSQuerySuccess.Checked = true;
+                        txtDNSQueryDomainName.Text = thisRule.DNSQueryDomainName;
+                        txtDNSQueryServer.Text = thisRule.DNSQueryServer;
+                        cmbDNSQueryRecordType.Text = thisRule.DNSQueryRecordType;
+                        break;
+                    case 2:
+                        radioDNSQueryFail.Checked = true;
+                        txtDNSQueryDomainName.Text = thisRule.DNSQueryDomainName;
+                        txtDNSQueryServer.Text = thisRule.DNSQueryServer;
+                        cmbDNSQueryRecordType.Text = thisRule.DNSQueryRecordType;
+                        break;
+                    default:
+                        radioDNSQueryNot.Checked = true;
+                        txtDNSQueryDomainName.Text = string.Empty;
+                        txtDNSQueryServer.Text = string.Empty;
+                        cmbDNSQueryRecordType.Text = string.Empty;
+                        break;
+                }
+
                 Logger.Info("Rule loaded");
             }
             catch (Exception ex)
@@ -346,6 +368,31 @@ namespace DNS_Roaming_Client
                 else
                     txtPINGAddress.Text = IPAddressFormat(txtPINGAddress.Text);
 
+                if (!radioDNSQueryNot.Checked && txtDNSQueryServer.Text.Trim() == string.Empty)
+                {
+                    errorProvider.SetError(txtDNSQueryServer, "Set an IP to a Server to Query");
+                    txtDNSQueryServer.Focus();
+                    isFormValid = false;
+                }
+                else
+                    txtDNSQueryServer.Text = IPAddressFormat(txtDNSQueryServer.Text);
+
+                if (!radioDNSQueryNot.Checked && txtDNSQueryDomainName.Text.Trim() == string.Empty)
+                {
+                    errorProvider.SetError(txtDNSQueryDomainName, "Set a Domain Name to Resolve");
+                    txtDNSQueryDomainName.Focus();
+                    isFormValid = false;
+                }
+                else
+                    txtDNSQueryDomainName.Text = txtDNSQueryDomainName.Text.Trim();
+
+                if (!radioDNSQueryNot.Checked && cmbDNSQueryRecordType.Text == string.Empty)
+                {
+                    errorProvider.SetError(cmbDNSQueryRecordType, "Set a DNS Record Type");
+                    cmbDNSQueryRecordType.Focus();
+                    isFormValid = false;
+                }
+
             }
             catch (Exception ex)
             {
@@ -480,6 +527,21 @@ namespace DNS_Roaming_Client
                 {
                     thisRule.PingAddress = txtPINGAddress.Text;
                     thisRule.PingType = radioPINGSuccess.Checked ? 1 : 2;
+                }
+
+                if (radioDNSQueryNot.Checked)
+                {
+                    thisRule.DNSQueryType = 0;
+                    thisRule.DNSQueryServer = string.Empty;
+                    thisRule.DNSQueryDomainName = string.Empty;
+                    thisRule.DNSQueryRecordType = string.Empty;
+                }
+                else
+                {
+                    thisRule.DNSQueryServer = txtDNSQueryServer.Text;
+                    thisRule.DNSQueryDomainName = txtDNSQueryDomainName.Text;
+                    thisRule.DNSQueryType = radioDNSQuerySuccess.Checked ? 1 : 2;
+                    thisRule.DNSQueryRecordType = cmbDNSQueryRecordType.Text;
                 }
 
                 Logger.Info("Rule saved");
@@ -656,6 +718,25 @@ namespace DNS_Roaming_Client
             }
         }
 
+        private void radioDoNotPING_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioDoNotPING.Checked) txtPINGAddress.Text = string.Empty;
+        }
+
+        private void radioDNSQueryNot_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioDNSQueryNot.Checked)
+            {
+                txtDNSQueryServer.Text = string.Empty;
+                txtDNSQueryDomainName.Text = string.Empty;
+                cmbDNSQueryRecordType.Text = string.Empty;
+            }
+            else
+            {
+                if (cmbDNSQueryRecordType.Text == string.Empty) cmbDNSQueryRecordType.Text = "CNAME";
+            }
+        }
+
         #endregion
 
         #region Tooltips
@@ -675,11 +756,6 @@ namespace DNS_Roaming_Client
         private void cmbNetworkName_MouseHover(object sender, EventArgs e)
         {
             toolTip.Show("Pick from the list of Network Interfaces on your PC", cmbNetworkName);
-        }
-
-        private void radioDoNotPING_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioDoNotPING.Checked) txtPINGAddress.Text = string.Empty;
         }
 
         #endregion

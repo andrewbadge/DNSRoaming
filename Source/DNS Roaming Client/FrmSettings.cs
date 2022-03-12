@@ -190,18 +190,32 @@ namespace DNS_Roaming_Client
                         }
 
                         //And PING
+                        string pingColText = string.Empty;
                         switch (thisRule.PingType)
                         {
                             case 1:
-                                lvItem.SubItems.Add(String.Format("{0}", thisRule.PingAddress));
+                                pingColText = String.Format("{0}", thisRule.PingAddress);
                                 break;
                             case 2:
-                                lvItem.SubItems.Add(String.Format("Not {0}", thisRule.PingAddress));
-                                break;
-                            default:
-                                lvItem.SubItems.Add("-");
+                                pingColText = String.Format("Not {0}", thisRule.PingAddress);
                                 break;
                         }
+
+                        switch (thisRule.DNSQueryType)
+                        {
+                            case 1:
+                                if (pingColText != string.Empty) pingColText += " + ";
+                                pingColText += String.Format("{0} Success", thisRule.DNSQueryDomainName);
+                                break;
+                            case 2:
+                                if (pingColText != string.Empty) pingColText += " + ";
+                                pingColText += String.Format("{0} Fail", thisRule.DNSQueryDomainName);
+                                break;
+                        }
+
+
+                        if (pingColText == string.Empty) pingColText = "-";
+                        lvItem.SubItems.Add(pingColText);
 
                         //Action
                         if (thisRule.ResetToDHCP)

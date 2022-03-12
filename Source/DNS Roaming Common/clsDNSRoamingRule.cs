@@ -17,20 +17,10 @@ namespace DNS_Roaming_Common
 
         #region Properties
 
-        private string ruleID;
-        public string ID
-        {
-            get { return ruleID; }
-            set { ruleID = value; }
-        }
-
-        private bool useNetworkType;
-        public bool UseNetworkType
-        {
-            get { return useNetworkType; }
-            set { useNetworkType = value; }
-        }
-
+        public string ID { get; set; }
+        
+        public bool UseNetworkType { get; set; }
+        
         private string networkType;
         public string NetworkType
         {
@@ -104,72 +94,23 @@ namespace DNS_Roaming_Common
             }
         }
 
-        private int addressByType;
-        public int AddressByType
-        {
-            get { return addressByType; }
-            set
-            {
-                addressByType = value;
-            }
-        }
-
-        private string addressIP;
-        public string AddressIP
-        {
-            get { return addressIP; }
-            set { addressIP = value; }
-        }
-
-        private string addressSubnet;
-        public string AddressSubnet
-        {
-            get { return addressSubnet; }
-            set { addressSubnet = value; }
-        }
-
-        private string dnsSet;
-        public string DNSSet
-        {
-            get { return dnsSet; }
-            set { dnsSet = value; }
-        }
-
-        private string dnsPreferred;
-        public string DNSPreferred
-        {
-            get { return dnsPreferred; }
-            set { dnsPreferred = value; }
-        }
-
-        private string dnsAlternative;
-        public string DNSAlternative
-        {
-            get { return dnsAlternative; }
-            set { dnsAlternative = value; }
-        }
-
-        private string dns2ndAlternative;
-        public string DNS2ndAlternative
-        {
-            get { return dns2ndAlternative; }
-            set { dns2ndAlternative = value; }
-        }
-
-        private string dns3rdAlternative;
-        public string DNS3rdAlternative
-        {
-            get { return dns3rdAlternative; }
-            set { dns3rdAlternative = value; }
-        }
-
-        private bool resetToDHCP = false;
-        public bool ResetToDHCP
-        {
-            get { return resetToDHCP; }
-            set { resetToDHCP = value; }
-        }
-
+        public int AddressByType { get; set; }
+        
+        public string AddressIP { get; set; }
+        public string AddressSubnet { get; set; }
+        
+        public string DNSSet { get; set; }
+        
+        public string DNSPreferred { get; set; }
+        
+        public string DNSAlternative { get; set; }
+        
+        public string DNS2ndAlternative { get; set; }
+        
+        public string DNS3rdAlternative { get; set; }
+        
+        public bool ResetToDHCP { get; set; }
+        
         private int delaySeconds = 5;
         public int DelaySeconds
         {
@@ -177,36 +118,17 @@ namespace DNS_Roaming_Common
             set { delaySeconds = value; }
         }
 
-        private bool ruleWasDownloaded = false;
-        public bool RuleWasDownloaded
-        {
-            get { return ruleWasDownloaded; }
-            set { ruleWasDownloaded = value; }
-        }
+        public bool RuleWasDownloaded { get; set; }
+        public string RuleDownloadURL { get; set; }
 
-        private string ruleDownloadURL = string.Empty;
-        public string RuleDownloadURL
-        {
-            get { return ruleDownloadURL; }
-            set { ruleDownloadURL = value; }
-        }
-
-        private int pingType;
-        public int PingType
-        {
-            get { return pingType; }
-            set
-            {
-                pingType = value;
-            }
-        }
-
-        private string pingAddress;
-        public string PingAddress
-        {
-            get { return pingAddress; }
-            set { pingAddress = value; }
-        }
+        public int PingType { get; set; }
+        public string PingAddress { get; set; }
+        
+        // 0 = Do not Query, 1 = Query for Success, 2 = Query for Fail
+        public int DNSQueryType { get; set; }
+        public string DNSQueryDomainName { get; set; }
+        public string DNSQueryServer { get; set; }
+        public string DNSQueryRecordType { get; set; }
 
         #endregion
 
@@ -228,15 +150,15 @@ namespace DNS_Roaming_Common
             {
                 //Set a New GUID if saving and the GUID is missing.
                 //Should only occur for a new Rule
-                if (ruleID == null)
+                if (ID == null)
                 {
-                    ruleID = System.Guid.NewGuid().ToString();
+                    ID = System.Guid.NewGuid().ToString();
                 }
 
                 //Determine the path for the settings
                 //Creates the folder if missing
                 PathsandData pathsandData = new PathsandData();
-                ruleFileNameFullPath = String.Format(@"{0}\Rule-{1}.xml", pathsandData.BaseSettingsPath, ruleID);
+                ruleFileNameFullPath = String.Format(@"{0}\Rule-{1}.xml", pathsandData.BaseSettingsPath, ID);
 
                 //Write the object to the file
                 StreamWriter w = new StreamWriter(ruleFileNameFullPath);
@@ -259,10 +181,10 @@ namespace DNS_Roaming_Common
         {
             try
             {
-                if (ruleID == null) return;
+                if (ID == null) return;
 
                 PathsandData pathsandData = new PathsandData();
-                ruleFileNameFullPath = String.Format(@"{0}\Rule-{1}.xml", pathsandData.BaseSettingsPath, ruleID);
+                ruleFileNameFullPath = String.Format(@"{0}\Rule-{1}.xml", pathsandData.BaseSettingsPath, ID);
 
                 File.Delete(ruleFileNameFullPath);
             }
@@ -330,21 +252,21 @@ namespace DNS_Roaming_Common
 
             try
             {
-                newRule.AddressByType = addressByType;
-                newRule.AddressIP = addressIP;
+                newRule.AddressByType = AddressByType;
+                newRule.AddressIP = AddressIP;
                 newRule.AddressIsNotSpecific = addressIsNotSpecific;
                 newRule.AddressIsSpecific = addressIsSpecific;
-                newRule.AddressSubnet = addressSubnet;
+                newRule.AddressSubnet = AddressSubnet;
                 newRule.DelaySeconds = delaySeconds;
-                newRule.DNS2ndAlternative = dns2ndAlternative;
-                newRule.DNS3rdAlternative = dns3rdAlternative;
-                newRule.DNSAlternative = dnsAlternative;
-                newRule.DNSPreferred = dnsPreferred;
-                newRule.DNSSet = dnsSet;
+                newRule.DNS2ndAlternative = DNS2ndAlternative;
+                newRule.DNS3rdAlternative = DNS3rdAlternative;
+                newRule.DNSAlternative = DNSAlternative;
+                newRule.DNSPreferred = DNSPreferred;
+                newRule.DNSSet = DNSSet;
                 newRule.NetworkNameIs = networkNameIs;
                 newRule.NetworkNameIsNot = networkNameIsNot;
                 newRule.NetworkType = networkType;
-                newRule.UseNetworkType = useNetworkType;
+                newRule.UseNetworkType = UseNetworkType;
 
                 Guid newGUID = Guid.NewGuid();
                 newRule.ID = newGUID.ToString();

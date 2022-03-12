@@ -40,3 +40,7 @@ D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\obj\Debug\DN
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\obj\Debug\DNS Roaming Unit Tests.csproj.CopyComplete
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\obj\Debug\DNS Roaming Unit Tests.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\obj\Debug\DNS Roaming Unit Tests.pdb
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Debug\DnsClient.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Debug\System.Buffers.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Debug\DnsClient.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Debug\System.Buffers.xml
