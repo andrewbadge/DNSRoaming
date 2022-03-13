@@ -4,6 +4,198 @@
         <name>Microsoft.VisualStudio.TestPlatform.TestFramework</name>
     </assembly>
     <members>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssemblyCleanupAttribute">
+            <summary>
+            The assembly cleanup attribute.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssemblyInitializeAttribute">
+            <summary>
+            The assembly initialize attribute.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute">
+            <summary>
+            The class cleanup attribute.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute.#ctor(Microsoft.VisualStudio.TestTools.UnitTesting.InheritanceBehavior)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute"/> class.
+            </summary>
+            <param name="inheritanceBehavior">
+            Specifies the ClassCleanup Inheritance Behavior
+            </param>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute.#ctor(Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupBehavior)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute"/> class.
+            </summary>
+            <param name="cleanupBehavior">
+            Specifies the class clean-up behavior.
+            To capture output of class clean-up method in logs
+            <paramref name="cleanupBehavior"/> must be set to <see cref="F:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupBehavior.EndOfClass"/>.
+            </param>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute.#ctor(Microsoft.VisualStudio.TestTools.UnitTesting.InheritanceBehavior,System.Nullable{Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupBehavior})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute"/> class.
+            </summary>
+            <param name="inheritanceBehavior">
+            Specifies the ClassCleanup Inheritance Behavior
+            </param>
+            <param name="cleanupBehavior">
+            Specifies the class clean-up behavior.
+            To capture output of class clean-up method in logs
+            <paramref name="cleanupBehavior"/> must be set to <see cref="F:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupBehavior.EndOfClass"/>.
+            </param>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute.InheritanceBehavior">
+            <summary>
+            Gets the Inheritance Behavior
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute.CleanupBehavior">
+            <summary>
+            Gets when to run class cleanup methods.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupBehavior">
+            <summary>
+            When to run ClassCleanup during test execution
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupBehavior.EndOfAssembly">
+            <summary>
+            Run at end of assembly
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupBehavior.EndOfClass">
+            <summary>
+            Run at end of class
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupExecutionAttribute">
+            <summary>
+            Specification for when to run class cleanup methods.
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupExecutionAttribute.DefaultClassCleanupLifecycle">
+            <summary>
+            Default class cleanup execution
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupExecutionAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupExecutionAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupExecutionAttribute.#ctor(Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupBehavior)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupExecutionAttribute"/> class.
+            </summary>
+            <param name="cleanupBehavior">
+            Specifies the class clean-up behavior.
+            To capture output of class clean-up method in logs
+            <paramref name="cleanupBehavior"/> must be set to <see cref="F:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupBehavior.EndOfClass"/>.
+            </param>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupExecutionAttribute.CleanupBehavior">
+            <summary>
+            Gets when to run class cleanup methods.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute">
+            <summary>
+            The class initialize attribute.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute"/> class.
+            ClassInitializeAttribute
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute.#ctor(Microsoft.VisualStudio.TestTools.UnitTesting.InheritanceBehavior)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute"/> class.
+            ClassInitializeAttribute
+            </summary>
+            <param name="inheritanceBehavior">
+            Specifies the ClassInitialize Inheritance Behavior
+            </param>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute.InheritanceBehavior">
+            <summary>
+            Gets the Inheritance Behavior
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.CssIterationAttribute">
+            <summary>
+            CSS Iteration URI
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.CssIterationAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.CssIterationAttribute"/> class for CSS Iteration URI.
+            </summary>
+            <param name="cssIteration">The CSS Iteration URI.</param>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.CssIterationAttribute.CssIteration">
+            <summary>
+            Gets the CSS Iteration URI.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.CssProjectStructureAttribute">
+            <summary>
+            CSS Project Structure URI
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.CssProjectStructureAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.CssProjectStructureAttribute"/> class for CSS Project Structure URI.
+            </summary>
+            <param name="cssProjectStructure">The CSS Project Structure URI.</param>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.CssProjectStructureAttribute.CssProjectStructure">
+            <summary>
+            Gets the CSS Project Structure URI.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.DataTestMethodAttribute">
+            <summary>
+            Attribute for data driven test where data can be specified in-line.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute">
+            <summary>
+            Description of the test
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute"/> class to describe a test.
+            </summary>
+            <param name="description">The description.</param>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute.Description">
+            <summary>
+            Gets the description of a test.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.DiscoverInternalsAttribute">
+            <summary>
+            The presence of this attribute in a test assembly causes MSTest to discover test classes (i.e. classes having
+            the "TestClass" attribute) and test methods (i.e. methods having the "TestMethod" attribute) which are declared
+            internal in addition to test classes and test methods which are declared public. When this attribute is not
+            present in a test assembly the tests in such classes will not be discovered.
+            </summary>
+        </member>
         <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.DoNotParallelizeAttribute">
             <summary>
             Specification to disable parallelization.
@@ -72,6 +264,65 @@
         <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.DynamicDataAttribute.GetDisplayName(System.Reflection.MethodInfo,System.Object[])">
             <inheritdoc />
         </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute">
+            <summary>
+            The ignore attribute.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute"/> class.
+            </summary>
+            <param name="message">
+            Message specifies reason for ignoring.
+            </param>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute.IgnoreMessage">
+            <summary>
+            Gets the owner.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.InheritanceBehavior">
+            <summary>
+            Enumeration for inheritance behavior, that can be used with both the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute"/> class
+            and <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute"/> class.
+            Defines the behavior of the ClassInitialize and ClassCleanup methods of base classes.
+            The type of the enumeration must match
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.TestTools.UnitTesting.InheritanceBehavior.None">
+            <summary>
+            None.
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.TestTools.UnitTesting.InheritanceBehavior.BeforeEachDerivedClass">
+            <summary>
+            Before each derived class.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.OwnerAttribute">
+            <summary>
+            Test Owner
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.OwnerAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.OwnerAttribute"/> class.
+            </summary>
+            <param name="owner">
+            The owner.
+            </param>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.OwnerAttribute.Owner">
+            <summary>
+            Gets the owner.
+            </summary>
+        </member>
         <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.ParallelizeAttribute">
             <summary>
             Specification for parallelization level for a test run.
@@ -117,6 +368,274 @@
         <member name="F:Microsoft.VisualStudio.TestTools.UnitTesting.ExecutionScope.MethodLevel">
             <summary>
             Each thread of execution will be handed TestMethods to execute.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.PriorityAttribute">
+            <summary>
+            Priority attribute; used to specify the priority of a unit test.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.PriorityAttribute.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.PriorityAttribute"/> class.
+            </summary>
+            <param name="priority">
+            The priority.
+            </param>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.PriorityAttribute.Priority">
+            <summary>
+            Gets the priority.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute">
+            <summary>
+            The test class attribute.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute.GetTestMethodAttribute(Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute)">
+            <summary>
+            Gets a test method attribute that enables running this test.
+            </summary>
+            <param name="testMethodAttribute">The test method attribute instance defined on this method.</param>
+            <returns>The <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute"/> to be used to run this test.</returns>
+            <remarks>Extensions can override this method to customize how all methods in a class are run.</remarks>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestCleanupAttribute">
+            <summary>
+            The test cleanup attribute marks methods that are executed after every test marked with a <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestDataSourceDiscoveryAttribute">
+            <summary>
+            Specifies how to discover ITestDataSource tests.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.TestDataSourceDiscoveryAttribute.#ctor(Microsoft.VisualStudio.TestTools.UnitTesting.TestDataSourceDiscoveryOption)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestDataSourceDiscoveryAttribute"/> class.
+            </summary>
+            <param name="discoveryOption">
+            Sets which <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestDataSourceDiscoveryOption"/> to use when discovering ITestDataSource tests.
+            </param>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestDataSourceDiscoveryAttribute.DiscoveryOption">
+            <summary>
+            Gets specified discovery option.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestDataSourceDiscoveryOption">
+            <summary>
+            Supported TestDataSource discovery modes
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.TestTools.UnitTesting.TestDataSourceDiscoveryOption.DuringExecution">
+            <summary>
+            Discover tests during execution.
+            This was the default option on version 2.2.3 and before.
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.TestTools.UnitTesting.TestDataSourceDiscoveryOption.DuringDiscovery">
+            <summary>
+            Discover and expand ITestDataSource based tests.
+            This is the default behavior after version 2.2.3.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestInitializeAttribute">
+            <summary>
+            The test initialize attribute.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute">
+            <summary>
+            The test method attribute.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute"/> class.
+            </summary>
+            <param name="displayName">
+            Display Name for the Test Window
+            </param>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute.DisplayName">
+            <summary>
+            Gets display Name for the Test Window
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute.Execute(Microsoft.VisualStudio.TestTools.UnitTesting.ITestMethod)">
+            <summary>
+            Executes a test method.
+            </summary>
+            <param name="testMethod">The test method to execute.</param>
+            <returns>An array of TestResult objects that represent the outcome(s) of the test.</returns>
+            <remarks>Extensions can override this method to customize running a TestMethod.</remarks>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute">
+            <summary>
+            The test property attribute.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute"/> class.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="value">
+            The value.
+            </param>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute.Name">
+            <summary>
+            Gets the name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute.Value">
+            <summary>
+            Gets the value.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult">
+            <summary>
+            TestResult object to be returned to adapter.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult"/> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.DisplayName">
+            <summary>
+            Gets or sets the display name of the result. Useful when returning multiple results.
+            If null then Method name is used as DisplayName.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.Outcome">
+            <summary>
+            Gets or sets the outcome of the test execution.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.TestFailureException">
+            <summary>
+            Gets or sets the exception thrown when test is failed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.LogOutput">
+            <summary>
+            Gets or sets the output of the message logged by test code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.LogError">
+            <summary>
+            Gets or sets the output of the message logged by test code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.DebugTrace">
+            <summary>
+            Gets or sets the debug traces by test code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.TestContextMessages">
+            <summary>
+            Gets or sets the debug traces by test code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.ExecutionId">
+            <summary>
+            Gets or sets the execution id of the result.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.ParentExecId">
+            <summary>
+            Gets or sets the parent execution id of the result.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.InnerResultsCount">
+            <summary>
+            Gets or sets the inner results count of the result.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.Duration">
+            <summary>
+            Gets or sets the duration of test execution.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.DatarowIndex">
+            <summary>
+            Gets or sets the data row index in data source. Set only for results of individual
+            run of data row of a data driven test.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.ReturnValue">
+            <summary>
+            Gets or sets the return value of the test method. (Currently null always).
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.ResultFiles">
+            <summary>
+            Gets or sets the result files attached by the test.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestTimeout">
+            <summary>
+            Enumeration for timeouts, that can be used with the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TimeoutAttribute"/> class.
+            The type of the enumeration must match
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.TestTools.UnitTesting.TestTimeout.Infinite">
+            <summary>
+            The infinite.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.TimeoutAttribute">
+            <summary>
+            Timeout attribute; used to specify the timeout of a unit test.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.TimeoutAttribute.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TimeoutAttribute"/> class.
+            </summary>
+            <param name="timeout">
+            The timeout in milliseconds.
+            </param>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.TimeoutAttribute.#ctor(Microsoft.VisualStudio.TestTools.UnitTesting.TestTimeout)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TimeoutAttribute"/> class with a preset timeout
+            </summary>
+            <param name="timeout">
+            The timeout
+            </param>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TimeoutAttribute.Timeout">
+            <summary>
+            Gets the timeout in milliseconds.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.WorkItemAttribute">
+            <summary>
+            WorkItem attribute; used to specify a work item associated with this test.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.WorkItemAttribute.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.WorkItemAttribute"/> class for the WorkItem Attribute.
+            </summary>
+            <param name="id">The Id to a work item.</param>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.WorkItemAttribute.Id">
+            <summary>
+            Gets the Id to a work item associated.
             </summary>
         </member>
         <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.ITestDataSource">
@@ -649,7 +1168,35 @@
             Thrown if <paramref name="condition"/> is false.
             </exception>
         </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(System.Nullable{System.Boolean})">
+            <summary>
+            Tests whether the specified condition is true and throws an exception
+            if the condition is false.
+            </summary>
+            <param name="condition">
+            The condition the test expects to be true.
+            </param>
+            <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
+            Thrown if <paramref name="condition"/> is false.
+            </exception>
+        </member>
         <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(System.Boolean,System.String)">
+            <summary>
+            Tests whether the specified condition is true and throws an exception
+            if the condition is false.
+            </summary>
+            <param name="condition">
+            The condition the test expects to be true.
+            </param>
+            <param name="message">
+            The message to include in the exception when <paramref name="condition"/>
+            is false. The message is shown in test results.
+            </param>
+            <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
+            Thrown if <paramref name="condition"/> is false.
+            </exception>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(System.Nullable{System.Boolean},System.String)">
             <summary>
             Tests whether the specified condition is true and throws an exception
             if the condition is false.
@@ -684,7 +1231,38 @@
             Thrown if <paramref name="condition"/> is false.
             </exception>
         </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(System.Nullable{System.Boolean},System.String,System.Object[])">
+            <summary>
+            Tests whether the specified condition is true and throws an exception
+            if the condition is false.
+            </summary>
+            <param name="condition">
+            The condition the test expects to be true.
+            </param>
+            <param name="message">
+            The message to include in the exception when <paramref name="condition"/>
+            is false. The message is shown in test results.
+            </param>
+            <param name="parameters">
+            An array of parameters to use when formatting <paramref name="message"/>.
+            </param>
+            <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
+            Thrown if <paramref name="condition"/> is false.
+            </exception>
+        </member>
         <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsFalse(System.Boolean)">
+            <summary>
+            Tests whether the specified condition is false and throws an exception
+            if the condition is true.
+            </summary>
+            <param name="condition">
+            The condition the test expects to be false.
+            </param>
+            <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
+            Thrown if <paramref name="condition"/> is true.
+            </exception>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsFalse(System.Nullable{System.Boolean})">
             <summary>
             Tests whether the specified condition is false and throws an exception
             if the condition is true.
@@ -712,7 +1290,42 @@
             Thrown if <paramref name="condition"/> is true.
             </exception>
         </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsFalse(System.Nullable{System.Boolean},System.String)">
+            <summary>
+            Tests whether the specified condition is false and throws an exception
+            if the condition is true.
+            </summary>
+            <param name="condition">
+            The condition the test expects to be false.
+            </param>
+            <param name="message">
+            The message to include in the exception when <paramref name="condition"/>
+            is true. The message is shown in test results.
+            </param>
+            <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
+            Thrown if <paramref name="condition"/> is true.
+            </exception>
+        </member>
         <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsFalse(System.Boolean,System.String,System.Object[])">
+            <summary>
+            Tests whether the specified condition is false and throws an exception
+            if the condition is true.
+            </summary>
+            <param name="condition">
+            The condition the test expects to be false.
+            </param>
+            <param name="message">
+            The message to include in the exception when <paramref name="condition"/>
+            is true. The message is shown in test results.
+            </param>
+            <param name="parameters">
+            An array of parameters to use when formatting <paramref name="message"/>.
+            </param>
+            <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
+            Thrown if <paramref name="condition"/> is true.
+            </exception>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsFalse(System.Nullable{System.Boolean},System.String,System.Object[])">
             <summary>
             Tests whether the specified condition is false and throws an exception
             if the condition is true.
@@ -2047,11 +2660,7 @@
         <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.Assert.ThrowsException``1(System.Action)">
             <summary>
             Tests whether the code specified by delegate <paramref name="action"/> throws exact given exception of type <typeparamref name="T"/> (and not of derived type)
-            and throws
-            <code>
-            AssertFailedException
-            </code>
-            if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
+            and throws <c>AssertFailedException</c> if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
             </summary>
             <param name="action">
             Delegate to code to be tested and which is expected to throw exception.
@@ -2069,11 +2678,7 @@
         <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.Assert.ThrowsException``1(System.Action,System.String)">
             <summary>
             Tests whether the code specified by delegate <paramref name="action"/> throws exact given exception of type <typeparamref name="T"/> (and not of derived type)
-            and throws
-            <code>
-            AssertFailedException
-            </code>
-            if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
+            and throws <c>AssertFailedException</c> if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
             </summary>
             <param name="action">
             Delegate to code to be tested and which is expected to throw exception.
@@ -2095,11 +2700,7 @@
         <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.Assert.ThrowsException``1(System.Func{System.Object})">
             <summary>
             Tests whether the code specified by delegate <paramref name="action"/> throws exact given exception of type <typeparamref name="T"/> (and not of derived type)
-            and throws
-            <code>
-            AssertFailedException
-            </code>
-            if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
+            and throws <c>AssertFailedException</c> if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
             </summary>
             <param name="action">
             Delegate to code to be tested and which is expected to throw exception.
@@ -2117,11 +2718,7 @@
         <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.Assert.ThrowsException``1(System.Func{System.Object},System.String)">
             <summary>
             Tests whether the code specified by delegate <paramref name="action"/> throws exact given exception of type <typeparamref name="T"/> (and not of derived type)
-            and throws
-            <code>
-            AssertFailedException
-            </code>
-            if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
+            and throws <c>AssertFailedException</c> if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
             </summary>
             <param name="action">
             Delegate to code to be tested and which is expected to throw exception.
@@ -2143,11 +2740,7 @@
         <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.Assert.ThrowsException``1(System.Func{System.Object},System.String,System.Object[])">
             <summary>
             Tests whether the code specified by delegate <paramref name="action"/> throws exact given exception of type <typeparamref name="T"/> (and not of derived type)
-            and throws
-            <code>
-            AssertFailedException
-            </code>
-            if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
+            and throws <c>AssertFailedException</c> if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
             </summary>
             <param name="action">
             Delegate to code to be tested and which is expected to throw exception.
@@ -2172,11 +2765,7 @@
         <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.Assert.ThrowsException``1(System.Action,System.String,System.Object[])">
             <summary>
             Tests whether the code specified by delegate <paramref name="action"/> throws exact given exception of type <typeparamref name="T"/> (and not of derived type)
-            and throws
-            <code>
-            AssertFailedException
-            </code>
-            if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
+            and throws <c>AssertFailedException</c> if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
             </summary>
             <param name="action">
             Delegate to code to be tested and which is expected to throw exception.
@@ -2201,11 +2790,7 @@
         <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.Assert.ThrowsExceptionAsync``1(System.Func{System.Threading.Tasks.Task})">
             <summary>
             Tests whether the code specified by delegate <paramref name="action"/> throws exact given exception of type <typeparamref name="T"/> (and not of derived type)
-            and throws
-            <code>
-            AssertFailedException
-            </code>
-            if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
+            and throws <c>AssertFailedException</c> if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
             </summary>
             <param name="action">
             Delegate to code to be tested and which is expected to throw exception.
@@ -2223,7 +2808,7 @@
         <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.Assert.ThrowsExceptionAsync``1(System.Func{System.Threading.Tasks.Task},System.String)">
             <summary>
             Tests whether the code specified by delegate <paramref name="action"/> throws exact given exception of type <typeparamref name="T"/> (and not of derived type)
-            and throws <code>AssertFailedException</code> if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
+            and throws <c>AssertFailedException</c> if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
             </summary>
             <param name="action">Delegate to code to be tested and which is expected to throw exception.</param>
             <param name="message">
@@ -2241,7 +2826,7 @@
         <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.Assert.ThrowsExceptionAsync``1(System.Func{System.Threading.Tasks.Task},System.String,System.Object[])">
             <summary>
             Tests whether the code specified by delegate <paramref name="action"/> throws exact given exception of type <typeparamref name="T"/> (and not of derived type)
-            and throws <code>AssertFailedException</code> if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
+            and throws <c>AssertFailedException</c> if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
             </summary>
             <param name="action">Delegate to code to be tested and which is expected to throw exception.</param>
             <param name="message">
@@ -2352,6 +2937,26 @@
             <paramref name="value"/>.
             </exception>
         </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert.Contains(System.String,System.String,System.StringComparison)">
+            <summary>
+            Tests whether the specified string contains the specified substring
+            and throws an exception if the substring does not occur within the
+            test string.
+            </summary>
+            <param name="value">
+            The string that is expected to contain <paramref name="substring"/>.
+            </param>
+            <param name="substring">
+            The string expected to occur within <paramref name="value"/>.
+            </param>
+            <param name="comparisonType">
+            The comparison method to compare strings <paramref name="comparisonType"/>.
+            </param>
+            <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
+            Thrown if <paramref name="substring"/> is not found in
+            <paramref name="value"/>.
+            </exception>
+        </member>
         <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert.Contains(System.String,System.String,System.String)">
             <summary>
             Tests whether the specified string contains the specified substring
@@ -2368,6 +2973,31 @@
             The message to include in the exception when <paramref name="substring"/>
             is not in <paramref name="value"/>. The message is shown in
             test results.
+            </param>
+            <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
+            Thrown if <paramref name="substring"/> is not found in
+            <paramref name="value"/>.
+            </exception>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert.Contains(System.String,System.String,System.String,System.StringComparison)">
+            <summary>
+            Tests whether the specified string contains the specified substring
+            and throws an exception if the substring does not occur within the
+            test string.
+            </summary>
+            <param name="value">
+            The string that is expected to contain <paramref name="substring"/>.
+            </param>
+            <param name="substring">
+            The string expected to occur within <paramref name="value"/>.
+            </param>
+            <param name="message">
+            The message to include in the exception when <paramref name="substring"/>
+            is not in <paramref name="value"/>. The message is shown in
+            test results.
+            </param>
+            <param name="comparisonType">
+            The comparison method to compare strings <paramref name="comparisonType"/>.
             </param>
             <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
             Thrown if <paramref name="substring"/> is not found in
@@ -2399,6 +3029,34 @@
             <paramref name="value"/>.
             </exception>
         </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert.Contains(System.String,System.String,System.String,System.StringComparison,System.Object[])">
+            <summary>
+            Tests whether the specified string contains the specified substring
+            and throws an exception if the substring does not occur within the
+            test string.
+            </summary>
+            <param name="value">
+            The string that is expected to contain <paramref name="substring"/>.
+            </param>
+            <param name="substring">
+            The string expected to occur within <paramref name="value"/>.
+            </param>
+            <param name="message">
+            The message to include in the exception when <paramref name="substring"/>
+            is not in <paramref name="value"/>. The message is shown in
+            test results.
+            </param>
+            <param name="comparisonType">
+            The comparison method to compare strings <paramref name="comparisonType"/>.
+            </param>
+            <param name="parameters">
+            An array of parameters to use when formatting <paramref name="message"/>.
+            </param>
+            <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
+            Thrown if <paramref name="substring"/> is not found in
+            <paramref name="value"/>.
+            </exception>
+        </member>
         <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert.StartsWith(System.String,System.String)">
             <summary>
             Tests whether the specified string begins with the specified substring
@@ -2410,6 +3068,26 @@
             </param>
             <param name="substring">
             The string expected to be a prefix of <paramref name="value"/>.
+            </param>
+            <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
+            Thrown if <paramref name="value"/> does not begin with
+            <paramref name="substring"/>.
+            </exception>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert.StartsWith(System.String,System.String,System.StringComparison)">
+            <summary>
+            Tests whether the specified string begins with the specified substring
+            and throws an exception if the test string does not start with the
+            substring.
+            </summary>
+            <param name="value">
+            The string that is expected to begin with <paramref name="substring"/>.
+            </param>
+            <param name="substring">
+            The string expected to be a prefix of <paramref name="value"/>.
+            </param>
+            <param name="comparisonType">
+            The comparison method to compare strings <paramref name="comparisonType"/>.
             </param>
             <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
             Thrown if <paramref name="value"/> does not begin with
@@ -2463,6 +3141,59 @@
             <paramref name="substring"/>.
             </exception>
         </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert.StartsWith(System.String,System.String,System.String,System.StringComparison)">
+            <summary>
+            Tests whether the specified string begins with the specified substring
+            and throws an exception if the test string does not start with the
+            substring.
+            </summary>
+            <param name="value">
+            The string that is expected to begin with <paramref name="substring"/>.
+            </param>
+            <param name="substring">
+            The string expected to be a prefix of <paramref name="value"/>.
+            </param>
+            <param name="message">
+            The message to include in the exception when <paramref name="value"/>
+            does not begin with <paramref name="substring"/>. The message is
+            shown in test results.
+            </param>
+            <param name="comparisonType">
+            The comparison method to compare strings <paramref name="comparisonType"/>.
+            </param>
+            <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
+            Thrown if <paramref name="value"/> does not begin with
+            <paramref name="substring"/>.
+            </exception>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert.StartsWith(System.String,System.String,System.String,System.StringComparison,System.Object[])">
+            <summary>
+            Tests whether the specified string begins with the specified substring
+            and throws an exception if the test string does not start with the
+            substring.
+            </summary>
+            <param name="value">
+            The string that is expected to begin with <paramref name="substring"/>.
+            </param>
+            <param name="substring">
+            The string expected to be a prefix of <paramref name="value"/>.
+            </param>
+            <param name="message">
+            The message to include in the exception when <paramref name="value"/>
+            does not begin with <paramref name="substring"/>. The message is
+            shown in test results.
+            </param>
+            <param name="comparisonType">
+            The comparison method to compare strings <paramref name="comparisonType"/>.
+            </param>
+            <param name="parameters">
+            An array of parameters to use when formatting <paramref name="message"/>.
+            </param>
+            <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
+            Thrown if <paramref name="value"/> does not begin with
+            <paramref name="substring"/>.
+            </exception>
+        </member>
         <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert.EndsWith(System.String,System.String)">
             <summary>
             Tests whether the specified string ends with the specified substring
@@ -2474,6 +3205,26 @@
             </param>
             <param name="substring">
             The string expected to be a suffix of <paramref name="value"/>.
+            </param>
+            <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
+            Thrown if <paramref name="value"/> does not end with
+            <paramref name="substring"/>.
+            </exception>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert.EndsWith(System.String,System.String,System.StringComparison)">
+            <summary>
+            Tests whether the specified string ends with the specified substring
+            and throws an exception if the test string does not end with the
+            substring.
+            </summary>
+            <param name="value">
+            The string that is expected to end with <paramref name="substring"/>.
+            </param>
+            <param name="substring">
+            The string expected to be a suffix of <paramref name="value"/>.
+            </param>
+            <param name="comparisonType">
+            The comparison method to compare strings <paramref name="comparisonType"/>.
             </param>
             <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
             Thrown if <paramref name="value"/> does not end with
@@ -2518,6 +3269,59 @@
             The message to include in the exception when <paramref name="value"/>
             does not end with <paramref name="substring"/>. The message is
             shown in test results.
+            </param>
+            <param name="parameters">
+            An array of parameters to use when formatting <paramref name="message"/>.
+            </param>
+            <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
+            Thrown if <paramref name="value"/> does not end with
+            <paramref name="substring"/>.
+            </exception>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert.EndsWith(System.String,System.String,System.String,System.StringComparison)">
+            <summary>
+            Tests whether the specified string ends with the specified substring
+            and throws an exception if the test string does not end with the
+            substring.
+            </summary>
+            <param name="value">
+            The string that is expected to end with <paramref name="substring"/>.
+            </param>
+            <param name="substring">
+            The string expected to be a suffix of <paramref name="value"/>.
+            </param>
+            <param name="message">
+            The message to include in the exception when <paramref name="value"/>
+            does not end with <paramref name="substring"/>. The message is
+            shown in test results.
+            </param>
+            <param name="comparisonType">
+            The comparison method to compare strings <paramref name="comparisonType"/>.
+            </param>
+            <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
+            Thrown if <paramref name="value"/> does not end with
+            <paramref name="substring"/>.
+            </exception>
+        </member>
+        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.StringAssert.EndsWith(System.String,System.String,System.String,System.StringComparison,System.Object[])">
+            <summary>
+            Tests whether the specified string ends with the specified substring
+            and throws an exception if the test string does not end with the
+            substring.
+            </summary>
+            <param name="value">
+            The string that is expected to end with <paramref name="substring"/>.
+            </param>
+            <param name="substring">
+            The string expected to be a suffix of <paramref name="value"/>.
+            </param>
+            <param name="message">
+            The message to include in the exception when <paramref name="value"/>
+            does not end with <paramref name="substring"/>. The message is
+            shown in test results.
+            </param>
+            <param name="comparisonType">
+            The comparison method to compare strings <paramref name="comparisonType"/>.
             </param>
             <param name="parameters">
             An array of parameters to use when formatting <paramref name="message"/>.
@@ -3233,8 +4037,9 @@
             <summary>
             Tests whether the specified collections are equal and throws an exception
             if the two collections are not equal. Equality is defined as having the same
-            elements in the same order and quantity. Different references to the same
-            value are considered equal.
+            elements in the same order and quantity. Whether two elements are the same
+            is checked using <see cref="M:System.Object.Equals(System.Object,System.Object)" /> method.
+            Different references to the same value are considered equal.
             </summary>
             <param name="expected">
             The first collection to compare. This is the collection the tests expects.
@@ -3252,8 +4057,9 @@
             <summary>
             Tests whether the specified collections are equal and throws an exception
             if the two collections are not equal. Equality is defined as having the same
-            elements in the same order and quantity. Different references to the same
-            value are considered equal.
+            elements in the same order and quantity. Whether two elements are the same
+            is checked using <see cref="M:System.Object.Equals(System.Object,System.Object)" /> method.
+            Different references to the same value are considered equal.
             </summary>
             <param name="expected">
             The first collection to compare. This is the collection the tests expects.
@@ -3276,8 +4082,9 @@
             <summary>
             Tests whether the specified collections are equal and throws an exception
             if the two collections are not equal. Equality is defined as having the same
-            elements in the same order and quantity. Different references to the same
-            value are considered equal.
+            elements in the same order and quantity. Whether two elements are the same
+            is checked using <see cref="M:System.Object.Equals(System.Object,System.Object)" /> method.
+            Different references to the same value are considered equal.
             </summary>
             <param name="expected">
             The first collection to compare. This is the collection the tests expects.
@@ -3303,8 +4110,9 @@
             <summary>
             Tests whether the specified collections are unequal and throws an exception
             if the two collections are equal. Equality is defined as having the same
-            elements in the same order and quantity. Different references to the same
-            value are considered equal.
+            elements in the same order and quantity. Whether two elements are the same
+            is checked using <see cref="M:System.Object.Equals(System.Object,System.Object)" /> method.
+            Different references to the same value are considered equal.
             </summary>
             <param name="notExpected">
             The first collection to compare. This is the collection the tests expects
@@ -3322,8 +4130,9 @@
             <summary>
             Tests whether the specified collections are unequal and throws an exception
             if the two collections are equal. Equality is defined as having the same
-            elements in the same order and quantity. Different references to the same
-            value are considered equal.
+            elements in the same order and quantity. Whether two elements are the same
+            is checked using <see cref="M:System.Object.Equals(System.Object,System.Object)" /> method.
+            Different references to the same value are considered equal.
             </summary>
             <param name="notExpected">
             The first collection to compare. This is the collection the tests expects
@@ -3346,8 +4155,9 @@
             <summary>
             Tests whether the specified collections are unequal and throws an exception
             if the two collections are equal. Equality is defined as having the same
-            elements in the same order and quantity. Different references to the same
-            value are considered equal.
+            elements in the same order and quantity. Whether two elements are the same
+            is checked using <see cref="M:System.Object.Equals(System.Object,System.Object)" /> method.
+            Different references to the same value are considered equal.
             </summary>
             <param name="notExpected">
             The first collection to compare. This is the collection the tests expects
@@ -3699,6 +4509,11 @@
               Looks up a localized string similar to async TestMethod with UITestMethodAttribute are not supported. Either remove async or use TestMethodAttribute..
             </summary>
         </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.FrameworkMessages.AsyncUITestMethodWithNoDispatcherQueue">
+            <summary>
+              Looks up a localized string similar to UITestMethodAttribute.DispatcherQueue should not be null. To use UITestMethodAttribute within a WinUI Desktop App, remember to set the static UITestMethodAttribute.DispatcherQueue during the test initialization..
+            </summary>
+        </member>
         <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.FrameworkMessages.BothCollectionsEmpty">
             <summary>
               Looks up a localized string similar to Both collections are empty. {0}.
@@ -3984,411 +4799,6 @@
             <param name="ex">Exception to get messages for</param>
             <returns>string with error message information</returns>
         </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestTimeout">
-            <summary>
-            Enumeration for timeouts, that can be used with the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TimeoutAttribute"/> class.
-            The type of the enumeration must match
-            </summary>
-        </member>
-        <member name="F:Microsoft.VisualStudio.TestTools.UnitTesting.TestTimeout.Infinite">
-            <summary>
-            The infinite.
-            </summary>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.InheritanceBehavior">
-            <summary>
-            Enumeration for inheritance behavior, that can be used with both the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute"/> class
-            and <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute"/> class.
-            Defines the behavior of the ClassInitialize and ClassCleanup methods of base classes.
-            The type of the enumeration must match
-            </summary>
-        </member>
-        <member name="F:Microsoft.VisualStudio.TestTools.UnitTesting.InheritanceBehavior.None">
-            <summary>
-            None.
-            </summary>
-        </member>
-        <member name="F:Microsoft.VisualStudio.TestTools.UnitTesting.InheritanceBehavior.BeforeEachDerivedClass">
-            <summary>
-            Before each derived class.
-            </summary>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute">
-            <summary>
-            The test class attribute.
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute.GetTestMethodAttribute(Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute)">
-            <summary>
-            Gets a test method attribute that enables running this test.
-            </summary>
-            <param name="testMethodAttribute">The test method attribute instance defined on this method.</param>
-            <returns>The <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute"/> to be used to run this test.</returns>
-            <remarks>Extensions can override this method to customize how all methods in a class are run.</remarks>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute">
-            <summary>
-            The test method attribute.
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute"/> class.
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute"/> class.
-            </summary>
-            <param name="displayName">
-            Message specifies reason for ignoring.
-            </param>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute.DisplayName">
-            <summary>
-            Gets display Name for the Test Window
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute.Execute(Microsoft.VisualStudio.TestTools.UnitTesting.ITestMethod)">
-            <summary>
-            Executes a test method.
-            </summary>
-            <param name="testMethod">The test method to execute.</param>
-            <returns>An array of TestResult objects that represent the outcome(s) of the test.</returns>
-            <remarks>Extensions can override this method to customize running a TestMethod.</remarks>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.DataTestMethodAttribute">
-            <summary>
-            Attribute for data driven test where data can be specified in-line.
-            </summary>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestInitializeAttribute">
-            <summary>
-            The test initialize attribute.
-            </summary>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestCleanupAttribute">
-            <summary>
-            The test cleanup attribute.
-            </summary>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute">
-            <summary>
-            The ignore attribute.
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute"/> class.
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute"/> class.
-            </summary>
-            <param name="message">
-            Message specifies reason for ignoring.
-            </param>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute.IgnoreMessage">
-            <summary>
-            Gets the owner.
-            </summary>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute">
-            <summary>
-            The test property attribute.
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute.#ctor(System.String,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute"/> class.
-            </summary>
-            <param name="name">
-            The name.
-            </param>
-            <param name="value">
-            The value.
-            </param>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute.Name">
-            <summary>
-            Gets the name.
-            </summary>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute.Value">
-            <summary>
-            Gets the value.
-            </summary>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute">
-            <summary>
-            The class initialize attribute.
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute"/> class.
-            ClassInitializeAttribute
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute.#ctor(Microsoft.VisualStudio.TestTools.UnitTesting.InheritanceBehavior)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute"/> class.
-            ClassInitializeAttribute
-            </summary>
-            <param name="inheritanceBehavior">
-            Specifies the ClassInitialize Inheritance Behavior
-            </param>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute.InheritanceBehavior">
-            <summary>
-            Gets the Inheritance Behavior
-            </summary>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute">
-            <summary>
-            The class cleanup attribute.
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute"/> class.
-            ClassCleanupAttribute
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute.#ctor(Microsoft.VisualStudio.TestTools.UnitTesting.InheritanceBehavior)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute"/> class.
-            ClassCleanupAttribute
-            </summary>
-            <param name="inheritanceBehavior">
-            Specifies the ClassCleanup Inheritance Behavior
-            </param>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute.InheritanceBehavior">
-            <summary>
-            Gets the Inheritance Behavior
-            </summary>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssemblyInitializeAttribute">
-            <summary>
-            The assembly initialize attribute.
-            </summary>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssemblyCleanupAttribute">
-            <summary>
-            The assembly cleanup attribute.
-            </summary>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.OwnerAttribute">
-            <summary>
-            Test Owner
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.OwnerAttribute.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.OwnerAttribute"/> class.
-            </summary>
-            <param name="owner">
-            The owner.
-            </param>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.OwnerAttribute.Owner">
-            <summary>
-            Gets the owner.
-            </summary>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.PriorityAttribute">
-            <summary>
-            Priority attribute; used to specify the priority of a unit test.
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.PriorityAttribute.#ctor(System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.PriorityAttribute"/> class.
-            </summary>
-            <param name="priority">
-            The priority.
-            </param>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.PriorityAttribute.Priority">
-            <summary>
-            Gets the priority.
-            </summary>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute">
-            <summary>
-            Description of the test
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute"/> class to describe a test.
-            </summary>
-            <param name="description">The description.</param>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute.Description">
-            <summary>
-            Gets the description of a test.
-            </summary>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.CssProjectStructureAttribute">
-            <summary>
-            CSS Project Structure URI
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.CssProjectStructureAttribute.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.CssProjectStructureAttribute"/> class for CSS Project Structure URI.
-            </summary>
-            <param name="cssProjectStructure">The CSS Project Structure URI.</param>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.CssProjectStructureAttribute.CssProjectStructure">
-            <summary>
-            Gets the CSS Project Structure URI.
-            </summary>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.CssIterationAttribute">
-            <summary>
-            CSS Iteration URI
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.CssIterationAttribute.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.CssIterationAttribute"/> class for CSS Iteration URI.
-            </summary>
-            <param name="cssIteration">The CSS Iteration URI.</param>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.CssIterationAttribute.CssIteration">
-            <summary>
-            Gets the CSS Iteration URI.
-            </summary>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.WorkItemAttribute">
-            <summary>
-            WorkItem attribute; used to specify a work item associated with this test.
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.WorkItemAttribute.#ctor(System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.WorkItemAttribute"/> class for the WorkItem Attribute.
-            </summary>
-            <param name="id">The Id to a work item.</param>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.WorkItemAttribute.Id">
-            <summary>
-            Gets the Id to a work item associated.
-            </summary>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.TimeoutAttribute">
-            <summary>
-            Timeout attribute; used to specify the timeout of a unit test.
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.TimeoutAttribute.#ctor(System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TimeoutAttribute"/> class.
-            </summary>
-            <param name="timeout">
-            The timeout in milliseconds.
-            </param>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.TimeoutAttribute.#ctor(Microsoft.VisualStudio.TestTools.UnitTesting.TestTimeout)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TimeoutAttribute"/> class with a preset timeout
-            </summary>
-            <param name="timeout">
-            The timeout
-            </param>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TimeoutAttribute.Timeout">
-            <summary>
-            Gets the timeout in milliseconds.
-            </summary>
-        </member>
-        <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult">
-            <summary>
-            TestResult object to be returned to adapter.
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult"/> class.
-            </summary>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.DisplayName">
-            <summary>
-            Gets or sets the display name of the result. Useful when returning multiple results.
-            If null then Method name is used as DisplayName.
-            </summary>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.Outcome">
-            <summary>
-            Gets or sets the outcome of the test execution.
-            </summary>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.TestFailureException">
-            <summary>
-            Gets or sets the exception thrown when test is failed.
-            </summary>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.LogOutput">
-            <summary>
-            Gets or sets the output of the message logged by test code.
-            </summary>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.LogError">
-            <summary>
-            Gets or sets the output of the message logged by test code.
-            </summary>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.DebugTrace">
-            <summary>
-            Gets or sets the debug traces by test code.
-            </summary>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.TestContextMessages">
-            <summary>
-            Gets or sets the debug traces by test code.
-            </summary>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.ExecutionId">
-            <summary>
-            Gets or sets the execution id of the result.
-            </summary>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.ParentExecId">
-            <summary>
-            Gets or sets the parent execution id of the result.
-            </summary>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.InnerResultsCount">
-            <summary>
-            Gets or sets the inner results count of the result.
-            </summary>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.Duration">
-            <summary>
-            Gets or sets the duration of test execution.
-            </summary>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.DatarowIndex">
-            <summary>
-            Gets or sets the data row index in data source. Set only for results of individual
-            run of data row of a data driven test.
-            </summary>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.ReturnValue">
-            <summary>
-            Gets or sets the return value of the test method. (Currently null always).
-            </summary>
-        </member>
-        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestResult.ResultFiles">
-            <summary>
-            Gets or sets the result files attached by the test.
-            </summary>
-        </member>
         <member name="T:Microsoft.VisualStudio.TestTools.UnitTesting.DataSourceAttribute">
             <summary>
             Specifies connection string, table name and row access method for data driven testing.
@@ -4472,6 +4882,115 @@
             <summary>
             Gets the name of a data source found in the &lt;microsoft.visualstudio.qualitytools&gt; section in the app.config file.
             </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.AllowNullAttribute">
+            <summary>Specifies that null is allowed as an input even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DisallowNullAttribute">
+            <summary>Specifies that null is disallowed as an input even if the corresponding type allows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MaybeNullAttribute">
+            <summary>Specifies that an output may be null even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullAttribute">
+            <summary>Specifies that an output will not be null even if the corresponding type allows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute">
+            <summary>Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.ReturnValue"/>, the parameter may be null even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified return value condition.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter may be null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute">
+            <summary>Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.ReturnValue"/>, the parameter will not be null even if the corresponding type allows it.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified return value condition.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter will not be null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute">
+            <summary>Specifies that the output will be non-null if the named parameter is non-null.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute.#ctor(System.String)">
+            <summary>Initializes the attribute with the associated parameter name.</summary>
+            <param name="parameterName">
+            The associated parameter name.  The output will be non-null if the argument to the parameter specified is non-null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute.ParameterName">
+            <summary>Gets the associated parameter name.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DoesNotReturnAttribute">
+            <summary>Applied to a method that will never return under any circumstance.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute">
+            <summary>Specifies that the method will not return if the associated Boolean parameter is passed the specified value.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified parameter value.</summary>
+            <param name="parameterValue">
+            The condition parameter value. Code after the method will be considered unreachable by diagnostics if the argument to
+            the associated parameter matches this value.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute.ParameterValue">
+            <summary>Gets the condition parameter value.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute">
+            <summary>Specifies that the method or property will ensure that the listed field and property members have not-null values.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute.#ctor(System.String)">
+            <summary>Initializes the attribute with a field or property member.</summary>
+            <param name="member">
+            The field or property member that is promised to be not-null.
+            </param>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute.#ctor(System.String[])">
+            <summary>Initializes the attribute with the list of field and property members.</summary>
+            <param name="members">
+            The list of field and property members that are promised to be not-null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute.Members">
+            <summary>Gets field or property member names.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute">
+            <summary>Specifies that the method or property will ensure that the listed field and property members have not-null values when returning with the specified return value condition.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.#ctor(System.Boolean,System.String)">
+            <summary>Initializes the attribute with the specified return value condition and a field or property member.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter will not be null.
+            </param>
+            <param name="member">
+            The field or property member that is promised to be not-null.
+            </param>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.#ctor(System.Boolean,System.String[])">
+            <summary>Initializes the attribute with the specified return value condition and list of field and property members.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter will not be null.
+            </param>
+            <param name="members">
+            The list of field and property members that are promised to be not-null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.Members">
+            <summary>Gets field or property member names.</summary>
         </member>
     </members>
 </doc>

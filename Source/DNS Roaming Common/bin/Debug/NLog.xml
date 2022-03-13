@@ -3631,7 +3631,7 @@
         </member>
         <member name="M:NLog.Config.LoggingRule.#ctor(System.String,NLog.Targets.Target)">
             <summary>
-            Create a (disabled) <see cref="T:NLog.Config.LoggingRule" />. You should call <see cref="M:NLog.Config.LoggingRule.EnableLoggingForLevel(NLog.LogLevel)"/> or see cref="EnableLoggingForLevels"/> to enable logging.
+            Create a (disabled) <see cref="T:NLog.Config.LoggingRule" />. You should call <see cref="M:NLog.Config.LoggingRule.EnableLoggingForLevel(NLog.LogLevel)"/> or <see cref="M:NLog.Config.LoggingRule.EnableLoggingForLevels(NLog.LogLevel,NLog.LogLevel)"/> to enable logging.
             </summary>
             <param name="loggerNamePattern">Logger name pattern used for <see cref="P:NLog.Config.LoggingRule.LoggerNamePattern"/>. It may include one or more '*' or '?' wildcards at any position.</param>
             <param name="target">Target to be written to when the rule matches.</param>
@@ -3714,7 +3714,7 @@
             <summary>
             Enables logging the levels between (included) <paramref name="minLevel"/> and <paramref name="maxLevel"/>. All the other levels will be disabled.
             </summary>
-            <param name="minLevel">>Minimum log level needed to trigger this rule.</param>
+            <param name="minLevel">Minimum log level needed to trigger this rule.</param>
             <param name="maxLevel">Maximum log level needed to trigger this rule.</param>
         </member>
         <member name="M:NLog.Config.LoggingRule.ToString">
@@ -5058,9 +5058,21 @@
             </summary>
             <docgen category='Payload Options' order='10' />
         </member>
+        <member name="P:NLog.IIncludeContext.IncludeEventProperties">
+            <summary>
+            Gets or sets the option to include all properties from the log events
+            </summary>
+            <docgen category='Payload Options' order='10' />
+        </member>
         <member name="P:NLog.IIncludeContext.IncludeAllProperties">
             <summary>
             Gets or sets the option to include all properties from the log events
+            </summary>
+            <docgen category='Payload Options' order='10' />
+        </member>
+        <member name="P:NLog.IIncludeContext.IncludeScopeProperties">
+            <summary>
+            Gets or sets a value indicating whether to include contents of the <see cref="T:NLog.MappedDiagnosticsLogicalContext"/> dictionary.
             </summary>
             <docgen category='Payload Options' order='10' />
         </member>
@@ -9970,9 +9982,15 @@
         </member>
         <member name="M:NLog.Internal.PropertiesDictionary.#ctor(System.Collections.Generic.IList{NLog.MessageTemplates.MessageTemplateParameter})">
             <summary>
-            Injects the list of message-template-parameter into the IDictionary-interface
+            Wraps the list of message-template-parameters into the IDictionary-interface
             </summary>
-            <param name="parameterList">Message-template-parameters</param>
+            <param name="messageParameters">Message-template-parameters</param>
+        </member>
+        <member name="M:NLog.Internal.PropertiesDictionary.#ctor(System.Collections.Generic.IReadOnlyList{System.Collections.Generic.KeyValuePair{System.Object,System.Object}})">
+            <summary>
+            Transforms the list of event-properties into IDictionary-interface
+            </summary>
+            <param name="eventProperties">Message-template-parameters</param>
         </member>
         <member name="P:NLog.Internal.PropertiesDictionary.Item(System.Object)">
             <inheritDoc/>
@@ -12538,6 +12556,12 @@
             </summary>
             <docgen category='Payload Options' order='10' />
         </member>
+        <member name="P:NLog.LayoutRenderers.Log4JXmlEventLayoutRenderer.IncludeScopeProperties">
+            <summary>
+            Gets or sets a value indicating whether to include contents of the <see cref="T:NLog.MappedDiagnosticsLogicalContext"/> dictionary.
+            </summary>
+            <docgen category='Payload Options' order='10' />
+        </member>
         <member name="P:NLog.LayoutRenderers.Log4JXmlEventLayoutRenderer.IncludeMdlc">
             <summary>
             Gets or sets a value indicating whether to include contents of the <see cref="T:NLog.MappedDiagnosticsLogicalContext"/> dictionary.
@@ -12555,6 +12579,12 @@
             Gets or sets the NDLC item separator.
             </summary>
             <docgen category='Payload Options' order='10' />
+        </member>
+        <member name="P:NLog.LayoutRenderers.Log4JXmlEventLayoutRenderer.IncludeEventProperties">
+            <summary>
+            Gets or sets the option to include all properties from the log events
+            </summary>
+            <docgen category='JSON Output' order='10' />
         </member>
         <member name="P:NLog.LayoutRenderers.Log4JXmlEventLayoutRenderer.IncludeAllProperties">
             <summary>
@@ -14905,7 +14935,19 @@
             </summary>
             <docgen category='JSON Output' order='10' />
         </member>
+        <member name="P:NLog.Layouts.JsonLayout.IncludeScopeProperties">
+            <summary>
+            Gets or sets a value indicating whether to include contents of the <see cref="T:NLog.MappedDiagnosticsLogicalContext"/> dictionary.
+            </summary>
+            <docgen category='JSON Output' order='10' />
+        </member>
         <member name="P:NLog.Layouts.JsonLayout.IncludeAllProperties">
+            <summary>
+            Gets or sets the option to include all properties from the log event (as JSON)
+            </summary>
+            <docgen category='JSON Output' order='10' />
+        </member>
+        <member name="P:NLog.Layouts.JsonLayout.IncludeEventProperties">
             <summary>
             Gets or sets the option to include all properties from the log event (as JSON)
             </summary>
@@ -15262,6 +15304,12 @@
             </summary>
             <docgen category='Payload Options' order='10' />
         </member>
+        <member name="P:NLog.Layouts.Log4JXmlEventLayout.IncludeEventProperties">
+            <summary>
+            Gets or sets the option to include all properties from the log events
+            </summary>
+            <docgen category='Payload Options' order='10' />
+        </member>
         <member name="P:NLog.Layouts.Log4JXmlEventLayout.IncludeAllProperties">
             <summary>
             Gets or sets the option to include all properties from the log events
@@ -15271,6 +15319,12 @@
         <member name="P:NLog.Layouts.Log4JXmlEventLayout.IncludeNdc">
             <summary>
             Gets or sets a value indicating whether to include contents of the <see cref="T:NLog.NestedDiagnosticsContext"/> stack.
+            </summary>
+            <docgen category='Payload Options' order='10' />
+        </member>
+        <member name="P:NLog.Layouts.Log4JXmlEventLayout.IncludeScopeProperties">
+            <summary>
+            Gets or sets a value indicating whether to include contents of the <see cref="T:NLog.MappedDiagnosticsLogicalContext"/> dictionary.
             </summary>
             <docgen category='Payload Options' order='10' />
         </member>
@@ -15585,7 +15639,19 @@
             </summary>
             <docgen category='LogEvent Properties XML Options' order='10' />
         </member>
+        <member name="P:NLog.Layouts.XmlElementBase.IncludeScopeProperties">
+            <summary>
+            Gets or sets a value indicating whether to include contents of the <see cref="T:NLog.MappedDiagnosticsLogicalContext"/> dictionary.
+            </summary>
+            <docgen category='LogEvent Properties XML Options' order='10' />
+        </member>
         <member name="P:NLog.Layouts.XmlElementBase.IncludeAllProperties">
+            <summary>
+            Gets or sets the option to include all properties from the log event (as XML)
+            </summary>
+            <docgen category='LogEvent Properties XML Options' order='10' />
+        </member>
+        <member name="P:NLog.Layouts.XmlElementBase.IncludeEventProperties">
             <summary>
             Gets or sets the option to include all properties from the log event (as XML)
             </summary>
@@ -15750,7 +15816,16 @@
             <param name="level">Log level.</param>
             <param name="loggerName">Logger name.</param>
             <param name="message">Log message including parameter placeholders.</param>
-            <param name="messageTemplateParameters">Log message including parameter placeholders.</param>
+            <param name="messageTemplateParameters">Already parsed message template parameters.</param>
+        </member>
+        <member name="M:NLog.LogEventInfo.#ctor(NLog.LogLevel,System.String,System.String,System.Collections.Generic.IReadOnlyList{System.Collections.Generic.KeyValuePair{System.Object,System.Object}})">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.LogEventInfo" /> class.
+            </summary>
+            <param name="level">Log level.</param>
+            <param name="loggerName">Override default Logger name. Default <see cref="P:NLog.Logger.Name"/> is used when <c>null</c></param>
+            <param name="message">Log message.</param>
+            <param name="eventProperties">List of event-properties</param>
         </member>
         <member name="M:NLog.LogEventInfo.#ctor(NLog.LogLevel,System.String,System.IFormatProvider,System.String,System.Object[])">
             <summary>
@@ -26696,6 +26771,12 @@
             </summary>
             <docgen category='Payload Options' order='10' />
         </member>
+        <member name="P:NLog.Targets.NLogViewerTarget.IncludeScopeProperties">
+            <summary>
+            Gets or sets a value indicating whether to include <see cref="T:NLog.MappedDiagnosticsLogicalContext"/> dictionary contents.
+            </summary>
+            <docgen category='Payload Options' order='10' />
+        </member>
         <member name="P:NLog.Targets.NLogViewerTarget.IncludeMdlc">
             <summary>
             Gets or sets a value indicating whether to include <see cref="T:NLog.MappedDiagnosticsLogicalContext"/> dictionary contents.
@@ -26715,6 +26796,12 @@
             <docgen category='Payload Options' order='10' />
         </member>
         <member name="P:NLog.Targets.NLogViewerTarget.IncludeAllProperties">
+            <summary>
+            Gets or sets the option to include all properties from the log events
+            </summary>
+            <docgen category='Payload Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.NLogViewerTarget.IncludeEventProperties">
             <summary>
             Gets or sets the option to include all properties from the log events
             </summary>
@@ -27309,6 +27396,10 @@
             <inheritdoc/>
             <docgen category='Layout Options' order='10' />
         </member>
+        <member name="P:NLog.Targets.TargetWithContext.IncludeScopeProperties">
+            <inheritdoc/>
+            <docgen category='Layout Options' order='10' />
+        </member>
         <member name="P:NLog.Targets.TargetWithContext.IncludeMdlc">
             <inheritdoc/>
             <docgen category='Layout Options' order='10' />
@@ -27762,6 +27853,12 @@
         <member name="P:NLog.Targets.WebServiceTarget.Url">
             <summary>
             Gets or sets the web service URL.
+            </summary>
+            <docgen category='Web Service Options' order='10' />
+        </member>
+        <member name="P:NLog.Targets.WebServiceTarget.UserAgent">
+            <summary>
+            Gets or sets the value of the User-agent HTTP header.
             </summary>
             <docgen category='Web Service Options' order='10' />
         </member>

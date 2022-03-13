@@ -11,7 +11,7 @@ namespace DNS_Roaming_Unit_Tests
         [TestMethod]
         public void GetNetworkAddress_SameSubNet_Equals()
         {
-            //Arange
+            //Arrange
             IPAddress ip1 = IPAddress.Parse("192.168.1.1");
             IPAddress subnet1 = IPAddress.Parse("255.255.255.0");
 
@@ -29,7 +29,7 @@ namespace DNS_Roaming_Unit_Tests
         [TestMethod]
         public void GetNetworkAddress_DiffentAddress_NotEquals()
         {
-            //Arange
+            //Arrange
             IPAddress ip1 = IPAddress.Parse("192.168.0.1");
             IPAddress subnet1 = IPAddress.Parse("255.255.255.0");
 
@@ -47,7 +47,7 @@ namespace DNS_Roaming_Unit_Tests
         [TestMethod]
         public void GetNetworkAddress_DiffentSubNet_NotEquals()
         {
-            //Arange
+            //Arrange
             IPAddress ip1 = IPAddress.Parse("192.168.1.1");
             IPAddress subnet1 = IPAddress.Parse("255.255.0.0");
 
@@ -66,7 +66,7 @@ namespace DNS_Roaming_Unit_Tests
         [TestMethod]
         public void GetDNSSetIPAddress_Blank_ReturnsNotEmpty()
         {
-            //Arange
+            //Arrange
             string dnsSet = string.Empty;
             string ipPreferred = string.Empty;
             string ipAlternative = string.Empty;
@@ -76,6 +76,21 @@ namespace DNS_Roaming_Unit_Tests
 
             //Asset
             Assert.IsTrue(ipPreferred != String.Empty && ipAlternative != String.Empty);
+        }
+
+        [TestMethod]
+        public void GetBroadcastAddress_ValidGateway()
+        {
+            //Arrange
+            IPAddress ip = IPAddress.Parse("192.168.1.1");
+            IPAddress subnet = IPAddress.Parse("255.255.255.0");
+            IPAddress expectedGateway = IPAddress.Parse("192.168.1.255");
+
+            //Act
+            IPAddress gateway = NetworkingExtensions.GetBroadcastAddress(ip,subnet);
+
+            //Asset
+            Assert.AreEqual(gateway, expectedGateway);
         }
     }
 }

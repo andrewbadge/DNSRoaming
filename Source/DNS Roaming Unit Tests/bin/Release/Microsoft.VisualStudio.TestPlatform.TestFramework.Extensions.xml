@@ -1055,6 +1055,16 @@
             Gets the Fully-qualified name of the class containing the test method currently being executed
             </summary>
         </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestContext.ManagedType">
+            <summary>
+            Gets the fully specified type name metadata format.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestContext.ManagedMethod">
+            <summary>
+            Gets the fully specified method name metadata format.
+            </summary>
+        </member>
         <member name="P:Microsoft.VisualStudio.TestTools.UnitTesting.TestContext.TestName">
             <summary>
             Gets the name of the test method currently being executed
