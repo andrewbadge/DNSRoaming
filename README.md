@@ -80,6 +80,8 @@ See the [Apache 2.0](https://github.com/andrewbadge/DNSRoaming/blob/main/LICENSE
 
 [Octokit](https://github.com/octokit) for the GitHub API library
  
+[MichaCo / DnsClient.NET](https://github.com/MichaCo/DnsClient.NET) for the DNSClient library
+ 
 To [Zky Icon](https://iconscout.com/contributors/zkyicon) for the [Server Dualtone Icon] used in this App. 
 
 To every random person answering questions on StackExchange
