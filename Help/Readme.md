@@ -45,6 +45,14 @@ Editing a Rule
 
 ![image](https://user-images.githubusercontent.com/15990355/159151008-abf74e10-5bdc-4a28-9c7b-3d31a56a6f33.png)
 
+- Ping: If a Ping to an address is successful or fails
+
+![image](https://user-images.githubusercontent.com/15990355/159151177-cdc6f752-394a-4593-96bf-12cc6528d914.png)
+
+- DNS Query: If a Query to a DNS Server is successful or fails. E.g. Setup a DNS CNAME (abc123.domainname.com) on your private DNS server. If this query is successful you know the client is connected to the private DNS server.
+
+![image](https://user-images.githubusercontent.com/15990355/159151170-ea36e64d-a51b-49ba-814f-0a95ed01539b.png)
+
 - Set to: a predefined list or use a specific preferred or alternative network. Use the icon to fill copy down a DNS set to the fields below.
 
 ![image](https://user-images.githubusercontent.com/15990355/159151036-994d903f-36c6-4dcd-af8b-fb39468d05eb.png)
