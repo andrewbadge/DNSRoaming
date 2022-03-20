@@ -21,6 +21,7 @@ msiexec /i "[MSIPath]\DNSRoaming-ServiceAndClient.msi" /QN RULESETURL="clear"
 ## Format of the RuleSet File
 
 The RuleSet file can be any name but is expected to a text file containing one or more lines of:
+- MinVersion (optional)
 - DeleteAllRules (Optional)
 - Rule Download URL (http://domain.com/filename.txt or https://domain.com/filename.txt)
 - Comments starting with //
@@ -29,6 +30,8 @@ Delimited by a comma
 
 e.g.
 ```
+//Only process this file with version 1.3.0.5 and above
+MinVersion:1.3.0.5
 // Delete all Rules first
 DeleteAllRules
 // My Rule A
@@ -49,6 +52,7 @@ NB: the old format of Rule Filename, Rule URL will still work. The Filename is j
 - The ruleset file can't be more than 10KB
 - Its expected to be a text file. Other file contents will not parse.
 - The RuleSet file must be public without authentication; although querystrings will work
+- The MinVersion instruction will only work for version 1.3.0.5 and later
 
 # How to Stop DNSRoaming downloading rules
 
@@ -57,6 +61,6 @@ Once the service loads this value is moved into the RuleSetData.xml file in the 
 
 There are 2 ways to stop DNS Roaming download more rules:
 1. Open the Client and Settings. Open the Options Tab and clear the URL
-![image](https://user-images.githubusercontent.com/15990355/145539656-a999966e-f4cb-4992-b2da-d48470e53744.png)
+![image](https://user-images.githubusercontent.com/15990355/159150792-98b95fc5-349d-404e-b1f0-97b9504d6438.png)
 
 2. Open the RuleSetData.xml file and Clear or Delete the RULESETURL value.
