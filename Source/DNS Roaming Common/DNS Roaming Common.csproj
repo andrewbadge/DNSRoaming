@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="clsDNSRoamingOption.cs" />
     <Compile Include="clsDNSRoamingRule.cs" />
+    <Compile Include="clsInstallerInfo.cs" />
     <Compile Include="clsLogger.cs" />
     <Compile Include="clsNetworkingExtensions.cs" />
     <Compile Include="clsNetworkInterfaceType.cs" />

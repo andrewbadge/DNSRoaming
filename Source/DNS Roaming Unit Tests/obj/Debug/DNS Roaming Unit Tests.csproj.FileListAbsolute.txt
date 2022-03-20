@@ -38,6 +38,6 @@ D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Debug\NL
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Debug\IPAddressRange.xml
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\obj\Debug\DNS Roaming Unit Tests.csproj.AssemblyReference.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\obj\Debug\DNS Roaming Unit Tests.csproj.CoreCompileInputs.cache
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\obj\Debug\DNS Roaming Unit Tests.csproj.CopyComplete
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\obj\Debug\DNS Roaming Unit Tests.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\obj\Debug\DNS Roaming Unit Tests.pdb
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\obj\Debug\DNS Roaming Unit Tests.csproj.CopyComplete

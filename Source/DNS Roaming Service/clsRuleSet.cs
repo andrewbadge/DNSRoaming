@@ -134,6 +134,10 @@ namespace DNS_Roaming_Service
 
             try
             {
+                //A minVersion may be optionally set in the file.
+                //If false; then the file won't be processed.
+                bool minVersionOk = true;
+
                 //Check if less than 10KB. That should cover 50+ rules.
                 //It would be weird if larger so ignore the file
                 FileInfo fi = new FileInfo(ruleSetFilename);
@@ -145,54 +149,85 @@ namespace DNS_Roaming_Service
 
                     foreach (string ruleLine in System.IO.File.ReadLines(ruleSetFilename))
                     {
-                        //Ignore Blank Lines
-                        if (ruleLine.Trim() != string.Empty)
+                        bool lineProcessed = false;
+
+                        //Blank Line
+                        if (!lineProcessed && ruleLine.Trim() == string.Empty) lineProcessed = true;
+
+                        //Comment Line
+                        if (!lineProcessed && ruleLine.Trim().StartsWith("//")) lineProcessed = true;
+                        
+                        //Delete all existing Rule Files
+                        if (!lineProcessed && ruleLine.Trim().ToLower() == "deleteallrules")
                         {
-                            if (!ruleLine.Trim().StartsWith("//"))
+                            lineProcessed = true;
+                            //Perform after all lines are read so a different can be checked
+                            deleteAllRulesTriggered = true;
+                        }
+
+                        //Only process the file if the service is this version or above
+                        if (!lineProcessed && ruleLine.Trim().ToLower().StartsWith("minversion"))
+                        {
+                            lineProcessed = true;
+
+                            //Expect the format minversion:1.1
+                            string[] versionParts = ruleLine.Split(':');
+                            if (versionParts.Length == 2)
                             {
+                                Version minVersion = Version.Parse(versionParts[1]);
 
-                                if (ruleLine.Trim().ToLower() == "deleteallrules")
+                                InstallerInfo installerInfo = new InstallerInfo();
+                                Version installedversion = installerInfo.GetInstalledMSIVersion();
+
+                                //If the installed Version is equal to or newer than the min
+                                var versionComparison = installedversion.CompareTo(minVersion);
+                                minVersionOk = versionComparison >= 0;
+
+                                if (!minVersionOk)
                                 {
-                                    //Delete all existing Rule Files
-                                    //Perform after all lines are read so a different can be checked
-                                    deleteAllRulesTriggered = true;
-                                }
-                                else
-                                {
-                                    string[] ruleParts = ruleLine.Split(',');
-
-                                    //Expecting url
-                                    if (ruleParts.Length == 1)
-                                    {
-                                        Uri ruleUri;
-                                        bool isValidURL = Uri.TryCreate(ruleParts[0], UriKind.Absolute, out ruleUri) && (ruleUri.Scheme == Uri.UriSchemeHttp || ruleUri.Scheme == Uri.UriSchemeHttps);
-
-                                        if (isValidURL)
-                                        {
-                                            DownloadandReplaceRule(ruleUri.ToString(), out returnRuleGuid);
-                                            if (returnRuleGuid != string.Empty) newRuleGUIDs.Add(returnRuleGuid);
-                                        }
-                                    }
-
-                                    //Expecting localfilename,url
-                                    //This is the orignal format but now we derive the filename from the GUID in the Rule
-                                    if (ruleParts.Length == 2)
-                                    {
-                                        Uri ruleUri;
-                                        bool isValidURL = Uri.TryCreate(ruleParts[1], UriKind.Absolute, out ruleUri) && (ruleUri.Scheme == Uri.UriSchemeHttp || ruleUri.Scheme == Uri.UriSchemeHttps);
-
-                                        if (isValidURL)
-                                        {
-                                            DownloadandReplaceRule(ruleUri.ToString(), out returnRuleGuid);
-                                            if (returnRuleGuid != string.Empty) newRuleGUIDs.Add(returnRuleGuid);
-                                        }
-                                    }
+                                    Logger.Info(String.Format("Rule file requires a minimum version ({0}) greater than the installed version ({1})",minVersion.ToString(),installedversion.ToString()));
+                                    break;
                                 }
                             }
                         }
+
+                        //Line with a possible URL
+                        if (!lineProcessed)
+                        {
+                            string[] ruleParts = ruleLine.Split(',');
+
+                            //Expecting url
+                            if (ruleParts.Length == 1)
+                            {
+                                Uri ruleUri;
+                                bool isValidURL = Uri.TryCreate(ruleParts[0], UriKind.Absolute, out ruleUri) && (ruleUri.Scheme == Uri.UriSchemeHttp || ruleUri.Scheme == Uri.UriSchemeHttps);
+
+                                if (isValidURL)
+                                {
+                                    DownloadandReplaceRule(ruleUri.ToString(), out returnRuleGuid);
+                                    if (returnRuleGuid != string.Empty) newRuleGUIDs.Add(returnRuleGuid);
+                                }
+                            }
+
+                            //Expecting localfilename,url
+                            //This is the orignal format but now we derive the filename from the GUID in the Rule
+                            if (ruleParts.Length == 2)
+                            {
+                                Uri ruleUri;
+                                bool isValidURL = Uri.TryCreate(ruleParts[1], UriKind.Absolute, out ruleUri) && (ruleUri.Scheme == Uri.UriSchemeHttp || ruleUri.Scheme == Uri.UriSchemeHttps);
+
+                                if (isValidURL)
+                                {
+                                    DownloadandReplaceRule(ruleUri.ToString(), out returnRuleGuid);
+                                    if (returnRuleGuid != string.Empty) newRuleGUIDs.Add(returnRuleGuid);
+                                }
+                            }    
+                        }
+
                     }
 
-                    if (deleteAllRulesTriggered) DeleteAllRules(newRuleGUIDs);
+                    //Delete all existing rules at the end
+                    if (minVersionOk && deleteAllRulesTriggered) DeleteAllRules(newRuleGUIDs);
                 }
 
             }

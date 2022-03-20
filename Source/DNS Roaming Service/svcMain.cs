@@ -51,12 +51,14 @@ namespace DNS_Roaming_Service
                 InitializeBackgroundWorker();
                 LoadOptions();
                 InitialiseDoH();
+                DNSRoamingNetworkInterfaces.IntialiseNetworkInterfaceTypes();
                 CheckRegistryForRuleSet();
                 LoadDNSRules();
                 registerEvents();
                 ConfigureTimers();
 
-                DNSRoamingNetworkInterfaces.IntialiseNetworkInterfaceTypes();
+                //Testing
+                DownloadRuleSet();
             }
             catch (Exception exception)
             {

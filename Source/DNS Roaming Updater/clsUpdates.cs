@@ -5,84 +5,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
+using DNS_Roaming_Common;
 
 namespace DNS_Roaming_Common
 {
     public class clsUpdates
     {
         Release latestRelease;
-
-        private Version GetInstalledMSIVersion()
-        {
-            Logger.Debug("GetInstalledMSIVersion");
-
-            string registryKeyName = @"SOFTWARE\WOW6432Node\DNSRoaming";
-            const string registryValueName = "Version";
-            Version returnVersion = null;
-
-            try
-            {
-
-                RegistryKey regKey = Registry.LocalMachine.OpenSubKey(registryKeyName);
-                if (regKey == null)
-                {
-                    registryKeyName = @"SOFTWARE\DNSRoaming";
-                    regKey = Registry.LocalMachine.OpenSubKey(registryKeyName);
-                }
-
-                //Not installed?
-                if (regKey != null)
-                {
-                    var regValue = regKey.GetValue(registryValueName);
-                    if (regValue != null)
-                        returnVersion = Version.Parse((string)regValue);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex.Message);
-            }
-
-            return returnVersion;
-
-        }
-
-        private string GetInstalledMSIType()
-        {
-            Logger.Debug("GetInstalledMSIType");
-
-            string registryKeyName = @"SOFTWARE\WOW6432Node\DNSRoaming";
-            const string registryValueName = "Type";
-            string returnType = "ServiceandClient";
-
-            try
-            {
-
-                RegistryKey regKey = Registry.LocalMachine.OpenSubKey(registryKeyName);
-                if (regKey == null)
-                {
-                    registryKeyName = @"SOFTWARE\DNSRoaming";
-                    regKey = Registry.LocalMachine.OpenSubKey(registryKeyName);
-                }
-
-                //Not installed?
-                if (regKey != null)
-                {
-                    var regValue = regKey.GetValue(registryValueName);
-                    if (regValue != null)
-                        returnType = (string)regValue;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex.Message);
-            }
-
-            return returnType;
-
-        }
 
         private async Task<Version> GetGitHubLatestVersionAsync()
         {
@@ -126,7 +55,8 @@ namespace DNS_Roaming_Common
 
             try
             {
-                Version installedversion = GetInstalledMSIVersion();
+                InstallerInfo installerInfo = new InstallerInfo();
+                Version installedversion = installerInfo.GetInstalledMSIVersion();
                 Logger.Info(String.Format("Installed Version is ({0})", installedversion.ToString()));
 
                 Task<Version> githubResult = GetGitHubLatestVersionAsync();
@@ -158,7 +88,8 @@ namespace DNS_Roaming_Common
 
             //CheckAnnotationLevel to see if the Client is installed (or just the service)
             Logger.Debug("Getting MSI Type");
-            serviceandClient = (GetInstalledMSIType() == "ServiceandClient");
+            InstallerInfo installerInfo = new InstallerInfo();
+            serviceandClient = (installerInfo.GetInstalledMSIType() == "ServiceandClient");
             //Loop each Asset in the release
             foreach (ReleaseAsset asset in latestRelease.Assets)
             {
