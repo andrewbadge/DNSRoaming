@@ -18,11 +18,15 @@ Right client the Tray icon for:
 
 List of Rules to Add, Edit or Remove
 
-![image](https://user-images.githubusercontent.com/15990355/145540011-e363f18e-a905-4f99-bce5-01cb699e34fc.png)
+![image](https://user-images.githubusercontent.com/15990355/159150915-dd94e855-dc7f-4cd3-99e6-0b47c12aa711.png)
 
-Options
+Network Options
 
-![image](https://user-images.githubusercontent.com/15990355/145540035-c49a184b-4f53-48e9-8d10-2073c0b20c04.png)
+![image](https://user-images.githubusercontent.com/15990355/159150925-c23820cb-9b89-4a67-8bc0-c1ad2858b2fa.png)
+
+Log Options
+
+![image](https://user-images.githubusercontent.com/15990355/159150932-99603579-b3d1-4bcb-9359-3b7310b11b2f.png)
 
 ### Edit Rule
 
