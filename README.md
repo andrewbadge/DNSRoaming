@@ -10,7 +10,7 @@ Run the MSI manually. Once installed run the DNS Roaming Client from the Windows
 
 NB: you will need **Run as Administrator** to install this MSI as a Windows Service is installed.
 
-## Quick Start for Admins and Automated Deployement 
+## Quick Start for Admins and Automated Deployment 
 
 Go to [Releases](https://github.com/andrewbadge/DNSRoaming/releases) and download the most recent **DNSRoaming-ServiceOnly.msi** file. You'll want to deploy this via you favourite management tool,  via a policy or [script](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/Deploy-Windows-DNSRoaming.ps1).
 
