@@ -55,10 +55,7 @@ namespace DNS_Roaming_Service
                 CheckRegistryForRuleSet();
                 LoadDNSRules();
                 registerEvents();
-                ConfigureTimers();
-
-                //Testing
-                DownloadRuleSet();
+                ConfigureTimers();                
             }
             catch (Exception exception)
             {
