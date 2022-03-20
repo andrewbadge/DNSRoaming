@@ -41,7 +41,7 @@ Editing a Rule
 - Address: Can be any address or a specific address range (Defined by Address and subnet). Use the icon to fill your current network's address.
 - Set to: a preefined list or use a specific preferred or alernative network. Use the icon to fill copy down a DNS set to the feilds below.
 
-![Edit Rule](![image](https://user-images.githubusercontent.com/15990355/155834962-6971c4b1-a53c-426c-8861-2bfbcf1c53c2.png))
+![image](https://user-images.githubusercontent.com/15990355/159150961-b943ba4c-25c7-4962-8688-aa3af6ebd162.png)
 
 ### DNS Sets
 
