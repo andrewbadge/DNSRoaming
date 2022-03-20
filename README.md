@@ -1,74 +1,52 @@
 # DNS Roaming Client and Service
 
-## Quick Start
+## Quick Start for Individuals
 
 Go to [Releases](https://github.com/andrewbadge/DNSRoaming/releases) and download the most recent **DNSRoaming-ServiceAndClient.msi** file. 
-Install the MSI manually, via a policy or [script](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/Deploy-Windows-DNSRoaming.ps1).
-The current version is [v1.3.0.2](https://github.com/andrewbadge/DNSRoaming/releases/tag/v1.3.0.2) released the 3rd March 2022.
 
-Once installed run the DNS Roaming Client from the Windows Start menu to Create or Edit Rules
+Run the MSI manually. Once installed run the DNS Roaming Client from the Windows Start menu to Create or Edit Rules
 
 ![image](https://user-images.githubusercontent.com/15990355/132930618-01ad00db-d038-4674-a3e7-610707ab8252.png)
 
 NB: you will need **Run as Administrator** to install this MSI as a Windows Service is installed.
 
-System Requirements:
-- Windows 10/11 and a compatible PC
-- .Net Framework 4.7 (In general will already be installed)
+## Quick Start for Admins and Automated Deployement 
 
-NB: it will probably work fine on older OS but its untested. Ensure [.NET Framework 4.7 is installed](https://www.microsoft.com/en-us/download/details.aspx?id=55167)
+Go to [Releases](https://github.com/andrewbadge/DNSRoaming/releases) and download the most recent **DNSRoaming-ServiceOnly.msi** file. You'll want to deploy this via you favourite management tool,  via a policy or [script](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/Deploy-Windows-DNSRoaming.ps1).
 
-## What is DNS Roaming
+I'd recomment to use the [RULESETURL parameter](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/RuleSetURL.md) when installing to make management of rules easier across many PCs.
 
-DNS Roaming is a free and Open Source Client and Service to ensure the DNS Servers are set via a rule / policy rather than the network a PC is connected to. 
-This allows an adminstrator to force that Quad9 or CloudFlare's DNS server is set rather than an ISPs DNS.
+## Topics
 
-This is particularly useful if you want to block malware links for PCs you manage. In general this would apply to MSPs, Corporate or school laptops (devices that travel into different networks frequently; work then home and back to work again).
+- [About DNS Roaming](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/AboutDNSRoaming.md)
 
-e.g.
-- If the connected Network is Wireless then set the DNS to Quad9.
-- If the connected Network is Ethernet and in the 10.0.0.1/24 Subnet then set the DNS to 10.0.0.10 and 10.0.0.11.
+- [Help and Troubleshooting](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/Readme.md)
 
-If you find this useful and would like me to continue working on it please [![Buy Me a Coffee](https://github.com/andrewbadge/DNSRoaming/blob/main/Images/BuyMeACoffee.png)](https://buymeacoffee.com/AndrewBadge) or [Sponsor](https://github.com/sponsors/andrewbadge) this project via GitHub.
+- [DNS Set Definitions](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/DNSSets.md)
 
-## Why DNS Roaming?
+- [Deployment](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/Readme.md)
 
-![image](https://user-images.githubusercontent.com/15990355/132497136-99aca035-9c05-4e2b-8f9a-3a6e39592118.png)
+- [Automatic Updates](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/DNS-Roaming-Updater.md) 
 
-DNS can play a strong part in the security of a PC. With the right DNS service; malicous links, sites and servers can be blocked. 
-If you have the money a service like CISCO Umbrella or DNS Filter are effective.
+- [RULESETURL parameter](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/RuleSetURL.md)
 
-If you don't have the money then you rely on the configuration of the destination network (and a knowledable user).
+- [Technical Details](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/Technical.md)
 
-Of course if this is your managed corporate or home network then you have the control you need. 
-But do you have the control over your friends home network? Do you have control over each of your co-workers home networks? No.
-
-## Help, Troubleshoot, Screenshots and more
-
-[Help and Troubleshooting](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/Readme.md)
-
-[DNS Set Definitions](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/DNSSets.md)
-
-[Deployment](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/Readme.md)
-
-[Automatic Updates](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/DNS-Roaming-Updater.md) 
-
-[the RULESETURL parameter](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/RuleSetURL.md)
-
-[Technical Details](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/Technical.md)
-
-[FAQs](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/FAQ.md)
+- [FAQs](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/FAQ.md)
 
 ## Found a issue or bug?
 
 See the [Troubleshooting](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/Readme.md) section in Help
 
 In case you've found a bug, please open an issue on our GitHub.
-Or you just think what I've done is stupid; then keep it to yourself. ;-)
 
-## Got a favourite DNS server you'd like added to DNS Sets?
+## Supporting the Project
 
-Let me know via the issues. If you can include a link to DNS values and an about page for the service please.
+If you find this useful and would like me to continue working on it please [![Buy Me a Coffee](https://github.com/andrewbadge/DNSRoaming/blob/main/Images/BuyMeACoffee.png)](https://buymeacoffee.com/AndrewBadge) or [Sponsor](https://github.com/sponsors/andrewbadge) this project via GitHub.
+
+## Got a question or a  favourite DNS server you'd like added to DNS Sets?
+
+Let me know via the issues. If suggesting a new DNS provider please include a link to DNS values and an about page for the service.
 
 # Licensing
 
