@@ -34,12 +34,22 @@ Editing a Rule
 
 - Network Type: When the type is one of the select network Types. Common Networks are Ethernet or Wireless80211 (Wi-Fi). Types will work across different PCs.
 - Network Name: when the Network Name is XXX. NB: This is unlikely to be consistent across different PCs.
+
+![image](https://user-images.githubusercontent.com/15990355/159150986-f90765e2-5bf1-4224-80d5-1e636ae9aa95.png)
+
 - Address Filter
   - Any Address
   - By LAN Address
   - By WAN Address
 - Address: Can be any address or a specific address range (Defined by Address and subnet). Use the icon to fill your current network's address.
-- Set to: a preefined list or use a specific preferred or alernative network. Use the icon to fill copy down a DNS set to the feilds below.
+
+![image](https://user-images.githubusercontent.com/15990355/159151008-abf74e10-5bdc-4a28-9c7b-3d31a56a6f33.png)
+
+- Set to: a predefined list or use a specific preferred or alternative network. Use the icon to fill copy down a DNS set to the fields below.
+
+![image](https://user-images.githubusercontent.com/15990355/159151036-994d903f-36c6-4dcd-af8b-fb39468d05eb.png)
+
+### Edit Rule Form
 
 ![image](https://user-images.githubusercontent.com/15990355/159150961-b943ba4c-25c7-4962-8688-aa3af6ebd162.png)
 
