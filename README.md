@@ -16,6 +16,8 @@ Go to [Releases](https://github.com/andrewbadge/DNSRoaming/releases) and downloa
 
 I'd recomment to use the [RULESETURL parameter](https://github.com/andrewbadge/DNSRoaming/blob/main/Deployment/RuleSetURL.md) when installing to make management of rules easier across many PCs.
 
+NB: I'd also recommend installing the client using the **DNSRoaming-ServiceAndClient.msi** on a test machine to author the options and rules using the UI. 
+
 ## Topics
 
 - [About DNS Roaming](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/AboutDNSRoaming.md)
