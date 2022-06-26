@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.ServiceProcess;
 using System.Timers;
+using System.Security.Cryptography.X509Certificates;
 
 namespace DNS_Roaming_Service
 {
@@ -55,7 +56,7 @@ namespace DNS_Roaming_Service
                 CheckRegistryForRuleSet();
                 LoadDNSRules();
                 registerEvents();
-                ConfigureTimers();                
+                ConfigureTimers();
             }
             catch (Exception exception)
             {
@@ -425,28 +426,106 @@ namespace DNS_Roaming_Service
             string applicationPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             DirectoryInfo parentDirectory = System.IO.Directory.GetParent(applicationPath);
             string updaterFolder = Path.Combine(parentDirectory.FullName, "Updater");
+
             string updaterFilename = Path.Combine(updaterFolder, "DNS Roaming Updater.exe");
             Logger.Debug(String.Format("Updater exe ({0})", updaterFilename));
 
             if (File.Exists(updaterFilename))
             {
-                Logger.Debug("Starting Updater Application");
 
-                //Execute Updater Application
-                Process process = new Process();
-                process.StartInfo.FileName = "DNS Roaming Updater.exe";
-                process.StartInfo.WorkingDirectory = updaterFolder;
-                process.StartInfo.Arguments = "";
-                process.StartInfo.Verb = "runas";
-                process.Start();
+                if (UpdaterHasValidCertifcate(updaterFilename))
+                {
+                    Logger.Debug("Starting Updater Application");
 
-                return true;
+                    //Execute Updater Application
+                    Process process = new Process();
+                    process.StartInfo.FileName = "DNS Roaming Updater.exe";
+                    process.StartInfo.WorkingDirectory = updaterFolder;
+                    process.StartInfo.Arguments = "";
+                    process.StartInfo.Verb = "runas";
+                    process.Start();
+
+                    return true;
+                }
+                else
+                {
+                    Logger.Error("Updater application did not have a valid certificate");
+                    return false;
+                }
             }
             else
             {
                 Logger.Warn("Updater application was not found");
                 return false;
             }
+        }
+
+        private static bool UpdaterHasValidCertifcate(string updaterFilename)
+        {
+            Logger.Debug("UpdaterHasValidCertifcate");
+
+            bool hasValidCert = false;
+            X509Certificate2 theCertificate;
+
+            try
+            {
+                X509Certificate theSigner = X509Certificate.CreateFromSignedFile(updaterFilename);
+                theCertificate = new X509Certificate2(theSigner);
+            }
+            catch (Exception ex)
+            {
+                Logger.Warn("No digital signature found: " + ex.Message);
+                return false;
+            }
+
+            bool chainIsValid = false;
+
+            var theCertificateChain = new X509Chain();
+
+            theCertificateChain.ChainPolicy.RevocationFlag = X509RevocationFlag.ExcludeRoot;
+            theCertificateChain.ChainPolicy.RevocationMode = X509RevocationMode.Online;
+            theCertificateChain.ChainPolicy.UrlRetrievalTimeout = new TimeSpan(0, 1, 0);
+            theCertificateChain.ChainPolicy.VerificationFlags = X509VerificationFlags.NoFlag;
+
+            chainIsValid = theCertificateChain.Build(theCertificate);
+
+            if (chainIsValid)
+            {
+                string certSubjectName = theCertificate.SubjectName.Name;
+                string certExpiryString = theCertificate.GetExpirationDateString();
+                DateTime certExpiry = ParseDateTimeString(certExpiryString);
+
+                hasValidCert = (certSubjectName == "CN=Andrew Badge, O=Andrew Badge, S=Victoria, C=AU" 
+                                && certExpiry > DateTime.Now);
+            }
+            else
+            {
+                Logger.Warn("Chain Not Valid (certificate is self-signed)");
+            }
+
+            return hasValidCert;
+        }
+
+        /// <summary>
+        /// Parses a DateTime String to DateTime
+        /// Invalid Dates will return a string for 20 years ago
+        /// </summary>
+        /// <param name="inDateTime"></param>
+        /// <returns></returns>
+        private static DateTime ParseDateTimeString(string inDateTime)
+        {
+            DateTime returnDateTime = DateTime.Now.AddYears(-20);
+
+            try
+            {
+                returnDateTime = DateTime.Parse(inDateTime);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+
+            return returnDateTime;
         }
 
         /// <summary>
