@@ -17,16 +17,23 @@ namespace DNS_Roaming_Client
 
         public FrmMain()
         {
-            Logger.Debug("FrmMain Initialize");
+            try 
+            { 
+                Logger.Debug("FrmMain Initialize");
 
-            InitializeComponent();
+                InitializeComponent();
 
-            PathsandData pathsandData = new PathsandData();
-            DNSRoamingNetworkInterfaces.IntialiseNetworkInterfaceTypes();
+                PathsandData pathsandData = new PathsandData();
+                DNSRoamingNetworkInterfaces.IntialiseNetworkInterfaceTypes();
 
-            ConfigureTimer();
-            InitialiseMenus();
-        }
+                ConfigureTimer();
+                InitialiseMenus();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+}
 
         #region Form and Actions
 
@@ -37,19 +44,30 @@ namespace DNS_Roaming_Client
 
         private void ForceClose()
         {
-            Logger.Debug("ForceClose");
-
-            this.Close();
+            try { 
+                Logger.Debug("ForceClose");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
         }
 
         private void OpenSettingsForm()
         {
-            Logger.Debug("OpenSettingsForm");
+            try { 
+                Logger.Debug("OpenSettingsForm");
 
-            if (Application.OpenForms.OfType<FrmSettings>().Count() == 0)
+                if (Application.OpenForms.OfType<FrmSettings>().Count() == 0)
+                {
+                    FrmSettings frmSettings = new FrmSettings();
+                    frmSettings.ShowDialog();
+                }
+            }
+            catch (Exception ex)
             {
-                FrmSettings frmSettings = new FrmSettings();
-                frmSettings.ShowDialog();
+                Logger.Error(ex.Message);
             }
         }
 
@@ -157,14 +175,21 @@ namespace DNS_Roaming_Client
 
         private void timerCheckServiceStatus_Tick(object sender, EventArgs e)
         {
-            Logger.Info(String.Format("Checking service state"));
-            CheckServiceStatus();
+            try 
+            { 
+                Logger.Info(String.Format("Checking service state"));
+                CheckServiceStatus();
 
-            //Reschedule the next Timer to a random internal 
-            //between 30secs and 5mins
-            Random randomNumber = new Random();
-            int timerDelay = randomNumber.Next(30, 600) * 1000;
-            timerCheckServiceStatus.Interval = timerDelay;
+                //Reschedule the next Timer to a random internal 
+                //between 30secs and 5mins
+                Random randomNumber = new Random();
+                int timerDelay = randomNumber.Next(30, 600) * 1000;
+                timerCheckServiceStatus.Interval = timerDelay;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
         }
 
         #endregion
@@ -173,14 +198,27 @@ namespace DNS_Roaming_Client
 
         private void InitialiseMenus()
         {
-            menuAbout.Text = String.Format("About (v{0})", Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            try 
+            { 
+                menuAbout.Text = String.Format("About (v{0})", Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
         }
 
         private void menuSettings_Click(object sender, EventArgs e)
         {
-            Logger.Debug("Menu: Open FrmSettings");
-
-            OpenSettingsForm();
+            try
+            { 
+                Logger.Debug("Menu: Open FrmSettings");
+                OpenSettingsForm();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
         }
 
         private void menuStopAndClose_Click(object sender, EventArgs e)
