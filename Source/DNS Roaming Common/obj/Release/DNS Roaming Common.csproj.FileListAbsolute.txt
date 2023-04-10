@@ -14,8 +14,10 @@ D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\DNS 
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\DNS Roaming Common.pdb
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\IPAddressRange.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\NLog.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\Octokit.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\IPAddressRange.xml
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\NLog.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\bin\Release\Octokit.xml
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Release\DNS Roaming Common.csproj.CoreCompileInputs.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Release\DNS Roaming Common.csproj.CopyComplete
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Common\obj\Release\DNS Roaming Common.dll

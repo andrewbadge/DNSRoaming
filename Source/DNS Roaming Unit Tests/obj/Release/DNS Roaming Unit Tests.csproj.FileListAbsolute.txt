@@ -20,7 +20,6 @@ D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Unit Tests\obj\Release\DNS Roa
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Unit Tests\obj\Release\DNS Roaming Unit Tests.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\DNS Roaming Unit Tests\obj\Release\DNS Roaming Unit Tests.pdb
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\Microsoft.TestPlatform.AdapterUtilities.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\DNS Roaming Unit Tests.dll
@@ -36,6 +35,19 @@ D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\NLog.xml
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\IPAddressRange.xml
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\cs\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\es\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\fr\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\it\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\ja\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\ko\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\pl\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\pt-BR\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\ru\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\tr\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\zh-Hans\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\bin\Release\zh-Hant\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\obj\Release\DNS Roaming Unit Tests.csproj.AssemblyReference.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\obj\Release\DNS Roaming Unit Tests.csproj.CoreCompileInputs.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Unit Tests\obj\Release\DNS Roaming Unit Tests.csproj.CopyComplete

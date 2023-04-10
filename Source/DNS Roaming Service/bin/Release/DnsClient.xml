@@ -4,6 +4,14 @@
         <name>DnsClient</name>
     </assembly>
     <members>
+        <member name="T:DnsClient.DnsDatagramReader">
+            <summary>
+            Helper to read from DNS datagrams.
+            </summary>
+            <remarks>
+            The API of this class might change over time and receive breaking changes. Use at own risk.
+            </remarks>
+        </member>
         <member name="M:DnsClient.DnsDatagramReader.ParseString(System.ArraySegment{System.Byte})">
             <summary>
             As defined in https://tools.ietf.org/html/rfc1035#section-5.1 except '()' or '@' or '.'
