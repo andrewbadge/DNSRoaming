@@ -37,7 +37,7 @@ namespace DNS_Roaming_Client
 
         #region Form and Actions
 
-        private void btnForceClose_Click(object sender, EventArgs e)
+        private void BtnForceClose_Click(object sender, EventArgs e)
         {
             ForceClose();
         }
@@ -143,7 +143,7 @@ namespace DNS_Roaming_Client
 
         }
 
-        private void timerNotifyIcon_Tick(object sender, EventArgs e)
+        private void TimerNotifyIcon_Tick(object sender, EventArgs e)
         {
             try
             {
@@ -173,7 +173,7 @@ namespace DNS_Roaming_Client
 
         }
 
-        private void timerCheckServiceStatus_Tick(object sender, EventArgs e)
+        private void TimerCheckServiceStatus_Tick(object sender, EventArgs e)
         {
             try 
             { 
@@ -208,7 +208,7 @@ namespace DNS_Roaming_Client
             }
         }
 
-        private void menuSettings_Click(object sender, EventArgs e)
+        private void MenuSettings_Click(object sender, EventArgs e)
         {
             try
             { 
@@ -221,19 +221,19 @@ namespace DNS_Roaming_Client
             }
         }
 
-        private void menuStopAndClose_Click(object sender, EventArgs e)
+        private void MenuStopAndClose_Click(object sender, EventArgs e)
         {
             ForceClose();
         }
 
-        private void contextMenuStrip_DoubleClick(object sender, EventArgs e)
+        private void ContextMenuStrip_DoubleClick(object sender, EventArgs e)
         {
             Logger.Debug("DoubleClick: Open FrmSettings");
 
             OpenSettingsForm();
         }
 
-        private void menuLogsClient_Click(object sender, EventArgs e)
+        private void MenuLogsClient_Click(object sender, EventArgs e)
         {
             Logger.Debug("Menu: Open Client logs");
 
@@ -253,7 +253,7 @@ namespace DNS_Roaming_Client
             }
         }
 
-        private void menuLogsService_Click(object sender, EventArgs e)
+        private void MenuLogsService_Click(object sender, EventArgs e)
         {
             Logger.Debug("Menu: Open Service logs");
 
@@ -273,7 +273,7 @@ namespace DNS_Roaming_Client
             }
         }
 
-        private void menuLogsFolder_Click(object sender, EventArgs e)
+        private void MenuLogsFolder_Click(object sender, EventArgs e)
         {
             Logger.Debug("Menu: Open Log Folder");
 
@@ -288,7 +288,7 @@ namespace DNS_Roaming_Client
             }
         }
 
-        private void menuAbout_Click(object sender, EventArgs e)
+        private void MenuAbout_Click(object sender, EventArgs e)
         {
             Logger.Debug("Menu: Open About");
 
@@ -303,16 +303,34 @@ namespace DNS_Roaming_Client
 
         }
 
-        private void notifyIcon_DoubleClick(object sender, EventArgs e)
+        private void NotifyIcon_DoubleClick(object sender, EventArgs e)
         {
-            menuSettings_Click(sender, e);
+            Logger.Debug("Menu: Double Click");
+
+            try
+            {
+                MenuSettings_Click(sender, e);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
         }
 
         #endregion
 
-        private void menuServiceStatus_Click(object sender, EventArgs e)
+        private void MenuServiceStatus_Click(object sender, EventArgs e)
         {
-            timerCheckServiceStatus_Tick(null, null);
+            Logger.Debug("Menu: Check Service Status");
+
+            try
+            {
+                TimerCheckServiceStatus_Tick(null, null);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
         }
 
 

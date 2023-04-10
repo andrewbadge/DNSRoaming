@@ -77,7 +77,7 @@
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "DNS Roaming";
             this.notifyIcon.Visible = true;
-            this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
+            this.notifyIcon.DoubleClick += new System.EventHandler(this.NotifyIcon_DoubleClick);
             // 
             // contextMenuStrip
             // 
@@ -91,14 +91,14 @@
             this.menuStopAndClose});
             this.contextMenuStrip.Name = "contextMenuStrip";
             this.contextMenuStrip.Size = new System.Drawing.Size(134, 126);
-            this.contextMenuStrip.DoubleClick += new System.EventHandler(this.contextMenuStrip_DoubleClick);
+            this.contextMenuStrip.DoubleClick += new System.EventHandler(this.ContextMenuStrip_DoubleClick);
             // 
             // menuSettings
             // 
             this.menuSettings.Name = "menuSettings";
             this.menuSettings.Size = new System.Drawing.Size(133, 22);
             this.menuSettings.Text = "Settings";
-            this.menuSettings.Click += new System.EventHandler(this.menuSettings_Click);
+            this.menuSettings.Click += new System.EventHandler(this.MenuSettings_Click);
             // 
             // menuLogs
             // 
@@ -122,28 +122,28 @@
             this.menuLogsClient.Name = "menuLogsClient";
             this.menuLogsClient.Size = new System.Drawing.Size(190, 22);
             this.menuLogsClient.Text = "View latest Client log";
-            this.menuLogsClient.Click += new System.EventHandler(this.menuLogsClient_Click);
+            this.menuLogsClient.Click += new System.EventHandler(this.MenuLogsClient_Click);
             // 
             // menuLogsService
             // 
             this.menuLogsService.Name = "menuLogsService";
             this.menuLogsService.Size = new System.Drawing.Size(190, 22);
             this.menuLogsService.Text = "View latest Service log";
-            this.menuLogsService.Click += new System.EventHandler(this.menuLogsService_Click);
+            this.menuLogsService.Click += new System.EventHandler(this.MenuLogsService_Click);
             // 
             // menuLogsFolder
             // 
             this.menuLogsFolder.Name = "menuLogsFolder";
             this.menuLogsFolder.Size = new System.Drawing.Size(190, 22);
             this.menuLogsFolder.Text = "Open Logs Folder";
-            this.menuLogsFolder.Click += new System.EventHandler(this.menuLogsFolder_Click);
+            this.menuLogsFolder.Click += new System.EventHandler(this.MenuLogsFolder_Click);
             // 
             // menuAbout
             // 
             this.menuAbout.Name = "menuAbout";
             this.menuAbout.Size = new System.Drawing.Size(133, 22);
             this.menuAbout.Text = "About";
-            this.menuAbout.Click += new System.EventHandler(this.menuAbout_Click);
+            this.menuAbout.Click += new System.EventHandler(this.MenuAbout_Click);
             // 
             // toolStripSeparator2
             // 
@@ -155,7 +155,7 @@
             this.menuServiceStatus.Name = "menuServiceStatus";
             this.menuServiceStatus.Size = new System.Drawing.Size(133, 22);
             this.menuServiceStatus.Text = "Checking...";
-            this.menuServiceStatus.Click += new System.EventHandler(this.menuServiceStatus_Click);
+            this.menuServiceStatus.Click += new System.EventHandler(this.MenuServiceStatus_Click);
             // 
             // toolStripSeparator1
             // 
@@ -167,7 +167,7 @@
             this.menuStopAndClose.Name = "menuStopAndClose";
             this.menuStopAndClose.Size = new System.Drawing.Size(133, 22);
             this.menuStopAndClose.Text = "Exit Client";
-            this.menuStopAndClose.Click += new System.EventHandler(this.menuStopAndClose_Click);
+            this.menuStopAndClose.Click += new System.EventHandler(this.MenuStopAndClose_Click);
             // 
             // btnForceClose
             // 
@@ -177,11 +177,11 @@
             this.btnForceClose.TabIndex = 2;
             this.btnForceClose.Text = "Force Close";
             this.btnForceClose.UseVisualStyleBackColor = true;
-            this.btnForceClose.Click += new System.EventHandler(this.btnForceClose_Click);
+            this.btnForceClose.Click += new System.EventHandler(this.BtnForceClose_Click);
             // 
             // timerCheckServiceStatus
             // 
-            this.timerCheckServiceStatus.Tick += new System.EventHandler(this.timerCheckServiceStatus_Tick);
+            this.timerCheckServiceStatus.Tick += new System.EventHandler(this.TimerCheckServiceStatus_Tick);
             // 
             // IconList
             // 
@@ -194,7 +194,7 @@
             // timerNotifyIcon
             // 
             this.timerNotifyIcon.Interval = 1002;
-            this.timerNotifyIcon.Tick += new System.EventHandler(this.timerNotifyIcon_Tick);
+            this.timerNotifyIcon.Tick += new System.EventHandler(this.TimerNotifyIcon_Tick);
             // 
             // FrmMain
             // 
