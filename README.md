@@ -36,6 +36,8 @@ NB: I'd also recommend installing the client using the **DNSRoaming-ServiceAndCl
 
 - [FAQs](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/FAQ.md)
 
+- [News](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/news.md) (Updated in April 2023)
+
 ## Found a issue or bug?
 
 See the [Troubleshooting](https://github.com/andrewbadge/DNSRoaming/blob/main/Help/Readme.md) section in Help
