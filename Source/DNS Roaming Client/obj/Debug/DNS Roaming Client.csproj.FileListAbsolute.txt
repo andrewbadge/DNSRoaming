@@ -51,6 +51,5 @@ D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS_Ro
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS_Roaming_Client.Properties.Resources.resources
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.csproj.GenerateResource.cache
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.csproj.CoreCompileInputs.cache
-D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.csproj.CopyComplete
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.exe
 D:\Andrew\Documents\GitHub\DNSRoaming\Source\DNS Roaming Client\obj\Debug\DNS Roaming Client.pdb
