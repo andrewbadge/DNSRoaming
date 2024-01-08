@@ -46,7 +46,7 @@ In case you've found a bug, please open an issue on our GitHub.
 
 ## Supporting the Project
 
-If you find this useful and would like me to continue working on it please [![Buy Me a Coffee](https://github.com/andrewbadge/DNSRoaming/blob/main/Images/BuyMeACoffee.png)](https://buymeacoffee.com/AndrewBadge) or [Sponsor](https://github.com/sponsors/andrewbadge) this project via GitHub.
+If you find this useful and would like me to continue working on it please [![Buy Me a Coffee](https://github.com/andrewbadge/DNSRoaming/blob/main/Images/BuyMeACoffee.png)](https://buymeacoffee.com/AndrewBadge) .
 
 ## Got a question or a  favourite DNS server you'd like added to DNS Sets?
 
